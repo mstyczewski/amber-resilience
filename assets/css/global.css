@@ -1,0 +1,353 @@
+Amber Resilience
+S Y S T E M P R O J E K T O W Y & D O K U M E N TA C J A T E C H N I C Z N A L A N D I N G PA G E
+Dokument przygotowany dla wdrożenia witryny e-commerce klasy Premium.
+Zasób bazowy: w_górnej_czesci_plecaka_plecak_202606112126.jpeg (Hero / Scrollytelling Core Assets).
+Niniejsza dokumentacja techniczna zawiera pełną architekturę tokenów projektowych, konfigurację
+frameworka Tailwind CSS, bazowe style oraz semantyczną strukturę kodu HTML5 z integracją skryptów
+animacji GSAP (ScrollTrigger). Całość została zoptymalizowana pod kątem maksymalnej czytelności,
+wydajności oraz doświadczeń immersyjnych dla rodzin szukających bezkompromisowego
+bezpieczeństwa.
+1. Paleta Barw (Design Tokens)
+System kolorystyczny odrzuca agresywne, neonowe lub typowo militarne barwy na rzecz stonowanej elegancji,
+która buduje zaufanie i komunikuje luksusowy charakter produktu.
+KOLOR / TOKEN HEX ZMIENNA CSS ZASTOSOWANIE W
+INTERFEJSIE
+Canvas (Tło) #F4F3EF --color-canvas Główne tło strony (ciepły, złamany
+pergamin). Wolne od klinicznej bieli.
+Ranger Green #4A5844 --color-ranger Główny akcent strukturalny, tła
+sekcji Bento Grid, nagłówki sekcji.
+Amber Accent #C48B36 --color-amber
+Elementy konwersji, przyciski CTA,
+linie wskaźnikowe (MOLLE),
+mikrointerakcje.
+Deep Onyx #1C1B1A --color-onyx
+Główny kolor tekstu, tło sekcji
+finałowej CTA, maksymalny
+kontrast.
+Pure White #FFFFFF --color-white
+Tła kart informacyjnych, wnętrza
+elementów siatki dla wzmocnienia
+głębi.
+Amber Resilience — Kompletna Specyfikacja UI/UX Premium (Czerwiec 2026) 1
+2. Konfiguracja Tailwind CSS (tailwind.config.js)
+Aby zapewnić natywne wsparcie dla systemu projektowego w środowisku Tailwind, należy rozszerzyć
+konfigurację o niestandardowe tokeny kolorystyczne, kroje pisma oraz dedykowane krzywe animacji (Cubic
+Bezier).
+/** @type {import('tailwindcss').Config} */
+module.exports = {
+content: ["./src/**/*.{html,js}"],
+theme: {
+extend: {
+colors: {
+canvas: '#F4F3EF',
+ranger: {
+DEFAULT: '#4A5844',
+dark: '#3B4736',
+},
+amber: {
+DEFAULT: '#C48B36',
+hover: '#A8742C',
+},
+onyx: '#1C1B1A',
+},
+fontFamily: {
+display: ['GT Alpina Fine', 'Times New Roman', 'serif'],
+body: ['Söhne', 'Helvetica Neue', 'Arial', 'sans-serif'],
+},
+transitionTimingFunction: {
+'premium-ease': 'cubic-bezier(0.76, 0, 0.24, 1)',
+},
+spacing: {
+'72-hours': '18rem',
+}
+},
+},
+plugins: [],
+}
+3. Globalny Arkusz Stylów (global.css / input.css)
+Bazowe style definiują kluczowe zachowania typograficzne, płynne przewijanie oraz niestandardowe
+mikrointerakcje magnetyczne dla przycisków klasy premium.
+Amber Resilience — Kompletna Specyfikacja UI/UX Premium (Czerwiec 2026) 2
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@layer base {
+html {
+scroll-behavior: smooth;
+background-color: #F4F3EF;
+color: #1C1B1A;
+-webkit-font-smoothing: antialiased;
+}
+body {
+@apply font-body bg-canvas text-onyx overflow-x-hidden;
+}
+h1, h2, h3 {
+@apply font-display font-normal tracking-tight;
+}
+}
+/* Niestandardowy Scrollbar dopasowany do estetyki */
+::-webkit-scrollbar {
+width: 6px;
+}
+::-webkit-scrollbar-track {
+background: #F4F3EF;
+}
+::-webkit-scrollbar-thumb {
+background: #4A5844;
+border-radius: 3px;
+}
+/* Efekt magnetycznego przycisku premium */
+.btn-magnetic {
+position: relative;
+transition: transform 0.4s cubic-bezier(0.76, 0, 0.24, 1);
+}
+.btn-magnetic:hover {
+transform: scale(1.03);
+}
+Amber Resilience — Kompletna Specyfikacja UI/UX Premium (Czerwiec 2026) 3
+4. Struktura Semantyczna HTML5 (Struktura Kodu i Narracji)
+Poniższy kod stanowi kompletny szkielet strony głównej. Uwzględnia pełną semantykę HTML5, atrybuty
+ułatwień dostępu (ARIA) oraz kontenery niezbędne do realizacji animacji Scrollytellingowych z użyciem pliku
+graficznego plecaka.
+Amber Resilience — Kompletna Specyfikacja UI/UX Premium (Czerwiec 2026) 4
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Amber Resilience | Bezkompromisowe Bezpieczeństwo Rodziny</title>
+</head>
+<body>
+<!-- 1. HERO SECTION -->
+<header class="relative min-h-screen bg-canvas flex flex-col justify-between px-6 py-8
+md:px-16">
+<nav class="w-full flex justify-between items-center z-50">
+<div class="font-display text-xl text-ranger uppercase tracking-widest">Amber
+Resilience</div>
+<button class="font-body text-xs tracking-wider uppercase border-b border-onyx
+pb-1">Menu</button>
+</nav>
+<div class="my-auto max-w-4xl mx-auto text-center z-10">
+<h1 class="text-4xl md:text-6xl text-onyx mb-6 leading-tight">
+Spokój umysłu to jedyny luksus, który ma znaczenie.
+</h1>
+<p class="font-body text-base md:text-lg text-ranger max-w-xl mx-auto mb-10 font-
+light">
+Bezwzględna gotowość dla Ciebie i Twoich bliskich, zamknięta w perfekcyjnej formie.
+</p>
+<a href="#buy" class="btn-magnetic inline-block bg-amber hover:bg-amber-hover text-
+white px-8 py-4 text-xs uppercase tracking-widest transition-all duration-300 shadow-sm">
+Poznaj system ochrony
+</a>
+</div>
+<!-- Hero Product Placement -->
+<div class="absolute inset-0 flex items-center justify-center opacity-10 pointer-
+events-none">
+<img src="w_górnej_czesci_plecaka_plecak_202606112126.jpeg" alt="Amber Resilience
+Plecak Awaryjny" class="max-h-[75vh] object-contain" />
+</div>
+</header>
+<!-- 2. SEKCOJA MANIFESTU (Whitespace Heavy) -->
+<section class="min-h-[70vh] bg-canvas flex items-center px-6 md:px-16 py-24">
+<div class="max-w-7xl mx-auto w-full">
+<div class="grid grid-cols-1 md:grid-cols-12 gap-8">
+<div class="md:col-start-6 md:col-span-7">
+<p class="font-body text-xl md:text-2xl text-onyx leading-relaxed font-light">
+Nie przewidzisz jutra. Ale masz pełną kontrolę nad tym, jak będziesz na nie
+przygotowany.
+Odrzuciliśmy militarny chaos na rzecz rodzinnej ergonomii. To nie jest sprzęt
+survivalowy.
+To Twoja polisa ubezpieczeniowa, której nigdy nie będziesz musiał odnawiać.
+</p>
+</div>
+</div>
+</div>
+</section>
+<!-- 3. ANATOMIA GOTOWOŚCI (Scrollytelling Interactive Section) -->
+Amber Resilience — Kompletna Specyfikacja UI/UX Premium (Czerwiec 2026) 5
+<section id="anatomy" class="relative bg-canvas py-32 border-t border-gray-200">
+<div class="max-w-7xl mx-auto px-6 md:px-16">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-16 items-start">
+<!-- Sticky Left Element -->
+<div class="sticky top-12 h-[80vh] flex items-center justify-center" id="sticky-
+backpack-container">
+<img id="scrolly-backpack" src="w_górnej_czesci_plecaka_plecak_202606112126.jpeg"
+alt="Detale plecaka awaryjnego" class="max-h-full object-contain" />
+<!-- Dynamiczne linie SVG generowane przez JS -->
+<svg class="absolute inset-0 w-full h-full pointer-events-none" id="annotation-
+lines"></svg>
+</div>
+<!-- Scrolling Right Copy Elements -->
+<div class="space-y-64 pb-64">
+<div class="step-trigger" data-step="badge">
+<span class="text-xs font-body uppercase text-amber tracking-wider block
+mb-2">Detal 01</span>
+<h2 class="text-2xl md:text-3xl text-onyx mb-4 border-none p-0">Znak
+Bezpieczeństwa</h2>
+<p class="text-ranger font-light leading-relaxed">
+Złota tarcza Amber Resilience umieszczona w górnej części to obietnica
+bezkompromisowej kontroli jakości. Każdy szew i element konstrukcyjny przeszedł
+rygorystyczne testy obciążeniowe.
+</p>
+</div>
+<div class="step-trigger" data-step="molle">
+<span class="text-xs font-body uppercase text-amber tracking-wider block
+mb-2">Detal 02</span>
+<h2 class="text-2xl md:text-3xl text-onyx mb-4 border-none p-0">Modułowa
+Architektura</h2>
+<p class="text-ranger font-light leading-relaxed">
+Zintegrowany system taśm o wysokiej gęstości pozwala na natychmiastowe
+dopięcie dedykowanych modułów zewnętrznych – takich jak apteczka dziecięca lub dodatkowe
+źródła nawodnienia.
+</p>
+</div>
+<div class="step-trigger" data-step="fabric">
+<span class="text-xs font-body uppercase text-amber tracking-wider block
+mb-2">Detal 03</span>
+<h2 class="text-2xl md:text-3xl text-onyx mb-4 border-none p-0">Odporność
+Strukturalna</h2>
+<p class="text-ranger font-light leading-relaxed">
+Tkanina Ranger Green o splotach balistycznych charakteryzuje się pełną
+powłoką hydrofobową. Konstrukcja chroni zawartość przed ulewnym deszczem, pyłem i
+uszkodzeniami mechanicznymi.
+</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+</body>
+</html>
+Amber Resilience — Kompletna Specyfikacja UI/UX Premium (Czerwiec 2026) 6
+5. System Bento Grid (Architektura Wyposażenia dla Rodziny)
+Prezentacja zawartości plecaka dla rodziny 2+2 ustrukturyzowana w formie szwajcarskiej siatki blokowej
+(Bento Grid). Sekcja ta łączy tła Ranger Green z elementami czystej bieli dla optymalnego podziału informacji.
+Amber Resilience — Kompletna Specyfikacja UI/UX Premium (Czerwiec 2026) 7
+<!-- 4. SYSTEM BENTO GRID -->
+<section class="bg-ranger text-canvas py-24 px-6 md:px-16">
+<div class="max-w-7xl mx-auto">
+<h2 class="text-3xl md:text-4xl text-canvas border-left border-amber
+mb-4">Organizacja Absolutna</h2>
+<p class="text-canvas/80 max-w-md font-light">
+Wnętrze podzielone na intuicyjne sekcje o natychmiastowym dostępie. Każdy moduł
+odpowiada za kluczowy filar przetrwania Twojej rodziny.
+</p>
+<!-- Bento Grid Layout przy użyciu Tailwind Utility Classes -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6 auto-rows-[280px]">
+<!-- Moduł 1: Najważniejszy (Zajmuje 2 kolumny na desktopie) -->
+<div class="md:col-span-2 bg-white text-onyx p-8 rounded-sm flex flex-col justify-
+between transition-all duration-300 hover:shadow-lg">
+<div>
+<span class="text-xs uppercase font-body tracking-widest text-amber font-bold
+block mb-2">Filar I</span>
+<h3 class="text-2xl font-display mb-3">Zaawansowany Moduł Medyczny</h3>
+<p class="text-ranger font-light text-sm max-w-xl">
+Zintegrowana apteczka urazowa zawierająca zaopatrzenie pediatryczne oraz dla
+osób dorosłych. Od staz taktycznych po specjalistyczne opatrunki hydrożelowe. Sekundy
+ratują życie, dlatego dostęp jest w pełni autonomiczny i zewnętrzny.
+</p>
+</div>
+<div class="text-xs uppercase font-body tracking-wider text-onyx/60">Zgodność z
+normami DIN 13164</div>
+</div>
+<!-- Moduł 2: Mniejszy -->
+<div class="bg-onyx text-canvas p-8 rounded-sm flex flex-col justify-between
+transition-all duration-300 hover:bg-onyx/90">
+<div>
+<span class="text-xs uppercase font-body tracking-widest text-amber font-bold
+block mb-2">Filar II</span>
+<h3 class="text-xl font-display mb-3 text-canvas">Termika i Schronienie</h3>
+<p class="text-canvas/70 font-light text-sm">
+Folie NRC klasy premium o zwiększonej grubości, wielorazowe ogrzewacze
+chemiczne oraz lekki schron tarpaulinowy chroniący przed ekstremalnym wychłodzeniem.
+</p>
+</div>
+<div class="text-xs uppercase font-body tracking-wider text-amber">Ochrona do
+-20°C</div>
+</div>
+<!-- Moduł 3: Mniejszy -->
+<div class="bg-white text-onyx p-8 rounded-sm flex flex-col justify-between
+transition-all duration-300 hover:shadow-lg">
+<div>
+<span class="text-xs uppercase font-body tracking-widest text-ranger font-bold
+block mb-2">Filar III</span>
+<h3 class="text-xl font-display mb-3">Woda i Odżywianie</h3>
+<p class="text-ranger/80 font-light text-sm">
+Racje żywnościowe o przydatności 5 lat, tabletki do uzdatniania wody oraz
+Amber Resilience — Kompletna Specyfikacja UI/UX Premium (Czerwiec 2026) 8
+osobiste filtry kapilarne gwarantujące czystą wodę dla 4 osób przez 72 godziny.
+</p>
+</div>
+<div class="text-xs uppercase font-body tracking-wider text-onyx/60">4200 kcal na
+osobę</div>
+</div>
+<!-- Moduł 4: Szeroki -->
+<div class="md:col-span-2 bg-onyx text-canvas p-8 rounded-sm flex flex-col justify-
+between">
+<div>
+<span class="text-xs uppercase font-body tracking-widest text-amber font-bold
+block mb-2">Filar IV</span>
+<h3 class="text-xl font-display mb-3 text-canvas">Nawigacja i Komunikacja
+Awaryjna</h3>
+<p class="text-canvas/70 font-light text-sm max-w-lg">
+Radio z mechanicznym ładowaniem korbowym (pasma AM/FM/WB), latarki sygnałowe
+wysokiej mocy, kompas oraz wodoodporne mapy rejonu bazowego. Uniezależnij swoją rodzinę od
+sieci komórkowych i prądu.
+</p>
+</div>
+<div class="text-xs uppercase font-body tracking-wider text-canvas/50">Zasilanie
+solarne / korbowe</div>
+</div>
+</div>
+</div>
+</section>
+6. Logika Scrollytelling z GSAP (motion.js)
+Implementacja ożywiająca statyczny obraz w_górnej_czesci_plecaka_plecak_202606112126.jpeg
+podczas przewijania strony przez użytkownika przy użyciu biblioteki GSAP ScrollTrigger.
+Amber Resilience — Kompletna Specyfikacja UI/UX Premium (Czerwiec 2026) 9
+// Skrypt sterowania ruchem i dekonstrukcją wizualną produktu
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+gsap.registerPlugin(ScrollTrigger);
+const backpackImg = document.querySelector("#scrolly-backpack");
+const steps = document.querySelectorAll(".step-trigger");
+// Przypięcie obrazu na czas trwania opowieści
+ScrollTrigger.create({
+trigger: "#anatomy",
+start: "top top",
+end: "bottom bottom",
+pin: "#sticky-backpack-container",
+scrub: true
+});
+// Reakcja obrazu i rysowanie linii w zależności od kroku narracji
+steps.forEach((step) => {
+const stepType = step.getAttribute("data-step");
+ScrollTrigger.create({
+trigger: step,
+start: "top center+=100",
+end: "bottom center",
+onEnter: () => highlightBackpackPart(stepType),
+onEnterBack: () => highlightBackpackPart(stepType),
+});
+});
+function highlightBackpackPart(part) {
+// Wyznaczenie precyzyjnych transformacji skali i punktu środkowego dla pliku graficznego
+switch(part) {
+case 'badge':
+gsap.to(backpackImg, { scale: 1.8, y: "15%", x: "-5%", duration: 0.8, ease:
+"power3.out" });
+break;
+case 'molle':
+gsap.to(backpackImg, { scale: 1.4, y: "-10%", x: "0%", duration: 0.8, ease:
+"power3.out" });
+break;
+case 'fabric':
+gsap.to(backpackImg, { scale: 1.1, y: "0%", x: "10%", duration: 0.8, ease:
+"power3.out" });
+break;
+default:
+gsap.to(backpackImg, { scale: 1, y: "0%", x: "0%", duration: 0.8, ease:
+"power3.out" });
+}
+}
+Amber Resilience — Kompletna Specyfikacja UI/UX Premium (Czerwiec 2026) 10

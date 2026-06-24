@@ -1,0 +1,82 @@
+#hero {
+    will-change: transform;
+}
+#wybor-plecaka {
+    overflow: hidden; /* To zapobiegnie "wywalaniu się" układu przy animacji skali */
+}
+
+/* --- Architektura Barba.js --- */
+[data-barba="wrapper"] { position: relative; width: 100%; }
+[data-barba="container"] { will-change: transform, opacity, filter; width: 100%; min-height: 100vh; }
+
+/* --- Fundamenty techniczne i dbałość o detal --- */
+body {
+    background-color: #050505;
+    color: #F9F7F2;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
+}
+
+/* Elegancki, minimalistyczny scrollbar */
+.custom-scrollbar::-webkit-scrollbar { width: 4px; }
+.custom-scrollbar::-webkit-scrollbar-track { background: rgba(255,255,255,0.05); }
+.custom-scrollbar::-webkit-scrollbar-thumb { background: #C5A059; border-radius: 2px; }
+
+/* Luksusowy overlay dla hero video */
+.hero-overlay {
+    background: linear-gradient(to bottom, rgba(5,5,5,0.5) 0%, rgba(5,5,5,0.5) 40%, rgba(5,5,5,0.5) 100%),
+                radial-gradient(circle at center, rgba(0,0,0,0.5) 0%, transparent 65%);
+}
+
+/* Kinowe odcięcie tekstu od tła */
+.text-shadow-cinematic { text-shadow: 0 4px 15px rgba(0, 0, 0, 0.9), 0 0 40px rgba(0, 0, 0, 0.7); }
+
+/* Animacje wejścia (Motion that whispers) */
+.fade-in-up {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 1.2s cubic-bezier(0.22, 1, 0.36, 1), transform 1.2s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.fade-in-up.visible { opacity: 1; transform: translateY(0); }
+
+/* --- Premium Input Styles (Formularze) --- */
+.input-wrapper { position: relative; width: 100%; }
+
+.premium-input {
+    width: 100%; 
+    background: transparent; 
+    border: none; 
+    border-bottom: 1px solid rgba(163, 163, 163, 0.2);
+    color: #F9F7F2; 
+    padding: 0.75rem 0; 
+    font-family: 'Outfit', sans-serif; 
+    font-weight: 300;
+    font-size: 1.125rem; 
+    outline: none; 
+    transition: border-color 0.3s ease;
+}
+
+.premium-input::placeholder { color: rgba(163, 163, 163, 0.3); }
+
+.focus-line {
+    position: absolute; 
+    bottom: 0; 
+    left: 50%; 
+    width: 0; 
+    height: 1px; 
+    background-color: #C5A059;
+    transition: width 0.6s cubic-bezier(0.16, 1, 0.3, 1), left 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.premium-input:focus ~ .focus-line { width: 100%; left: 0; }
+
+input:-webkit-autofill, textarea:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0px 1000px #050505 inset; 
+    -webkit-text-fill-color: #F9F7F2; 
+    transition: background-color 5000s ease-in-out 0s;
+}
+/* --- Luksusowy Akordeon FAQ --- */
+.faq-item.active .faq-content { grid-template-rows: 1fr; }
+.faq-item.active .faq-icon { transform: rotate(45deg); }
+

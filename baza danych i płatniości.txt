@@ -1,0 +1,11 @@
+Podsumowanie Operacyjne:
+
+Nie musisz rezygnować ze standardu premium, by ciąć koszty. Architektura za 0 zł wygląda tak:
+
+    Hosting naszej strony HTML: Vercel (0 PLN)
+
+    Baza Danych (Twoi Klienci) i Logowanie: Supabase Free Tier (0 PLN)
+
+    Płatności: Stripe (0 PLN abonamentu, tylko % od sprzedaży)
+
+W ten sposób masz infrastrukturę, na której startują firmy z Doliny Krzemowej, nie wydając przy tym ani złotówki na start. Czy ten kierunek operacyjny Ci odpowiada?

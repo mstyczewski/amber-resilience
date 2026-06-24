@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=Inter:wght@300;400;500&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+    <style>
+        body { background-color: #0A0A0A; color: #F4F4F4; font-family: 'Inter', sans-serif; }
+        .font-display { font-family: 'Cormorant Garamond', serif; }
+        .font-mono { font-family: 'JetBrains Mono', monospace; }
+        .premium-text { text-rendering: optimizeLegibility; font-feature-settings: "liga" 1, "kern" 1; }
+        
+        /* The Invisible Expensive Stuff: Perfekcyjna płynność najechania */
+        .archive-row {
+            transition: background-color 0.4s ease;
+        }
+        .archive-title {
+            transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), color 0.4s ease;
+        }
+        .archive-row:hover .archive-title {
+            transform: translateX(16px);
+            color: #C5A059;
+        }
+        .archive-meta {
+            transition: opacity 0.4s ease;
+            opacity: 0.4;
+        }
+        .archive-row:hover .archive-meta {
+            opacity: 1;
+        }
+    </style>
+</head>
+<body class="min-h-screen py-24 px-8 md:px-16 premium-text relative antialiased">
+
+    <div class="max-w-6xl w-full mx-auto">
+        
+        <!-- Nagłówek Archiwum (Terminal Interface) -->
+        <header class="mb-20 flex flex-col md:flex-row justify-between items-start md:items-end border-b border-white/10 pb-12 gap-8">
+            <div>
+                <div class="flex items-center gap-4 mb-6">
+                    <span class="w-8 h-[1px] bg-[#C5A059]"></span>
+                    <span class="text-[#C5A059] tracking-[0.4em] uppercase text-[10px] font-semibold">Baza Wiedzy</span>
+                </div>
+                <h1 class="font-display text-6xl md:text-8xl leading-[0.9] tracking-tight">
+                    Archiwum<br>
+                    <span class="italic text-white/50">Wywiadowcze.</span>
+                </h1>
+            </div>
+            
+            <!-- Terminal Stats -->
+            <div class="font-mono text-[9px] uppercase tracking-[0.3em] text-[#555] text-left md:text-right space-y-2">
+                <p>Status Systemu: <span class="text-[#A0A0A0]">Online</span></p>
+                <p>Klucz Dostępu: <span class="text-[#A0A0A0]">Publiczny</span></p>
+                <p>Zindeksowane Raporty: <span class="text-[#C5A059]">003</span></p>
+            </div>
+        </header>
+
+        <!-- Filtrowanie (Zamiast generycznych tagów) -->
+        <div class="mb-12 flex gap-8 font-mono text-[10px] uppercase tracking-widest text-[#555] overflow-x-auto pb-4">
+            <button class="text-[#C5A059] border-b border-[#C5A059] pb-1">Wszystkie Akta</button>
+            <button class="hover:text-white transition-colors pb-1">Mindset & Strategia</button>
+            <button class="hover:text-white transition-colors pb-1">Taktyka Sprzętowa</button>
+            <button class="hover:text-white transition-colors pb-1">Case Studies</button>
+        </div>
+
+        <!-- Lista Raportów (The Ledger) -->
+        <div class="border-t border-white/10">
+            
+            <!-- Raport 003 (Najnowszy) -->
+            <a href="#" class="archive-row block border-b border-white/10 py-10 px-4 md:px-8 hover:bg-white/[0.02] group">
+                <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-6">
+                    <div class="flex flex-col md:flex-row md:items-center gap-6 md:gap-12 w-full lg:w-2/3">
+                        <span class="font-mono text-[10px] text-[#C5A059] uppercase tracking-widest w-16">
+                            003
+                        </span>
+                        <h2 class="archive-title font-display text-3xl md:text-4xl text-white">
+                            Zasada trzech sekund. Architektura przetrwania.
+                        </h2>
+                    </div>
+                    <div class="archive-meta flex items-center gap-8 font-mono text-[9px] text-[#A0A0A0] uppercase tracking-[0.3em] lg:justify-end">
+                        <span class="hidden md:inline">Mindset</span>
+                        <span>08 Minut</span>
+                        <span>13.06.26</span>
+                    </div>
+                </div>
+            </a>
+
+            <!-- Raport 002 -->
+            <a href="#" class="archive-row block border-b border-white/10 py-10 px-4 md:px-8 hover:bg-white/[0.02] group">
+                <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-6">
+                    <div class="flex flex-col md:flex-row md:items-center gap-6 md:gap-12 w-full lg:w-2/3">
+                        <span class="font-mono text-[10px] text-[#555] group-hover:text-[#C5A059] transition-colors uppercase tracking-widest w-16">
+                            002
+                        </span>
+                        <h2 class="archive-title font-display text-3xl md:text-4xl text-white">
+                            Modularyzacja ekwipunku w środowisku miejskim.
+                        </h2>
+                    </div>
+                    <div class="archive-meta flex items-center gap-8 font-mono text-[9px] text-[#A0A0A0] uppercase tracking-[0.3em] lg:justify-end">
+                        <span class="hidden md:inline">Hardware</span>
+                        <span>12 Minut</span>
+                        <span>28.05.26</span>
+                    </div>
+                </div>
+            </a>
+
+            <!-- Raport 001 -->
+            <a href="#" class="archive-row block border-b border-white/10 py-10 px-4 md:px-8 hover:bg-white/[0.02] group">
+                <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-6">
+                    <div class="flex flex-col md:flex-row md:items-center gap-6 md:gap-12 w-full lg:w-2/3">
+                        <span class="font-mono text-[10px] text-[#555] group-hover:text-[#C5A059] transition-colors uppercase tracking-widest w-16">
+                            001
+                        </span>
+                        <h2 class="archive-title font-display text-3xl md:text-4xl text-white">
+                            Strategia Gray Man. Niewidzialność operacyjna.
+                        </h2>
+                    </div>
+                    <div class="archive-meta flex items-center gap-8 font-mono text-[9px] text-[#A0A0A0] uppercase tracking-[0.3em] lg:justify-end">
+                        <span class="hidden md:inline">Strategia</span>
+                        <span>15 Minut</span>
+                        <span>01.05.26</span>
+                    </div>
+                </div>
+            </a>
+
+        </div>
+
+        <!-- Finałowy Sigil na dole archiwum -->
+        <div class="mt-24 flex justify-center opacity-30">
+            <svg width="30" height="30" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M20 2L38 12V25C38 32 20 38 20 38C20 38 2 32 2 25V12L20 2Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+                <path d="M20 12V28" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
+            </svg>
+        </div>
+
+    </div>
+</body>
+</html>
