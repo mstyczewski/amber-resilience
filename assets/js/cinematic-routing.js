@@ -105,44 +105,6 @@ function initFeatureGridAnimation() {
     );
 }
 
-// --- OBSŁUGA LIGHTBOXA ---
-// Przypisujemy do obiektu window, aby HTML mógł się do nich odwołać (onclick)
-window.openLightbox = function() {
-    const dossierImage = document.getElementById('dossier-image');
-    if (!dossierImage) return;
-
-    // Pobieranie URL zdjęcia z tła
-    const imageUrl = dossierImage.style.backgroundImage.replace(/url\(['"]?(.*?)['"]?\)/, '$1');
-    const lightbox = document.getElementById('lightbox-overlay');
-    const lightboxImg = document.getElementById('lightbox-img');
-    
-    if (lightbox && lightboxImg) {
-        lightboxImg.src = imageUrl;
-        lightbox.classList.remove('opacity-0', 'pointer-events-none');
-        setTimeout(() => { lightboxImg.classList.remove('scale-90'); }, 50);
-    }
-};
-
-window.closeLightbox = function() {
-    const lightbox = document.getElementById('lightbox-overlay');
-    const lightboxImg = document.getElementById('lightbox-img');
-    
-    if (lightbox && lightboxImg) {
-        lightboxImg.classList.add('scale-90');
-        lightbox.classList.add('opacity-0', 'pointer-events-none');
-    }
-};
-
-function initLightbox() {
-    // Sprawdzamy czy na stronie istnieje element dossier-image
-    const dossierImage = document.getElementById('dossier-image');
-    if (dossierImage) {
-        dossierImage.style.cursor = 'zoom-in';
-        dossierImage.onclick = window.openLightbox;
-    }
-}
-
-
 function initFAQ() {
     const triggers = document.querySelectorAll('.faq-trigger');
     triggers.forEach(trigger => {
@@ -156,53 +118,6 @@ function initFAQ() {
         trigger.addEventListener('click', trigger._faqHandler);
     });
 }
-// --- OBSŁUGA FORMULARZA KONTAKTOWEGO ---
-function initContactForm() {
-    const checkbox = document.getElementById('privacy-policy');
-    const submitBtn = document.getElementById('submit-btn');
-
-    // Sprawdzenie czy jesteśmy na stronie z formularzem
-    if (!checkbox || !submitBtn) return;
-
-    // Reset przycisku przy ładowaniu strony
-    submitBtn.disabled = true;
-    submitBtn.classList.add('opacity-40', 'pointer-events-none', 'grayscale');
-
-    // Dodanie nasłuchiwania zdarzenia
-    checkbox.addEventListener('change', function() {
-        if (this.checked) {
-            // Odblokowanie
-            submitBtn.disabled = false;
-            submitBtn.classList.remove('opacity-40', 'pointer-events-none', 'grayscale');
-        } else {
-            // Zablokowanie
-            submitBtn.disabled = true;
-            submitBtn.classList.add('opacity-40', 'pointer-events-none', 'grayscale');
-        }
-    });
-}
-// Obsługa menu mobilnego
-function initMobileMenu() {
-    const menuBtn = document.querySelector('.md\\:hidden'); // Przycisk hamburgera
-    const mobileMenu = document.getElementById('mobile-menu');
-    
-    if (!menuBtn || !mobileMenu) return;
-
-    menuBtn.addEventListener('click', () => {
-        mobileMenu.classList.toggle('hidden');
-        // Opcjonalnie: zablokuj przewijanie strony, gdy menu jest otwarte
-        document.body.style.overflow = mobileMenu.classList.contains('hidden') ? '' : 'hidden';
-    });
-    
-    // Zamykanie menu po kliknięciu w link
-    mobileMenu.querySelectorAll('a').forEach(link => {
-        link.addEventListener('click', () => {
-            mobileMenu.classList.add('hidden');
-            document.body.style.overflow = '';
-        });
-    });
-}
-
 
 // 3. Główny Inicjator
 function initAll() {
@@ -216,10 +131,6 @@ function initAll() {
         initHeroAndThreatAnimations();
         initFeatureGridAnimation();
         initFAQ();
-	initLightbox();
-	initContactForm();
-	initMobileMenu();
-	
         
         if (typeof ScrollTrigger !== 'undefined') {
             ScrollTrigger.refresh();
@@ -229,6 +140,29 @@ function initAll() {
 
 window.addEventListener("load", initAll);
 
+if (typeof barba !== 'undefined') {
+    barba.init({
+        transitions: [{
+            name: 'cinematic-focus',
+            async leave(data) {
+                return gsap.to(data.current.container, {
+                    y: 40, opacity: 0, filter: "blur(15px)", duration: 0.6, ease: "power2.inOut"
+                });
+            },
+            async enter(data) {
+                window.scrollTo(0, 0);
+                gsap.set(data.next.container, { y: -40, opacity: 0, filter: "blur(15px)" });
+                return gsap.to(data.next.container, {
+                    y: 0, opacity: 1, filter: "blur(0px)", duration: 0.9, ease: "power3.out"
+                });
+            },
+            after() {
+                initAll();
+            }
+        }]
+    });
+}
+// 5. Silnik Przejść Barba.js
 if (typeof barba !== 'undefined') {
     barba.init({
         transitions: [{
