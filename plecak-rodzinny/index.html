@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Amber Resilience | Moduł Rodzinny</title>
+    <title>Plecak awaryjny Rodzinny</title>
 
 <style>
         html, body {
@@ -46,8 +46,6 @@
         }
     </script>
 
-
-
     <style>
         body { background-color: theme('colors.brand.dark'); color: theme('colors.brand.ivory'); -webkit-font-smoothing: antialiased; }
         ::selection { background-color: rgba(197, 160, 89, 0.3); color: theme('colors.brand.ivory'); }
@@ -59,8 +57,10 @@
 
         .img-premium-filter {
             filter: grayscale(100%) contrast(1.1) brightness(0.6);
+            mix-blend-mode: luminosity;
+            transition: filter 1.5s ease, transform 2s ease;
 data-barba
-        }
+          }
         .group:hover .img-premium-filter {
             filter: grayscale(30%) contrast(1.1) brightness(0.9);
             transform: scale(1.05);
@@ -71,7 +71,6 @@ data-barba
         .accordion-item.active .accordion-content { max-height: 1000px; }
         .accordion-item.active .accordion-icon { transform: rotate(180deg); }
     </style>
-
 </head>
 <body class="font-body selection:bg-brand-gold selection:text-brand-dark">
 
@@ -92,7 +91,7 @@ data-barba
                     NASZE PLECAKI
                     <span class="absolute -bottom-2 left-0 w-0 h-[1px] bg-brand-gold transition-all duration-500 group-hover:w-full"></span>
                 </a>
-                <a href="blog/baza-wiedzy.html" class="hover:text-brand-ivory transition-colors duration-500 relative group">
+                <a href="/faq/faq.html" class="hover:text-brand-ivory transition-colors duration-500 relative group">
                     Baza Wiedzy
                     <span class="absolute -bottom-2 left-0 w-0 h-[1px] bg-brand-gold transition-all duration-500 group-hover:w-full"></span>
                 </a>
@@ -210,7 +209,7 @@ data-barba
                             2 500 PLN
                         </div>
                         <p class="font-light text-brand-muted text-sm leading-relaxed mb-8">
-                            Dla jednej osoby. Niezbędne minimum operacyjne na 72 godziny, gwarantujące maksymalną mobilność. Pierwszy krok do gotowości z niezbędnym wyposażeniem.
+                            Dla rodziny. Niezbędne minimum operacyjne na 72 godziny, gwarantujące maksymalną mobilność. Pierwszy krok do gotowości z niezbędnym wyposażeniem.
                         </p>
                     </div>
 
@@ -430,9 +429,20 @@ data-barba
     </div>
 
     </main>
-</div>
 
-    
+    <script>
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1 });
+        document.querySelectorAll('.fade-in-up').forEach((el) => observer.observe(el));
+
+        
+    </script>
 <script>
         // Logika Taktycznej Matrycy Miniatur (Wersja Kolorowa)
         function changeMainImage(imageUrl, btnElement) {
@@ -685,5 +695,7 @@ data-barba
     <img id="lightbox-img" src="" class="max-w-[90%] max-h-[90%] object-contain shadow-2xl transform transition-transform duration-500 scale-90">
     <span class="absolute top-10 right-10 font-mono text-[10px] uppercase tracking-[0.3em] text-brand-gold">Kliknij aby zamknąć</span>
 </div>
+
+
 </body>
 </html>
