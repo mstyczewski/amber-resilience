@@ -56,18 +56,41 @@ function initBackpackCardsAnimation() {
 }
 
 function initHeroAndThreatAnimations() {
+    // 1. NAPRAWA SEKCJI HERO (Twardy reset stanu początkowego)
     if (document.querySelector("#hero")) {
-        gsap.to("#hero", {
-            scrollTrigger: { trigger: "#hero", start: "top top", end: "bottom top", scrub: 1 },
-            scale: 0.95, opacity: 0.5, filter: "blur(10px)", ease: "none"
-        });
+        gsap.fromTo("#hero", 
+            { 
+                scale: 1, 
+                opacity: 1, 
+                filter: "blur(0px)" 
+            },
+            {
+                scrollTrigger: { trigger: "#hero", start: "top top", end: "bottom top", scrub: 1 },
+                scale: 0.95, 
+                opacity: 0.5, 
+                filter: "blur(10px)", 
+                ease: "none"
+            }
+        );
     }
 
-    gsap.from(".threat-line-1, .threat-line-2, .threat-line-3", {
-        scrollTrigger: { trigger: ".threat-header", start: "top 85%", toggleActions: "play none none reverse" },
-        y: 40, opacity: 0, duration: 1.2, stagger: 0.25, ease: "power3.out"
-    });
+    // 2. NAPRAWA TEKSTÓW ZAGROŻEŃ (Zabezpieczenie przed niewidzialnym tekstem po powrocie)
+    gsap.fromTo(".threat-line-1, .threat-line-2, .threat-line-3", 
+        { 
+            y: 40, 
+            opacity: 0 
+        },
+        {
+            scrollTrigger: { trigger: ".threat-header", start: "top 85%", toggleActions: "play none none reverse" },
+            y: 0, 
+            opacity: 1, 
+            duration: 1.2, 
+            stagger: 0.25, 
+            ease: "power3.out"
+        }
+    );
 
+    // 3. Grid był już napisany prawidłowo przy użyciu fromTo (zostawiamy)
     gsap.fromTo(".threat-grid > div", 
         { y: 60, opacity: 0 }, 
         {
