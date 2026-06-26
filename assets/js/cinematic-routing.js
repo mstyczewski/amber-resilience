@@ -192,25 +192,30 @@ function initContactForm() {
     });
 }
 
-// --- FUNKCJA PŁYNNEGO SCROLLOWANIA DO KOTWICY (PREMIUM SMOOTH SCROLL) ---
+// --- FUNKCJA PŁYNNEGO SCROLLOWANIA DO KOTWICY (ZABEZPIECZONA) ---
 function scrollToAnchor(hash) {
     if (!hash) return;
     
-    // Usuwamy znak # jeśli istnieje na początku
     const targetId = hash.replace('#', '');
     const targetElement = document.getElementById(targetId);
     
     if (targetElement) {
-        // Krytyczny detal premium: obliczamy wysokość fixed nav (ok. 100px), aby menu nie zasłoniło nagłówka
-        const navOffset = 100; 
+        const navOffset = 100; // Wysokość Twojego fixed nav
         const targetPosition = targetElement.getBoundingClientRect().top + window.pageYOffset - navOffset;
         
-        // Luksusowa, powolna animacja za pomocą GSAP (bez potrzeby dodatkowych wtyczek)
+        // KROK 1: Tymczasowo usuwamy natywny 'scroll-smooth', żeby nie walczył z GSAP
+        document.documentElement.classList.remove('scroll-smooth');
+        
+        // KROK 2: Kinowa, precyzyjna animacja GSAP
         gsap.to(document.scrollingElement, {
             scrollTop: targetPosition,
-            duration: 1.8,         // Wydłużony, filmowy czas trwania (1.8 sekundy)
-            ease: "power4.inOut",   // Głębokie wejście, powolny środek, aksamitne hamowanie
-            overwrite: "auto"
+            duration: 1.8,
+            ease: "power4.inOut",
+            overwrite: "auto",
+            onComplete: () => {
+                // KROK 3: Przywracamy klasę po zakończeniu animacji, by zachować luksusowy feeling przy ręcznym scrollu
+                document.documentElement.classList.add('scroll-smooth');
+            }
         });
     }
 }
@@ -234,10 +239,12 @@ function initAll() {
         if (typeof ScrollTrigger !== 'undefined') {
             ScrollTrigger.refresh();
         }
-	if (window.location.hash) {
-            scrollToAnchor(window.location.hash);
+	// SCROLL URUCHAMIA SIĘ DOPIERO TUTAJ - kiedy DOM i ScrollTrigger są w 100% gotowe
+        const hashToScroll = targetHash || window.location.hash;
+        if (hashToScroll) {
+            scrollToAnchor(hashToScroll);
         }
-    }, 300);
+    }, 350); // Bezpieczny margines czasowy na wyrenderowanie kodu przez Barba.js
 }
 
 window.addEventListener("load", initAll);
@@ -258,17 +265,12 @@ if (typeof barba !== 'undefined') {
                     y: 0, opacity: 1, filter: "blur(0px)", duration: 0.9, ease: "power3.out"
                 });
             },
-            after(data) {
-                // najpierw re-inicjalizujemy skrypty i odświeżamy ScrollTrigger
-                initAll();
+            aafter(data) {
+                // Wyciągamy hash bezpośrednio z obiektu przejścia Barba.js
+                const targetHash = data.next.url.hash;
                 
-                // OBSŁUGA BARBA: Sprawdzamy czy link, w który kliknięto, miał w sobie hash (kotwicę)
-                if (data.next.url.hash) {
-                    // Dajemy 200ms na pełne zakończenie animacji wejścia (enter) i stabilizację layoutu
-                    setTimeout(() => {
-                        scrollToAnchor(data.next.url.hash);
-                    }, 200);
-                }
+                // Przekazujemy go do głównego inicjatora, który zajmie się resztą w odpowiednim momencie
+                initAll(targetHash);
             }
         }]
     });
