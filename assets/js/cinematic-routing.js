@@ -192,6 +192,29 @@ function initContactForm() {
     });
 }
 
+// --- FUNKCJA PŁYNNEGO SCROLLOWANIA DO KOTWICY (PREMIUM SMOOTH SCROLL) ---
+function scrollToAnchor(hash) {
+    if (!hash) return;
+    
+    // Usuwamy znak # jeśli istnieje na początku
+    const targetId = hash.replace('#', '');
+    const targetElement = document.getElementById(targetId);
+    
+    if (targetElement) {
+        // Krytyczny detal premium: obliczamy wysokość fixed nav (ok. 100px), aby menu nie zasłoniło nagłówka
+        const navOffset = 100; 
+        const targetPosition = targetElement.getBoundingClientRect().top + window.pageYOffset - navOffset;
+        
+        // Luksusowa, powolna animacja za pomocą GSAP (bez potrzeby dodatkowych wtyczek)
+        gsap.to(document.scrollingElement, {
+            scrollTop: targetPosition,
+            duration: 1.8,         // Wydłużony, filmowy czas trwania (1.8 sekundy)
+            ease: "power4.inOut",   // Głębokie wejście, powolny środek, aksamitne hamowanie
+            overwrite: "auto"
+        });
+    }
+}
+
 // 3. Główny Inicjator
 function initAll() {
     if (typeof ScrollTrigger !== 'undefined') {
@@ -210,6 +233,9 @@ function initAll() {
         
         if (typeof ScrollTrigger !== 'undefined') {
             ScrollTrigger.refresh();
+        }
+	if (window.location.hash) {
+            scrollToAnchor(window.location.hash);
         }
     }, 300);
 }
@@ -232,8 +258,17 @@ if (typeof barba !== 'undefined') {
                     y: 0, opacity: 1, filter: "blur(0px)", duration: 0.9, ease: "power3.out"
                 });
             },
-            after() {
+            after(data) {
+                // najpierw re-inicjalizujemy skrypty i odświeżamy ScrollTrigger
                 initAll();
+                
+                // OBSŁUGA BARBA: Sprawdzamy czy link, w który kliknięto, miał w sobie hash (kotwicę)
+                if (data.next.url.hash) {
+                    // Dajemy 200ms na pełne zakończenie animacji wejścia (enter) i stabilizację layoutu
+                    setTimeout(() => {
+                        scrollToAnchor(data.next.url.hash);
+                    }, 200);
+                }
             }
         }]
     });
