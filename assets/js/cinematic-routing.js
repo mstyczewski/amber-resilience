@@ -194,34 +194,31 @@ function initContactForm() {
 
 // --- FUNKCJA PŁYNNEGO SCROLLOWANIA DO KOTWICY (ZABEZPIECZONA) ---
 function scrollToAnchor(hash) {
-    if (!hash) return;
+    if (!hash || typeof hash !== 'string') return; // Zabezpieczenie typu premium
     
     const targetId = hash.replace('#', '');
     const targetElement = document.getElementById(targetId);
     
     if (targetElement) {
-        const navOffset = 100; // Wysokość Twojego fixed nav
+        const navOffset = 100;
         const targetPosition = targetElement.getBoundingClientRect().top + window.pageYOffset - navOffset;
         
-        // KROK 1: Tymczasowo usuwamy natywny 'scroll-smooth', żeby nie walczył z GSAP
         document.documentElement.classList.remove('scroll-smooth');
         
-        // KROK 2: Kinowa, precyzyjna animacja GSAP
         gsap.to(document.scrollingElement, {
             scrollTop: targetPosition,
             duration: 1.8,
             ease: "power4.inOut",
             overwrite: "auto",
             onComplete: () => {
-                // KROK 3: Przywracamy klasę po zakończeniu animacji, by zachować luksusowy feeling przy ręcznym scrollu
                 document.documentElement.classList.add('scroll-smooth');
             }
         });
     }
 }
 
-// 3. Główny Inicjator
-function initAll() {
+// 3. Główny Inicjator (KRYTYCZNA POPRAWKA: dodano parametr targetHash = null)
+function initAll(targetHash = null) {
     if (typeof ScrollTrigger !== 'undefined') {
         ScrollTrigger.getAll().forEach(t => t.kill());
     }
@@ -232,23 +229,25 @@ function initAll() {
         initHeroAndThreatAnimations();
         initFeatureGridAnimation();
         initFAQ();
-	initLightbox();
-	initContactForm();
-	
+        initLightbox();
+        initContactForm(); 
         
         if (typeof ScrollTrigger !== 'undefined') {
             ScrollTrigger.refresh();
         }
-	// SCROLL URUCHAMIA SIĘ DOPIERO TUTAJ - kiedy DOM i ScrollTrigger są w 100% gotowe
+
+        // Zmienna targetHash jest teraz bezpiecznie zdefiniowana
         const hashToScroll = targetHash || window.location.hash;
-        if (hashToScroll) {
+        if (hashToScroll && typeof hashToScroll === 'string' && hashToScroll.includes('#')) {
             scrollToAnchor(hashToScroll);
         }
-    }, 350); // Bezpieczny margines czasowy na wyrenderowanie kodu przez Barba.js
+    }, 350);
 }
 
-window.addEventListener("load", initAll);
+// KRYTYCZNA POPRAWKA: Używamy funkcji strzałkowej, by zablokować przekazywanie obiektu Event do targetHash
+window.addEventListener("load", () => initAll());
 
+// --- SILNIK INTEGRACJI BARBA.JS + GSAP ---
 if (typeof barba !== 'undefined') {
     barba.init({
         transitions: [{
@@ -265,11 +264,9 @@ if (typeof barba !== 'undefined') {
                     y: 0, opacity: 1, filter: "blur(0px)", duration: 0.9, ease: "power3.out"
                 });
             },
+            // KRYTYCZNA POPRAWKA: Usunięto literówkę "aafter"
             after(data) {
-                // Wyciągamy hash bezpośrednio z obiektu przejścia Barba.js
                 const targetHash = data.next.url.hash;
-                
-                // Przekazujemy go do głównego inicjatora, który zajmie się resztą w odpowiednim momencie
                 initAll(targetHash);
             }
         }]
