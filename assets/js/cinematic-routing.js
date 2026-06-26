@@ -265,7 +265,7 @@ if (typeof barba !== 'undefined') {
                     y: 0, opacity: 1, filter: "blur(0px)", duration: 0.9, ease: "power3.out"
                 });
             },
-            aafter(data) {
+            after(data) {
                 // Wyciągamy hash bezpośrednio z obiektu przejścia Barba.js
                 const targetHash = data.next.url.hash;
                 
