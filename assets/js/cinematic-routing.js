@@ -157,6 +157,41 @@ function initFAQ() {
     });
 }
 
+function initContactForm() {
+    const privacyCheckbox = document.getElementById('privacy-policy');
+    const submitBtn = document.getElementById('submit-btn');
+
+    // Jeśli nie jesteśmy na stronie z formularzem, przerywamy
+    if (!privacyCheckbox || !submitBtn) return;
+
+    // Usuwamy ewentualne stare nasłuchiwacze (krytyczne przy Barba.js, aby uniknąć wycieków pamięci)
+    const newCheckbox = privacyCheckbox.cloneNode(true);
+    privacyCheckbox.parentNode.replaceChild(newCheckbox, privacyCheckbox);
+
+    newCheckbox.addEventListener('change', (e) => {
+        const isChecked = e.target.checked;
+
+        if (isChecked) {
+            // Zdejmujemy atrybut HTML
+            submitBtn.disabled = false;
+            // Zdejmujemy klasy blokujące wizualnie i interaktywnie
+            submitBtn.classList.remove('opacity-40', 'pointer-events-none', 'grayscale');
+            
+            // Opcjonalny detal premium: delikatny feedback wizualny przy odblokowaniu
+            if (typeof gsap !== 'undefined') {
+                gsap.fromTo(submitBtn, 
+                    { scale: 0.98 }, 
+                    { scale: 1, duration: 0.4, ease: "back.out(1.5)" }
+                );
+            }
+        } else {
+            // Przywracamy blokady, jeśli użytkownik odznaczy zgodę
+            submitBtn.disabled = true;
+            submitBtn.classList.add('opacity-40', 'pointer-events-none', 'grayscale');
+        }
+    });
+}
+
 // 3. Główny Inicjator
 function initAll() {
     if (typeof ScrollTrigger !== 'undefined') {
@@ -170,6 +205,7 @@ function initAll() {
         initFeatureGridAnimation();
         initFAQ();
 	initLightbox();
+	initContactForm();
 	
         
         if (typeof ScrollTrigger !== 'undefined') {
