@@ -8,6 +8,7 @@ let premiumScrollTarget = null;
 if ('scrollRestoration' in history) {
     history.scrollRestoration = 'manual';
 }
+
 // 1a. KRYTYCZNE: Firefox BFCache Killswitch
 window.addEventListener('pageshow', function (event) {
     if (event.persisted) {
@@ -23,18 +24,21 @@ if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
 // --- SILNIKI ANIMACJI ---
 
 function initAnimations() {
-    gsap.utils.toArray('.fade-in-up').forEach((el) => {
-        gsap.fromTo(el, 
-            { opacity: 0, y: 30 }, 
-            { 
-                opacity: 1, y: 0, duration: 1.2, ease: "power3.out",
-                scrollTrigger: {
-                    trigger: el,
-                    start: "top 85%",
-                    toggleActions: "play none none reverse"
-                }
+    // Zmieniono na IntersectionObserver - dzięki temu nie ma konfliktu między 
+    // GSAP a przejściami w CSS (klasa .visible), zdefiniowanymi w pliku HTML.
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+                observer.unobserve(entry.target);
             }
-        );
+        });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.fade-in-up').forEach((el) => {
+        // Resetujemy klasę - kluczowe dla poprawnego działania przy nawigacji Barba.js
+        el.classList.remove('visible'); 
+        observer.observe(el);
     });
 }
 
@@ -56,41 +60,18 @@ function initBackpackCardsAnimation() {
 }
 
 function initHeroAndThreatAnimations() {
-    // 1. NAPRAWA SEKCJI HERO (Twardy reset stanu początkowego)
     if (document.querySelector("#hero")) {
-        gsap.fromTo("#hero", 
-            { 
-                scale: 1, 
-                opacity: 1, 
-                filter: "blur(0px)" 
-            },
-            {
-                scrollTrigger: { trigger: "#hero", start: "top top", end: "bottom top", scrub: 1 },
-                scale: 0.95, 
-                opacity: 0.5, 
-                filter: "blur(10px)", 
-                ease: "none"
-            }
-        );
+        gsap.to("#hero", {
+            scrollTrigger: { trigger: "#hero", start: "top top", end: "bottom top", scrub: 1 },
+            scale: 0.95, opacity: 0.5, filter: "blur(10px)", ease: "none"
+        });
     }
 
-    // 2. NAPRAWA TEKSTÓW ZAGROŻEŃ (Zabezpieczenie przed niewidzialnym tekstem po powrocie)
-    gsap.fromTo(".threat-line-1, .threat-line-2, .threat-line-3", 
-        { 
-            y: 40, 
-            opacity: 0 
-        },
-        {
-            scrollTrigger: { trigger: ".threat-header", start: "top 85%", toggleActions: "play none none reverse" },
-            y: 0, 
-            opacity: 1, 
-            duration: 1.2, 
-            stagger: 0.25, 
-            ease: "power3.out"
-        }
-    );
+    gsap.from(".threat-line-1, .threat-line-2, .threat-line-3", {
+        scrollTrigger: { trigger: ".threat-header", start: "top 85%", toggleActions: "play none none reverse" },
+        y: 40, opacity: 0, duration: 1.2, stagger: 0.25, ease: "power3.out"
+    });
 
-    // 3. Grid był już napisany prawidłowo przy użyciu fromTo (zostawiamy)
     gsap.fromTo(".threat-grid > div", 
         { y: 60, opacity: 0 }, 
         {
@@ -131,12 +112,10 @@ function initFeatureGridAnimation() {
 }
 
 // --- OBSŁUGA LIGHTBOXA ---
-// Przypisujemy do obiektu window, aby HTML mógł się do nich odwołać (onclick)
 window.openLightbox = function() {
     const dossierImage = document.getElementById('dossier-image');
     if (!dossierImage) return;
 
-    // Pobieranie URL zdjęcia z tła
     const imageUrl = dossierImage.style.backgroundImage.replace(/url\(['"]?(.*?)['"]?\)/, '$1');
     const lightbox = document.getElementById('lightbox-overlay');
     const lightboxImg = document.getElementById('lightbox-img');
@@ -159,14 +138,12 @@ window.closeLightbox = function() {
 };
 
 function initLightbox() {
-    // Sprawdzamy czy na stronie istnieje element dossier-image
     const dossierImage = document.getElementById('dossier-image');
     if (dossierImage) {
         dossierImage.style.cursor = 'zoom-in';
         dossierImage.onclick = window.openLightbox;
     }
 }
-
 
 function initFAQ() {
     const triggers = document.querySelectorAll('.faq-trigger');
@@ -186,10 +163,8 @@ function initContactForm() {
     const privacyCheckbox = document.getElementById('privacy-policy');
     const submitBtn = document.getElementById('submit-btn');
 
-    // Jeśli nie jesteśmy na stronie z formularzem, przerywamy
     if (!privacyCheckbox || !submitBtn) return;
 
-    // Usuwamy ewentualne stare nasłuchiwacze (krytyczne przy Barba.js, aby uniknąć wycieków pamięci)
     const newCheckbox = privacyCheckbox.cloneNode(true);
     privacyCheckbox.parentNode.replaceChild(newCheckbox, privacyCheckbox);
 
@@ -197,12 +172,9 @@ function initContactForm() {
         const isChecked = e.target.checked;
 
         if (isChecked) {
-            // Zdejmujemy atrybut HTML
             submitBtn.disabled = false;
-            // Zdejmujemy klasy blokujące wizualnie i interaktywnie
             submitBtn.classList.remove('opacity-40', 'pointer-events-none', 'grayscale');
             
-            // Opcjonalny detal premium: delikatny feedback wizualny przy odblokowaniu
             if (typeof gsap !== 'undefined') {
                 gsap.fromTo(submitBtn, 
                     { scale: 0.98 }, 
@@ -210,16 +182,15 @@ function initContactForm() {
                 );
             }
         } else {
-            // Przywracamy blokady, jeśli użytkownik odznaczy zgodę
             submitBtn.disabled = true;
             submitBtn.classList.add('opacity-40', 'pointer-events-none', 'grayscale');
         }
     });
 }
 
-// --- FUNKCJA PŁYNNEGO SCROLLOWANIA DO KOTWICY (ZABEZPIECZONA) ---
+// --- FUNKCJA PŁYNNEGO SCROLLOWANIA DO KOTWICY ---
 function scrollToAnchor(hash) {
-    if (!hash || typeof hash !== 'string') return; // Zabezpieczenie typu premium
+    if (!hash || typeof hash !== 'string') return; 
     
     const targetId = hash.replace('#', '');
     const targetElement = document.getElementById(targetId);
@@ -241,49 +212,41 @@ function scrollToAnchor(hash) {
         });
     }
 }
-// --- INTELIGENTNA OBSŁUGA KLIKNIĘĆ W MENU I PRZYCISKÓW (KOTWICE) ---
+
+// --- INTELIGENTNA OBSŁUGA KLIKNIĘĆ W MENU ---
 function initNavLinks() {
-    // KRYTYCZNA ZMIANA: Szukamy linków do plecaków ORAZ przycisków takich jak "Poznaj konstrukcję"
     const anchorLinks = document.querySelectorAll('a[href*="#wybor-plecaka"], a[href*="#opis-produktu"]');
 
     anchorLinks.forEach(link => {
-        // Klonujemy węzeł, by usunąć z niego domyślne eventy Barba.js. Od teraz my rządzimy tym przyciskiem.
         const newLink = link.cloneNode(true);
         link.parentNode.replaceChild(newLink, link);
         
         newLink.addEventListener('click', (e) => {
-            e.preventDefault(); // Zabijamy domyślne przeskakiwanie przeglądarki
+            e.preventDefault(); 
 
             const href = newLink.getAttribute('href');
-            // Rozdzielamy link na ścieżkę (np. /plecak-indywidualny/index.html) i kotwicę (opis-produktu)
             const [pathPart, hashPart] = href.split('#');
-
-            // Normalizujemy aktualną ścieżkę i docelową (by / oraz /index.html traktować tak samo)
             const currentClean = window.location.pathname.replace(/\/$/, '').replace('/index.html', '');
             const targetClean = pathPart ? pathPart.replace(/\/$/, '').replace('/index.html', '') : currentClean;
 
             const isSamePage = (currentClean === targetClean);
 
             if (isSamePage) {
-                // Sytuacja A: Jesteśmy już na właściwej stronie -> Odpalamy tylko płynny skroll GSAP
                 scrollToAnchor(hashPart);
             } else {
-                // Sytuacja B: Jesteśmy na innej podstronie -> SPA Routing
-                // Zapisujemy intencję w pamięci RAM
                 premiumScrollTarget = hashPart;
                 
                 if (typeof barba !== 'undefined') {
-                    // Rozkaz dla Barba.js: Przejdź na stronę "na czysto" (bez hasha w URL), by nie walczyć z przeglądarką
                     barba.go(pathPart || '/'); 
                 } else {
-                    window.location.href = href; // Fallback awaryjny
+                    window.location.href = href; 
                 }
             }
         });
     });
 }
 
-// 3. Główny Inicjator (KRYTYCZNA POPRAWKA: dodano parametr targetHash = null)
+// 3. Główny Inicjator 
 function initAll(targetHash = null) {
     if (typeof ScrollTrigger !== 'undefined') {
         ScrollTrigger.getAll().forEach(t => t.kill());
@@ -299,34 +262,31 @@ function initAll(targetHash = null) {
         initContactForm(); 
         initNavLinks();
        
-        
         if (typeof ScrollTrigger !== 'undefined') {
             ScrollTrigger.refresh();
         }
 
-        // LOGIKA DECYZYJNA SCROLLA:
         let hashToScroll = null;
 
         if (premiumScrollTarget) {
-            // Sytuacja A: Użytkownik kliknął menu na podstronie i Barba go tu przyniosła
             hashToScroll = premiumScrollTarget;
-            premiumScrollTarget = null; // Czyścimy pamięć po użyciu, by nie zapętlić akcji
+            premiumScrollTarget = null;
         } else if (window.location.hash) {
-            // Sytuacja B: Użytkownik wszedł na stronę bezpośrednio z linku zewnętrznego
             hashToScroll = window.location.hash;
         }
 
         if (hashToScroll) {
             scrollToAnchor(hashToScroll);
         }
-    }, 350); // Margines bezpieczeństwa na re
+    }, 350); 
 }
-// KRYTYCZNA POPRAWKA: Używamy funkcji strzałkowej, by zablokować przekazywanie obiektu Event do targetHash
+
 window.addEventListener("load", () => initAll());
 
 // --- SILNIK INTEGRACJI BARBA.JS + GSAP ---
 if (typeof barba !== 'undefined') {
     barba.init({
+        sync: false, // Zapobiega nakładaniu się kontenerów na siebie
         transitions: [{
             name: 'cinematic-focus',
             async leave(data) {
@@ -335,15 +295,17 @@ if (typeof barba !== 'undefined') {
                 });
             },
             async enter(data) {
-                window.scrollTo(0, 0);
+                window.scrollTo(0, 0); // Natychmiastowy reset pozycji paska przed animacją wejścia
                 gsap.set(data.next.container, { y: -40, opacity: 0, filter: "blur(15px)" });
                 return gsap.to(data.next.container, {
                     y: 0, opacity: 1, filter: "blur(0px)", duration: 0.9, ease: "power3.out",
-                   clearProps: "filter"
+                    clearProps: "filter"
                 });
             },
-             after() {
-             initAll();
+            after() {
+                // To wywoła się dokładnie po załadowaniu i zaanimowaniu nowej strony. 
+                // Gwarantuje uruchomienie IntersectionObservera m.in. dla stopki.
+                initAll();
             }
         }]
     });
