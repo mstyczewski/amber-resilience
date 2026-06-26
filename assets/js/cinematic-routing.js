@@ -1,6 +1,8 @@
 /* =========================================================================
    AMBER RESILIENCE | CINEMATIC ROUTING ENGINE (REFACTORED)
    ========================================================================= */
+// --- STATE MANAGER ---
+let premiumScrollTarget = null;
 
 // 1. Zabezpieczenie przed "skakaniem" przeglądarki
 if ('scrollRestoration' in history) {
@@ -218,28 +220,36 @@ function scrollToAnchor(hash) {
 }
 // --- INTELIGENTNA OBSŁUGA KLIKNIĘĆ W MENU (KOTWICE) ---
 function initNavLinks() {
-    const backpackLinks = document.querySelectorAll('nav a[href*="#wybor-plecaka"]');
-    
+    // Pobieramy wszystkie linki do plecaków, niezależnie od tego czy to index.html# czy samo #
+    const backpackLinks = document.querySelectorAll('nav a[href*="wybor-plecaka"]');
+
     backpackLinks.forEach(link => {
-        // Czyszczenie starych listenerów (ochrona pamięci przy Barba.js)
-        link.removeEventListener('click', handleBackpackClick);
-        link.addEventListener('click', handleBackpackClick);
+        // Krytyczne: Klonujemy węzeł, by usunąć z niego domyślne eventy Barba.js. Od teraz my rządzimy tym przyciskiem.
+        const newLink = link.cloneNode(true);
+        link.parentNode.replaceChild(newLink, link);
+        
+        newLink.addEventListener('click', (e) => {
+            e.preventDefault(); // Zabijamy domyślne przeskakiwanie
+
+            // Badamy aktualną ścieżkę
+            const path = window.location.pathname;
+            const isHomePage = path === '/' || path.endsWith('index.html');
+
+            if (isHomePage) {
+                // Jeśli jesteśmy na stronie głównej -> Tylko płynny skroll
+                scrollToAnchor('wybor-plecaka');
+            } else {
+                // Jeśli jesteśmy na podstronie -> Zapisujemy intencję w pamięci RAM i wymuszamy tranzycję SPA
+                premiumScrollTarget = 'wybor-plecaka';
+                
+                if (typeof barba !== 'undefined') {
+                    barba.go('/index.html'); // Rozkaz dla Barba.js: Przejdź na stronę główną
+                } else {
+                    window.location.href = '/index.html#wybor-plecaka'; // Fallback awaryjny
+                }
+            }
+        });
     });
-}
-
-function handleBackpackClick(e) {
-    // Sprawdzamy, czy aktualnie jesteśmy na stronie głównej
-    const isHomePage = window.location.pathname === '/' || 
-                       window.location.pathname.endsWith('index.html') || 
-                       window.location.pathname === '';
-
-    if (isHomePage) {
-        // Jeśli jesteśmy na stronie głównej - blokujemy domyślne przeładowanie Barba.js
-        e.preventDefault();
-        // I natychmiast płynnie scrollujemy w dół za pomocą GSAP
-        scrollToAnchor('#wybor-plecaka');
-    }
-    // Jeśli NIE jesteśmy na stronie głównej, pozwalamy Barba.js naturalnie przenieść nas do index.html
 }
 
 // 3. Główny Inicjator (KRYTYCZNA POPRAWKA: dodano parametr targetHash = null)
@@ -263,13 +273,22 @@ function initAll(targetHash = null) {
             ScrollTrigger.refresh();
         }
 
-        // Zmienna targetHash jest teraz bezpiecznie zdefiniowana
-        const hashToScroll = targetHash || window.location.hash;
-        if (hashToScroll && typeof hashToScroll === 'string' && hashToScroll.includes('#')) {
+        // LOGIKA DECYZYJNA SCROLLA:
+        let hashToScroll = null;
+
+        if (premiumScrollTarget) {
+            // Sytuacja A: Użytkownik kliknął menu na podstronie i Barba go tu przyniosła
+            hashToScroll = premiumScrollTarget;
+            premiumScrollTarget = null; // Czyścimy pamięć po użyciu, by nie zapętlić akcji
+        } else if (window.location.hash) {
+            // Sytuacja B: Użytkownik wszedł na stronę bezpośrednio z linku zewnętrznego
+            hashToScroll = window.location.hash;
+        }
+
+        if (hashToScroll) {
             scrollToAnchor(hashToScroll);
         }
-    }, 350);
-}
+    }, 350); // Margines bezpieczeństwa na re
 
 // KRYTYCZNA POPRAWKA: Używamy funkcji strzałkowej, by zablokować przekazywanie obiektu Event do targetHash
 window.addEventListener("load", () => initAll());
@@ -292,9 +311,8 @@ if (typeof barba !== 'undefined') {
                 });
             },
             // KRYTYCZNA POPRAWKA: Usunięto literówkę "aafter"
-            after(data) {
-                const targetHash = data.next.url.hash;
-                initAll(targetHash);
+            after() {
+             initAll();
             }
         }]
     });
