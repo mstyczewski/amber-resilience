@@ -216,6 +216,31 @@ function scrollToAnchor(hash) {
         });
     }
 }
+// --- INTELIGENTNA OBSŁUGA KLIKNIĘĆ W MENU (KOTWICE) ---
+function initNavLinks() {
+    const backpackLinks = document.querySelectorAll('nav a[href*="#wybor-plecaka"]');
+    
+    backpackLinks.forEach(link => {
+        // Czyszczenie starych listenerów (ochrona pamięci przy Barba.js)
+        link.removeEventListener('click', handleBackpackClick);
+        link.addEventListener('click', handleBackpackClick);
+    });
+}
+
+function handleBackpackClick(e) {
+    // Sprawdzamy, czy aktualnie jesteśmy na stronie głównej
+    const isHomePage = window.location.pathname === '/' || 
+                       window.location.pathname.endsWith('index.html') || 
+                       window.location.pathname === '';
+
+    if (isHomePage) {
+        // Jeśli jesteśmy na stronie głównej - blokujemy domyślne przeładowanie Barba.js
+        e.preventDefault();
+        // I natychmiast płynnie scrollujemy w dół za pomocą GSAP
+        scrollToAnchor('#wybor-plecaka');
+    }
+    // Jeśli NIE jesteśmy na stronie głównej, pozwalamy Barba.js naturalnie przenieść nas do index.html
+}
 
 // 3. Główny Inicjator (KRYTYCZNA POPRAWKA: dodano parametr targetHash = null)
 function initAll(targetHash = null) {
@@ -231,6 +256,8 @@ function initAll(targetHash = null) {
         initFAQ();
         initLightbox();
         initContactForm(); 
+        initNavLinks();
+       
         
         if (typeof ScrollTrigger !== 'undefined') {
             ScrollTrigger.refresh();
