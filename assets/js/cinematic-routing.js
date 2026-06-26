@@ -218,34 +218,42 @@ function scrollToAnchor(hash) {
         });
     }
 }
-// --- INTELIGENTNA OBSŁUGA KLIKNIĘĆ W MENU (KOTWICE) ---
+// --- INTELIGENTNA OBSŁUGA KLIKNIĘĆ W MENU I PRZYCISKÓW (KOTWICE) ---
 function initNavLinks() {
-    // Pobieramy wszystkie linki do plecaków, niezależnie od tego czy to index.html# czy samo #
-    const backpackLinks = document.querySelectorAll('nav a[href*="wybor-plecaka"]');
+    // KRYTYCZNA ZMIANA: Szukamy linków do plecaków ORAZ przycisków takich jak "Poznaj konstrukcję"
+    const anchorLinks = document.querySelectorAll('a[href*="#wybor-plecaka"], a[href*="#opis-produktu"]');
 
-    backpackLinks.forEach(link => {
-        // Krytyczne: Klonujemy węzeł, by usunąć z niego domyślne eventy Barba.js. Od teraz my rządzimy tym przyciskiem.
+    anchorLinks.forEach(link => {
+        // Klonujemy węzeł, by usunąć z niego domyślne eventy Barba.js. Od teraz my rządzimy tym przyciskiem.
         const newLink = link.cloneNode(true);
         link.parentNode.replaceChild(newLink, link);
         
         newLink.addEventListener('click', (e) => {
-            e.preventDefault(); // Zabijamy domyślne przeskakiwanie
+            e.preventDefault(); // Zabijamy domyślne przeskakiwanie przeglądarki
 
-            // Badamy aktualną ścieżkę
-            const path = window.location.pathname;
-            const isHomePage = path === '/' || path.endsWith('index.html');
+            const href = newLink.getAttribute('href');
+            // Rozdzielamy link na ścieżkę (np. /plecak-indywidualny/index.html) i kotwicę (opis-produktu)
+            const [pathPart, hashPart] = href.split('#');
 
-            if (isHomePage) {
-                // Jeśli jesteśmy na stronie głównej -> Tylko płynny skroll
-                scrollToAnchor('wybor-plecaka');
+            // Normalizujemy aktualną ścieżkę i docelową (by / oraz /index.html traktować tak samo)
+            const currentClean = window.location.pathname.replace(/\/$/, '').replace('/index.html', '');
+            const targetClean = pathPart ? pathPart.replace(/\/$/, '').replace('/index.html', '') : currentClean;
+
+            const isSamePage = (currentClean === targetClean);
+
+            if (isSamePage) {
+                // Sytuacja A: Jesteśmy już na właściwej stronie -> Odpalamy tylko płynny skroll GSAP
+                scrollToAnchor(hashPart);
             } else {
-                // Jeśli jesteśmy na podstronie -> Zapisujemy intencję w pamięci RAM i wymuszamy tranzycję SPA
-                premiumScrollTarget = 'wybor-plecaka';
+                // Sytuacja B: Jesteśmy na innej podstronie -> SPA Routing
+                // Zapisujemy intencję w pamięci RAM
+                premiumScrollTarget = hashPart;
                 
                 if (typeof barba !== 'undefined') {
-                    barba.go('/index.html'); // Rozkaz dla Barba.js: Przejdź na stronę główną
+                    // Rozkaz dla Barba.js: Przejdź na stronę "na czysto" (bez hasha w URL), by nie walczyć z przeglądarką
+                    barba.go(pathPart || '/'); 
                 } else {
-                    window.location.href = '/index.html#wybor-plecaka'; // Fallback awaryjny
+                    window.location.href = href; // Fallback awaryjny
                 }
             }
         });
