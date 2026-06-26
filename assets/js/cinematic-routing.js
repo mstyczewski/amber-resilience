@@ -289,7 +289,7 @@ function initAll(targetHash = null) {
             scrollToAnchor(hashToScroll);
         }
     }, 350); // Margines bezpieczeństwa na re
-
+}
 // KRYTYCZNA POPRAWKA: Używamy funkcji strzałkowej, by zablokować przekazywanie obiektu Event do targetHash
 window.addEventListener("load", () => initAll());
 
