@@ -614,18 +614,65 @@
         }
 
         function updatePriceDisplay(quantity) {
-            const priceElement = document.getElementById('price-display');
-            if (priceElement) {
-                const totalPrice = BASE_PRICE * quantity;
-                const formattedPrice = totalPrice.toLocaleString('pl-PL');
-                
-                priceElement.style.opacity = '0.5';
-                setTimeout(() => {
-                    priceElement.innerText = `${formattedPrice} PLN`;
-                    priceElement.style.opacity = '1';
-                }, 150);
-            }
-        }
+
+    const priceElement =
+        document.getElementById(
+            'price-display'
+        );
+
+    if (priceElement) {
+
+        const totalPrice =
+            BASE_PRICE *
+            quantity;
+
+        const formattedPrice =
+            totalPrice
+            .toLocaleString(
+                'pl-PL'
+            );
+
+        priceElement.style.opacity =
+            '0.5';
+
+        setTimeout(() => {
+
+            priceElement.innerText =
+                `${formattedPrice} PLN`;
+
+            priceElement.style.opacity =
+                '1';
+
+        }, 150);
+
+    }
+
+}
+
+/* ==========================
+BARBA + ROUTING FIX
+========================== */
+
+window.changeMainImage =
+    changeMainImage;
+
+window.scrollThumbnails =
+    scrollThumbnails;
+
+window.navigateMainImage =
+    navigateMainImage;
+
+window.openDossier =
+    openDossier;
+
+window.closeDossier =
+    closeDossier;
+
+window.updateQuantity =
+    updateQuantity;
+
+window.updatePriceDisplay =
+    updatePriceDisplay;
     </script>
        
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
