@@ -1,5 +1,5 @@
 /* =========================================================================
-   AMBER RESILIENCE | CINEMATIC ROUTING ENGINE (ULTIMATE REFACTOR)
+   AMBER RESILIENCE | CINEMATIC ROUTING ENGINE (PORTAL ARCHITECTURE)
    ========================================================================= */
 
 let premiumScrollTarget = null;
@@ -22,7 +22,7 @@ if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
     gsap.registerPlugin(ScrollTrigger);
 }
 
-// --- BAZA DANYCH MODUŁÓW ---
+// --- PEŁNA, ROZWINIĘTA BAZA DANYCH MODUŁÓW ---
 const moduleDatabase = {
     'tools': {
         number: 'Moduł 01',
@@ -101,8 +101,9 @@ const moduleDatabase = {
     }
 };
 
+
 /* =========================================================================
-   GLOBALNE FUNKCJE LOGIKI PRODUKTU (Działają natywnie z HTML onclick)
+   GLOBALNE FUNKCJE LOGIKI PRODUKTU (Współpracują z HTML onclick)
    ========================================================================= */
 
 window.openDossier = function(moduleId) {
@@ -135,6 +136,7 @@ window.openDossier = function(moduleId) {
     const panel = document.getElementById('dossier-panel');
     
     document.body.style.overflow = 'hidden';
+    
     if (overlay) {
         overlay.classList.remove('opacity-0', 'pointer-events-none');
         overlay.classList.add('opacity-100', 'pointer-events-auto');
@@ -158,14 +160,14 @@ window.closeDossier = function() {
         panel.classList.add('translate-y-12');
     }
 
-    setTimeout(() => {
-        document.body.style.overflow = '';
-    }, 700); 
+    // Płynne przywrócenie scrolla po zamknięciu animacji
+    setTimeout(() => { document.body.style.overflow = ''; }, 700); 
 };
 
 window.updateQuantity = function(change) {
     const input = document.getElementById('qty-input');
     if (!input) return;
+    
     let currentValue = parseInt(input.value);
     let newValue = currentValue + change;
     
@@ -190,7 +192,7 @@ window.updatePriceDisplay = function(quantity) {
 
 window.changeMainImage = function(imageUrl, btnElement) {
     const mainBg = document.getElementById('main-image-bg');
-    if(mainBg) {
+    if (mainBg) {
         mainBg.style.opacity = '0';
         setTimeout(() => {
             mainBg.style.backgroundImage = `url('${imageUrl}')`;
@@ -203,21 +205,22 @@ window.changeMainImage = function(imageUrl, btnElement) {
         btn.classList.remove('border-brand-gold');
         btn.classList.add('border-white/5');
         const imgInner = btn.querySelector('.thumbnail-inner');
-        if(imgInner) imgInner.classList.add('brightness-50');
+        if (imgInner) imgInner.classList.add('brightness-50');
     });
     
-    if(btnElement) {
+    if (btnElement) {
         btnElement.classList.remove('border-white/5');
         btnElement.classList.add('border-brand-gold');
         const clickedImgInner = btnElement.querySelector('.thumbnail-inner');
-        if(clickedImgInner) clickedImgInner.classList.remove('brightness-50');
+        if (clickedImgInner) clickedImgInner.classList.remove('brightness-50');
     }
 };
 
 window.scrollThumbnails = function(direction) {
     const container = document.getElementById('thumbnail-container');
-    if(!container) return;
+    if (!container) return;
     const scrollAmount = 130; 
+    
     if (direction === 'left') {
         container.scrollLeft -= scrollAmount;
     } else {
@@ -267,6 +270,7 @@ window.closeLightbox = function() {
         lightbox.classList.add('opacity-0', 'pointer-events-none');
     }
 };
+
 
 /* =========================================================================
    SILNIKI ANIMACJI GSAP I CYKL ŻYCIA
@@ -348,6 +352,7 @@ function initLightboxBind() {
 function initFAQ() {
     const triggers = document.querySelectorAll('.faq-trigger');
     triggers.forEach(trigger => {
+        // Usuwanie starych eventów by uniknąć wycieków przy przejściach SPA
         trigger.removeEventListener('click', trigger._faqHandler);
         trigger._faqHandler = () => {
             const parent = trigger.closest('.faq-item');
@@ -365,6 +370,7 @@ function initContactForm() {
 
     if (!privacyCheckbox || !submitBtn) return;
 
+    // Resetowanie eventu by uniknąć wycieków
     const newCheckbox = privacyCheckbox.cloneNode(true);
     privacyCheckbox.parentNode.replaceChild(newCheckbox, privacyCheckbox);
 
@@ -422,20 +428,47 @@ function initNavLinks() {
                 scrollToAnchor(hashPart);
             } else {
                 premiumScrollTarget = hashPart;
-                if (typeof barba !== 'undefined') { barba.go(pathPart || '/'); } 
-                else { window.location.href = href; }
+                if (typeof barba !== 'undefined') { 
+                    barba.go(pathPart || '/'); 
+                } else { 
+                    window.location.href = href; 
+                }
             }
         });
     });
 }
 
-// 3. Główny Inicjator 
+
+/* =========================================================================
+   PORTAL ENGINE (Naprawa okienek ucinanych przez Barba.js i GSAP)
+   ========================================================================= */
+function setupPortals() {
+    const dossier = document.getElementById('dossier-overlay');
+    const lightbox = document.getElementById('lightbox-overlay');
+    
+    // Okienka były ucinane przez własność `transform` w tagu <main>. 
+    // To wyciąga je z `<main>` i wrzuca bezpośrednio do `<body>` zaraz po załadowaniu.
+    if (dossier && dossier.parentNode !== document.body) {
+        document.body.appendChild(dossier);
+    }
+    if (lightbox && lightbox.parentNode !== document.body) {
+        document.body.appendChild(lightbox);
+    }
+}
+
+
+/* =========================================================================
+   GŁÓWNY INICJATOR
+   ========================================================================= */
 function initAll(targetHash = null) {
     if (typeof ScrollTrigger !== 'undefined') {
         ScrollTrigger.getAll().forEach(t => t.kill());
     }
     
     setTimeout(() => {
+        // WYWOŁANIE PORTALI - To naprawia problem renderowania pop-upów!
+        setupPortals();
+        
         initAnimations();
         initBackpackCardsAnimation();
         initHeroAndThreatAnimations();
@@ -461,12 +494,15 @@ function initAll(targetHash = null) {
         if (hashToScroll) {
             scrollToAnchor(hashToScroll);
         }
-    }, 350); 
+    }, 50); 
 }
 
 window.addEventListener("load", () => initAll());
 
-// --- SILNIK INTEGRACJI BARBA.JS + GSAP ---
+
+/* =========================================================================
+   SILNIK INTEGRACJI BARBA.JS + GSAP
+   ========================================================================= */
 if (typeof barba !== 'undefined') {
     barba.init({
         sync: false, // Zapobiega nakładaniu się kontenerów na siebie
@@ -474,11 +510,15 @@ if (typeof barba !== 'undefined') {
             name: 'cinematic-focus',
             async leave(data) {
                 if (typeof ScrollTrigger !== 'undefined') ScrollTrigger.getAll().forEach(t => t.kill());
+                
                 const hero = document.querySelector("#hero");
                 if (hero) gsap.set(hero, { clearProps: "all" });
 
-                // ODZYSKANIE SCROLLA (Krytyczne przy nawigacji)
+                // ODZYSKANIE SCROLLA: Jeśli użytkownik zmieni stronę z otwartym panelem
                 document.body.style.overflow = '';
+
+                // SPRZĄTANIE PORTALU: Upewniamy się, że nie zdublujemy okienek w <body>
+                document.querySelectorAll('body > #dossier-overlay, body > #lightbox-overlay').forEach(el => el.remove());
 
                 return gsap.to(data.current.container, {
                     y: 40, opacity: 0, filter: "blur(15px)", duration: 0.6, ease: "power2.inOut"
@@ -487,6 +527,7 @@ if (typeof barba !== 'undefined') {
             async enter(data) {
                 window.scrollTo(0, 0); // Natychmiastowy reset pozycji paska przed animacją wejścia
                 gsap.set(data.next.container, { y: -40, opacity: 0, filter: "blur(15px)" });
+                
                 return gsap.to(data.next.container, {
                     y: 0, opacity: 1, filter: "blur(0px)", duration: 0.9, ease: "power3.out",
                     clearProps: "all" // <--- KLUCZ, USUWA RESZTKOWE TRANSFORMACJE GSAP
