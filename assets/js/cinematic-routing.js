@@ -4,6 +4,7 @@
 
 let premiumScrollTarget = null;
 const BASE_PRICE = 1600;
+const BASE_PRICE = 2500;
 
 // 1. Zabezpieczenie przed "skakaniem" przeglądarki
 if ('scrollRestoration' in history) {
