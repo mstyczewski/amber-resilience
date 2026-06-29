@@ -422,27 +422,7 @@
     </script>
 
     <script>
-        function changeMainImage(imageUrl, btnElement) {
-            const mainBg = document.getElementById('main-image-bg');
-            mainBg.style.opacity = '0';
-            setTimeout(() => {
-                mainBg.style.backgroundImage = `url('${imageUrl}')`;
-                mainBg.style.opacity = '1';
-            }, 150); 
-            const thumbnails = document.querySelectorAll('.thumbnail-btn');
-            thumbnails.forEach(btn => {
-                btn.classList.remove('border-brand-gold');
-                btn.classList.add('border-white/5');
-                const imgInner = btn.querySelector('.thumbnail-inner');
-                imgInner.classList.add('brightness-50');
-            });
-            btnElement.classList.remove('border-white/5');
-            btnElement.classList.add('border-brand-gold');
-            const clickedImgInner = btnElement.querySelector('.thumbnail-inner');
-            clickedImgInner.classList.remove('brightness-50');
-        }
-
-        function scrollThumbnails(direction) {
+                function scrollThumbnails(direction) {
             const container = document.getElementById('thumbnail-container');
             const scrollAmount = 130; 
             if (direction === 'left') {
@@ -452,22 +432,7 @@
             }
         }
 
-        function navigateMainImage(direction) {
-            const thumbnails = Array.from(document.querySelectorAll('.thumbnail-btn'));
-            if (thumbnails.length === 0) return;
-            let activeIndex = thumbnails.findIndex(btn => btn.classList.contains('border-brand-gold'));
-            if (activeIndex === -1) activeIndex = 0;
-            let newIndex;
-            if (direction === 'next') {
-                newIndex = (activeIndex + 1) % thumbnails.length;
-            } else {
-                newIndex = (activeIndex - 1 + thumbnails.length) % thumbnails.length;
-            }
-            thumbnails[newIndex].click();
-            thumbnails[newIndex].scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
-        }
-
-        const moduleDatabase = {
+         const moduleDatabase = {
             'tools': {
                 number: 'Moduł 01',
                 title: 'Narzędzia',
@@ -545,83 +510,8 @@
             }
         };
 
-        function openDossier(moduleId) {
-            const data = moduleDatabase[moduleId];
-            if (!data) return;
-
-            const dossierImage = document.getElementById('dossier-image');
-            if (dossierImage) {
-                dossierImage.dataset.activeImage = data.image;
-                dossierImage.style.backgroundImage = `url('${data.image}')`;
-            }
-
-            document.getElementById('dossier-number').innerText = data.number;
-            document.getElementById('dossier-title').innerText = data.title;
-            document.getElementById('dossier-desc').innerText = data.desc;
-
-            const listContainer = document.getElementById('dossier-list');
-            listContainer.innerHTML = ''; 
-            
-            data.items.forEach(item => {
-                const li = document.createElement('li');
-                li.className = 'flex items-start gap-4';
-                li.innerHTML = `
-                    <span class="text-brand-gold mt-1 font-mono text-[10px]">///</span>
-                    <span class="leading-relaxed">${item}</span>
-                `;
-                listContainer.appendChild(li);
-            });
-
-            const overlay = document.getElementById('dossier-overlay');
-            const panel = document.getElementById('dossier-panel');
-            
-            document.body.style.overflow = 'hidden';
-            overlay.classList.remove('opacity-0', 'pointer-events-none');
-            overlay.classList.add('opacity-100', 'pointer-events-auto');
-            panel.classList.remove('translate-y-12');
-            panel.classList.add('translate-y-0');
-        }
-
-        function closeDossier() {
-            const overlay = document.getElementById('dossier-overlay');
-            const panel = document.getElementById('dossier-panel');
-            
-            overlay.classList.remove('opacity-100', 'pointer-events-auto');
-            overlay.classList.add('opacity-0', 'pointer-events-none');
-            panel.classList.remove('translate-y-0');
-            panel.classList.add('translate-y-12');
-
-            setTimeout(() => {
-                document.body.style.overflow = '';
-            }, 700); 
-        }
-
-        const BASE_PRICE = 1600;
-
-        function updateQuantity(change) {
-            const input = document.getElementById('qty-input');
-            let currentValue = parseInt(input.value);
-            let newValue = currentValue + change;
-            
-            if (newValue >= 1 && newValue <= 10) { 
-                input.value = newValue;
-                updatePriceDisplay(newValue);
-            }
-        }
-
-        function updatePriceDisplay(quantity) {
-            const priceElement = document.getElementById('price-display');
-            if (priceElement) {
-                const totalPrice = BASE_PRICE * quantity;
-                const formattedPrice = totalPrice.toLocaleString('pl-PL');
-                
-                priceElement.style.opacity = '0.5';
-                setTimeout(() => {
-                    priceElement.innerText = `${formattedPrice} PLN`;
-                    priceElement.style.opacity = '1';
-                }, 150);
-            }
-        }
+        
+        
     </script>
        
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
