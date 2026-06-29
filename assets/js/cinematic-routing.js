@@ -1,8 +1,9 @@
 /* =========================================================================
-   AMBER RESILIENCE | CINEMATIC ROUTING ENGINE (REFACTORED)
+   AMBER RESILIENCE | CINEMATIC ROUTING ENGINE (ULTIMATE REFACTOR)
    ========================================================================= */
-// --- STATE MANAGER ---
+
 let premiumScrollTarget = null;
+const BASE_PRICE = 1600;
 
 // 1. Zabezpieczenie przed "skakaniem" przeglądarki
 if ('scrollRestoration' in history) {
@@ -21,97 +22,227 @@ if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
     gsap.registerPlugin(ScrollTrigger);
 }
 
-// --- SILNIKI ANIMACJI ---
+// --- BAZA DANYCH MODUŁÓW ---
+const moduleDatabase = {
+    'tools': {
+        number: 'Moduł 01',
+        title: 'Narzędzia',
+        desc: 'Wszystko, co pozwoli Ci działać. Niezbędny hardware do przetrwania w terenie.',
+        image: 'https://images.unsplash.com/photo-1589104052309-84b2c15e83ce?q=80&w=1200&auto=format&fit=crop',
+        items: [
+            'metalowa piła strunowa 65 cm',
+            'długopis taktyczny z wybijakiem',
+            'gwizdek',
+            'nóż składany z blokadą back lock, długość ostrza 63 mm, z klipsem',
+            'wielofunkcyjna karta survivalowa 15w1 (m.in. klucz, miarka, śrubokręt, nóż)',
+            'latarka czołowa z diodą LED i czterema trybami świecenia',
+            'krzesiwo z prętem magnesium, blaszka do krzesania z otwieraczem',
+            'koc termiczny 130x210 cm, knoty sznurkowe na rozpałkę',
+            'bransoleta paracord z kompasem i krzesiwem, uchwyt na butelkę do paska',
+            'zestaw do wędkowania (żyłka, 2 haczyki, 2 spławiki, 2 ciężarki)',
+            'spork z sześcioma funkcjami (m.in. nóż, widelec, łyżka, otwieracz, gwizdek)',
+            'zamykany pojemnik do przechowywania zestawu Mamba Tac All in One',
+            'narzędzie wielofunkcyjne Mamba Tac Axe Solver 19w1'
+        ]
+    },
+    'orientation': {
+        number: 'Moduł 02',
+        title: 'Orientacja',
+        desc: 'Znajdź drogę, utrzymaj świadomość sytuacyjną i komunikację.',
+        image: 'https://images.unsplash.com/photo-1524661135-423995f22d0b?q=80&w=1200&auto=format&fit=crop',
+        items: [
+            'baterie alkaliczne rozmiar AA / R6 x4',
+            'przezroczyste wodoodporne etui na dokumenty, rozm. 130 x 200 mm',
+            'mapa foliowana rozkładana, mapa samochodowa Polski w skali 1:700 000'
+        ]
+    },
+    'shelter': {
+        number: 'Moduł 03',
+        title: 'Schronienie',
+        desc: 'Ochrona przed żywiołami i izolacja termiczna.',
+        image: 'https://images.unsplash.com/photo-1504280390224-3ea3391b1513?q=80&w=1200&auto=format&fit=crop',
+        items: [
+            'śpiwór termiczny w formie worka ratunkowego, z wytrzymałej folii NRC',
+            'wodoodporny namiot termiczny z folii NRC, wymiary po rozłożeniu: 240 x 110 x 90 cm',
+            'ponczo przeciwdeszczowe wielorazowe Texar Olive, rozmiar uniwersalny'
+        ]
+    },
+    'nutrition': {
+        number: 'Moduł 04',
+        title: 'Wyżywienie',
+        desc: 'Kluczowe nawodnienie i wysokoenergetyczne paliwo kognitywne.',
+        image: 'https://images.unsplash.com/photo-1622484211148-356ec37db7bb?q=80&w=1200&auto=format&fit=crop',
+        items: [
+            'tabletki do uzdatniania Javel, odkażania wody pitnej, gotowe w 30 min, x20',
+            'suche racje żywieniowe Seven Oceans 500g, kaloryczność 2500 kcal, 9 tabliczek po dwa batony',
+            'kubek termiczny M-Tac 280ml z pokrywką, próżniowy, kolor oliwkowy'
+        ]
+    },
+    'hygiene': {
+        number: 'Moduł 05',
+        title: 'Higiena',
+        desc: 'Prewencja chorobowa i czystość operacyjna w każdych warunkach.',
+        image: 'https://images.unsplash.com/photo-1556228578-0d85b1a4d571?q=80&w=1200&auto=format&fit=crop',
+        items: [
+            'żel pod prysznic w buteleczce 30 ml x2, szampon w buteleczce 30 ml x2, mydełko w kostce',
+            'grzebień, igielnik z nitką, maszynka do golenia, zestaw dentystyczny szczoteczka z pastą x2',
+            'kosmetyczka militarna rozkładana M-Tac, wym. 270 x 160 mm, rozłożona 420 x 270 mm'
+        ]
+    },
+    'medical': {
+        number: 'Moduł 06',
+        title: 'Pierwsza Pomoc',
+        desc: 'Zabezpieczenie ran, urazów i wsparcie medyczne.',
+        image: 'https://images.unsplash.com/photo-1603398938378-e54eab446dde?q=80&w=1200&auto=format&fit=crop',
+        items: [
+            'wielorazowy ogrzewacz do rąk para, utrzymanie ciepła 10 h',
+            'apteczka pierwszej pomocy w etui DIN 13164, ponad 30 elementów w tym koc, rękawiczki, nożyczki, opatrunki i opaski'
+        ]
+    }
+};
 
-function initAnimations() {
-    // Zmieniono na IntersectionObserver - dzięki temu nie ma konfliktu między 
-    // GSAP a przejściami w CSS (klasa .visible), zdefiniowanymi w pliku HTML.
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('visible');
-                observer.unobserve(entry.target);
-            }
-        });
-    }, { threshold: 0.1 });
+/* =========================================================================
+   GLOBALNE FUNKCJE LOGIKI PRODUKTU (Działają natywnie z HTML onclick)
+   ========================================================================= */
 
-    document.querySelectorAll('.fade-in-up').forEach((el) => {
-        // Resetujemy klasę - kluczowe dla poprawnego działania przy nawigacji Barba.js
-        el.classList.remove('visible'); 
-        observer.observe(el);
-    });
-}
+window.openDossier = function(moduleId) {
+    const data = moduleDatabase[moduleId];
+    if (!data) return;
 
-function initBackpackCardsAnimation() {
-    const cards = document.querySelectorAll('#wybor-plecaka a');
-    if (cards.length === 0) return;
+    const dossierImage = document.getElementById('dossier-image');
+    if (dossierImage) dossierImage.style.backgroundImage = `url('${data.image}')`;
 
-    gsap.fromTo(cards, 
-        { y: 50, opacity: 0, scale: 0.95 }, 
-        {
-            y: 0, opacity: 1, scale: 1, duration: 0.8, stagger: 0.2, ease: "power3.out",
-            scrollTrigger: {
-                trigger: "#wybor-plecaka",
-                start: "top 70%",
-                toggleActions: "play none none reverse"
-            }
-        }
-    );
-}
+    const numberEl = document.getElementById('dossier-number');
+    const titleEl = document.getElementById('dossier-title');
+    const descEl = document.getElementById('dossier-desc');
+    
+    if(numberEl) numberEl.innerText = data.number;
+    if(titleEl) titleEl.innerText = data.title;
+    if(descEl) descEl.innerText = data.desc;
 
-function initHeroAndThreatAnimations() {
-    if (document.querySelector("#hero")) {
-        gsap.to("#hero", {
-            scrollTrigger: { trigger: "#hero", start: "top top", end: "bottom top", scrub: 1 },
-            scale: 0.95, opacity: 0.5, filter: "blur(10px)", ease: "none"
+    const listContainer = document.getElementById('dossier-list');
+    if (listContainer) {
+        listContainer.innerHTML = ''; 
+        data.items.forEach(item => {
+            const li = document.createElement('li');
+            li.className = 'flex items-start gap-4';
+            li.innerHTML = `<span class="text-brand-gold mt-1 font-mono text-[10px]">///</span><span class="leading-relaxed font-light text-sm">${item}</span>`;
+            listContainer.appendChild(li);
         });
     }
 
-    gsap.from(".threat-line-1, .threat-line-2, .threat-line-3", {
-        scrollTrigger: { trigger: ".threat-header", start: "top 85%", toggleActions: "play none none reverse" },
-        y: 40, opacity: 0, duration: 1.2, stagger: 0.25, ease: "power3.out"
+    const overlay = document.getElementById('dossier-overlay');
+    const panel = document.getElementById('dossier-panel');
+    
+    document.body.style.overflow = 'hidden';
+    if (overlay) {
+        overlay.classList.remove('opacity-0', 'pointer-events-none');
+        overlay.classList.add('opacity-100', 'pointer-events-auto');
+    }
+    if (panel) {
+        panel.classList.remove('translate-y-12');
+        panel.classList.add('translate-y-0');
+    }
+};
+
+window.closeDossier = function() {
+    const overlay = document.getElementById('dossier-overlay');
+    const panel = document.getElementById('dossier-panel');
+    
+    if (overlay) {
+        overlay.classList.remove('opacity-100', 'pointer-events-auto');
+        overlay.classList.add('opacity-0', 'pointer-events-none');
+    }
+    if (panel) {
+        panel.classList.remove('translate-y-0');
+        panel.classList.add('translate-y-12');
+    }
+
+    setTimeout(() => {
+        document.body.style.overflow = '';
+    }, 700); 
+};
+
+window.updateQuantity = function(change) {
+    const input = document.getElementById('qty-input');
+    if (!input) return;
+    let currentValue = parseInt(input.value);
+    let newValue = currentValue + change;
+    
+    if (newValue >= 1 && newValue <= 10) { 
+        input.value = newValue;
+        window.updatePriceDisplay(newValue);
+    }
+};
+
+window.updatePriceDisplay = function(quantity) {
+    const priceElement = document.getElementById('price-display');
+    if (priceElement) {
+        const formattedPrice = (BASE_PRICE * quantity).toLocaleString('pl-PL');
+        
+        priceElement.style.opacity = '0.5';
+        setTimeout(() => {
+            priceElement.innerText = `${formattedPrice} PLN`;
+            priceElement.style.opacity = '1';
+        }, 150);
+    }
+};
+
+window.changeMainImage = function(imageUrl, btnElement) {
+    const mainBg = document.getElementById('main-image-bg');
+    if(mainBg) {
+        mainBg.style.opacity = '0';
+        setTimeout(() => {
+            mainBg.style.backgroundImage = `url('${imageUrl}')`;
+            mainBg.style.opacity = '1';
+        }, 150); 
+    }
+    
+    const thumbnails = document.querySelectorAll('.thumbnail-btn');
+    thumbnails.forEach(btn => {
+        btn.classList.remove('border-brand-gold');
+        btn.classList.add('border-white/5');
+        const imgInner = btn.querySelector('.thumbnail-inner');
+        if(imgInner) imgInner.classList.add('brightness-50');
     });
+    
+    if(btnElement) {
+        btnElement.classList.remove('border-white/5');
+        btnElement.classList.add('border-brand-gold');
+        const clickedImgInner = btnElement.querySelector('.thumbnail-inner');
+        if(clickedImgInner) clickedImgInner.classList.remove('brightness-50');
+    }
+};
 
-    gsap.fromTo(".threat-grid > div", 
-        { y: 60, opacity: 0 }, 
-        {
-            y: 0, 
-            opacity: 1, 
-            duration: 1.5, 
-            stagger: 0.5, 
-            ease: "power2.out",
-            scrollTrigger: {
-                trigger: ".threat-grid",
-                start: "top 70%",
-                end: "top 0%",
-                scrub: 4
-            }
-        }
-    );
-}
+window.scrollThumbnails = function(direction) {
+    const container = document.getElementById('thumbnail-container');
+    if(!container) return;
+    const scrollAmount = 130; 
+    if (direction === 'left') {
+        container.scrollLeft -= scrollAmount;
+    } else {
+        container.scrollLeft += scrollAmount;
+    }
+};
 
-function initFeatureGridAnimation() {
-    const featureCards = document.querySelectorAll('.feature-card');
-    if (featureCards.length === 0) return;
+window.navigateMainImage = function(direction) {
+    const thumbnails = Array.from(document.querySelectorAll('.thumbnail-btn'));
+    if (thumbnails.length === 0) return;
+    
+    let activeIndex = thumbnails.findIndex(btn => btn.classList.contains('border-brand-gold'));
+    if (activeIndex === -1) activeIndex = 0;
+    
+    let newIndex;
+    if (direction === 'next') {
+        newIndex = (activeIndex + 1) % thumbnails.length;
+    } else {
+        newIndex = (activeIndex - 1 + thumbnails.length) % thumbnails.length;
+    }
+    
+    thumbnails[newIndex].click();
+    thumbnails[newIndex].scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+};
 
-    gsap.fromTo(featureCards, 
-        { y: 40, opacity: 0 }, 
-        {
-            y: 0, 
-            opacity: 1, 
-            duration: 1.5, 
-            stagger: 0.4, 
-            ease: "power2.out",
-            scrollTrigger: {
-                trigger: ".feature-grid-container", 
-                start: "top 60%",
-                toggleActions: "play none none reverse"
-            }
-        }
-    );
-}
-
-// --- OBSŁUGA LIGHTBOXA ---
 window.openLightbox = function() {
     const dossierImage = document.getElementById('dossier-image');
     if (!dossierImage) return;
@@ -137,6 +268,75 @@ window.closeLightbox = function() {
     }
 };
 
+/* =========================================================================
+   SILNIKI ANIMACJI GSAP I CYKL ŻYCIA
+   ========================================================================= */
+
+function initAnimations() {
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+                observer.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.fade-in-up').forEach((el) => {
+        el.classList.remove('visible'); 
+        observer.observe(el);
+    });
+}
+
+function initBackpackCardsAnimation() {
+    const cards = document.querySelectorAll('#wybor-plecaka a');
+    if (cards.length === 0) return;
+
+    gsap.fromTo(cards, 
+        { y: 50, opacity: 0, scale: 0.95 }, 
+        {
+            y: 0, opacity: 1, scale: 1, duration: 0.8, stagger: 0.2, ease: "power3.out",
+            scrollTrigger: { trigger: "#wybor-plecaka", start: "top 70%", toggleActions: "play none none reverse" }
+        }
+    );
+}
+
+function initHeroAndThreatAnimations() {
+    const hero = document.querySelector("#hero");
+    if (hero) {
+        gsap.to(hero, {
+            scrollTrigger: { trigger: hero, start: "top top", end: "bottom top", scrub: 1 },
+            scale: 0.95, opacity: 0.5, filter: "blur(10px)", ease: "none"
+        });
+    }
+
+    gsap.from(".threat-line-1, .threat-line-2, .threat-line-3", {
+        scrollTrigger: { trigger: ".threat-header", start: "top 85%", toggleActions: "play none none reverse" },
+        y: 40, opacity: 0, duration: 1.2, stagger: 0.25, ease: "power3.out"
+    });
+
+    gsap.fromTo(".threat-grid > div", 
+        { y: 60, opacity: 0 }, 
+        {
+            y: 0, opacity: 1, duration: 1.5, stagger: 0.5, ease: "power2.out",
+            scrollTrigger: { trigger: ".threat-grid", start: "top 70%", end: "top 0%", scrub: 4 }
+        }
+    );
+}
+
+function initFeatureGridAnimation() {
+    const featureCards = document.querySelectorAll('.feature-card');
+    if (featureCards.length === 0) return;
+
+    gsap.fromTo(featureCards, 
+        { y: 40, opacity: 0 }, 
+        {
+            y: 0, opacity: 1, duration: 1.5, stagger: 0.4, ease: "power2.out",
+            scrollTrigger: { trigger: ".feature-grid-container", start: "top 60%", toggleActions: "play none none reverse" }
+        }
+    );
+}
+
 function initLightbox() {
     const dossierImage = document.getElementById('dossier-image');
     if (dossierImage) {
@@ -145,62 +345,10 @@ function initLightbox() {
     }
 }
 
-function initProductPageLogic() {
-    // 1. Dossier (Moduły)
-    document.querySelectorAll('[onclick^="openDossier"]').forEach(el => {
-        el.addEventListener('click', () => {
-            const moduleId = el.getAttribute('onclick').match(/'([^']+)'/)[1];
-            const data = moduleDatabase[moduleId];
-            if (!data) return;
-
-            const dossierImage = document.getElementById('dossier-image');
-            dossierImage.style.backgroundImage = `url('${data.image}')`;
-            document.getElementById('dossier-number').innerText = data.number;
-            document.getElementById('dossier-title').innerText = data.title;
-            document.getElementById('dossier-desc').innerText = data.desc;
-            
-            const list = document.getElementById('dossier-list');
-            list.innerHTML = data.items.map(i => `<li class="flex items-start gap-4"><span class="text-brand-gold mt-1 font-mono text-[10px]">///</span>${i}</li>`).join('');
-
-            document.body.style.overflow = 'hidden';
-            const overlay = document.getElementById('dossier-overlay');
-            overlay.classList.remove('opacity-0', 'pointer-events-none');
-            overlay.classList.add('opacity-100', 'pointer-events-auto');
-        });
-    });
-
-    // 2. Galeria i Ilość (Podpinamy eventy)
-    const qtyInput = document.getElementById('qty-input');
-    if (qtyInput) {
-        document.querySelectorAll('button').forEach(btn => {
-            const onclick = btn.getAttribute('onclick');
-            if (onclick?.includes('updateQuantity')) {
-                btn.addEventListener('click', () => {
-                    const change = onclick.includes('-1') ? -1 : 1;
-                    let val = parseInt(qtyInput.value) + change;
-                    if (val >= 1 && val <= 10) {
-                        qtyInput.value = val;
-                        const priceEl = document.getElementById('price-display');
-                        priceEl.innerText = `${(BASE_PRICE * val).toLocaleString('pl-PL')} PLN`;
-                    }
-                });
-            }
-        });
-    }
-
-    // 3. Miniatury zdjęć
-    document.querySelectorAll('.thumbnail-btn').forEach(btn => {
-        btn.addEventListener('click', () => {
-            const bgUrl = btn.querySelector('.thumbnail-inner').style.backgroundImage;
-            document.getElementById('main-image-bg').style.backgroundImage = bgUrl;
-            document.querySelectorAll('.thumbnail-btn').forEach(b => b.classList.remove('border-brand-gold'));
-            btn.classList.add('border-brand-gold');
-        });
-    });
-}
 function initFAQ() {
     const triggers = document.querySelectorAll('.faq-trigger');
     triggers.forEach(trigger => {
+        // Usuwanie starych słuchaczy żeby zapobiec wyciekom po przejściach Barba
         trigger.removeEventListener('click', trigger._faqHandler);
         trigger._faqHandler = () => {
             const parent = trigger.closest('.faq-item');
@@ -223,16 +371,11 @@ function initContactForm() {
 
     newCheckbox.addEventListener('change', (e) => {
         const isChecked = e.target.checked;
-
         if (isChecked) {
             submitBtn.disabled = false;
             submitBtn.classList.remove('opacity-40', 'pointer-events-none', 'grayscale');
-            
             if (typeof gsap !== 'undefined') {
-                gsap.fromTo(submitBtn, 
-                    { scale: 0.98 }, 
-                    { scale: 1, duration: 0.4, ease: "back.out(1.5)" }
-                );
+                gsap.fromTo(submitBtn, { scale: 0.98 }, { scale: 1, duration: 0.4, ease: "back.out(1.5)" });
             }
         } else {
             submitBtn.disabled = true;
@@ -241,7 +384,6 @@ function initContactForm() {
     });
 }
 
-// --- FUNKCJA PŁYNNEGO SCROLLOWANIA DO KOTWICY ---
 function scrollToAnchor(hash) {
     if (!hash || typeof hash !== 'string') return; 
     
@@ -255,18 +397,12 @@ function scrollToAnchor(hash) {
         document.documentElement.classList.remove('scroll-smooth');
         
         gsap.to(document.scrollingElement, {
-            scrollTop: targetPosition,
-            duration: 1.8,
-            ease: "power4.inOut",
-            overwrite: "auto",
-            onComplete: () => {
-                document.documentElement.classList.add('scroll-smooth');
-            }
+            scrollTop: targetPosition, duration: 1.8, ease: "power4.inOut", overwrite: "auto",
+            onComplete: () => { document.documentElement.classList.add('scroll-smooth'); }
         });
     }
 }
 
-// --- INTELIGENTNA OBSŁUGA KLIKNIĘĆ W MENU ---
 function initNavLinks() {
     const anchorLinks = document.querySelectorAll('a[href*="#wybor-plecaka"], a[href*="#opis-produktu"]');
 
@@ -276,7 +412,6 @@ function initNavLinks() {
         
         newLink.addEventListener('click', (e) => {
             e.preventDefault(); 
-
             const href = newLink.getAttribute('href');
             const [pathPart, hashPart] = href.split('#');
             const currentClean = window.location.pathname.replace(/\/$/, '').replace('/index.html', '');
@@ -288,15 +423,18 @@ function initNavLinks() {
                 scrollToAnchor(hashPart);
             } else {
                 premiumScrollTarget = hashPart;
-                
-                if (typeof barba !== 'undefined') {
-                    barba.go(pathPart || '/'); 
-                } else {
-                    window.location.href = href; 
-                }
+                if (typeof barba !== 'undefined') { barba.go(pathPart || '/'); } 
+                else { window.location.href = href; }
             }
         });
     });
+}
+
+function initProductPageLogic() {
+    // Ponieważ zdefiniowaliśmy wszystkie funkcje globalnie (window.openDossier, window.updateQuantity),
+    // a Twój plik HTML korzysta z atrybutów "onclick", nie musimy tu budować EventListenerów.
+    // Funkcja pozostaje w strukturze wywołań (initAll), zachowując Twoją architekturę, 
+    // jednocześnie nie powodując dublowania wywołań w Barba.js.
 }
 
 // 3. Główny Inicjator 
@@ -314,7 +452,7 @@ function initAll(targetHash = null) {
         initLightbox();
         initContactForm(); 
         initNavLinks();
-	initProductPageLogic();
+        initProductPageLogic();
        
         if (typeof ScrollTrigger !== 'undefined') {
             ScrollTrigger.refresh();
@@ -344,6 +482,10 @@ if (typeof barba !== 'undefined') {
         transitions: [{
             name: 'cinematic-focus',
             async leave(data) {
+                if (typeof ScrollTrigger !== 'undefined') ScrollTrigger.getAll().forEach(t => t.kill());
+                const hero = document.querySelector("#hero");
+                if (hero) gsap.set(hero, { clearProps: "all" });
+
                 return gsap.to(data.current.container, {
                     y: 40, opacity: 0, filter: "blur(15px)", duration: 0.6, ease: "power2.inOut"
                 });
@@ -357,8 +499,6 @@ if (typeof barba !== 'undefined') {
                 });
             },
             after() {
-                // To wywoła się dokładnie po załadowaniu i zaanimowaniu nowej strony. 
-                // Gwarantuje uruchomienie IntersectionObservera m.in. dla stopki.
                 initAll();
             }
         }]
