@@ -371,7 +371,66 @@ function initNavLinks() {
         });
     });
 }
+function initMobileMenu() {
+    const trigger = document.getElementById('mobile-menu-trigger');
+    const closeBtn = document.getElementById('mobile-menu-close');
+    const overlay = document.getElementById('mobile-menu-overlay');
+    const links = document.querySelectorAll('.mobile-nav-link');
+    
+    if (!trigger || !overlay) return;
 
+    // Klonowanie przycisków zapobiega wyciekom pamięci w Barba.js
+    const newTrigger = trigger.cloneNode(true);
+    trigger.parentNode.replaceChild(newTrigger, trigger);
+    
+    const newCloseBtn = closeBtn ? closeBtn.cloneNode(true) : null;
+    if (closeBtn) closeBtn.parentNode.replaceChild(newCloseBtn, closeBtn);
+
+    // Oś czasu GSAP (wstrzymana)
+    const tl = gsap.timeline({ paused: true, reversed: true });
+    
+    tl.to(overlay, { opacity: 1, pointerEvents: "auto", duration: 0.4, ease: "power2.inOut" })
+      .fromTo(overlay.querySelectorAll('.mobile-nav-link'), 
+          { y: 60, opacity: 0 }, 
+          { y: 0, opacity: 1, duration: 0.6, stagger: 0.1, ease: "power3.out" }, 
+          "-=0.2"
+      )
+      .fromTo(overlay.querySelector('.mobile-nav-footer'),
+          { opacity: 0, y: 20 },
+          { opacity: 1, y: 0, duration: 0.5, ease: "power2.out" },
+          "-=0.4"
+      );
+
+    function toggleMenu() {
+        if (tl.reversed()) {
+            document.body.style.overflow = 'hidden';
+            tl.play();
+        } else {
+            document.body.style.overflow = '';
+            tl.reverse();
+        }
+    }
+
+    newTrigger.addEventListener('click', toggleMenu);
+    if (newCloseBtn) newCloseBtn.addEventListener('click', toggleMenu);
+
+    // Gdy użytkownik klika w link, zamknij menu z animacją
+    links.forEach(link => {
+        link.addEventListener('click', () => {
+            document.body.style.overflow = '';
+            tl.reverse();
+            
+            // Obsługa skoku do zakotwiczenia (anchor) dla mobilnej nawigacji
+            const href = link.getAttribute('href');
+            if(href.includes('#')) {
+                const hashPart = href.split('#')[1];
+                if (document.getElementById(hashPart)) {
+                    setTimeout(() => window.scrollToAnchor('#' + hashPart), 400);
+                }
+            }
+        });
+    });
+}
 
 /* =========================================================================
    PORTAL ENGINE 
@@ -408,6 +467,8 @@ function initAll(targetHash = null) {
         initLightboxBind();
         initContactForm(); 
         initNavLinks();
+        initMobileMenu();
+       
        
         if (typeof ScrollTrigger !== 'undefined') {
             ScrollTrigger.refresh();
