@@ -159,9 +159,7 @@
                 <img src="/logo.png" alt="Amber Resilience Logo" class="w-full h-auto mix-blend-screen filter contrast-110 brightness-125">
             </a>
         </div>
-        <button id="mobile-menu-trigger" class="md:hidden text-brand-muted hover:text-brand-gold transition-colors duration-300 pointer-events-auto focus:outline-none">
-            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
-        </button>
+        <div id="mobile-menu" class="hidden fixed inset-0 z-[60] bg-brand-dark flex flex-col items-center justify-center space-y-10 transition-opacity duration-500">
     
     <button onclick="toggleMobileMenu()" class="absolute top-8 right-8 text-brand-gold hover:text-brand-ivory transition-colors duration-300">
         <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M18 6L6 18M6 6l12 12"/></svg>
@@ -208,7 +206,6 @@
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
         </button>
     </nav>
-
 
     <div data-barba="wrapper">
         <main data-barba="container" data-barba-namespace="home">
