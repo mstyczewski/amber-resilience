@@ -205,9 +205,9 @@ data-barba
                             <span class="italic text-brand-muted">Rodzinny</span>
                         </h1>
                         <!-- Zaktualizowany identyfikator ceny dla skryptu JS -->
-                        <div id="price-display" class="font-mono text-3xl text-brand-gold tracking-tight mb-6 transition-all duration-300">
-                            2 500 PLN
-                        </div>
+                        <div id="price-display" data-base-price="2500" class="font-mono text-3xl text-brand-gold tracking-tight mb-6 transition-all duration-300">
+    2 500 PLN
+</div>
                         <p class="font-light text-brand-muted text-sm leading-relaxed mb-8">
                             Dla rodziny. Niezbędne minimum operacyjne na 72 godziny, gwarantujące maksymalną mobilność. Pierwszy krok do gotowości z niezbędnym wyposażeniem.
                         </p>
@@ -328,7 +328,7 @@ data-barba
 
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-[1px] bg-white/10 border border-white/10">
                 
-                <div onclick="openDossier('tools')" class="relative h-64 bg-brand-surface group overflow-hidden cursor-pointer">
+                <div onclick="openDossier('tools-family')" class="relative h-64 bg-brand-surface group overflow-hidden cursor-pointer">
                     <div class="absolute inset-0 bg-[url('/narzedzia.jpeg')] bg-cover bg-center grayscale brightness-50 mix-blend-luminosity transition-all duration-700 ease-out group-hover:grayscale-0 group-hover:brightness-100 group-hover:mix-blend-normal group-hover:scale-105"></div>
                     <div class="absolute inset-0 bg-gradient-to-t from-brand-dark/90 via-brand-dark/20 to-transparent z-10"></div>
                     <div class="relative z-20 p-8 flex flex-col h-full justify-end">
@@ -337,7 +337,7 @@ data-barba
                     </div>
                 </div>
 
-                <div onclick="openDossier('orientation')" class="relative h-64 bg-brand-surface group overflow-hidden cursor-pointer">
+                <div onclick="openDossier('orientation-family')" class="relative h-64 bg-brand-surface group overflow-hidden cursor-pointer">
                     <div class="absolute inset-0 bg-[url('/orientacja.jpg')] bg-cover bg-center grayscale brightness-50 mix-blend-luminosity transition-all duration-700 ease-out group-hover:grayscale-0 group-hover:brightness-100 group-hover:mix-blend-normal group-hover:scale-105"></div>
                     <div class="absolute inset-0 bg-gradient-to-t from-brand-dark/90 via-brand-dark/20 to-transparent z-10"></div>
                     <div class="relative z-20 p-8 flex flex-col h-full justify-end">
@@ -346,7 +346,7 @@ data-barba
                     </div>
                 </div>
 
-                <div onclick="openDossier('shelter')" class="relative h-64 bg-brand-surface group overflow-hidden cursor-pointer">
+                <div onclick="openDossier('shelter-family')" class="relative h-64 bg-brand-surface group overflow-hidden cursor-pointer">
                     <div class="absolute inset-0 bg-[url('/schronienie.jpeg')] bg-cover bg-center grayscale brightness-50 mix-blend-luminosity transition-all duration-700 ease-out group-hover:grayscale-0 group-hover:brightness-100 group-hover:mix-blend-normal group-hover:scale-105"></div>
                     <div class="absolute inset-0 bg-gradient-to-t from-brand-dark/90 via-brand-dark/20 to-transparent z-10"></div>
                     <div class="relative z-20 p-8 flex flex-col h-full justify-end">
@@ -355,7 +355,7 @@ data-barba
                     </div>
                 </div>
 
-                <div onclick="openDossier('nutrition')" class="relative h-64 bg-brand-surface group overflow-hidden cursor-pointer">
+                <div onclick="openDossier('nutrition-family')" class="relative h-64 bg-brand-surface group overflow-hidden cursor-pointer">
                     <div class="absolute inset-0 bg-[url('/wyzywienie.png')] bg-cover bg-center grayscale brightness-50 mix-blend-luminosity transition-all duration-700 ease-out group-hover:grayscale-0 group-hover:brightness-100 group-hover:mix-blend-normal group-hover:scale-105"></div>
                     <div class="absolute inset-0 bg-gradient-to-t from-brand-dark/90 via-brand-dark/20 to-transparent z-10"></div>
                     <div class="relative z-20 p-8 flex flex-col h-full justify-end">
@@ -364,7 +364,7 @@ data-barba
                     </div>
                 </div>
 
-                <div onclick="openDossier('hygiene')" class="relative h-64 bg-brand-surface group overflow-hidden cursor-pointer">
+                <div onclick="openDossier('hygiene-family')" class="relative h-64 bg-brand-surface group overflow-hidden cursor-pointer">
                     <div class="absolute inset-0 bg-[url('/higiena.jpeg')] bg-cover bg-center grayscale brightness-50 mix-blend-luminosity transition-all duration-700 ease-out group-hover:grayscale-0 group-hover:brightness-100 group-hover:mix-blend-normal group-hover:scale-105"></div>
                     <div class="absolute inset-0 bg-gradient-to-t from-brand-dark/90 via-brand-dark/20 to-transparent z-10"></div>
                     <div class="relative z-20 p-8 flex flex-col h-full justify-end">
@@ -373,7 +373,7 @@ data-barba
                     </div>
                 </div>
 
-                <div onclick="openDossier('medical')" class="relative h-64 bg-brand-surface group overflow-hidden cursor-pointer">
+                <div onclick="openDossier('medical-family')" class="relative h-64 bg-brand-surface group overflow-hidden cursor-pointer">
                     <div class="absolute inset-0 bg-[url('/pierwsza-pomoc.jpeg')] bg-cover bg-center grayscale brightness-50 mix-blend-luminosity transition-all duration-700 ease-out group-hover:grayscale-0 group-hover:brightness-100 group-hover:mix-blend-normal group-hover:scale-105"></div>
                     <div class="absolute inset-0 bg-gradient-to-t from-brand-dark/90 via-brand-dark/20 to-transparent z-10"></div>
                     <div class="relative z-20 p-8 flex flex-col h-full justify-end">
