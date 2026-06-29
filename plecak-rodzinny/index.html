@@ -390,45 +390,7 @@ data-barba
 
         
 
-<div id="dossier-overlay" class="fixed inset-0 z-[100] flex items-center justify-center opacity-0 pointer-events-none transition-all duration-700">
-        
-        <div onclick="closeDossier()" class="absolute inset-0 bg-brand-dark/80 backdrop-blur-md"></div>
-        
-        <div id="dossier-panel" class="relative w-full max-w-6xl h-[85vh] bg-brand-surface border border-white/10 flex flex-col md:flex-row transform translate-y-12 transition-all duration-700 mx-4 shadow-2xl shadow-black">
-            
-            <button onclick="closeDossier()" class="absolute top-0 right-0 z-50 p-6 text-brand-muted hover:text-brand-gold transition-colors duration-300 focus:outline-none">
-                <span class="font-mono text-[9px] uppercase tracking-[0.4em] flex items-center gap-3">
-                    Zamknij 
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"></path></svg>
-                </span>
-            </button>
-
-            <div id="dossier-image" class="w-full md:w-5/12 h-64 md:h-full bg-cover bg-center img-premium-filter border-b md:border-b-0 md:border-r border-white/5 relative">
-                <div class="absolute inset-0 bg-gradient-to-t from-brand-dark to-transparent opacity-50"></div>
-            </div>
-
-            <div class="w-full md:w-7/12 h-full p-8 md:p-16 flex flex-col overflow-y-auto custom-scrollbar relative bg-brand-surface">
-                
-                <div class="mb-10">
-                    <span id="dossier-number" class="text-brand-gold font-mono text-[10px] tracking-[0.4em] uppercase block mb-4"></span>
-                    <h2 id="dossier-title" class="font-display text-4xl md:text-5xl text-brand-ivory leading-tight mb-4">
-                        Tytuł Modułu
-                    </h2>
-                    <p id="dossier-desc" class="font-light text-brand-muted text-sm leading-relaxed">
-                        Krótki opis taktyczny.
-                    </p>
-                </div>
-
-                <div class="mt-4 border-t border-white/5 pt-8">
-                    <span class="block font-mono text-[9px] text-brand-muted tracking-[0.3em] uppercase mb-6">Wykaz Sprzętu:</span>
-                    <ul id="dossier-list" class="space-y-4 text-brand-ivory font-light text-sm">
-                        </ul>
-                </div>
-            </div>
-        </div>
-    </div>
-
-       <footer class="bg-brand-surface pt-32 pb-10 relative z-10 fade-in-up">
+  <footer class="bg-brand-surface pt-32 pb-10 relative z-10 fade-in-up">
                 <div class="max-w-7xl mx-auto px-8 md:px-16">
                     <div class="flex flex-col md:flex-row justify-between items-center md:items-start gap-8 mb-16 border-b border-white/5 pb-10">
                         <a href="index.html" class="font-display tracking-[0.2em] uppercase text-xl text-brand-ivory">Amber Resilience</a>
@@ -468,277 +430,48 @@ data-barba
                     </div>
                 </div>
             </footer>
-			
-    </main>
 
-    <script>
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
-                    observer.unobserve(entry.target);
-                }
-            });
-        }, { threshold: 0.1 });
-        document.querySelectorAll('.fade-in-up').forEach((el) => observer.observe(el));
+            <!-- =========================================================================
+                 OVERLAYE MUSZĄ BYĆ WEWNĄTRZ DATA-BARBA="CONTAINER", ABY BYŁY ŁADOWANE
+                 ========================================================================= -->
+            <div id="dossier-overlay" class="fixed inset-0 z-[100] flex items-center justify-center opacity-0 pointer-events-none transition-all duration-700">
+                <div onclick="window.closeDossier()" class="absolute inset-0 bg-brand-dark/80 backdrop-blur-md"></div>
+                <div id="dossier-panel" class="relative w-full max-w-6xl h-[85vh] bg-brand-surface border border-white/10 flex flex-col md:flex-row transform translate-y-12 transition-all duration-700 mx-4 shadow-2xl shadow-black">
+                    <button onclick="window.closeDossier()" class="absolute top-0 right-0 z-50 p-6 text-brand-muted hover:text-brand-gold transition-colors duration-300 focus:outline-none">
+                        <span class="font-mono text-[9px] uppercase tracking-[0.4em] flex items-center gap-3">
+                            Zamknij <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"></path></svg>
+                        </span>
+                    </button>
+                    <div id="dossier-image" class="w-full md:w-5/12 h-64 md:h-full bg-cover bg-center img-premium-filter border-b md:border-b-0 md:border-r border-white/5 relative">
+                        <div class="absolute inset-0 bg-gradient-to-t from-brand-dark to-transparent opacity-50"></div>
+                    </div>
+                    <div class="w-full md:w-7/12 h-full p-8 md:p-16 flex flex-col overflow-y-auto custom-scrollbar relative bg-brand-surface">
+                        <div class="mb-10">
+                            <span id="dossier-number" class="text-brand-gold font-mono text-[10px] tracking-[0.4em] uppercase block mb-4"></span>
+                            <h2 id="dossier-title" class="font-display text-4xl md:text-5xl text-brand-ivory leading-tight mb-4">Tytuł Modułu</h2>
+                            <p id="dossier-desc" class="font-light text-brand-muted text-sm leading-relaxed">Krótki opis taktyczny.</p>
+                        </div>
+                        <div class="mt-4 border-t border-white/5 pt-8">
+                            <span class="block font-mono text-[9px] text-brand-muted tracking-[0.3em] uppercase mb-6">Wykaz Sprzętu:</span>
+                            <ul id="dossier-list" class="space-y-4 text-brand-ivory font-light text-sm"></ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-        
-    </script>
-<script>
-        // Logika Taktycznej Matrycy Miniatur (Wersja Kolorowa)
-        function changeMainImage(imageUrl, btnElement) {
-            const mainBg = document.getElementById('main-image-bg');
-            
-            // 1. Zjawisko The Invisible Expensive Stuff: Płynne wygaszenie
-            mainBg.style.opacity = '0';
-            
-            setTimeout(() => {
-                // Zmiana źródła obrazu w tle
-                mainBg.style.backgroundImage = `url('${imageUrl}')`;
-                // Płynne rozjaśnienie
-                mainBg.style.opacity = '1';
-            }, 150); 
+            <div id="lightbox-overlay" class="fixed inset-0 z-[200] flex items-center justify-center bg-black/95 opacity-0 pointer-events-none transition-opacity duration-500 cursor-zoom-out" onclick="window.closeLightbox()">
+                <img id="lightbox-img" src="" class="max-w-[90%] max-h-[90%] object-contain shadow-2xl transform transition-transform duration-500 scale-90">
+                <span class="absolute top-10 right-10 font-mono text-[10px] uppercase tracking-[0.3em] text-brand-gold">Kliknij aby zamknąć</span>
+            </div>
 
-            // 2. Reset stylów wszystkich miniatur (usypianie - przyciemnienie, ale w kolorze)
-            const thumbnails = document.querySelectorAll('.thumbnail-btn');
-            thumbnails.forEach(btn => {
-                // Zamiana złotego obramowania na szare
-                btn.classList.remove('border-brand-gold');
-                btn.classList.add('border-white/5');
-                
-                // Zamiast szarości, nakładamy lekkie przyciemnienie
-                const imgInner = btn.querySelector('.thumbnail-inner');
-                imgInner.classList.add('brightness-50');
-            });
+        </main>
+    </div> <!-- KONIEC WRAPPERA BARBA.JS -->
 
-            // 3. Aktywacja klikniętej miniatury (wybudzenie do pełnej jasności)
-            btnElement.classList.remove('border-white/5');
-            btnElement.classList.add('border-brand-gold');
-            
-            const clickedImgInner = btnElement.querySelector('.thumbnail-inner');
-            clickedImgInner.classList.remove('brightness-50');
-        }
-// Logika mechanicznego przewijania miniatur strzałkami
-        function scrollThumbnails(direction) {
-            const container = document.getElementById('thumbnail-container');
-            // Wyznaczamy odległość przewinięcia (szerokość jednej miniaturki + gap = ok. 130px)
-            const scrollAmount = 130; 
-            
-            if (direction === 'left') {
-                container.scrollLeft -= scrollAmount;
-            } else {
-                container.scrollLeft += scrollAmount;
-            }
-        }
-// Inteligentna nawigacja po głównym zdjęciu (Niewidzialne Strefy)
-        function navigateMainImage(direction) {
-            // Pobieramy wszystkie miniaturki z galerii jako tablicę
-            const thumbnails = Array.from(document.querySelectorAll('.thumbnail-btn'));
-            if (thumbnails.length === 0) return;
-
-            // Szukamy, która miniaturka ma złotą ramkę (czyli jest aktywna)
-            let activeIndex = thumbnails.findIndex(btn => btn.classList.contains('border-brand-gold'));
-            if (activeIndex === -1) activeIndex = 0; // Fallback na pierwszą
-
-            let newIndex;
-            if (direction === 'next') {
-                // Skok do przodu (z zapętleniem po osiągnięciu końca)
-                newIndex = (activeIndex + 1) % thumbnails.length;
-            } else {
-                // Skok do tyłu (z zapętleniem na początek)
-                newIndex = (activeIndex - 1 + thumbnails.length) % thumbnails.length;
-            }
-
-            // 1. Aktywujemy nową miniaturkę (co zmieni zdjęcie główne przez funkcję changeMainImage)
-            thumbnails[newIndex].click();
-            
-            // 2. Luksusowy detal: Automatycznie przewijamy dolny pasek miniatur, 
-            // aby aktywna miniaturka była zawsze wycentrowana w widoku.
-            thumbnails[newIndex].scrollIntoView({ 
-                behavior: 'smooth', 
-                block: 'nearest', 
-                inline: 'center' 
-            });
-        }
-    // BAZA DANYCH MODUŁÓW (Twoje listy sprzętu)
-        const moduleDatabase = {
-            'tools': {
-                number: 'Moduł 01',
-                title: 'Narzędzia',
-                desc: 'Wszystko, co pozwoli Ci działać. Niezbędny hardware do przetrwania w terenie.',
-                image: 'https://images.unsplash.com/photo-1589104052309-84b2c15e83ce?q=80&w=1200&auto=format&fit=crop',
-                items: [
-                    'metalowa piła strunowa 65 cm',
-                    'długopis taktyczny z wybijakiem',
-                    'gwizdek',
-                    'nóż składany z blokadą back lock, długość ostrza 63 mm, z klipsem',
-                    'wielofunkcyjna karta survivalowa 15w1 (m.in. klucz, miarka, śrubokręt, nóż)',
-                    'latarka czołowa z diodą LED i czterema trybami świecenia',
-                    'krzesiwo z prętem magnesium, blaszka do krzesania z otwieraczem',
-                    'koc termiczny 130x210 cm, knoty sznurkowe na rozpałkę',
-                    'bransoleta paracord z kompasem i krzesiwem, uchwyt na butelkę do paska',
-                    'zestaw do wędkowania (żyłka, 2 haczyki, 2 spławiki, 2 ciężarki)',
-                    'spork z sześcioma funkcjami (m.in. nóż, widelec, łyżka, otwieracz, gwizdek)',
-                    'zamykany pojemnik do przechowywania zestawu Mamba Tac All in One',
-                    'narzędzie wielofunkcyjne Mamba Tac Axe Solver 19w1 (młotek, bity, klucz, toporek, otwieracz, ostrza, piła)'
-                ]
-            },
-            'orientation': {
-                number: 'Moduł 02',
-                title: 'Orientacja',
-                desc: 'Znajdź drogę, utrzymaj świadomość sytuacyjną i komunikację.',
-                image: 'https://images.unsplash.com/photo-1524661135-423995f22d0b?q=80&w=1200&auto=format&fit=crop',
-                items: [
-                    'baterie alkaliczne rozmiar AA / R6 x4',
-                    'przezroczyste wodoodporne etui na dokumenty, rozm. 130 x 200 mm',
-                    'mapa foliowana rozkładana, mapa samochodowa Polski w skali 1:700 000'
-                ]
-            },
-            'shelter': {
-                number: 'Moduł 03',
-                title: 'Schronienie',
-                desc: 'Ochrona przed żywiołami i izolacja termiczna.',
-                image: 'https://images.unsplash.com/photo-1504280390224-3ea3391b1513?q=80&w=1200&auto=format&fit=crop',
-                items: [
-                    'śpiwór termiczny w formie worka ratunkowego, z wytrzymałej folii NRC',
-                    'wodoodporny namiot termiczny z folii NRC, wymiary po rozłożeniu: 240 x 110 x 90 cm',
-                    'ponczo przeciwdeszczowe wielorazowe Texar Olive, rozmiar uniwersalny'
-                ]
-            },
-            'nutrition': {
-                number: 'Moduł 04',
-                title: 'Wyżywienie',
-                desc: 'Kluczowe nawodnienie i wysokoenergetyczne paliwo kognitywne.',
-                image: 'https://images.unsplash.com/photo-1622484211148-356ec37db7bb?q=80&w=1200&auto=format&fit=crop',
-                items: [
-                    'tabletki do uzdatniania Javel, odkażania wody pitnej, gotowe w 30 min, x20',
-                    'suche racje żywieniowe Seven Oceans 500g, kaloryczność 2500 kcal, 9 tabliczek po dwa batony',
-                    'kubek termiczny M-Tac 280ml z pokrywką, próżniowy, kolor oliwkowy'
-                ]
-            },
-            'hygiene': {
-                number: 'Moduł 05',
-                title: 'Higiena',
-                desc: 'Prewencja chorobowa i czystość operacyjna w każdych warunkach.',
-                image: 'https://images.unsplash.com/photo-1556228578-0d85b1a4d571?q=80&w=1200&auto=format&fit=crop',
-                items: [
-                    'żel pod prysznic w buteleczce 30 ml x2, szampon w buteleczce 30 ml x2, mydełko w kostce',
-                    'grzebień, igielnik z nitką, maszynka do golenia, zestaw dentystyczny szczoteczka z pastą x2',
-                    'kosmetyczka militarna rozkładana M-Tac, wym. 270 x 160 mm, rozłożona 420 x 270 mm'
-                ]
-            },
-            'medical': {
-                number: 'Moduł 06',
-                title: 'Pierwsza Pomoc',
-                desc: 'Zabezpieczenie ran, urazów i wsparcie medyczne.',
-                image: 'https://images.unsplash.com/photo-1603398938378-e54eab446dde?q=80&w=1200&auto=format&fit=crop',
-                items: [
-                    'wielorazowy ogrzewacz do rąk para, utrzymanie ciepła 10 h',
-                    'apteczka pierwszej pomocy w etui DIN 13164, ponad 30 elementów w tym koc, rękawiczki, nożyczki, opatrunki i opaski'
-                ]
-            }
-        };
-
-        // MECHANIKA NAKŁADKI OPERACYJNEJ (MODAL)
-        function openDossier(moduleId) {
-            const data = moduleDatabase[moduleId];
-            if (!data) return;
-
-            // Wstrzyknięcie danych do DOM
-            document.getElementById('dossier-image').style.backgroundImage = `url('${data.image}')`;
-            document.getElementById('dossier-number').innerText = data.number;
-            document.getElementById('dossier-title').innerText = data.title;
-            document.getElementById('dossier-desc').innerText = data.desc;
-
-            // Generowanie listy HTML
-            const listContainer = document.getElementById('dossier-list');
-            listContainer.innerHTML = ''; // czyszczenie poprzedniej listy
-            
-            data.items.forEach(item => {
-                const li = document.createElement('li');
-                li.className = 'flex items-start gap-4';
-                li.innerHTML = `
-                    <span class="text-brand-gold mt-1 font-mono text-[10px]">///</span>
-                    <span class="leading-relaxed">${item}</span>
-                `;
-                listContainer.appendChild(li);
-            });
-
-            // Aktywacja animacji wejścia
-            const overlay = document.getElementById('dossier-overlay');
-            const panel = document.getElementById('dossier-panel');
-            
-            // Uniemożliwia scrollowanie strony pod spodem
-            document.body.style.overflow = 'hidden';
-            
-            overlay.classList.remove('opacity-0', 'pointer-events-none');
-            overlay.classList.add('opacity-100', 'pointer-events-auto');
-            
-            // Motion that whispers: wysunięcie panelu do góry
-            panel.classList.remove('translate-y-12');
-            panel.classList.add('translate-y-0');
-        }
-
-        function closeDossier() {
-            const overlay = document.getElementById('dossier-overlay');
-            const panel = document.getElementById('dossier-panel');
-            
-            overlay.classList.remove('opacity-100', 'pointer-events-auto');
-            overlay.classList.add('opacity-0', 'pointer-events-none');
-            
-            panel.classList.remove('translate-y-0');
-            panel.classList.add('translate-y-12');
-
-            // Przywrócenie scrollowania strony
-            setTimeout(() => {
-                document.body.style.overflow = '';
-            }, 700); // Czas musi odpowiadać duration-700 w Tailwind
-        }
-// Logika Taktycznego Węzła Transakcyjnego (Ilość i Cena)
-        const BASE_PRICE = 2500; // Cena bazowa plecaka
-
-        function updateQuantity(change) {
-            const input = document.getElementById('qty-input');
-            let currentValue = parseInt(input.value);
-            let newValue = currentValue + change;
-            
-            // Rygor operacyjny: Limit od 1 do 10 sztuk
-            if (newValue >= 1 && newValue <= 10) { 
-                input.value = newValue;
-                updatePriceDisplay(newValue);
-            }
-        }
-
-        function updatePriceDisplay(quantity) {
-            const priceElement = document.getElementById('price-display');
-            if (priceElement) {
-                const totalPrice = BASE_PRICE * quantity;
-                
-                // Formatowanie liczby z eleganckim odstępem (np. 3 200)
-                const formattedPrice = totalPrice.toLocaleString('pl-PL');
-                
-                // Efekt subtelnego mignięcia przy zmianie ceny (Motion that whispers)
-                priceElement.style.opacity = '0.5';
-                setTimeout(() => {
-                    priceElement.innerText = `${formattedPrice} PLN`;
-                    priceElement.style.opacity = '1';
-                }, 150);
-            }
-        }
-</script>
-    
-
-		
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <!-- TYLKO ZEWNĘTRZNE BIBLIOTEKI, ABSOLUTNE ZERO INLINE SCRIPTÓW -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@barba/core"></script>
-    <script src="assets/js/cinematic-routing.js"></script>
-
-<div id="lightbox-overlay" class="fixed inset-0 z-[200] flex items-center justify-center bg-black/95 opacity-0 pointer-events-none transition-opacity duration-500 cursor-zoom-out" onclick="closeLightbox()">
-    <img id="lightbox-img" src="" class="max-w-[90%] max-h-[90%] object-contain shadow-2xl transform transition-transform duration-500 scale-90">
-    <span class="absolute top-10 right-10 font-mono text-[10px] uppercase tracking-[0.3em] text-brand-gold">Kliknij aby zamknąć</span>
-</div>
-
+    <script src="/assets/js/cinematic-routing.js"></script>
 
 </body>
 </html>
