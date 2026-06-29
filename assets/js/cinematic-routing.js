@@ -1,6 +1,7 @@
 /* =========================================================================
    AMBER RESILIENCE | CINEMATIC ROUTING ENGINE (REFACTORED)
    ========================================================================= */
+
 // --- STATE MANAGER ---
 let premiumScrollTarget = null;
 
@@ -21,11 +22,25 @@ if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
     gsap.registerPlugin(ScrollTrigger);
 }
 
+// --- DELEGACJA ZDARZEŃ (NAPRAWA BRAKU REAKCJI NA MOBILE) ---
+document.addEventListener('click', (e) => {
+    // Obsługa przycisków ilości
+    const qtyBtn = e.target.closest('.btn-qty');
+    if (qtyBtn && typeof window.updateQuantity === 'function') {
+        const action = parseInt(qtyBtn.dataset.action);
+        window.updateQuantity(action);
+    }
+
+    // Obsługa kliknięć w moduły (Dossier)
+    const dossierBtn = e.target.closest('.btn-dossier');
+    if (dossierBtn && typeof window.openDossier === 'function') {
+        window.openDossier(dossierBtn.dataset.id);
+    }
+});
+
 // --- SILNIKI ANIMACJI ---
 
 function initAnimations() {
-    // Zmieniono na IntersectionObserver - dzięki temu nie ma konfliktu między 
-    // GSAP a przejściami w CSS (klasa .visible), zdefiniowanymi w pliku HTML.
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
@@ -36,7 +51,6 @@ function initAnimations() {
     }, { threshold: 0.1 });
 
     document.querySelectorAll('.fade-in-up').forEach((el) => {
-        // Resetujemy klasę - kluczowe dla poprawnego działania przy nawigacji Barba.js
         el.classList.remove('visible'); 
         observer.observe(el);
     });
@@ -60,9 +74,10 @@ function initBackpackCardsAnimation() {
 }
 
 function initHeroAndThreatAnimations() {
-    if (document.querySelector("#hero")) {
-        gsap.to("#hero", {
-            scrollTrigger: { trigger: "#hero", start: "top top", end: "bottom top", scrub: 1 },
+    const hero = document.querySelector("#hero");
+    if (hero) {
+        gsap.to(hero, {
+            scrollTrigger: { trigger: hero, start: "top top", end: "bottom top", scrub: 1 },
             scale: 0.95, opacity: 0.5, filter: "blur(10px)", ease: "none"
         });
     }
@@ -246,39 +261,37 @@ function initNavLinks() {
     });
 }
 
-// 3. Główny Inicjator 
-function initAll(targetHash = null) {
+// 3. Główny Inicjator (Bez setTimeout)
+function initAll() {
+    // Czyścimy wszystko przed startem
     if (typeof ScrollTrigger !== 'undefined') {
         ScrollTrigger.getAll().forEach(t => t.kill());
     }
     
-    setTimeout(() => {
-        initAnimations();
-        initBackpackCardsAnimation();
-        initHeroAndThreatAnimations();
-        initFeatureGridAnimation();
-        initFAQ();
-        initLightbox();
-        initContactForm(); 
-        initNavLinks();
-       
-        if (typeof ScrollTrigger !== 'undefined') {
-            ScrollTrigger.refresh();
-        }
+    initAnimations();
+    initBackpackCardsAnimation();
+    initHeroAndThreatAnimations();
+    initFeatureGridAnimation();
+    initFAQ();
+    initLightbox();
+    initContactForm(); 
+    initNavLinks();
+    
+    if (typeof ScrollTrigger !== 'undefined') {
+        ScrollTrigger.refresh();
+    }
 
-        let hashToScroll = null;
+    let hashToScroll = null;
+    if (premiumScrollTarget) {
+        hashToScroll = premiumScrollTarget;
+        premiumScrollTarget = null;
+    } else if (window.location.hash) {
+        hashToScroll = window.location.hash;
+    }
 
-        if (premiumScrollTarget) {
-            hashToScroll = premiumScrollTarget;
-            premiumScrollTarget = null;
-        } else if (window.location.hash) {
-            hashToScroll = window.location.hash;
-        }
-
-        if (hashToScroll) {
-            scrollToAnchor(hashToScroll);
-        }
-    }, 350); 
+    if (hashToScroll) {
+        scrollToAnchor(hashToScroll);
+    }
 }
 
 window.addEventListener("load", () => initAll());
@@ -286,16 +299,22 @@ window.addEventListener("load", () => initAll());
 // --- SILNIK INTEGRACJI BARBA.JS + GSAP ---
 if (typeof barba !== 'undefined') {
     barba.init({
-        sync: false, // Zapobiega nakładaniu się kontenerów na siebie
+        sync: false,
         transitions: [{
             name: 'cinematic-focus',
             async leave(data) {
+                // Czyścimy animacje przy wyjściu
+                ScrollTrigger.getAll().forEach(t => t.kill());
+                // Resetujemy stan wizualny sekcji Hero i kontenera
+                const hero = document.querySelector("#hero");
+                if (hero) gsap.set(hero, { clearProps: "all" });
+                
                 return gsap.to(data.current.container, {
                     y: 40, opacity: 0, filter: "blur(15px)", duration: 0.6, ease: "power2.inOut"
                 });
             },
             async enter(data) {
-                window.scrollTo(0, 0); // Natychmiastowy reset pozycji paska przed animacją wejścia
+                window.scrollTo(0, 0); 
                 gsap.set(data.next.container, { y: -40, opacity: 0, filter: "blur(15px)" });
                 return gsap.to(data.next.container, {
                     y: 0, opacity: 1, filter: "blur(0px)", duration: 0.9, ease: "power3.out",
@@ -303,8 +322,6 @@ if (typeof barba !== 'undefined') {
                 });
             },
             after() {
-                // To wywoła się dokładnie po załadowaniu i zaanimowaniu nowej strony. 
-                // Gwarantuje uruchomienie IntersectionObservera m.in. dla stopki.
                 initAll();
             }
         }]
