@@ -337,7 +337,7 @@ function initFeatureGridAnimation() {
     );
 }
 
-function initLightbox() {
+function initLightboxBind() {
     const dossierImage = document.getElementById('dossier-image');
     if (dossierImage) {
         dossierImage.style.cursor = 'zoom-in';
@@ -348,7 +348,6 @@ function initLightbox() {
 function initFAQ() {
     const triggers = document.querySelectorAll('.faq-trigger');
     triggers.forEach(trigger => {
-        // Usuwanie starych słuchaczy żeby zapobiec wyciekom po przejściach Barba
         trigger.removeEventListener('click', trigger._faqHandler);
         trigger._faqHandler = () => {
             const parent = trigger.closest('.faq-item');
@@ -430,13 +429,6 @@ function initNavLinks() {
     });
 }
 
-function initProductPageLogic() {
-    // Ponieważ zdefiniowaliśmy wszystkie funkcje globalnie (window.openDossier, window.updateQuantity),
-    // a Twój plik HTML korzysta z atrybutów "onclick", nie musimy tu budować EventListenerów.
-    // Funkcja pozostaje w strukturze wywołań (initAll), zachowując Twoją architekturę, 
-    // jednocześnie nie powodując dublowania wywołań w Barba.js.
-}
-
 // 3. Główny Inicjator 
 function initAll(targetHash = null) {
     if (typeof ScrollTrigger !== 'undefined') {
@@ -449,10 +441,9 @@ function initAll(targetHash = null) {
         initHeroAndThreatAnimations();
         initFeatureGridAnimation();
         initFAQ();
-        initLightbox();
+        initLightboxBind();
         initContactForm(); 
         initNavLinks();
-        initProductPageLogic();
        
         if (typeof ScrollTrigger !== 'undefined') {
             ScrollTrigger.refresh();
@@ -486,6 +477,9 @@ if (typeof barba !== 'undefined') {
                 const hero = document.querySelector("#hero");
                 if (hero) gsap.set(hero, { clearProps: "all" });
 
+                // ODZYSKANIE SCROLLA (Krytyczne przy nawigacji)
+                document.body.style.overflow = '';
+
                 return gsap.to(data.current.container, {
                     y: 40, opacity: 0, filter: "blur(15px)", duration: 0.6, ease: "power2.inOut"
                 });
@@ -495,7 +489,7 @@ if (typeof barba !== 'undefined') {
                 gsap.set(data.next.container, { y: -40, opacity: 0, filter: "blur(15px)" });
                 return gsap.to(data.next.container, {
                     y: 0, opacity: 1, filter: "blur(0px)", duration: 0.9, ease: "power3.out",
-                    clearProps: "all"
+                    clearProps: "all" // <--- KLUCZ, USUWA RESZTKOWE TRANSFORMACJE GSAP
                 });
             },
             after() {
