@@ -202,19 +202,15 @@
                         </div>
 
                         <div class="flex flex-col sm:flex-row gap-4 mb-4">
-<div class="flex items-center justify-center gap-6 border border-white/10 bg-brand-surface px-6 py-4 w-full sm:w-1/3 group/qty hover:border-brand-gold/30 transition-colors duration-500 touch-manipulation">
-    
-    <button type="button" class="btn-qty" data-action="-1" class="text-brand-muted hover:text-brand-gold transition-colors outline-none cursor-pointer">
-        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M20 12H4"/></svg>
-    </button>
-
-    <input type="text" id="qty-input" name="quantity" value="1" readonly class="w-8 bg-transparent text-center font-mono text-brand-ivory text-[15px] outline-none cursor-default select-none pointer-events-none">
-
-    <button type="button" class="btn-qty" data-action="1" class="text-brand-muted hover:text-brand-gold transition-colors outline-none cursor-pointer">
-        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 4v16m8-8H4"/></svg>
-    </button>
-
-</div>
+                            <div class="flex items-center justify-between border border-white/10 bg-brand-surface px-6 py-5 w-full sm:w-1/3 group/qty hover:border-brand-gold/30 transition-colors duration-500">
+                                <button type="button" onclick="updateQuantity(-1)" class="text-brand-muted hover:text-brand-gold transition-colors outline-none cursor-pointer">
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M20 12H4"/></svg>
+                                </button>
+                                <input type="text" id="qty-input" name="quantity" value="1" readonly class="w-12 bg-transparent text-center font-mono text-brand-ivory text-[15px] outline-none cursor-default select-none">
+                                <button type="button" onclick="updateQuantity(1)" class="text-brand-muted hover:text-brand-gold transition-colors outline-none cursor-pointer">
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 4v16m8-8H4"/></svg>
+                                </button>
+                            </div>
                             <button type="submit" class="group relative inline-flex items-center justify-center w-full sm:w-2/3 px-12 py-5 bg-transparent border border-brand-gold/30 hover:border-brand-gold transition-colors duration-500 overflow-hidden cursor-pointer outline-none">
                                 <span class="absolute inset-0 bg-brand-gold/10 transform scale-x-0 group-hover:scale-x-100 origin-left transition-transform duration-500 ease-out"></span>
                                 <span class="relative z-10 font-mono text-[15px] uppercase tracking-[0.4em] text-brand-gold group-hover:text-brand-ivory transition-colors duration-500">Zamów</span>
@@ -283,15 +279,16 @@
                 </div>
 
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-[1px] bg-white/10 border border-white/10">
-                    <div class="btn-dossier" data-id="tools" class="relative h-64 bg-brand-surface group overflow-hidden cursor-pointer">
+                    <div onclick="openDossier('tools')" class="relative h-64 bg-brand-surface group overflow-hidden cursor-pointer">
                         <div class="absolute inset-0 bg-[url('/narzedzia.jpeg')] bg-cover bg-center grayscale brightness-50 mix-blend-luminosity transition-all duration-700 ease-out group-hover:grayscale-0 group-hover:brightness-100 group-hover:mix-blend-normal group-hover:scale-105"></div>
                         <div class="absolute inset-0 bg-gradient-to-t from-brand-dark/90 via-brand-dark/20 to-transparent z-10"></div>
                         <div class="relative z-20 p-8 flex flex-col h-full justify-end">
-                            <span class="font-mono text-xl text-brand-ivory uppercase tracking-widest transition-transform duration-500 group-hover:-translate-y-1">Narzędzia</h3>
+                            <span class="font-mono text-[10px] text-brand-gold tracking-widest mb-2 block transition-transform duration-500 group-hover:-translate-y-1">01</span>
+                            <h3 class="font-mono text-xl text-brand-ivory uppercase tracking-widest transition-transform duration-500 group-hover:-translate-y-1">Narzędzia</h3>
                         </div>
                     </div>
 
-                    <div class="btn-dossier" data-id="orientation" class="relative h-64 bg-brand-surface group overflow-hidden cursor-pointer">
+                    <div onclick="openDossier('orientation')" class="relative h-64 bg-brand-surface group overflow-hidden cursor-pointer">
                         <div class="absolute inset-0 bg-[url('/orientacja.jpg')] bg-cover bg-center grayscale brightness-50 mix-blend-luminosity transition-all duration-700 ease-out group-hover:grayscale-0 group-hover:brightness-100 group-hover:mix-blend-normal group-hover:scale-105"></div>
                         <div class="absolute inset-0 bg-gradient-to-t from-brand-dark/90 via-brand-dark/20 to-transparent z-10"></div>
                         <div class="relative z-20 p-8 flex flex-col h-full justify-end">
