@@ -495,7 +495,7 @@ if (typeof barba !== 'undefined') {
                 gsap.set(data.next.container, { y: -40, opacity: 0, filter: "blur(15px)" });
                 return gsap.to(data.next.container, {
                     y: 0, opacity: 1, filter: "blur(0px)", duration: 0.9, ease: "power3.out",
-                    clearProps: "filter"
+                    clearProps: "all"
                 });
             },
             after() {
