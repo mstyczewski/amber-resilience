@@ -1,110 +1,44 @@
 /* =========================================================================
-   AMBER RESILIENCE | CINEMATIC ROUTING ENGINE (PORTAL ARCHITECTURE)
+   AMBER RESILIENCE | CINEMATIC ROUTING ENGINE (SCALABLE ARCHITECTURE)
    ========================================================================= */
 
 let premiumScrollTarget = null;
-const BASE_PRICE = 1600;
 
-
-// 1. Zabezpieczenie przed "skakaniem" przeglądarki
 if ('scrollRestoration' in history) {
     history.scrollRestoration = 'manual';
 }
 
-// 1a. KRYTYCZNE: Firefox BFCache Killswitch
 window.addEventListener('pageshow', function (event) {
     if (event.persisted) {
         window.location.reload();
     }
 });
 
-// 2. Rejestracja wtyczek GSAP
 if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
     gsap.registerPlugin(ScrollTrigger);
 }
 
-// --- PEŁNA, ROZWINIĘTA BAZA DANYCH MODUŁÓW ---
+// --- BAZA DANYCH MODUŁÓW (Indywidualne + Rodzinne) ---
 const moduleDatabase = {
-    'tools': {
-        number: 'Moduł 01',
-        title: 'Narzędzia',
-        desc: 'Wszystko, co pozwoli Ci działać. Niezbędny hardware do przetrwania w terenie.',
-        image: 'https://images.unsplash.com/photo-1589104052309-84b2c15e83ce?q=80&w=1200&auto=format&fit=crop',
-        items: [
-            'metalowa piła strunowa 65 cm',
-            'długopis taktyczny z wybijakiem',
-            'gwizdek',
-            'nóż składany z blokadą back lock, długość ostrza 63 mm, z klipsem',
-            'wielofunkcyjna karta survivalowa 15w1 (m.in. klucz, miarka, śrubokręt, nóż)',
-            'latarka czołowa z diodą LED i czterema trybami świecenia',
-            'krzesiwo z prętem magnesium, blaszka do krzesania z otwieraczem',
-            'koc termiczny 130x210 cm, knoty sznurkowe na rozpałkę',
-            'bransoleta paracord z kompasem i krzesiwem, uchwyt na butelkę do paska',
-            'zestaw do wędkowania (żyłka, 2 haczyki, 2 spławiki, 2 ciężarki)',
-            'spork z sześcioma funkcjami (m.in. nóż, widelec, łyżka, otwieracz, gwizdek)',
-            'zamykany pojemnik do przechowywania zestawu Mamba Tac All in One',
-            'narzędzie wielofunkcyjne Mamba Tac Axe Solver 19w1'
-        ]
-    },
-    'orientation': {
-        number: 'Moduł 02',
-        title: 'Orientacja',
-        desc: 'Znajdź drogę, utrzymaj świadomość sytuacyjną i komunikację.',
-        image: 'https://images.unsplash.com/photo-1524661135-423995f22d0b?q=80&w=1200&auto=format&fit=crop',
-        items: [
-            'baterie alkaliczne rozmiar AA / R6 x4',
-            'przezroczyste wodoodporne etui na dokumenty, rozm. 130 x 200 mm',
-            'mapa foliowana rozkładana, mapa samochodowa Polski w skali 1:700 000'
-        ]
-    },
-    'shelter': {
-        number: 'Moduł 03',
-        title: 'Schronienie',
-        desc: 'Ochrona przed żywiołami i izolacja termiczna.',
-        image: 'https://images.unsplash.com/photo-1504280390224-3ea3391b1513?q=80&w=1200&auto=format&fit=crop',
-        items: [
-            'śpiwór termiczny w formie worka ratunkowego, z wytrzymałej folii NRC',
-            'wodoodporny namiot termiczny z folii NRC, wymiary po rozłożeniu: 240 x 110 x 90 cm',
-            'ponczo przeciwdeszczowe wielorazowe Texar Olive, rozmiar uniwersalny'
-        ]
-    },
-    'nutrition': {
-        number: 'Moduł 04',
-        title: 'Wyżywienie',
-        desc: 'Kluczowe nawodnienie i wysokoenergetyczne paliwo kognitywne.',
-        image: 'https://images.unsplash.com/photo-1622484211148-356ec37db7bb?q=80&w=1200&auto=format&fit=crop',
-        items: [
-            'tabletki do uzdatniania Javel, odkażania wody pitnej, gotowe w 30 min, x20',
-            'suche racje żywieniowe Seven Oceans 500g, kaloryczność 2500 kcal, 9 tabliczek po dwa batony',
-            'kubek termiczny M-Tac 280ml z pokrywką, próżniowy, kolor oliwkowy'
-        ]
-    },
-    'hygiene': {
-        number: 'Moduł 05',
-        title: 'Higiena',
-        desc: 'Prewencja chorobowa i czystość operacyjna w każdych warunkach.',
-        image: 'https://images.unsplash.com/photo-1556228578-0d85b1a4d571?q=80&w=1200&auto=format&fit=crop',
-        items: [
-            'żel pod prysznic w buteleczce 30 ml x2, szampon w buteleczce 30 ml x2, mydełko w kostce',
-            'grzebień, igielnik z nitką, maszynka do golenia, zestaw dentystyczny szczoteczka z pastą x2',
-            'kosmetyczka militarna rozkładana M-Tac, wym. 270 x 160 mm, rozłożona 420 x 270 mm'
-        ]
-    },
-    'medical': {
-        number: 'Moduł 06',
-        title: 'Pierwsza Pomoc',
-        desc: 'Zabezpieczenie ran, urazów i wsparcie medyczne.',
-        image: 'https://images.unsplash.com/photo-1603398938378-e54eab446dde?q=80&w=1200&auto=format&fit=crop',
-        items: [
-            'wielorazowy ogrzewacz do rąk para, utrzymanie ciepła 10 h',
-            'apteczka pierwszej pomocy w etui DIN 13164, ponad 30 elementów w tym koc, rękawiczki, nożyczki, opatrunki i opaski'
-        ]
-    }
+    // === PLECAK INDYWIDUALNY ===
+    'tools': { number: 'Moduł 01', title: 'Narzędzia', desc: 'Wszystko, co pozwoli Ci działać. Niezbędny hardware do przetrwania w terenie.', image: 'https://images.unsplash.com/photo-1589104052309-84b2c15e83ce?q=80&w=1200&auto=format&fit=crop', items: ['metalowa piła strunowa 65 cm', 'długopis taktyczny z wybijakiem', 'gwizdek', 'nóż składany z blokadą back lock', 'wielofunkcyjna karta survivalowa 15w1', 'latarka czołowa z diodą LED', 'krzesiwo z prętem magnesium', 'koc termiczny 130x210 cm', 'bransoleta paracord', 'zestaw do wędkowania', 'spork z sześcioma funkcjami', 'pojemnik do przechowywania', 'narzędzie wielofunkcyjne Mamba Tac'] },
+    'orientation': { number: 'Moduł 02', title: 'Orientacja', desc: 'Znajdź drogę, utrzymaj świadomość sytuacyjną i komunikację.', image: 'https://images.unsplash.com/photo-1524661135-423995f22d0b?q=80&w=1200&auto=format&fit=crop', items: ['baterie alkaliczne rozmiar AA / R6 x4', 'przezroczyste wodoodporne etui na dokumenty', 'mapa samochodowa Polski w skali 1:700 000'] },
+    'shelter': { number: 'Moduł 03', title: 'Schronienie', desc: 'Ochrona przed żywiołami i izolacja termiczna.', image: 'https://images.unsplash.com/photo-1504280390224-3ea3391b1513?q=80&w=1200&auto=format&fit=crop', items: ['śpiwór termiczny NRC', 'wodoodporny namiot termiczny z folii NRC', 'ponczo przeciwdeszczowe wielorazowe'] },
+    'nutrition': { number: 'Moduł 04', title: 'Wyżywienie', desc: 'Kluczowe nawodnienie i wysokoenergetyczne paliwo kognitywne.', image: 'https://images.unsplash.com/photo-1622484211148-356ec37db7bb?q=80&w=1200&auto=format&fit=crop', items: ['tabletki do uzdatniania Javel', 'suche racje żywieniowe Seven Oceans', 'kubek termiczny M-Tac 280ml'] },
+    'hygiene': { number: 'Moduł 05', title: 'Higiena', desc: 'Prewencja chorobowa i czystość operacyjna w każdych warunkach.', image: 'https://images.unsplash.com/photo-1556228578-0d85b1a4d571?q=80&w=1200&auto=format&fit=crop', items: ['żel pod prysznic x2, szampon x2', 'grzebień, igielnik, maszynka, zestaw dentystyczny', 'kosmetyczka militarna rozkładana M-Tac'] },
+    'medical': { number: 'Moduł 06', title: 'Pierwsza Pomoc', desc: 'Zabezpieczenie ran, urazów i wsparcie medyczne.', image: 'https://images.unsplash.com/photo-1603398938378-e54eab446dde?q=80&w=1200&auto=format&fit=crop', items: ['wielorazowy ogrzewacz do rąk', 'apteczka pierwszej pomocy w etui DIN 13164'] },
+    
+    // === PLECAK RODZINNY ===
+    'tools-family': { number: 'Moduł 01', title: 'Narzędzia Rodzinne', desc: 'Rozszerzony zestaw narzędzi dla całej rodziny.', image: 'https://images.unsplash.com/photo-1589104052309-84b2c15e83ce?q=80&w=1200&auto=format&fit=crop', items: ['Duża piła składana', 'Multitool rozszerzony x2', 'Latarki czołowe x4', 'Zestaw baterii XL', 'Saperka taktyczna'] },
+    'orientation-family': { number: 'Moduł 02', title: 'Orientacja Rodzinna', desc: 'Nawigacja i komunikacja dla wielu osób.', image: 'https://images.unsplash.com/photo-1524661135-423995f22d0b?q=80&w=1200&auto=format&fit=crop', items: ['Radiotelefony x2', 'Mapy topograficzne', 'Kompas wojskowy', 'Powerbank o dużej pojemności'] },
+    'shelter-family': { number: 'Moduł 03', title: 'Schronienie Rodzinne', desc: 'Zabezpieczenie przed warunkami dla 4 osób.', image: 'https://images.unsplash.com/photo-1504280390224-3ea3391b1513?q=80&w=1200&auto=format&fit=crop', items: ['Namiot 4-osobowy', 'Koce termiczne NRC x4', 'Poncza przeciwdeszczowe x4', 'Maty izolacyjne x4'] },
+    'nutrition-family': { number: 'Moduł 04', title: 'Wyżywienie Rodzinne', desc: 'Zapas kalorii i wody dla całej rodziny.', image: 'https://images.unsplash.com/photo-1622484211148-356ec37db7bb?q=80&w=1200&auto=format&fit=crop', items: ['Racje żywnościowe x4', 'Tabletki uzdatniające duża paka', 'Kuchenka polowa + gaz', 'Zestaw naczyń polowych'] },
+    'hygiene-family': { number: 'Moduł 05', title: 'Higiena Rodzinna', desc: 'Utrzymanie czystości w dużej grupie.', image: 'https://images.unsplash.com/photo-1556228578-0d85b1a4d571?q=80&w=1200&auto=format&fit=crop', items: ['Szczoteczki do zębów x4', 'Ręczniki szybkoschnące x4', 'Duży płyn uniwersalny', 'Chusteczki nawilżane XL'] },
+    'medical-family': { number: 'Moduł 06', title: 'Pierwsza Pomoc Rodzina', desc: 'Zabezpieczenie medyczne o zwiększonej pojemności.', image: 'https://images.unsplash.com/photo-1603398938378-e54eab446dde?q=80&w=1200&auto=format&fit=crop', items: ['Apteczka powiększona TRAUMA', 'Leki przeciwbólowe (dorośli i dzieci)', 'Zestaw opatrunków XL', 'Termometr polowy'] }
 };
 
-
 /* =========================================================================
-   GLOBALNE FUNKCJE LOGIKI PRODUKTU (Współpracują z HTML onclick)
+   GLOBALNE FUNKCJE LOGIKI PRODUKTU
    ========================================================================= */
 
 window.openDossier = function(moduleId) {
@@ -161,7 +95,6 @@ window.closeDossier = function() {
         panel.classList.add('translate-y-12');
     }
 
-    // Płynne przywrócenie scrolla po zamknięciu animacji
     setTimeout(() => { document.body.style.overflow = ''; }, 700); 
 };
 
@@ -181,7 +114,9 @@ window.updateQuantity = function(change) {
 window.updatePriceDisplay = function(quantity) {
     const priceElement = document.getElementById('price-display');
     if (priceElement) {
-        const formattedPrice = (BASE_PRICE * quantity).toLocaleString('pl-PL');
+        // DYNAMICZNE POBIERANIE CENY: Skrypt czyta data-base-price, a jeśli nie istnieje, domyślnie przyjmuje 1600.
+        const basePrice = parseInt(priceElement.getAttribute('data-base-price')) || 1600;
+        const formattedPrice = (basePrice * quantity).toLocaleString('pl-PL');
         
         priceElement.style.opacity = '0.5';
         setTimeout(() => {
@@ -353,7 +288,6 @@ function initLightboxBind() {
 function initFAQ() {
     const triggers = document.querySelectorAll('.faq-trigger');
     triggers.forEach(trigger => {
-        // Usuwanie starych eventów by uniknąć wycieków przy przejściach SPA
         trigger.removeEventListener('click', trigger._faqHandler);
         trigger._faqHandler = () => {
             const parent = trigger.closest('.faq-item');
@@ -371,7 +305,6 @@ function initContactForm() {
 
     if (!privacyCheckbox || !submitBtn) return;
 
-    // Resetowanie eventu by uniknąć wycieków
     const newCheckbox = privacyCheckbox.cloneNode(true);
     privacyCheckbox.parentNode.replaceChild(newCheckbox, privacyCheckbox);
 
@@ -441,14 +374,12 @@ function initNavLinks() {
 
 
 /* =========================================================================
-   PORTAL ENGINE (Naprawa okienek ucinanych przez Barba.js i GSAP)
+   PORTAL ENGINE 
    ========================================================================= */
 function setupPortals() {
     const dossier = document.getElementById('dossier-overlay');
     const lightbox = document.getElementById('lightbox-overlay');
     
-    // Okienka były ucinane przez własność `transform` w tagu <main>. 
-    // To wyciąga je z `<main>` i wrzuca bezpośrednio do `<body>` zaraz po załadowaniu.
     if (dossier && dossier.parentNode !== document.body) {
         document.body.appendChild(dossier);
     }
@@ -467,7 +398,6 @@ function initAll(targetHash = null) {
     }
     
     setTimeout(() => {
-        // WYWOŁANIE PORTALI - To naprawia problem renderowania pop-upów!
         setupPortals();
         
         initAnimations();
@@ -506,7 +436,7 @@ window.addEventListener("load", () => initAll());
    ========================================================================= */
 if (typeof barba !== 'undefined') {
     barba.init({
-        sync: false, // Zapobiega nakładaniu się kontenerów na siebie
+        sync: false, 
         transitions: [{
             name: 'cinematic-focus',
             async leave(data) {
@@ -515,10 +445,7 @@ if (typeof barba !== 'undefined') {
                 const hero = document.querySelector("#hero");
                 if (hero) gsap.set(hero, { clearProps: "all" });
 
-                // ODZYSKANIE SCROLLA: Jeśli użytkownik zmieni stronę z otwartym panelem
                 document.body.style.overflow = '';
-
-                // SPRZĄTANIE PORTALU: Upewniamy się, że nie zdublujemy okienek w <body>
                 document.querySelectorAll('body > #dossier-overlay, body > #lightbox-overlay').forEach(el => el.remove());
 
                 return gsap.to(data.current.container, {
@@ -526,12 +453,12 @@ if (typeof barba !== 'undefined') {
                 });
             },
             async enter(data) {
-                window.scrollTo(0, 0); // Natychmiastowy reset pozycji paska przed animacją wejścia
+                window.scrollTo(0, 0); 
                 gsap.set(data.next.container, { y: -40, opacity: 0, filter: "blur(15px)" });
                 
                 return gsap.to(data.next.container, {
                     y: 0, opacity: 1, filter: "blur(0px)", duration: 0.9, ease: "power3.out",
-                    clearProps: "all" // <--- KLUCZ, USUWA RESZTKOWE TRANSFORMACJE GSAP
+                    clearProps: "all" 
                 });
             },
             after() {
