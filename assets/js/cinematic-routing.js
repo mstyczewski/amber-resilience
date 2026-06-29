@@ -145,6 +145,59 @@ function initLightbox() {
     }
 }
 
+function initProductPageLogic() {
+    // 1. Dossier (Moduły)
+    document.querySelectorAll('[onclick^="openDossier"]').forEach(el => {
+        el.addEventListener('click', () => {
+            const moduleId = el.getAttribute('onclick').match(/'([^']+)'/)[1];
+            const data = moduleDatabase[moduleId];
+            if (!data) return;
+
+            const dossierImage = document.getElementById('dossier-image');
+            dossierImage.style.backgroundImage = `url('${data.image}')`;
+            document.getElementById('dossier-number').innerText = data.number;
+            document.getElementById('dossier-title').innerText = data.title;
+            document.getElementById('dossier-desc').innerText = data.desc;
+            
+            const list = document.getElementById('dossier-list');
+            list.innerHTML = data.items.map(i => `<li class="flex items-start gap-4"><span class="text-brand-gold mt-1 font-mono text-[10px]">///</span>${i}</li>`).join('');
+
+            document.body.style.overflow = 'hidden';
+            const overlay = document.getElementById('dossier-overlay');
+            overlay.classList.remove('opacity-0', 'pointer-events-none');
+            overlay.classList.add('opacity-100', 'pointer-events-auto');
+        });
+    });
+
+    // 2. Galeria i Ilość (Podpinamy eventy)
+    const qtyInput = document.getElementById('qty-input');
+    if (qtyInput) {
+        document.querySelectorAll('button').forEach(btn => {
+            const onclick = btn.getAttribute('onclick');
+            if (onclick?.includes('updateQuantity')) {
+                btn.addEventListener('click', () => {
+                    const change = onclick.includes('-1') ? -1 : 1;
+                    let val = parseInt(qtyInput.value) + change;
+                    if (val >= 1 && val <= 10) {
+                        qtyInput.value = val;
+                        const priceEl = document.getElementById('price-display');
+                        priceEl.innerText = `${(BASE_PRICE * val).toLocaleString('pl-PL')} PLN`;
+                    }
+                });
+            }
+        });
+    }
+
+    // 3. Miniatury zdjęć
+    document.querySelectorAll('.thumbnail-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            const bgUrl = btn.querySelector('.thumbnail-inner').style.backgroundImage;
+            document.getElementById('main-image-bg').style.backgroundImage = bgUrl;
+            document.querySelectorAll('.thumbnail-btn').forEach(b => b.classList.remove('border-brand-gold'));
+            btn.classList.add('border-brand-gold');
+        });
+    });
+}
 function initFAQ() {
     const triggers = document.querySelectorAll('.faq-trigger');
     triggers.forEach(trigger => {
@@ -261,6 +314,7 @@ function initAll(targetHash = null) {
         initLightbox();
         initContactForm(); 
         initNavLinks();
+	initProductPageLogic();
        
         if (typeof ScrollTrigger !== 'undefined') {
             ScrollTrigger.refresh();
