@@ -452,14 +452,57 @@ function setupPortals() {
    ========================================================================= */
 
 const faqDatabase = [
-    {
+     {
+        question: "Czym jest plecak awaryjny i do czego służy?",
+        answer: "Plecak awaryjny to wcześniej przygotowany zestaw najważniejszych rzeczy potrzebnych podczas
+konieczności nagłego wystąpienia sytuacji kryzysowej. Może być wykorzystywany podczas awarii
+infrastruktury, ewakuacji, długotrwałego braku prądu, klęsk żywiołowych lub innych
+nieprzewidzianych zdarzeń."
+    },
+   {
+        question: "Jaka jest różnica między plecakiem awaryjnym a ewakuacyjnym?",
+        answer: "Obie nazwy w ujęciu potocznym często występują zamiennie. Plecak awaryjny jest pojęciem szerszym
+i może służyć podczas różnych sytuacji kryzysowych w miejscu, w którym aktualnie przebywamy.
+Takie sytuacje to m.in. blackout, paraliż komunikacyjny czy też nagłe zdarzenie podczas wyprawy.
+Plecak ewakuacyjny jest przygotowany głównie z myślą o szybkim opuszczeniu miejsca zamieszkania i
+samodzielnym funkcjonowaniu i zabezpieczeniu podstawowych potrzeb przez określony czas w z
+góry zaplanowanym miejscu docelowym.
+W obliczu możliwości wystąpienia różnych rodzajów kryzysów, nazewnictwo często ma mniejsze
+znaczenie dla praktycznego wykorzystania, może mieć jednak znaczenie psychologiczne. Ewakuacja
+często kojarzy się z konfliktami zbrojnymi czy poważnymi katastrofami naturalnymi, co w przypadku
+braku poczucia bezpośredniego zagrożenia wpływa na brak potrzeby zabezpieczenia. Możliwość
+wystąpienia awarii lokalnej czy krajowej jest bardziej prawdopodobna i ta myśl powinna być punktem
+wyjścia do decyzji o zaopatrzeniu się w plecak awaryjny."
+    },
+      {
+        question: "Na ile dni powinien wystarczyć plecak awaryjny?",
+        answer: "Najczęściej rekomenduje się przygotowanie plecaka awaryjnego na minimum 72 godziny. To czas,
+który często uznaje się za kluczowy podczas pierwszej fazy sytuacji kryzysowej lub ograniczonego
+dostępu do pomocy. Po tym czasie pomoc powinna zostać ustrukturyzowana i działania powinny być
+koordynowane przed odpowiednie służby.
+W kontekście przeznaczenia na 72 godziny, najważniejszą kwestią jest zabezpieczenie się w
+adekwatną ilość żywności i wody, ponieważ są to zasoby, których ilość maleje w czasie."
+    },
+   {
+        question: "Jaką żywność powinien zawierać plecak awaryjny?",
+        answer: "Wg wytycznych WHO (ang. World Health Organisation) w sytuacjach awaryjnych zaleca się
+dostarczenie organizmowi ilości energii na poziomie 2100 kcal/ dobę [Food and Nutrition Needs in
+Emergencies, WHO 2004), co przekłada się na ponad 6000 kcal/ 72 godziny. Dla porównania w
+przypadku racji awaryjnych dla żołnierzy wytyczne stanowią, że wystarczająca wartość energetyczna
+restrykcyjnej racji pokarmowej na przetrwanie wynosi ok. 1500 kcal/ dobę (Bertrandt J. i wsp., Racja
+pokarmowa na przetrwanie., Problemy Higieny i Epidemiologii 2011). Wobec przytoczonych danych
+decyzja o ilości zaplanowanej żywności może wydawać się trudna. Zatem należy racjonalnie
+podchodzić do ilości pożywienia na 72 h i pamiętać, że w sytuacji kryzysowej najważniejsze jest
+zabezpieczenie najbardziej podstawowych potrzeb żywieniowych. Nie należy również marginalizować
+
+kwestii walorów odżywczo-smakowych, które w warunkach kryzysu mogą mieć niebagatelny wpływ
+na kondycję psychofizyczną."
+    },
+   {
         question: "Co powinien zawierać plecak ewakuacyjny?",
         answer: "Plecak ewakuacyjny powinien zawierać podstawowe wyposażenie pozwalające przetrwać minimum 72 godziny poza domem. Najczęściej są to: zapas wody, żywność o długim terminie ważności, apteczka, latarka, powerbank, radio, dokumenty, odzież, środki higieniczne oraz narzędzia wielofunkcyjne."
     },
-    {
-        question: "Czym jest plecak awaryjny i do czego służy?",
-        answer: "Plecak awaryjny to wcześniej przygotowany zestaw najważniejszych rzeczy potrzebnych podczas nagłego opuszczenia domu lub sytuacji kryzysowej. Może być wykorzystywany podczas awarii infrastruktury, ewakuacji, długotrwałego braku prądu czy klęsk żywiołowych."
-    }
+   
     // Aby dodać nowe pytanie, po prostu wklejasz tutaj kolejny obiekt. Zero powielania HTML.
 ];
 
