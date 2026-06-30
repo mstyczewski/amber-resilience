@@ -545,7 +545,7 @@ elementów jest wspólna, co znacznie obniża ciężar całego plecaka. Z uwagi 
 znoszą sytuacje stresujące, elementem dodatkowym, o który warto zadbać indywidualnie we
 własnym zakresie są przedmioty, które zapewnią dzieciom namiastkę normalności – np. przenośne
 gry czy dla najmłodszych – przytulanki.`
-    }
+    },
    {
         question: "Ile powinien ważyć plecak awaryjny?",
         answer: `Przyjmuje się, że w celu komfortowego użytkowania, plecak z wyposażeniem nie powinien
