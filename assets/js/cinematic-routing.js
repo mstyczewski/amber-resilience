@@ -476,12 +476,7 @@ wyjścia do decyzji o zaopatrzeniu się w plecak awaryjny."
     },
       {
         question: "Na ile dni powinien wystarczyć plecak awaryjny?",
-        answer: "Najczęściej rekomenduje się przygotowanie plecaka awaryjnego na minimum 72 godziny. To czas,
-który często uznaje się za kluczowy podczas pierwszej fazy sytuacji kryzysowej lub ograniczonego
-dostępu do pomocy. Po tym czasie pomoc powinna zostać ustrukturyzowana i działania powinny być
-koordynowane przed odpowiednie służby.
-W kontekście przeznaczenia na 72 godziny, najważniejszą kwestią jest zabezpieczenie się w
-adekwatną ilość żywności i wody, ponieważ są to zasoby, których ilość maleje w czasie."
+        answer: "Najczęściej rekomenduje się przygotowanie plecaka awaryjnego na minimum 72 godziny. To czas,który często uznaje się za kluczowy podczas pierwszej fazy sytuacji kryzysowej lub ograniczonego dostępu do pomocy. Po tym czasie pomoc powinna zostać ustrukturyzowana i działania powinny być koordynowane przed odpowiednie służby. W kontekście przeznaczenia na 72 godziny, najważniejszą kwestią jest zabezpieczenie się w adekwatną ilość żywności i wody, ponieważ są to zasoby, których ilość maleje w czasie."
     },
    {
         question: "Jaką żywność powinien zawierać plecak awaryjny?",
