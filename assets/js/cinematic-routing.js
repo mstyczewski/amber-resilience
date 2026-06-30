@@ -447,6 +447,51 @@ function setupPortals() {
     }
 }
 
+/* =========================================================================
+   FAQ ENGINE | DATA-DRIVEN ARCHITECTURE
+   ========================================================================= */
+
+const faqDatabase = [
+    {
+        question: "Co powinien zawierać plecak ewakuacyjny?",
+        answer: "Plecak ewakuacyjny powinien zawierać podstawowe wyposażenie pozwalające przetrwać minimum 72 godziny poza domem. Najczęściej są to: zapas wody, żywność o długim terminie ważności, apteczka, latarka, powerbank, radio, dokumenty, odzież, środki higieniczne oraz narzędzia wielofunkcyjne."
+    },
+    {
+        question: "Czym jest plecak awaryjny i do czego służy?",
+        answer: "Plecak awaryjny to wcześniej przygotowany zestaw najważniejszych rzeczy potrzebnych podczas nagłego opuszczenia domu lub sytuacji kryzysowej. Może być wykorzystywany podczas awarii infrastruktury, ewakuacji, długotrwałego braku prądu czy klęsk żywiołowych."
+    }
+    // Aby dodać nowe pytanie, po prostu wklejasz tutaj kolejny obiekt. Zero powielania HTML.
+];
+
+function renderFAQ() {
+    const container = document.getElementById('faq-dynamic-container');
+    if (!container) return;
+
+    container.innerHTML = ''; // Czyszczenie przed renderowaniem
+
+    faqDatabase.forEach((item) => {
+        const faqHTML = `
+            <div class="faq-item border-b border-white/10 group">
+                <button aria-expanded="false" class="faq-trigger w-full text-left py-8 flex justify-between items-center outline-none focus-visible:bg-white/[0.02]">
+                    <h3 class="font-display text-2xl md:text-3xl text-brand-ivory group-hover:text-brand-gold transition-colors duration-500 pr-8">
+                        ${item.question}
+                    </h3>
+                    <span class="faq-icon text-brand-gold transform transition-transform duration-[0.8s] ease-[cubic-bezier(0.16,1,0.3,1)] flex-shrink-0">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 5v14M5 12h14"/></svg>
+                    </span>
+                </button>
+                <div class="faq-content grid grid-rows-[0fr] transition-[grid-template-rows] duration-[0.8s] ease-[cubic-bezier(0.16,1,0.3,1)]">
+                    <div class="overflow-hidden">
+                        <p class="pb-8 text-brand-muted font-light text-lg leading-relaxed max-w-3xl">
+                            ${item.answer}
+                        </p>
+                    </div>
+                </div>
+            </div>
+        `;
+        container.insertAdjacentHTML('beforeend', faqHTML);
+    });
+}
 
 /* =========================================================================
    GŁÓWNY INICJATOR
@@ -458,7 +503,7 @@ function initAll(targetHash = null) {
     
     setTimeout(() => {
         setupPortals();
-        
+        renderFAQ();
         initAnimations();
         initBackpackCardsAnimation();
         initHeroAndThreatAnimations();
