@@ -546,6 +546,36 @@ znoszą sytuacje stresujące, elementem dodatkowym, o który warto zadbać indyw
 własnym zakresie są przedmioty, które zapewnią dzieciom namiastkę normalności – np. przenośne
 gry czy dla najmłodszych – przytulanki.`
     }
+   {
+        question: "Ile powinien ważyć plecak awaryjny?",
+        answer: `Przyjmuje się, że w celu komfortowego użytkowania, plecak z wyposażeniem nie powinien
+przekraczać 10-20% masy ciała, osoby, która będzie go nosić. Jednak w realnych sytuacjach, zależy to
+w dużej mierze od kilku czynników takich jak wiek czy ogólne możliwości użytkownika. Generalnie im
+lżejszy plecak tym lepiej. Warto mieć na uwadze możliwość wystąpienia sytuacji, w której zajdzie
+potrzeba pomocy innym.`
+    },
+   {
+        question: "Czy posiadanie plecaka awaryjnego oznacza szykowanie się na wojne?",
+        answer: `NIE. Prawdą jest, że o potrzebie posiadania plecaków awaryjnych mówi się więcej od momentu
+wybuchu wojny na Ukrainie i dalszej kolejności zmianami prawnymi w Polsce w odniesieniu do
+ochrony ludności i obrony cywilnej. Pamiętać jednak należy, że dosyć stabilna sytuacja polityczna w
+Europie w ostatnich dekadach spowodowała być może zbyt duży spokój wśród polityków i w
+społeczeństwie. Wyposażenie plecaka awaryjnego jest na tyle uniwersalne, że z powodzeniem można
+z niego korzystać w wielu innych sytuacjach – podczas podróży, nagłego paraliżu komunikacyjnego
+czy awarii prądu w domu. Wszystkie niezbędne elementy mamy pod ręką.`
+    },
+      {
+        question: "Czy gotowy plecak jest lepszy niż samodzielne skompletowany?",
+        answer: `W dyskusji o plecakach awaryjnych nie chodzi o wskazywanie lepszych lub gorszych rozwiązań.
+Nawet bardzo podstawowy zestaw elementów będzie skuteczniejszy niż brak czegokolwiek. Gotowy
+zestaw pozwala osiągnąć podstawowy poziom przygotowania od razu, przy czym należy pamiętać, że
+trzeba się z zawartością plecaka zapoznać, aby umieć z niego skorzystać. Gotowy plecak gwarantuje
+również profesjonalny dobór elementów. Wiele osób, z różnych względów chętniej skorzysta z
+gotowych sprawdzonych rozwiązań, zamiast samodzielnie wyszukiwać pojedyncze elementy. Warto
+zwrócić jeszcze uwagę na fakt, że plecak awaryjny można rozbudowywać na bardzo wiele sposobów,
+zależnie od indywidualnych potrzeb. Gotowy plecak daje pewną podstawę i punkt wyjścia do
+ewentualnego rozszerzenia zawartości.`
+    }
 ];
 
 function renderFAQ() {
