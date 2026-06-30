@@ -494,7 +494,53 @@ na kondycję psychofizyczną.`
     },
     {
         question: "Co powinien zawierać plecak ewakuacyjny?",
-        answer: `Plecak ewakuacyjny powinien zawierać podstawowe wyposażenie pozwalające przetrwać minimum 72 godziny poza domem. Najczęściej są to: zapas wody, żywność o długim terminie ważności, apteczka, latarka, powerbank, radio, dokumenty, odzież, środki higieniczne oraz narzędzia wielofunkcyjne.`
+        answer: `Plecak awaryjny powinien zawierać podstawowe wyposażenie pozwalające przetrwać minimum 72
+godziny poza miejscem zamieszkania. Co oczywiste, każdy element plecaka może być użyteczny w
+innych okolicznościach, dlatego na zawartość plecaka należy patrzeć kompleksowo, ze świadomością,
+że niektóre elementy będę wykorzystywane częściej, a niektóre być może wcale. Plecak awaryjny ma
+dawać poczucie bezpieczeństwa w różnych warunkach. Co do samej zawartości, najczęściej
+wymieniane są: zapas wody i/lub akcesoria do jej uzdatniania, żywność o długim terminie
+przydatności do spożycia, apteczka, latarka, powerbank, radio, dokumenty, odzież, środki higieniczne
+oraz narzędzia wielofunkcyjne. Dokładną zawartość należy określić indywidualnie i zależy ona m.in.
+od takich czynników jak pora roku czy docelowe miejsce przebywania w razie wystąpienia sytuacji
+kryzysowej.`
+    }
+   {
+        question: "Dlaczego warto mieć gotowy plecak w domu?",
+        answer: `TAK — gotowy plecak pozwala zaoszczędzić czas i ograniczyć stres w razie wystąpienia sytuacji
+wymagającej szybkiego działania. Regularnie sprawdzany i uzupełniany zestaw zwiększa gotowość na
+nieprzewidziane zdarzenia. Plecak można również wykorzystywać podczas bardziej codziennych
+sytuacji (np. wielogodzinnych wypraw czy wyjazdów), aby sprawdzić lub przećwiczyć działanie
+wyposażenia. Może to być pomocne w razie wystąpienia realnego zagrożenia.`
+    }
+{
+        question: "Gdzie przechowywać plecak awaryjny?",
+        answer: `Najlepiej przechowywać go w miejscu łatwo dostępnym dla domowników — np. przy wyjściu z domu,
+w szafie w przedpokoju lub innym miejscu umożliwiającym szybkie zabranie plecaka. Gdy często
+poruszamy się samochodem, warto rozważyć przechowywanie plecaka w samochodzie.`
+    }
+{
+        question: "Jak często należy aktualizować zawartość plecaka?",
+        answer: `Warto sprawdzać zawartość co najmniej raz na 6 miesięcy. Należy kontrolować terminy ważności
+żywności, leków czy mniej oczywistych elementów takich jak tabletki do uzdatniania wody czy
+ogrzewacze do rąk/ stóp. Można sprawdzić działanie baterii i ewentualnie je naładować. Okresowy
+przegląd zawartości plecaka pomoże dostosowywać wyposażenie do aktualnych potrzeb.`
+    }
+{
+        question: "Czym wyróżnia się plecak rodzinny?",
+        answer: `Zgodnie z wytycznymi zaleca się, aby każdy domownik, w tym dzieci powyżej 10 roku życia posiadały
+własny plecak awaryjny. Nie precyzuje się co dokładnie powinien zawierać plecak awaryjny dla dzieci,
+tym bardziej tych będących w wieku poniżej 10 lat. Założenie ogólne są teoretyczne. Plecak rodzinny
+jest rozwiązaniem, które wspiera rodziny z dziećmi. Dzieci, zwłaszcza te które nie miały styczności z
+survivalem czy też realną sytuacją kryzysową będą potrzebowały wsparcia ze strony rodziców –
+niezależnie od tego czy są w wieku poniżej lub powyżej 10 lat. Odrębną kwestią są dzieci czy nawet
+osoby dorosłe z niepełnosprawnościami, które wymagają szczególnej opieki. Wiele z takich osób nie
+będzie w stanie poradzić sobie samemu w sytuacji kryzysowej, dodatkowo z obciążeniem w postaci
+plecaka. W plecaku rodzinnym tylko wybrane elementy są przewidziane dla każdej osoby. Część
+elementów jest wspólna, co znacznie obniża ciężar całego plecaka. Z uwagi na fakt, że dzieci inaczej
+znoszą sytuacje stresujące, elementem dodatkowym, o który warto zadbać indywidualnie we
+własnym zakresie są przedmioty, które zapewnią dzieciom namiastkę normalności – np. przenośne
+gry czy dla najmłodszych – przytulanki.`
     }
 ];
 
