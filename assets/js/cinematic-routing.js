@@ -504,7 +504,7 @@ przydatności do spożycia, apteczka, latarka, powerbank, radio, dokumenty, odzi
 oraz narzędzia wielofunkcyjne. Dokładną zawartość należy określić indywidualnie i zależy ona m.in.
 od takich czynników jak pora roku czy docelowe miejsce przebywania w razie wystąpienia sytuacji
 kryzysowej.`
-    }
+    },
    {
         question: "Dlaczego warto mieć gotowy plecak w domu?",
         answer: `TAK — gotowy plecak pozwala zaoszczędzić czas i ograniczyć stres w razie wystąpienia sytuacji
@@ -512,20 +512,20 @@ wymagającej szybkiego działania. Regularnie sprawdzany i uzupełniany zestaw z
 nieprzewidziane zdarzenia. Plecak można również wykorzystywać podczas bardziej codziennych
 sytuacji (np. wielogodzinnych wypraw czy wyjazdów), aby sprawdzić lub przećwiczyć działanie
 wyposażenia. Może to być pomocne w razie wystąpienia realnego zagrożenia.`
-    }
+    },
 {
         question: "Gdzie przechowywać plecak awaryjny?",
         answer: `Najlepiej przechowywać go w miejscu łatwo dostępnym dla domowników — np. przy wyjściu z domu,
 w szafie w przedpokoju lub innym miejscu umożliwiającym szybkie zabranie plecaka. Gdy często
 poruszamy się samochodem, warto rozważyć przechowywanie plecaka w samochodzie.`
-    }
+    },
 {
         question: "Jak często należy aktualizować zawartość plecaka?",
         answer: `Warto sprawdzać zawartość co najmniej raz na 6 miesięcy. Należy kontrolować terminy ważności
 żywności, leków czy mniej oczywistych elementów takich jak tabletki do uzdatniania wody czy
 ogrzewacze do rąk/ stóp. Można sprawdzić działanie baterii i ewentualnie je naładować. Okresowy
 przegląd zawartości plecaka pomoże dostosowywać wyposażenie do aktualnych potrzeb.`
-    }
+    },
 {
         question: "Czym wyróżnia się plecak rodzinny?",
         answer: `Zgodnie z wytycznymi zaleca się, aby każdy domownik, w tym dzieci powyżej 10 roku życia posiadały
