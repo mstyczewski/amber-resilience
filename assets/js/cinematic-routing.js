@@ -52,7 +52,7 @@ const moduleDatabase = {
         items: [
             'baterie alkaliczne rozmiar AA / R6 x4', 
             'przezroczyste wodoodporne etui na dokumenty', 
-            'mapa samochodowa Polski w skali 1:700 000'
+            'mapa samochodowa Polski w skali 1:700 000',
             'lornetka'
         ] 
     },
