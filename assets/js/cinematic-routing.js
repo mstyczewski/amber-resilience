@@ -583,7 +583,7 @@ z niego korzystać w wielu innych sytuacjach – podczas podróży, nagłego par
 czy awarii prądu w domu. Wszystkie niezbędne elementy mamy pod ręką.`
     },
       {
-        question: "Czy gotowy plecak jest lepszy niż samodzielne skompletowany?",
+        question: "Czy gotowy plecak jest lepszy niż samodzielnie skompletowany?",
         answer: `W dyskusji o plecakach awaryjnych nie chodzi o wskazywanie lepszych lub gorszych rozwiązań.
 Nawet bardzo podstawowy zestaw elementów będzie skuteczniejszy niż brak czegokolwiek. Gotowy
 zestaw pozwala osiągnąć podstawowy poziom przygotowania od razu, przy czym należy pamiętać, że
