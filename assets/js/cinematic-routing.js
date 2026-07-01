@@ -322,6 +322,24 @@ function initContactForm() {
         }
     });
 }
+function initObfuscatedEmails() {
+    const emailLinks = document.querySelectorAll('.obfuscated-link');
+    
+    emailLinks.forEach(link => {
+        const user = link.getAttribute('data-user');
+        const domain = link.getAttribute('data-domain');
+        
+        if (user && domain) {
+            const emailAddress = `${user}@${domain}`;
+            link.href = `mailto:${emailAddress}`;
+            link.textContent = emailAddress;
+            
+            // Oczyszczamy DOM z atrybutów technicznych dla bezwzględnej estetyki kodu
+            link.removeAttribute('data-user');
+            link.removeAttribute('data-domain');
+        }
+    });
+}
 
 function scrollToAnchor(hash) {
     if (!hash || typeof hash !== 'string') return; 
@@ -625,7 +643,8 @@ function initAll(targetHash = null) {
         initFeatureGridAnimation();
         initFAQ();
         initLightboxBind();
-        initContactForm(); 
+        initContactForm();
+        initObfuscatedEmails();
         initNavLinks();
         initMobileMenu();
        
