@@ -118,6 +118,8 @@ window.syncPriceDisplay = function() {
     if (priceElement && qtyInput) {
         const basePrice = parseInt(priceElement.getAttribute('data-base-price')) || 1700;
         const currentValue = parseInt(qtyInput.value) || 1;
+        
+        // Ciche przeliczenie bez animacji opacity dla płynnego startu
         priceElement.innerText = `${(basePrice * currentValue).toLocaleString('pl-PL')} PLN`;
     }
 };
