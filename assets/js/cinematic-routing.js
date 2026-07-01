@@ -115,7 +115,7 @@ window.updatePriceDisplay = function(quantity) {
     const priceElement = document.getElementById('price-display');
     if (priceElement) {
         // DYNAMICZNE POBIERANIE CENY: Skrypt czyta data-base-price, a jeśli nie istnieje, domyślnie przyjmuje 1600.
-        const basePrice = parseInt(priceElement.getAttribute('data-base-price')) || 1600;
+        const basePrice = parseInt(priceElement.getAttribute('data-base-price')) || 1700;
         const formattedPrice = (basePrice * quantity).toLocaleString('pl-PL');
         
         priceElement.style.opacity = '0.5';
