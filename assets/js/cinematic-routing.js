@@ -98,6 +98,7 @@ window.closeDossier = function() {
     setTimeout(() => { document.body.style.overflow = ''; }, 700); 
 };
 
+// 1. Kontroler Ilości (odbiera kliknięcie)
 window.updateQuantity = function(change) {
     const input = document.getElementById('qty-input');
     if (!input) return;
@@ -107,10 +108,27 @@ window.updateQuantity = function(change) {
     
     if (newValue >= 1 && newValue <= 10) { 
         input.value = newValue;
-        window.updatePriceDisplay(newValue);
+        window.updatePriceDisplay(newValue); // Przekazuje nową ilość do widoku
     }
 };
 
+// 2. Motion that whispers: Aktualizacja wizualna z animacją (zwrócona do kodu)
+window.updatePriceDisplay = function(quantity) {
+    const priceElement = document.getElementById('price-display');
+    if (priceElement) {
+        // Dynamiczne czytanie ceny: zadziała i dla 1700 i dla 3700
+        const basePrice = parseInt(priceElement.getAttribute('data-base-price')) || 1700;
+        const formattedPrice = (basePrice * quantity).toLocaleString('pl-PL');
+        
+        priceElement.style.opacity = '0.5';
+        setTimeout(() => {
+            priceElement.innerText = `${formattedPrice} PLN`;
+            priceElement.style.opacity = '1';
+        }, 150);
+    }
+};
+
+// 3. The Invisible Expensive Stuff: Cicha synchronizacja przy starcie Barba.js
 window.syncPriceDisplay = function() {
     const priceElement = document.getElementById('price-display');
     const qtyInput = document.getElementById('qty-input');
@@ -119,7 +137,6 @@ window.syncPriceDisplay = function() {
         const basePrice = parseInt(priceElement.getAttribute('data-base-price')) || 1700;
         const currentValue = parseInt(qtyInput.value) || 1;
         
-        // Ciche przeliczenie bez animacji opacity dla płynnego startu
         priceElement.innerText = `${(basePrice * currentValue).toLocaleString('pl-PL')} PLN`;
     }
 };
