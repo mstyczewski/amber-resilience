@@ -111,18 +111,14 @@ window.updateQuantity = function(change) {
     }
 };
 
-window.updatePriceDisplay = function(quantity) {
+window.syncPriceDisplay = function() {
     const priceElement = document.getElementById('price-display');
-    if (priceElement) {
-        // DYNAMICZNE POBIERANIE CENY: Skrypt czyta data-base-price, a jeśli nie istnieje, domyślnie przyjmuje 1600.
+    const qtyInput = document.getElementById('qty-input');
+    
+    if (priceElement && qtyInput) {
         const basePrice = parseInt(priceElement.getAttribute('data-base-price')) || 1700;
-        const formattedPrice = (basePrice * quantity).toLocaleString('pl-PL');
-        
-        priceElement.style.opacity = '0.5';
-        setTimeout(() => {
-            priceElement.innerText = `${formattedPrice} PLN`;
-            priceElement.style.opacity = '1';
-        }, 150);
+        const currentValue = parseInt(qtyInput.value) || 1;
+        priceElement.innerText = `${(basePrice * currentValue).toLocaleString('pl-PL')} PLN`;
     }
 };
 
@@ -647,6 +643,7 @@ function initAll(targetHash = null) {
         initObfuscatedEmails();
         initNavLinks();
         initMobileMenu();
+        syncPriceDisplay();
        
        
         if (typeof ScrollTrigger !== 'undefined') {
