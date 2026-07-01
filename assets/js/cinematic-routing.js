@@ -52,7 +52,7 @@ const moduleDatabase = {
         items: [
             'baterie alkaliczne rozmiar AA / R6 x4', 
             'przezroczyste wodoodporne etui na dokumenty', 
-            'mapa samochodowa Polski w skali 1:700 000',
+            'mapa samochodowa Polski w skali 1:700 000', // <-- DODANY BRAKUJĄCY PRZECINEK
             'lornetka'
         ] 
     },
@@ -102,9 +102,8 @@ const moduleDatabase = {
             'wielorazowy ogrzewacz do rąk', 
             'apteczka pierwszej pomocy w etui DIN 13164'
         ] 
-    }
-        
-};
+    }, 
+
     // === PLECAK RODZINNY ===
     
     'tools-family': { 
@@ -186,7 +185,7 @@ const moduleDatabase = {
             'Termometr polowy'
         ] 
     }
-};
+}; 
 
 /* =========================================================================
    GLOBALNE FUNKCJE LOGIKI PRODUKTU
