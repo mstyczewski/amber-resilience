@@ -643,7 +643,7 @@ function initAll(targetHash = null) {
         initObfuscatedEmails();
         initNavLinks();
         initMobileMenu();
-        syncPriceDisplay();
+        window.syncPriceDisplay();
        
        
         if (typeof ScrollTrigger !== 'undefined') {
