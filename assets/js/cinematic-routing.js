@@ -429,19 +429,21 @@ function initHeroAndThreatAnimations() {
     );
 }
 function initCinematicMedia() {
-    // Celujemy precyzyjnie we wszystkie wideo z atrybutem autoplay
     const cinematicVideos = document.querySelectorAll('video[autoplay]');
     
     cinematicVideos.forEach(video => {
-        // Cichy restart dla architektury SPA
-        video.load();
-        const playPromise = video.play();
+        // USUNIĘTO: video.load(); - Nie niszczymy natywnego bufora przeglądarki!
         
-        // Obsługa asynchronicznej obietnicy odtwarzania (chroni przed błędami w konsoli)
-        if (playPromise !== undefined) {
-            playPromise.catch(error => {
-                console.warn("[Amber Resilience | Premium Engine] Zablokowano autoodtwarzanie:", error);
-            });
+        // Sprawdzamy, czy wideo faktycznie potrzebuje naszej pomocy do startu
+        // (np. po przejściu Barba.js z innej podstrony)
+        if (video.paused) {
+            const playPromise = video.play();
+            
+            if (playPromise !== undefined) {
+                playPromise.catch(error => {
+                    console.warn("[Amber Resilience | Premium Engine] Zablokowano autoodtwarzanie:", error);
+                });
+            }
         }
     });
 }
