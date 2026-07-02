@@ -372,7 +372,7 @@ window.closeLightbox = function() {
     }
 };
 /* =========================================================================
-   CONTEXTUAL NAVIGATION (SMART HEADER)
+   CONTEXTUAL NAVIGATION (SMART HEADER + FROSTED ONYX)
    ========================================================================= */
 window.initSmartHeader = function() {
     const nav = document.getElementById('premium-nav');
@@ -386,18 +386,29 @@ window.initSmartHeader = function() {
     window._smartHeaderScroll = function() {
         const currentScrollY = window.scrollY;
         
-        // Jesteśmy na samej górze - nawigacja zawsze widoczna
-        if (currentScrollY <= 100) {
-            nav.classList.remove('-translate-y-full');
+        // 1. DYNAMICZNE TŁO: Jeśli zjechaliśmy poniżej 50px, włączamy "Frosted Glass"
+        if (currentScrollY > 50) {
+            // Dodajemy głęboki onyks, rozmycie tła pod spodem i ekskluzywną, 1-pikselową linię odcięcia
+            nav.classList.add('bg-brand-dark/95', 'backdrop-blur-md', 'border-b', 'border-white/5', 'shadow-2xl');
+            nav.classList.remove('bg-transparent');
+            
+            // Lekko zmniejszamy padding, aby zasygnalizować tryb "kompaktowy"
+            nav.classList.remove('py-6');
+            nav.classList.add('py-4');
+        } else {
+            // Wracamy na samą górę Hero: pełna przezroczystość, kinowy oddech
+            nav.classList.remove('bg-brand-dark/95', 'backdrop-blur-md', 'border-b', 'border-white/5', 'shadow-2xl', '-translate-y-full', 'py-4');
+            nav.classList.add('bg-transparent', 'py-6');
             lastScrollY = currentScrollY;
-            return;
+            return; // Jesteśmy na szczycie, nie chowamy nawigacji
         }
         
-        // Scroll w dół - chowamy elegancko pasek
+        // 2. KONTROLA WIDOCZNOŚCI (Smart Header)
+        // Chowamy pasek dopiero, gdy scrollujemy w dół i jesteśmy głębiej niż 200px
         if (currentScrollY > lastScrollY && currentScrollY > 200) {
             nav.classList.add('-translate-y-full');
         } 
-        // Scroll w górę - wyciągamy pasek
+        // Scroll w górę - wyciągamy pasek (który teraz ma już ustawione tło)
         else if (currentScrollY < lastScrollY) {
             nav.classList.remove('-translate-y-full');
         }
@@ -405,7 +416,11 @@ window.initSmartHeader = function() {
         lastScrollY = currentScrollY;
     };
 
+    // Podpinamy nasłuchiwanie z optymalizacją passive (kluczowe dla płynności)
     window.addEventListener('scroll', window._smartHeaderScroll, { passive: true });
+    
+    // Wymuszamy pojedyncze przeliczenie na start (rozwiązuje problem odświeżenia w połowie strony)
+    window._smartHeaderScroll();
 };
 
 
