@@ -372,11 +372,10 @@ window.closeLightbox = function() {
     }
 };
 /* =========================================================================
-   CONTEXTUAL NAVIGATION (EDITORIAL HERO TRANSPARENCY - NO BORDERS)
+   CONTEXTUAL NAVIGATION (INSTANT EDITORIAL HIDE + FROSTED ONYX)
    ========================================================================= */
 window.initSmartHeader = function() {
     const nav = document.getElementById('premium-nav');
-    const hero = document.getElementById('hero');
     if (!nav) return;
 
     let lastScrollY = window.scrollY;
@@ -386,36 +385,29 @@ window.initSmartHeader = function() {
     window._smartHeaderScroll = function() {
         const currentScrollY = window.scrollY;
         
-        // Dynamicznie pobieramy realną wysokość sekcji Hero (cały ekran)
-        const heroHeight = hero ? hero.offsetHeight : window.innerHeight;
+        // 1. KONTROLA WIDOCZNOŚCI (Natychmiastowa reakcja)
+        // Jeśli scrollujemy w dół (i minęliśmy próg 10px chroniący przed drganiem touchpada) -> Chowamy!
+        if (currentScrollY > lastScrollY && currentScrollY > 10) {
+            nav.classList.add('-translate-y-full');
+        } 
+        // Jeśli scrollujemy w górę -> Pokazujemy z powrotem
+        else if (currentScrollY < lastScrollY) {
+            nav.classList.remove('-translate-y-full');
+        }
         
-        // 1. DYNAMICZNE TŁO: Włącza się DOPIERO, gdy całkowicie opuścimy sekcję Hero
-        // Dodajemy mały offset (80px), aby tło wskoczyło idealnie w momencie przejścia sekcji
-        if (currentScrollY > (heroHeight - 80)) {
-            // USUNIĘTO: 'border-b' oraz 'border-white/5' dla absolutnej czystości formy
-            nav.classList.add('bg-brand-dark/95', 'backdrop-blur-md', 'shadow-2xl');
+        // 2. KONTROLA MATERIAŁU (Przezroczystość vs Matowe szkło)
+        // Jeśli jesteśmy oderwani od samej góry (> 50px), nawigacja (gdy się pojawi) musi mieć tło
+        if (currentScrollY > 50) {
+            nav.classList.add('bg-brand-dark/60', 'backdrop-blur-lg', 'shadow-2xl');
             nav.classList.remove('bg-transparent');
             
-            // Przejście w tryb kompaktowy (mniejszy padding) poza Hero
+            // Kompaktowy tryb (niższy pasek, żeby mniej zasłaniał)
             nav.classList.remove('py-6');
             nav.classList.add('py-4');
         } else {
-            // JESTEŚMY W SEKCH HERO: Nawigacja staje się krystalicznie przezroczysta,
-            // wraca do pełnego paddingu i jest zablokowana jako widoczna.
-            nav.classList.remove('bg-brand-dark/95', 'backdrop-blur-md', 'shadow-2xl', '-translate-y-full', 'py-4');
+            // Jesteśmy na absolutnym szczycie sekcji Hero -> Pełna przezroczystość i oddech
+            nav.classList.remove('bg-brand-dark/60', 'backdrop-blur-lg', 'shadow-2xl', 'py-4');
             nav.classList.add('bg-transparent', 'py-6');
-            
-            lastScrollY = currentScrollY;
-            return; // Przerywamy wykonanie – wewnątrz Hero menu nigdy nie znika, oddycha razem z wideo
-        }
-        
-        // 2. KONTROLA WIDOCZNOŚCI (Smart Header) - aktywuje się dopiero POZA sekcją Hero
-        if (currentScrollY > lastScrollY && currentScrollY > heroHeight) {
-            // Głęboki scroll w dół – chowamy menu
-            nav.classList.add('-translate-y-full');
-        } else if (currentScrollY < lastScrollY) {
-            // Scroll w górę – intencjonalne wywołanie menu przez użytkownika
-            nav.classList.remove('-translate-y-full');
         }
         
         lastScrollY = currentScrollY;
@@ -423,7 +415,7 @@ window.initSmartHeader = function() {
 
     window.addEventListener('scroll', window._smartHeaderScroll, { passive: true });
     
-    // Wywołanie startowe dla stabilizacji po odświeżeniu
+    // Wymuszenie kalkulacji startowej
     window._smartHeaderScroll();
 };
 
