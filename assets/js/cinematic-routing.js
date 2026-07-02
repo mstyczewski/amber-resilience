@@ -381,7 +381,7 @@ window.initSmartHeader = function() {
 
     let lastScrollY = window.scrollY;
     
-    window removeEventListener('scroll', window._smartHeaderScroll);
+    window.removeEventListener('scroll', window._smartHeaderScroll);
     
     window._smartHeaderScroll = function() {
         const currentScrollY = window.scrollY;
