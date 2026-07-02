@@ -372,57 +372,60 @@ window.closeLightbox = function() {
     }
 };
 /* =========================================================================
-   CONTEXTUAL NAVIGATION (SMART HEADER + FROSTED ONYX)
+   CONTEXTUAL NAVIGATION (EDITORIAL HERO TRANSPARENCY - NO BORDERS)
    ========================================================================= */
 window.initSmartHeader = function() {
     const nav = document.getElementById('premium-nav');
+    const hero = document.getElementById('hero');
     if (!nav) return;
 
     let lastScrollY = window.scrollY;
     
-    // Zdejmujemy ewentualne stare listenery przy przejściach Barba.js
-    window.removeEventListener('scroll', window._smartHeaderScroll);
+    window removeEventListener('scroll', window._smartHeaderScroll);
     
     window._smartHeaderScroll = function() {
         const currentScrollY = window.scrollY;
         
-        // 1. DYNAMICZNE TŁO: Jeśli zjechaliśmy poniżej 50px, włączamy "Frosted Glass"
-        if (currentScrollY > 50) {
-            // Dodajemy głęboki onyks, rozmycie tła pod spodem i ekskluzywną, 1-pikselową linię odcięcia
-            nav.classList.add('bg-brand-dark/95', 'backdrop-blur-md', 'border-b', 'border-white/5', 'shadow-2xl');
+        // Dynamicznie pobieramy realną wysokość sekcji Hero (cały ekran)
+        const heroHeight = hero ? hero.offsetHeight : window.innerHeight;
+        
+        // 1. DYNAMICZNE TŁO: Włącza się DOPIERO, gdy całkowicie opuścimy sekcję Hero
+        // Dodajemy mały offset (80px), aby tło wskoczyło idealnie w momencie przejścia sekcji
+        if (currentScrollY > (heroHeight - 80)) {
+            // USUNIĘTO: 'border-b' oraz 'border-white/5' dla absolutnej czystości formy
+            nav.classList.add('bg-brand-dark/95', 'backdrop-blur-md', 'shadow-2xl');
             nav.classList.remove('bg-transparent');
             
-            // Lekko zmniejszamy padding, aby zasygnalizować tryb "kompaktowy"
+            // Przejście w tryb kompaktowy (mniejszy padding) poza Hero
             nav.classList.remove('py-6');
             nav.classList.add('py-4');
         } else {
-            // Wracamy na samą górę Hero: pełna przezroczystość, kinowy oddech
-            nav.classList.remove('bg-brand-dark/95', 'backdrop-blur-md', 'border-b', 'border-white/5', 'shadow-2xl', '-translate-y-full', 'py-4');
+            // JESTEŚMY W SEKCH HERO: Nawigacja staje się krystalicznie przezroczysta,
+            // wraca do pełnego paddingu i jest zablokowana jako widoczna.
+            nav.classList.remove('bg-brand-dark/95', 'backdrop-blur-md', 'shadow-2xl', '-translate-y-full', 'py-4');
             nav.classList.add('bg-transparent', 'py-6');
+            
             lastScrollY = currentScrollY;
-            return; // Jesteśmy na szczycie, nie chowamy nawigacji
+            return; // Przerywamy wykonanie – wewnątrz Hero menu nigdy nie znika, oddycha razem z wideo
         }
         
-        // 2. KONTROLA WIDOCZNOŚCI (Smart Header)
-        // Chowamy pasek dopiero, gdy scrollujemy w dół i jesteśmy głębiej niż 200px
-        if (currentScrollY > lastScrollY && currentScrollY > 200) {
+        // 2. KONTROLA WIDOCZNOŚCI (Smart Header) - aktywuje się dopiero POZA sekcją Hero
+        if (currentScrollY > lastScrollY && currentScrollY > heroHeight) {
+            // Głęboki scroll w dół – chowamy menu
             nav.classList.add('-translate-y-full');
-        } 
-        // Scroll w górę - wyciągamy pasek (który teraz ma już ustawione tło)
-        else if (currentScrollY < lastScrollY) {
+        } else if (currentScrollY < lastScrollY) {
+            // Scroll w górę – intencjonalne wywołanie menu przez użytkownika
             nav.classList.remove('-translate-y-full');
         }
         
         lastScrollY = currentScrollY;
     };
 
-    // Podpinamy nasłuchiwanie z optymalizacją passive (kluczowe dla płynności)
     window.addEventListener('scroll', window._smartHeaderScroll, { passive: true });
     
-    // Wymuszamy pojedyncze przeliczenie na start (rozwiązuje problem odświeżenia w połowie strony)
+    // Wywołanie startowe dla stabilizacji po odświeżeniu
     window._smartHeaderScroll();
 };
-
 
 /* =========================================================================
    SILNIKI ANIMACJI GSAP I CYKL ŻYCIA
