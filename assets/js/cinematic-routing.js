@@ -371,6 +371,42 @@ window.closeLightbox = function() {
         lightbox.classList.add('opacity-0', 'pointer-events-none');
     }
 };
+/* =========================================================================
+   CONTEXTUAL NAVIGATION (SMART HEADER)
+   ========================================================================= */
+window.initSmartHeader = function() {
+    const nav = document.getElementById('premium-nav');
+    if (!nav) return;
+
+    let lastScrollY = window.scrollY;
+    
+    // Zdejmujemy ewentualne stare listenery przy przejściach Barba.js
+    window.removeEventListener('scroll', window._smartHeaderScroll);
+    
+    window._smartHeaderScroll = function() {
+        const currentScrollY = window.scrollY;
+        
+        // Jesteśmy na samej górze - nawigacja zawsze widoczna
+        if (currentScrollY <= 100) {
+            nav.classList.remove('-translate-y-full');
+            lastScrollY = currentScrollY;
+            return;
+        }
+        
+        // Scroll w dół - chowamy elegancko pasek
+        if (currentScrollY > lastScrollY && currentScrollY > 200) {
+            nav.classList.add('-translate-y-full');
+        } 
+        // Scroll w górę - wyciągamy pasek
+        else if (currentScrollY < lastScrollY) {
+            nav.classList.remove('-translate-y-full');
+        }
+        
+        lastScrollY = currentScrollY;
+    };
+
+    window.addEventListener('scroll', window._smartHeaderScroll, { passive: true });
+};
 
 
 /* =========================================================================
@@ -833,6 +869,7 @@ function initAll(targetHash = null) {
         initNavLinks();
         initMobileMenu();
         window.syncPriceDisplay();
+        window.initSmartHeader();
        
        
         if (typeof ScrollTrigger !== 'undefined') {
