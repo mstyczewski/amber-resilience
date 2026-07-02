@@ -428,6 +428,23 @@ function initHeroAndThreatAnimations() {
         }
     );
 }
+function initCinematicMedia() {
+    // Celujemy precyzyjnie we wszystkie wideo z atrybutem autoplay
+    const cinematicVideos = document.querySelectorAll('video[autoplay]');
+    
+    cinematicVideos.forEach(video => {
+        // Cichy restart dla architektury SPA
+        video.load();
+        const playPromise = video.play();
+        
+        // Obsługa asynchronicznej obietnicy odtwarzania (chroni przed błędami w konsoli)
+        if (playPromise !== undefined) {
+            playPromise.catch(error => {
+                console.warn("[Amber Resilience | Premium Engine] Zablokowano autoodtwarzanie:", error);
+            });
+        }
+    });
+}
 
 function initFeatureGridAnimation() {
     const featureCards = document.querySelectorAll('.feature-card');
@@ -803,6 +820,7 @@ function initAll(targetHash = null) {
         setupPortals();
         renderFAQ();
         initAnimations();
+        initCinematicMedia();
         initBackpackCardsAnimation();
         initHeroAndThreatAnimations();
         initFeatureGridAnimation();
