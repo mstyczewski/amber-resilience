@@ -1,7 +1,7 @@
 class PremiumFooter extends HTMLElement {
     connectedCallback() {
         this.innerHTML = `
-                        <footer class="bg-brand-surface pt-32 pb-10 relative z-10 fade-in-up">
+                        <footer class="bg-brand-surface pt-32 pb-10 relative z-10">
                 <div class="max-w-7xl mx-auto px-8 md:px-16">
                     <div class="flex flex-col md:flex-row justify-between items-center md:items-start gap-8 mb-16 border-b border-white/5 pb-10">
                         <a href="index.html" class="font-display tracking-[0.2em] uppercase text-xl text-brand-ivory">Amber Resilience</a>
