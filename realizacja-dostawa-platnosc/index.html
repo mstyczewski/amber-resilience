@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="pl" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Regulamin Sklepu | Amber Resilience</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: { gold: '#C5A059', dark: '#050505', ivory: '#F9F7F2', muted: '#A3A3A3' }
+                    },
+                    fontFamily: {
+                        display: ['"Cormorant Garamond"', 'serif'],
+                        body: ['"Outfit"', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-brand-dark text-brand-ivory font-body selection:bg-brand-gold selection:text-brand-dark">
+<!-- Globalna Nawigacja -->
+     <nav class="fixed top-0 left-0 w-full z-50 py-6 px-6 md:px-16 flex justify-between items-center bg-gradient-to-b from-black/90 to-transparent pointer-events-none">
+        <div class="w-24 md:w-24 pointer-events-auto">
+            <a href="/">
+                <img src="/logo.png" alt="Amber Resilience Logo" class="w-full h-auto mix-blend-screen filter contrast-110 brightness-125">
+            </a>
+        </div>
+        
+        <ul class="hidden md:flex space-x-12 text-xs tracking-[0.2em] uppercase font-light text-brand-ivory/80 pointer-events-auto">
+           <div class="hidden md:flex items-center gap-12 text-[15px] uppercase tracking-[0.3em] text-brand-muted font-mono font-medium">
+                <a href="/o-nas/" class="hover:text-brand-ivory transition-colors duration-500 relative group">
+                    KONCEPCJA
+                    <span class="absolute -bottom-2 left-0 w-0 h-[1px] bg-brand-gold transition-all duration-500 group-hover:w-full"></span>
+                </a>
+                <a href="/index.html#wybor-plecaka" class="hover:text-brand-ivory transition-colors duration-500 relative group">
+                    NASZE PLECAKI
+                    <span class="absolute -bottom-2 left-0 w-0 h-[1px] bg-brand-gold transition-all duration-500 group-hover:w-full"></span>
+                </a>
+                <a href="/faq/" class="hover:text-brand-ivory transition-colors duration-500 relative group">
+                    FAQ
+                    <span class="absolute -bottom-2 left-0 w-0 h-[1px] bg-brand-gold transition-all duration-500 group-hover:w-full"></span>
+                </a>
+                <a href="/kontakt/" class="hover:text-brand-ivory transition-colors duration-500 relative group">
+                    KONTAKT
+                    <span class="absolute -bottom-2 left-0 w-0 h-[1px] bg-brand-gold transition-all duration-500 group-hover:w-full"></span>
+                </a>
+            </div>
+        </ul>
+        
+        <button class="md:hidden text-brand-muted hover:text-brand-ivory transition-colors pointer-events-auto">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+        </button>
+    </nav>
+
+<main data-barba="container" data-barba-namespace="logistics" class="bg-brand-dark min-h-screen">
+
+    <!-- HERO LOGISTICS SECTION -->
+    <header class="relative w-full pt-40 pb-20 px-6 md:px-16 overflow-hidden border-b border-white/5">
+        <div class="relative z-20 w-full max-w-7xl mx-auto fade-in-up">
+            <span class="flex items-center gap-4 text-brand-gold text-[10px] md:text-xs tracking-[0.4em] uppercase mb-6 font-light">
+                <span class="w-8 h-px bg-brand-gold"></span>
+                Procedury Operacyjne
+            </span>
+            <h1 class="font-display text-5xl md:text-7xl leading-[1.1] text-brand-ivory text-shadow-cinematic">
+                Realizacja, dostawa,<br>
+                <span class="italic text-brand-muted">i płatności.</span>
+            </h1>
+        </div>
+    </header>
+
+    <!-- CONTENT GRID SECTION -->
+    <section class="py-24 px-6 md:px-16 relative z-20">
+        <div class="max-w-7xl mx-auto">
+            
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-24">
+                
+                <!-- STICKY INDEX (LEWA KOLUMNA) -->
+                <aside class="hidden lg:block lg:col-span-4 relative">
+                    <div class="sticky top-32">
+                        <span class="font-mono text-xs text-brand-muted/50 tracking-widest uppercase block mb-8">Indeks</span>
+                        <ul class="space-y-6 font-display text-2xl text-brand-muted/70">
+                            <li class="hover:text-brand-gold transition-colors duration-300 cursor-pointer">Realizacja zamówienia</li>
+                            <li class="hover:text-brand-gold transition-colors duration-300 cursor-pointer">Czas i dostawa</li>
+                            <li class="hover:text-brand-gold transition-colors duration-300 cursor-pointer">Metody płatności</li>
+                            <li class="hover:text-brand-gold transition-colors duration-300 cursor-pointer">Bezpieczeństwo</li>
+                        </ul>
+                    </div>
+                </aside>
+
+                <!-- MAIN CONTENT (PRAWA KOLUMNA) -->
+                <article class="col-span-1 lg:col-span-8 space-y-24">
+
+                    <!-- REALIZACJA & PRZYGOTOWANIE -->
+                    <section class="fade-in-up">
+                        <h2 class="font-display text-3xl md:text-4xl text-brand-ivory mb-8">Realizacja Twojego zamówienia</h2>
+                        <div class="prose prose-invert prose-p:font-light prose-p:text-brand-muted prose-p:text-lg prose-p:leading-relaxed max-w-none space-y-6">
+                            <p>
+                                Na całkowity czas realizacji zamówienia składa się czas potrzebny do wysyłki produktu (podany bezpośrednio na stronie produktu) oraz czas operacyjny dostawy. 
+                            </p>
+                            <div class="p-8 mt-8 border border-white/5 bg-brand-surface relative overflow-hidden group">
+                                <div class="absolute inset-0 bg-brand-gold/5 transform scale-x-0 group-hover:scale-x-100 origin-left transition-transform duration-700 ease-out"></div>
+                                <h3 class="font-mono text-[10px] tracking-[0.3em] uppercase text-brand-gold mb-3 relative z-10">Proces Asemblacji</h3>
+                                <p class="relative z-10 m-0">
+                                    Produkty <strong>AMBER RESILIENTE</strong> są składane w Polsce, ściśle i indywidualnie po złożeniu zamówienia. Precyzyjny czas przygotowania Twojego wariantu znajduje się zawsze na karcie produktu.
+                                </p>
+                            </div>
+                        </div>
+                    </section>
+
+                    <div class="w-full h-px bg-white/5"></div>
+
+                    <!-- DOSTAWA -->
+                    <section class="fade-in-up">
+                        <h2 class="font-display text-3xl md:text-4xl text-brand-ivory mb-8">Czas i warunki dostawy</h2>
+                        <div class="prose prose-invert prose-p:font-light prose-p:text-brand-muted prose-p:text-lg prose-p:leading-relaxed max-w-none">
+                            <p>
+                                Dostawa realizowana jest na terytorium Polski bezpośrednio pod Twoje drzwi za pośrednictwem zaufanych firm kurierskich, zgodnie z ich czasem operacyjnym.
+                            </p>
+                            <p class="text-brand-ivory font-normal mt-6">
+                                Jeśli zamówisz produkt rano, wyślemy go tego samego dnia wieczorem — <span class="text-brand-gold">90% naszych przesyłek jest dostarczanych następnego dnia roboczego.</span>
+                            </p>
+                            <div class="inline-flex items-center gap-4 mt-8 px-6 py-4 bg-brand-gold/10 border border-brand-gold/20 rounded-sm">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#C5A059" stroke-width="1.5"><path d="M5 12l5 5L20 7"/></svg>
+                                <span class="font-mono text-[11px] uppercase tracking-[0.2em] text-brand-gold">Dostawa wszystkich produktów jest darmowa.</span>
+                            </div>
+                        </div>
+                    </section>
+
+                    <div class="w-full h-px bg-white/5"></div>
+
+                    <!-- METODY PŁATNOŚCI -->
+                    <section class="fade-in-up">
+                        <h2 class="font-display text-3xl md:text-4xl text-brand-ivory mb-8">Obsługiwane metody płatności</h2>
+                        
+                        <ul role="list" class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-10">
+                            <!-- BLIK -->
+                            <li class="flex items-center gap-6 p-6 border border-white/5 bg-brand-surface hover:border-brand-gold/40 transition-colors duration-500">
+                                <span class="text-brand-gold font-mono text-[10px]">01 //</span>
+                                <span class="font-body text-sm font-light text-brand-ivory uppercase tracking-widest">BLIK</span>
+                            </li>
+                            <!-- PAYNOW/P24 -->
+                            <li class="flex items-center gap-6 p-6 border border-white/5 bg-brand-surface hover:border-brand-gold/40 transition-colors duration-500">
+                                <span class="text-brand-gold font-mono text-[10px]">02 //</span>
+                                <span class="font-body text-sm font-light text-brand-ivory uppercase tracking-widest">Szybkie Płatności <br><span class="text-[9px] text-brand-muted/70">(Paynow.pl / Przelewy24.pl)</span></span>
+                            </li>
+                            <!-- KARTY -->
+                            <li class="flex items-center gap-6 p-6 border border-white/5 bg-brand-surface hover:border-brand-gold/40 transition-colors duration-500">
+                                <span class="text-brand-gold font-mono text-[10px]">03 //</span>
+                                <span class="font-body text-sm font-light text-brand-ivory uppercase tracking-widest">Karty Płatnicze <br><span class="text-[9px] text-brand-muted/70">(Visa, Mastercard, Maestro)</span></span>
+                            </li>
+                            <!-- ODROCZONA -->
+                            <li class="flex items-center gap-6 p-6 border border-brand-gold/20 bg-brand-gold/5 hover:border-brand-gold/60 transition-colors duration-500">
+                                <span class="text-brand-gold font-mono text-[10px]">04 //</span>
+                                <span class="font-body text-sm font-light text-brand-gold uppercase tracking-widest">Odroczona płatność <br><span class="text-[9px] opacity-80">Do 14 dni (Przelew)</span></span>
+                            </li>
+                        </ul>
+
+                        <div class="p-8 border-l-2 border-brand-gold bg-brand-surface/50">
+                            <h4 class="font-body text-sm tracking-[0.1em] text-brand-ivory mb-3 uppercase">Dla kogo dostępna jest płatność odroczona?</h4>
+                            <p class="font-light text-brand-muted text-sm leading-relaxed mb-4">
+                                Płatność przelewem w terminie do 14 dni przewidziana jest dla jednostek budżetowych, służb ratowniczych (Straż Pożarna, Policja, Pogotowie Ratunkowe itp.) oraz dla stałych klientów objętych umową o współpracy.
+                            </p>
+                            <a href="/kontakt/" class="inline-flex items-center gap-2 text-brand-gold font-mono text-[10px] uppercase tracking-[0.2em] border-b border-brand-gold/30 hover:border-brand-gold pb-1 transition-colors">
+                                Skontaktuj się w celu uzyskania informacji
+                                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                            </a>
+                        </div>
+                    </section>
+
+                    <div class="w-full h-px bg-white/5"></div>
+
+                    <!-- BEZPIECZEŃSTWO TRANSAKCJI -->
+                    <section class="fade-in-up pb-24">
+                        <h2 class="font-display text-3xl md:text-4xl text-brand-ivory mb-8">Bezpieczeństwo transakcji</h2>
+                        <div class="prose prose-invert prose-p:font-light prose-p:text-brand-muted prose-p:text-lg prose-p:leading-relaxed max-w-none">
+                            <p>
+                                Wszystkie płatności w sklepie AMBER RESILIENTE odbywają się za pośrednictwem certyfikowanych systemów płatności, z bezwzględnym wykorzystaniem szyfrowanego połączenia SSL.
+                            </p>
+                            <p>
+                                <strong>Nie przechowujemy żadnych danych kart ani haseł.</strong> Twoje informacje trafiają bezpośrednio i wyłącznie do operatorów finansowych, którzy zapewniają najwyższy, bankowy poziom zabezpieczeń.
+                            </p>
+                            <p class="font-display text-2xl text-brand-ivory mt-8 border-l border-brand-gold pl-6 py-2 italic">
+                                "Bezpieczne płatności to nasz standard, bo wiemy, że prawdziwy spokój zaczyna się od zaufania."
+                            </p>
+                        </div>
+                    </section>
+
+                </article>
+            </div>
+        </div>
+    </section>
+
+</main>
+
+<div id="dynamic-footer" class="block w-full bg-brand-surface relative z-20"></div>
+    
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@barba/core"></script>
+    <script src="/assets/js/cinematic-routing.js"></script>
+</body>
+</html>
