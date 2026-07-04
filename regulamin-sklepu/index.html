@@ -179,6 +179,56 @@
         </article>
     </main>
 
+    <!-- =========================================================================
+         CINEMATIC MOBILE MENU (Globalne, poza Barba.js)
+         ========================================================================= -->
+    <div id="mobile-menu-overlay" class="fixed inset-0 z-[300] bg-brand-dark/95 backdrop-blur-md opacity-0 pointer-events-none transition-opacity duration-300 flex flex-col justify-center">
+        
+        <button id="mobile-menu-close" class="absolute top-6 right-6 p-4 text-brand-muted hover:text-brand-gold transition-colors duration-300 focus:outline-none">
+            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"></path></svg>
+        </button>
+
+        <ul class="flex flex-col gap-6 px-10">
+            <li class="overflow-hidden">
+                <a href="/o-nas/" class="mobile-nav-link flex items-baseline gap-6 text-brand-ivory hover:text-brand-gold transition-colors duration-500 group">
+                    <span class="font-mono text-xs text-brand-gold/50 tracking-widest transform -translate-y-2">01</span>
+                    <span class="font-display text-4xl uppercase tracking-[0.15em]">Koncepcja</span>
+                </a>
+            </li>
+            <li class="overflow-hidden">
+                <a href="/index.html#wybor-plecaka" class="mobile-nav-link flex items-baseline gap-6 text-brand-ivory hover:text-brand-gold transition-colors duration-500 group">
+                    <span class="font-mono text-xs text-brand-gold/50 tracking-widest transform -translate-y-2">02</span>
+                    <span class="font-display text-4xl uppercase tracking-[0.15em]">Plecaki</span>
+                </a>
+            </li>
+            <li class="overflow-hidden">
+                <a href="/faq/" class="mobile-nav-link flex items-baseline gap-6 text-brand-ivory hover:text-brand-gold transition-colors duration-500 group">
+                    <span class="font-mono text-xs text-brand-gold/50 tracking-widest transform -translate-y-2">03</span>
+                    <span class="font-display text-4xl uppercase tracking-[0.15em]">FAQ</span>
+                </a>
+            </li>
+            <li class="overflow-hidden">
+                <a href="/kontakt/" class="mobile-nav-link flex items-baseline gap-6 text-brand-ivory hover:text-brand-gold transition-colors duration-500 group">
+                    <span class="font-mono text-xs text-brand-gold/50 tracking-widest transform -translate-y-2">04</span>
+                    <span class="font-display text-4xl uppercase tracking-[0.15em]">Kontakt</span>
+                </a>
+            </li>
+        </ul>
+
+        <div class="absolute bottom-12 left-10 right-10 border-t border-white/10 pt-8 mobile-nav-footer">
+            <p class="font-mono text-[9px] uppercase tracking-[0.2em] text-brand-muted/70 leading-loose">
+                Amber Resilience<br>
+                <a href="#" 
+   class="obfuscated-link hover:text-brand-gold hover:text-brand-ivory transition-colors" 
+   data-user="contact" 
+   data-domain="amberresilience.eu" 
+   aria-label="Wyślij wiadomość e-mail">
+   Ładowanie adresu...
+</a>
+            </p>
+        </div>
+    </div>
+
        <div id="dynamic-footer" class="block w-full bg-brand-surface relative z-20"></div>
 
 
