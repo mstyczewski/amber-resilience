@@ -680,6 +680,65 @@ function initMobileMenu() {
     });
 }
 
+document.addEventListener('DOMContentLoaded', () => {
+    const cookieModal = document.getElementById('premium-cookie-modal');
+    const acceptAllBtn = document.getElementById('cookie-accept-all');
+    const acceptEssentialBtn = document.getElementById('cookie-accept-essential');
+    const openSettingsBtn = document.getElementById('open-cookie-settings'); // Pamiętaj o dodaniu tego ID w stopce
+    
+    const cookieConsentName = 'amber_resilience_consent';
+
+    // GSAP Animation Timeline
+    const tlCookie = gsap.timeline({ paused: true });
+    
+    tlCookie.to(cookieModal, {
+        y: 0,
+        opacity: 1,
+        duration: 1.2,
+        ease: "power3.out",
+        onStart: () => {
+            cookieModal.classList.remove('pointer-events-none');
+        }
+    });
+
+    const closeCookieModal = () => {
+        gsap.to(cookieModal, {
+            y: "100%",
+            opacity: 0,
+            duration: 0.8,
+            ease: "power2.in",
+            onComplete: () => {
+                cookieModal.classList.add('pointer-events-none');
+            }
+        });
+    };
+
+    // Sprawdzenie stanu
+    if (!localStorage.getItem(cookieConsentName)) {
+        // Opóźnienie wywołania, aby nie nakładać się z animacją hero wideo
+        setTimeout(() => tlCookie.play(), 2500); 
+    }
+
+    // Handlery przycisków
+    acceptAllBtn.addEventListener('click', () => {
+        localStorage.setItem(cookieConsentName, 'all');
+        closeCookieModal();
+    });
+
+    acceptEssentialBtn.addEventListener('click', () => {
+        localStorage.setItem(cookieConsentName, 'essential');
+        closeCookieModal();
+    });
+
+    // Ręczne wywołanie ze stopki
+    if(openSettingsBtn) {
+        openSettingsBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            tlCookie.restart();
+        });
+    }
+});
+
 /* =========================================================================
    PORTAL ENGINE 
    ========================================================================= */
