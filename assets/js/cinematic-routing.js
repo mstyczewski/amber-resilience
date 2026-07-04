@@ -859,7 +859,7 @@ function renderFAQ() {
 /* =========================================================================
    GŁÓWNY INICJATOR
    ========================================================================= */
-function initAll(targetHash = null) {
+async function initAll(targetHash = null) {
 // 1. THE $10K ARCHITECTURE: Pobieramy i montujemy stopkę PRZED odpaleniem animacji.
     const footerContainer = document.getElementById('dynamic-footer');
     
