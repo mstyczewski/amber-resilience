@@ -102,15 +102,3 @@ input:-webkit-autofill, textarea:-webkit-autofill {
 .faq-item.active .faq-content { grid-template-rows: 1fr; }
 .faq-item.active .faq-icon { transform: rotate(45deg); }
 
-/* --- TACTICAL 3D CARDS ENGINE --- */
-.risk-card {
-    /* Stabilizacja 3D dla Safari */
-    -webkit-transform-style: preserve-3d;
-    transform-style: preserve-3d;
-}
-.card-inner {
-    /* Wymuszamy renderowanie sprzętowe */
-    transform: translateZ(0);
-    will-change: transform;
-}
-
