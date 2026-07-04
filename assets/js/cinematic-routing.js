@@ -684,9 +684,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const cookieModal = document.getElementById('premium-cookie-modal');
     const acceptAllBtn = document.getElementById('cookie-accept-all');
     const acceptEssentialBtn = document.getElementById('cookie-accept-essential');
-    const openSettingsBtn = document.getElementById('open-cookie-settings'); // Pamiętaj o dodaniu tego ID w stopce
     
     const cookieConsentName = 'amber_resilience_consent';
+
+    // Jeśli brak panelu w kodzie HTML, przerywamy skrypt by uniknąć błędów
+    if (!cookieModal) return; 
 
     // GSAP Animation Timeline
     const tlCookie = gsap.timeline({ paused: true });
@@ -713,30 +715,37 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     };
 
-    // Sprawdzenie stanu
+    // Sprawdzenie stanu (czy użytkownik już zaakceptował)
     if (!localStorage.getItem(cookieConsentName)) {
-        // Opóźnienie wywołania, aby nie nakładać się z animacją hero wideo
         setTimeout(() => tlCookie.play(), 2500); 
     }
 
-    // Handlery przycisków
-    acceptAllBtn.addEventListener('click', () => {
-        localStorage.setItem(cookieConsentName, 'all');
-        closeCookieModal();
-    });
-
-    acceptEssentialBtn.addEventListener('click', () => {
-        localStorage.setItem(cookieConsentName, 'essential');
-        closeCookieModal();
-    });
-
-    // Ręczne wywołanie ze stopki
-    if(openSettingsBtn) {
-        openSettingsBtn.addEventListener('click', (e) => {
-            e.preventDefault();
-            tlCookie.restart();
+    // Handlery przycisków wewnątrz panelu
+    if (acceptAllBtn) {
+        acceptAllBtn.addEventListener('click', () => {
+            localStorage.setItem(cookieConsentName, 'all');
+            closeCookieModal();
         });
     }
+
+    if (acceptEssentialBtn) {
+        acceptEssentialBtn.addEventListener('click', () => {
+            localStorage.setItem(cookieConsentName, 'essential');
+            closeCookieModal();
+        });
+    }
+
+    // ROZWIĄZANIE PROBLEMU: Delegacja zdarzeń (Event Delegation)
+    // Nasłuchujemy na całym dokumencie, co rozwiązuje konflikt z dynamicznie ładowaną stopką
+    document.addEventListener('click', (e) => {
+        // Sprawdzamy, czy kliknięty element to nasz przycisk, lub czy znajduje się w jego wnętrzu (np. ikona SVG)
+        const openSettingsBtn = e.target.closest('#open-cookie-settings');
+        
+        if (openSettingsBtn) {
+            e.preventDefault(); // Blokujemy domyślne zachowanie linku
+            tlCookie.restart(); // Otwieramy panel cookies
+        }
+    });
 });
 
 /* =========================================================================
