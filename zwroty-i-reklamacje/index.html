@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="pl" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Amber Resilience | Zwroty i Reklamacje</title>
+    <style>
+        html, body {
+            background-color: #050505 !important;
+            margin: 0;
+            padding: 0;
+        }
+    </style>
+    
+    <!-- Premium Typography -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Outfit:wght@300;400;500&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Konfiguracja Tailwind -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            gold: '#C5A059',
+                            dark: '#050505',
+                            surface: '#111111',
+                            ivory: '#F9F7F2',
+                            muted: '#A3A3A3'
+                        }
+                    },
+                    fontFamily: {
+                        display: ['"Cormorant Garamond"', 'serif'],
+                        body: ['"Outfit"', 'sans-serif'],
+                        mono: ['"JetBrains Mono"', 'monospace']
+                    }
+                }
+            }
+        }
+    </script>
+
+     <style>
+                
+        body { background-color: theme('colors.brand.dark'); color: theme('colors.brand.ivory'); -webkit-font-smoothing: antialiased; }
+        ::selection { background-color: rgba(197, 160, 89, 0.3); color: theme('colors.brand.ivory'); }
+        ::-webkit-scrollbar { width: 4px; background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #C5A059; }
+
+        .fade-in-up { opacity: 0; transform: translateY(30px); transition: opacity 1.2s cubic-bezier(0.16, 1, 0.3, 1), transform 1.2s cubic-bezier(0.16, 1, 0.3, 1); }
+        .fade-in-up.visible { opacity: 1; transform: translateY(0); }
+
+        .blend-logo { mix-blend-mode: screen; filter: contrast(1.1) brightness(1.2); }
+        
+        /* Formatowanie treści proceduralnej (The Invisible Expensive Stuff) */
+        .legal-content p { margin-bottom: 1.5rem; color: theme('colors.brand.muted'); font-weight: 300; line-height: 1.8; font-size: 1rem; }
+        .legal-content ul { list-style: none; padding-left: 0; margin-bottom: 2.5rem; }
+        .legal-content ul > li { position: relative; padding-left: 1.5rem; margin-bottom: 0.75rem; color: theme('colors.brand.muted'); font-weight: 300; line-height: 1.6; }
+        .legal-content ul > li::before { content: "///"; position: absolute; left: 0; top: 0.2rem; color: theme('colors.brand.gold'); font-family: 'JetBrains Mono', monospace; font-size: 0.6rem; letter-spacing: 0.1em; }
+        .legal-content strong { color: theme('colors.brand.ivory'); font-weight: 400; }
+    </style>
+</head>
+<body class="bg-brand-dark text-brand-ivory font-body">
+
+    <!-- Globalna Nawigacja -->
+    <nav id="premium-nav" class="fixed top-0 left-0 w-full z-50 py-6 px-6 md:px-16 flex justify-between items-center transition-all duration-[0.8s] ease-[cubic-bezier(0.16,1,0.3,1)] transform-gpu isolate will-change-transform bg-transparent">
+        <div class="w-24 md:w-24">
+            <a href="/">
+                <img src="/logo.png" alt="Amber Resilience Logo" class="w-full h-auto mix-blend-screen filter contrast-110 brightness-125">
+            </a>
+        </div>
+        
+        <ul class="hidden md:flex space-x-12 text-xs tracking-[0.2em] uppercase font-light text-brand-ivory/80">
+           <div class="hidden md:flex items-center gap-12 text-[15px] uppercase tracking-[0.3em] text-brand-muted font-mono font-medium">
+                <a href="/o-nas/" class="hover:text-brand-ivory transition-colors duration-500 relative group">
+                    KONCEPCJA
+                    <span class="absolute -bottom-2 left-0 w-0 h-[1px] bg-brand-gold transition-all duration-500 group-hover:w-full"></span>
+                </a>
+                <a href="/index.html#wybor-plecaka" class="hover:text-brand-ivory transition-colors duration-500 relative group">
+                    NASZE PLECAKI
+                    <span class="absolute -bottom-2 left-0 w-0 h-[1px] bg-brand-gold transition-all duration-500 group-hover:w-full"></span>
+                </a>
+                <a href="/faq/" class="hover:text-brand-ivory transition-colors duration-500 relative group">
+                    FAQ
+                    <span class="absolute -bottom-2 left-0 w-0 h-[1px] bg-brand-gold transition-all duration-500 group-hover:w-full"></span>
+                </a>
+                <a href="/kontakt/" class="hover:text-brand-ivory transition-colors duration-500 relative group">
+                    KONTAKT
+                    <span class="absolute -bottom-2 left-0 w-0 h-[1px] bg-brand-gold transition-all duration-500 group-hover:w-full"></span>
+                </a>
+            </div>
+        </ul>
+
+        <!-- Zmodyfikowany przycisk (dostał ID oraz odrzucił generyczne klasy) -->
+        <button id="mobile-menu-trigger" class="md:hidden text-brand-muted hover:text-brand-gold transition-colors duration-300 pointer-events-auto focus:outline-none">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+        </button>
+    </nav>
+
+    <!-- Nagłówek Dokumentu -->
+    <header class="pt-40 pb-16 px-6 md:px-16 max-w-4xl mx-auto border-b border-white/5 fade-in-up">
+        <span class="text-brand-gold font-mono text-[10px] tracking-[0.4em] uppercase block mb-6 flex items-center gap-3">
+            <span class="w-1.5 h-1.5 rounded-full bg-brand-gold"></span> Procedury Operacyjne
+        </span>
+        <h1 class="font-display text-5xl md:text-7xl text-brand-ivory leading-tight mb-8">
+            Zwroty i Reklamacje<br>
+            <span class="italic text-brand-muted">Gwarancja Gotowości.</span>
+        </h1>
+        <p class="font-light text-brand-muted text-lg leading-relaxed">
+            W Amber Resilience wierzymy, że gotowość oznacza również pewność zakupu. Dlatego każdy nasz klient ma prawo do zwrotu lub reklamacji zakupionych produktów w prosty i przejrzysty sposób.
+        </p>
+    </header>
+
+    <!-- Główna Oś Dokumentu -->
+    <main class="py-16 px-6 md:px-16 max-w-4xl mx-auto fade-in-up legal-content" style="transition-delay: 200ms;">
+        
+        <!-- Sekcja: Zwroty -->
+        <section class="mb-16">
+            <div class="flex items-center gap-4 mb-8">
+                <span class="font-mono text-brand-gold text-sm tracking-widest">01.</span>
+                <h2 class="font-display text-3xl text-brand-ivory uppercase tracking-widest">Odstąpienie od umowy</h2>
+            </div>
+            <p>Jako Konsument masz prawo odstąpić od umowy zawartej na odległość w terminie <strong>14 dni</strong> od dnia, w którym Ty lub wskazana przez Ciebie osoba trzecia (inna niż przewoźnik) weszła w fizyczne posiadanie towaru, bez podania przyczyny.</p>
+            
+            <ul>
+                <li>Aby skorzystać z prawa do zwrotu, wystarczy wysłać wiadomość e-mail na adres: <a href="mailto:amber@resilience.eu" class="text-brand-ivory hover:text-brand-gold transition-colors border-b border-brand-gold/30 hover:border-brand-gold">amber@resilience.eu</a>, wpisując w tytule „ZWROT: [numer zamówienia]”.</li>
+                <li>W treści wiadomości podaj: imię i nazwisko, numer zamówienia, datę zakupu.</li>
+                <li>Towar należy odesłać na adres podany poniżej.</li>
+                <li>Zwracany produkt nie może nosić śladów użytkowania i musi być kompletny (wraz z wyposażeniem i opakowaniem).</li>
+                <li>Koszty odesłania produktu pokrywa Klient.</li>
+                <li>Po otrzymaniu i sprawdzeniu zwróconego produktu dokonujemy zwrotu pieniędzy w terminie do 7 dni.</li>
+                <li>Zwrot środków realizowany jest tą samą metodą, jaką dokonano płatności.</li>
+            </ul>
+        </section>
+
+        <!-- Sekcja: Reklamacje -->
+        <section class="mb-16">
+            <div class="flex items-center gap-4 mb-8">
+                <span class="font-mono text-brand-gold text-sm tracking-widest">02.</span>
+                <h2 class="font-display text-3xl text-brand-ivory uppercase tracking-widest">Towar z wadą</h2>
+            </div>
+            <p>Jeżeli otrzymany produkt posiada wadę fabryczną, został uszkodzony w transporcie lub nie działa prawidłowo - masz pełne prawo złożyć reklamację.</p>
+            
+            <ul>
+                <li>Reklamację możesz zgłosić mailowo na adres: <a href="mailto:amber@resilience.eu" class="text-brand-ivory hover:text-brand-gold transition-colors border-b border-brand-gold/30 hover:border-brand-gold">amber@resilience.eu</a> lub pisemnie, wysyłając zgłoszenie na adres firmy.</li>
+                <li>W wiadomości podaj: imię i nazwisko, numer zamówienia, opis wady, zdjęcia dokumentujące problem.</li>
+                <li>Reklamacja zostanie rozpatrzona w ciągu 14 dni roboczych od momentu otrzymania zgłoszenia.</li>
+                <li>Jeśli reklamacja zostanie uznana, zaproponujemy jedną z opcji: naprawę produktu, wymianę na nowy egzemplarz lub zwrot pieniędzy (w przypadku braku możliwości naprawy lub wymiany).</li>
+                <li>W przypadku konieczności odesłania towaru, <strong>koszt przesyłki reklamacyjnej pokrywa sklep</strong>.</li>
+            </ul>
+        </section>
+
+        <!-- Sekcja: Kontakt -->
+        <section class="mb-20">
+            <div class="bg-brand-surface border-l-2 border-brand-gold p-8 md:p-12 relative overflow-hidden group">
+                <!-- Subtelny efekt w tle -->
+                <div class="absolute inset-0 bg-brand-gold/5 transform -translate-x-full group-hover:translate-x-0 transition-transform duration-1000 ease-out"></div>
+                
+                <h3 class="font-display text-2xl text-brand-ivory mb-6 relative z-10">Kontakt ds. Reklamacji i Zwrotów</h3>
+                
+                <div class="space-y-4 relative z-10">
+                    <div>
+                        <span class="block font-mono text-[9px] text-brand-muted tracking-[0.3em] uppercase mb-1">Komunikacja Cyfrowa</span>
+                        <a href="mailto:amber@resilience.eu" class="font-mono text-sm text-brand-gold hover:text-brand-ivory transition-colors">amber@resilience.eu</a>
+                    </div>
+                    
+                    <div class="pt-4">
+                        <span class="block font-mono text-[9px] text-brand-muted tracking-[0.3em] uppercase mb-1">Adres do zwrotów (Węzeł Logistyczny)</span>
+                        <p class="font-body text-brand-ivory font-light leading-relaxed">
+                            Amber Resilience BARTOSZ BERTRANDT,<br>
+                             ul. Rynkowa 9,  05-816 Michałowice <br>
+                                                    </p>
+                    </div>
+                </div>
+                
+                <p class="font-mono text-[10px] text-brand-muted/70 tracking-widest uppercase mt-8 relative z-10 border-t border-white/10 pt-6">
+                    Odpowiadamy w dni robocze w ciągu 24 godzin.
+                </p>
+            </div>
+        </section>
+
+        <!-- Sekcja: Podsumowanie (Matryca Danych) -->
+        <section class="pt-16 border-t border-white/5">
+            <span class="block text-brand-gold text-[10px] tracking-[0.4em] uppercase mb-8 font-mono text-center">Podsumowanie Parametrów</span>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- Karta 1 -->
+                <div class="bg-brand-surface border border-white/5 p-8 text-center hover:border-brand-gold/30 transition-colors duration-500">
+                    <span class="block font-display text-5xl text-brand-ivory mb-2">14</span>
+                    <span class="block font-mono text-[9px] text-brand-gold tracking-[0.3em] uppercase mb-4">Dni</span>
+                    <p class="font-light text-brand-muted text-sm">Na zwrot towaru bez podania przyczyny.</p>
+                </div>
+                
+                <!-- Karta 2 -->
+                <div class="bg-brand-surface border border-white/5 p-8 text-center hover:border-brand-gold/30 transition-colors duration-500">
+                    <span class="block font-display text-5xl text-brand-ivory mb-2">14</span>
+                    <span class="block font-mono text-[9px] text-brand-gold tracking-[0.3em] uppercase mb-4">Dni</span>
+                    <p class="font-light text-brand-muted text-sm">Na oficjalne rozpatrzenie Twojej reklamacji.</p>
+                </div>
+                
+                <!-- Karta 3 -->
+                <div class="bg-brand-surface border border-white/5 p-8 text-center hover:border-brand-gold/30 transition-colors duration-500 flex flex-col justify-center">
+                    <svg class="w-10 h-10 text-brand-ivory mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4"></path>
+                    </svg>
+                    <span class="block font-mono text-[9px] text-brand-gold tracking-[0.3em] uppercase mb-4">Darmowa Wysyłka</span>
+                    <p class="font-light text-brand-muted text-sm">Pokrycie kosztów po uznaniu reklamacji.</p>
+                </div>
+            </div>
+        </section>
+        
+    </main>
+
+    <div id="dynamic-footer" class="block w-full bg-brand-surface relative z-20"></div>
+
+
+
+    <script>
+        // Obserwator do luksusowej animacji wejścia
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1 });
+        
+        document.querySelectorAll('.fade-in-up').forEach((el) => observer.observe(el));
+    </script>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@barba/core"></script>
+    <script src="/assets/js/cinematic-routing.js"></script>
+</body>
+</html>
