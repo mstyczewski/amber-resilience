@@ -461,66 +461,18 @@ function initHeroAndThreatAnimations() {
         });
     }
 
-    // Ten element zachowujemy – odpowiada za eleganckie wejście nagłówków sekcji
     gsap.from(".threat-line-1, .threat-line-2, .threat-line-3", {
         scrollTrigger: { trigger: ".threat-header", start: "top 85%", toggleActions: "play none none reverse" },
         y: 40, opacity: 0, duration: 1.2, stagger: 0.25, ease: "power3.out"
     });
-}
-/* =========================================================================
-   3D TACTICAL FLIP CARDS ENGINE (Pinned Scroll)
-   ========================================================================= */
-function initTacticalFlipCards() {
-    const section = document.querySelector('#tactical-risks-section');
-    if (!section) return;
 
-    const cards = gsap.utils.toArray('.risk-card .card-inner');
-    
-    // Sprawdzamy czy to urządzenie mobilne (poniżej 1024px)
-    const isDesktop = window.innerWidth >= 1024;
-
-    if (isDesktop) {
-        // --- LOGIKA DLA DESKTOPU (Pinned) ---
-        const tl = gsap.timeline({
-            scrollTrigger: {
-                trigger: section,
-                start: "center center",
-                end: "+=2200", // Im wyższa wartość, tym dłużej trwa scroll (blokada ekranu)
-                pin: true,
-                scrub: 0.8, // Miękkie, płynne odświeżanie
-                anticipatePin: 1
-            }
-        });
-
-        // Obracamy każdą kartę z opóźnieniem (stagger)
-        cards.forEach((card, index) => {
-            tl.to(card, {
-                rotationY: 180,
-                ease: "power1.inOut",
-                z: 50, // Lekkie wypchnięcie karty w stronę ekranu w trakcie obrotu
-            }, index * 0.15); // Stagger: 0.15s opóźnienia między kartami
-            
-            // Powrót karty do oryginalnej głębokości (aby nie wisiała w powietrzu)
-            tl.to(card, {
-                z: 0,
-                ease: "power1.out"
-            }, (index * 0.15) + 0.3);
-        });
-    } else {
-        // --- LOGIKA DLA MOBILE (Bez blokowania, naturalny scroll) ---
-        cards.forEach((card) => {
-            gsap.to(card, {
-                scrollTrigger: {
-                    trigger: card,
-                    start: "top 80%",
-                    end: "bottom 40%",
-                    scrub: 1
-                },
-                rotationY: 180,
-                ease: "none"
-            });
-        });
-    }
+    gsap.fromTo(".threat-grid > div", 
+        { y: 60, opacity: 0 }, 
+        {
+            y: 0, opacity: 1, duration: 1.5, stagger: 0.5, ease: "power2.out",
+            scrollTrigger: { trigger: ".threat-grid", start: "top 70%", end: "top 0%", scrub: 4 }
+        }
+    );
 }
 function initCinematicMedia() {
     const cinematicVideos = document.querySelectorAll('video[autoplay]');
@@ -1006,7 +958,6 @@ async function initAll(targetHash = null) {
         initCinematicMedia();
         initBackpackCardsAnimation();
         initHeroAndThreatAnimations();
-        initTacticalFlipCards();
         initFeatureGridAnimation();
         initFAQ();
         initLightboxBind();
