@@ -315,15 +315,7 @@ NIP 5222822863, nr REGON 521097602, ul. Rynkowa 9, 05-816 Michałowice</li>
     </main>
 
             <!-- Footer -->
- <div id="footer"></div>
-
-<script>
-fetch("/assets/components/footer.html")
-  .then(response => response.text())
-  .then(data => {
-    document.getElementById("footer").innerHTML = data;
-  });
-</script>
+ <div id="dynamic-footer" class="block w-full bg-brand-surface relative z-20"></div>
 
 
     <script>
