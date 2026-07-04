@@ -1,7 +1,16 @@
 class PremiumFooter extends HTMLElement {
     connectedCallback() {
+        // 1. Zabezpieczenie architektoniczne: Komponent sam nadaje sobie odpowiednią fizykę,
+        // więc nie musisz pamiętać o dodawaniu klas w pliku HTML.
+        this.style.display = 'block';
+        this.style.width = '100%';
+        this.style.position = 'relative';
+        this.style.zIndex = '30';
+        this.style.backgroundColor = '#111111'; // Asekuracyjne tło (brand-surface)
+
+        // 2. Struktura HTML (Zwróć uwagę: USUNĄŁEM stąd klasę 'fade-in-up', by nie blokować GSAPa)
         this.innerHTML = `
-                        <footer class="bg-brand-surface pt-32 pb-10 relative z-10">
+                   <footer class="bg-brand-surface pt-32 pb-10 relative z-10">
                 <div class="max-w-7xl mx-auto px-8 md:px-16">
                     <div class="flex flex-col md:flex-row justify-between items-center md:items-start gap-8 mb-16 border-b border-white/5 pb-10">
                         <a href="index.html" class="font-display tracking-[0.2em] uppercase text-xl text-brand-ivory">Amber Resilience</a>
@@ -45,6 +54,15 @@ class PremiumFooter extends HTMLElement {
                 </div>
             </footer>
         `;
+
+        // 3. THE $10K FIX: Po wygenerowaniu stopki zmuszamy GSAP do przeliczenia strony.
+        // Dajemy przeglądarce 50 milisekund na zrenderowanie DOM, po czym odświeżamy ScrollTrigger.
+        setTimeout(() => {
+            if (typeof window.ScrollTrigger !== 'undefined') {
+                window.ScrollTrigger.refresh();
+                console.log("[Premium Footer] Zaktualizowano matematykę GSAP");
+            }
+        }, 50);
     }
 }
 
