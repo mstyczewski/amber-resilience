@@ -860,6 +860,25 @@ function renderFAQ() {
    GŁÓWNY INICJATOR
    ========================================================================= */
 function initAll(targetHash = null) {
+// 1. THE $10K ARCHITECTURE: Pobieramy i montujemy stopkę PRZED odpaleniem animacji.
+    const footerContainer = document.getElementById('dynamic-footer');
+    
+    // Sprawdzamy, czy kontener istnieje i czy jest pusty, aby zapobiec pobieraniu tego samego kodu 
+    // przy każdym przejściu między podstronami przez Barba.js
+    if (footerContainer && footerContainer.innerHTML.trim() === '') {
+        try {
+            const response = await fetch('/assets/components/footer.html');
+            if (response.ok) {
+                footerContainer.innerHTML = await response.text();
+                console.log("[Premium Engine] Stopka została pomyślnie zamontowana w DOM.");
+            } else {
+                console.error("[Premium Engine] Błąd ładowania pliku footer.html:", response.status);
+            }
+        } catch (error) {
+            console.error("[Premium Engine] Krytyczny błąd sieci przy ładowaniu stopki:", error);
+        }
+    }
+   
     if (typeof ScrollTrigger !== 'undefined') {
         ScrollTrigger.getAll().forEach(t => t.kill());
     }
