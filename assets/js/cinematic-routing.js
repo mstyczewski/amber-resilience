@@ -64,9 +64,11 @@ const moduleDatabase = {
         desc: 'Ochrona przed żywiołami i izolacja termiczna.', 
         image: 'https://images.unsplash.com/photo-1504280390224-3ea3391b1513?q=80&w=1200&auto=format&fit=crop', 
         items: [
-            'śpiwór termiczny NRC', 
-            'wodoodporny namiot termiczny z folii NRC', 
-            'ponczo przeciwdeszczowe wielorazowe'
+            'kurta przeciwdeszczowa rozmiar L, 1 szt.',
+            'śpiwór awaryjny w worku z gwizdkiem, wymiary 215 x 90 cm, 1 szt.',
+            'ogrzewacz do rąk, 1 para',
+            'ogrzewacz do stóp, 1 para'
+            
         ] 
     },
 
