@@ -100,9 +100,19 @@ const moduleDatabase = {
         desc: 'Prewencja chorobowa i czystość operacyjna w każdych warunkach.', 
         image: 'https://images.unsplash.com/photo-1556228578-0d85b1a4d571?q=80&w=1200&auto=format&fit=crop', 
         items: [
-            'żel pod prysznic x2, szampon x2', 
-            'grzebień, igielnik, maszynka, zestaw dentystyczny', 
-            'kosmetyczka militarna rozkładana M-Tac'
+           'żel i szampon 2w1 20 ml, 1 szt.',
+            'sól fizjologiczna, 3 szt.',
+            'chusteczki higieniczne 10 szt., 1 paczka',
+            'chusteczki nawilżające, 3 szt.',
+            'chusteczki do dezynfekcji, 3 szt.',
+            'płatki higieniczne, 4 szt.',
+            'patyczki do uszu, 4 szt.',
+            'zatyczki do uszu w pudełku, 1 para',
+            'szczoteczka do zębów, 1 szt.',
+            'osłonka na szczoteczkę do zębów, 1 szt.',
+            'koncentrat pasty do zębów 6 ml, 1 szt.',
+            'skompresowany ręcznik jednorazowy, 4 szt.'
+            
         ] 
     },
 
