@@ -51,9 +51,9 @@ const moduleDatabase = {
                'mapa samochodowa Polski w skali 1:700000 (wersja 01.2026), 1 szt.',
                'notes wodoodporny, 1 szt.',
                'radio awaryjne z latarką LED i powerbankiem (2000 mAh), zasilane akumulatorem typu 18650
-                (3.7V), ładowane korbką lub panelem solar,ym, 1 szt.',
+                (3.7V) ładowane korbką lub panelem solarnym 1 szt.',
                'latarka czołowa LED 1500 lumenów o zasięgu 300 m, zasilana 2 x akumulatorem
-               typu 18650 (3.7V), ładowanie ładowarką sieciową lub sam,ochodową, 1 szt.',
+               typu 18650 (3.7V) ładowanie ładowarką sieciową lub samochodową 1 szt.',
                'wodoodporne etui na dokumenty, 1 szt.',
                'gwizdek z kompasem i termometrem, 1 szt.'
       
