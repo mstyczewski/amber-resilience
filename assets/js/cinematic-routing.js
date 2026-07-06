@@ -192,8 +192,8 @@ const moduleDatabase = {
             'kurta przeciwdeszczowa rozmiar L, 2 szt.',
             'kurta przeciwdeszczowa rozmiar M, 2 szt.',
             'śpiwór awaryjny w worku z gwizdkiem, wymiary 215 x 90 cm, 4 szt.',
-            'ogrzewacz do rąk, 4 para',
-            'ogrzewacz do stóp, 4 para'
+            'ogrzewacz do rąk, 4 pary',
+            'ogrzewacz do stóp, 4 pary'
         ] 
     },
 
