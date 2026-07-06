@@ -28,19 +28,17 @@ const moduleDatabase = {
         desc: 'Wszystko, co pozwoli Ci działać. Niezbędny hardware do przetrwania w terenie.', 
         image: 'https://images.unsplash.com/photo-1589104052309-84b2c15e83ce?q=80&w=1200&auto=format&fit=crop', 
         items: [
-            'metalowa piła strunowa 65 cm', 
-            'długopis taktyczny z wybijakiem', 
-            'gwizdek', 
-            'nóż składany z blokadą back lock', 
-            'wielofunkcyjna karta survivalowa 15w1', 
-            'latarka czołowa z diodą LED', 
-            'krzesiwo z prętem magnesium', 
-            'koc termiczny 130x210 cm', 
-            'bransoleta paracord', 
-            'zestaw do wędkowania', 
-            'spork z sześcioma funkcjami', 
-            'pojemnik do przechowywania', 
-            'narzędzie wielofunkcyjne Mamba Tac'
+            'narzędzie wielofunkcyjne, 1 szt.',
+            'nóż taktyczny z krzesiwem, osełką i gwizdkiem, 1 szt.',
+            'taśma naprawcza 5 cm x 2,5 m, 1 szt.',
+            'zapałki sztormowe w pudełku 14 szt.',
+            'linka o grubości 2 mm – 10 m, 1 szt.',
+            'trytytka wielorazowa 20 cm, 10 szt.',
+            'brelok EDC z retraktorem, 1 szt.',
+            'zestaw do szycia, 1 szt.',
+            'rękawice ochronne z poliestru powlekane poliuretanem – rozmiar 8, 1 para'
+             
+           
         ] 
     },
 
