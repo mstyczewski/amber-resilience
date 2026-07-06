@@ -53,11 +53,8 @@ const moduleDatabase = {
                'radio awaryjne z latarką LED i powerbankiem (2000 mAh), zasilane akumulatorem typu 18650 (3.7V) ładowane korbką lub panelem solarnym 1 szt.',
                'latarka czołowa LED 1500 lumenów o zasięgu 300 m, zasilana 2 x akumulatorem typu 18650 (3.7V) ładowanie ładowarką sieciową lub samochodową 1 szt.',
                'wodoodporne etui na dokumenty, 1 szt.',
-               'gwizdek z kompasem i termometrem, 1 szt.',
-               'baterie alkaliczne rozmiar AA / R6 x4', 
-               'przezroczyste wodoodporne etui na dokumenty', 
-               'mapa samochodowa Polski w skali 1:700 000', // <-- DODANY BRAKUJĄCY PRZECINEK
-               'lornetka'
+               'gwizdek z kompasem i termometrem, 1 szt.'
+               
         ] 
     },
 
