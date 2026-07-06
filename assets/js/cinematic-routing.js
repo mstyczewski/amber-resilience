@@ -123,7 +123,7 @@ const moduleDatabase = {
         image: 'https://images.unsplash.com/photo-1603398938378-e54eab446dde?q=80&w=1200&auto=format&fit=crop', 
         items: [
            'apteczka wraz z panelem rzepowym systemu Molle - 1 szt.',
-            'gumki (troki) mocujące szybkiego montażu - 2 szt.- apteczka wraz z panelem rzepowym systemu Molle - 1 szt.',
+            'gumki (troki) mocujące szybkiego montażu - 2 szt.',
             'rękawiczki diagnostyczne nitrylowe - 4 szt.',
             'maseczka do RKO z filtrem - 1 szt.',
             'opatrunek z wkładem chłonnym 5 x 7,2 cm - 4 szt.',
@@ -156,11 +156,15 @@ const moduleDatabase = {
         desc: 'Wszystko, co pozwoli Ci działać. Niezbędny hardware do przetrwania w terenie.', 
         image: 'https://images.unsplash.com/photo-1589104052309-84b2c15e83ce?q=80&w=1200&auto=format&fit=crop', 
         items: [
-            'Duża piła składana', 
-            'Multitool rozszerzony x2', 
-            'Latarki czołowe x4', 
-            'Zestaw baterii XL', 
-            'Saperka taktyczna'
+            'narzędzie wielofunkcyjne, 1 szt.',
+            'nóż taktyczny z krzesiwem, osełką i gwizdkiem, 1 szt.',
+            'taśma naprawcza 5 cm x 2,5 m, 1 szt.',
+            'zapałki sztormowe w pudełku 14 szt.',
+            'linka o grubości 2 mm – 10 m, 1 szt.',
+            'trytytka wielorazowa 20 cm, 10 szt.',
+            'brelok EDC z retraktorem, 2 szt.',
+            'zestaw do szycia, 1 szt.',
+            'rękawice ochronne z poliestru powlekane poliuretanem – rozmiar 8, 2 pary'
         ] 
     },
 
@@ -170,10 +174,12 @@ const moduleDatabase = {
         desc: 'Znajdź drogę, utrzymaj świadomość sytuacyjną i komunikację.', 
         image: 'https://images.unsplash.com/photo-1524661135-423995f22d0b?q=80&w=1200&auto=format&fit=crop', 
         items: [
-            'Radiotelefony x2', 
-            'Mapy topograficzne', 
-            'Kompas wojskowy', 
-            'Powerbank o dużej pojemności'
+            'mapa samochodowa Polski w skali 1:700000 (wersja 01.2026), 1 szt.',
+               'notes wodoodporny, 1 szt.',
+               'radio awaryjne z latarką LED i powerbankiem (2000 mAh), zasilane akumulatorem typu 18650 (3.7V) ładowane korbką lub panelem solarnym 2 szt.',
+               'latarka czołowa LED 1500 lumenów o zasięgu 300 m, zasilana 2 x akumulatorem typu 18650 (3.7V) ładowanie ładowarką sieciową lub samochodową 2 szt.',
+               'wodoodporne etui na dokumenty, 4 szt.',
+               'gwizdek z kompasem i termometrem, 2 szt.'
         ] 
     },
 
@@ -183,10 +189,11 @@ const moduleDatabase = {
         desc: 'Ochrona przed żywiołami i izolacja termiczna.', 
         image: 'https://images.unsplash.com/photo-1504280390224-3ea3391b1513?q=80&w=1200&auto=format&fit=crop', 
         items: [
-            'Namiot 4-osobowy', 
-            'Koce termiczne NRC x4', 
-            'Poncza przeciwdeszczowe x4', 
-            'Maty izolacyjne x4'
+            'kurta przeciwdeszczowa rozmiar L, 2 szt.',
+            'kurta przeciwdeszczowa rozmiar M, 2 szt.',
+            'śpiwór awaryjny w worku z gwizdkiem, wymiary 215 x 90 cm, 4 szt.',
+            'ogrzewacz do rąk, 4 para',
+            'ogrzewacz do stóp, 4 para'
         ] 
     },
 
@@ -196,10 +203,18 @@ const moduleDatabase = {
         desc: 'Kluczowe nawodnienie i wysokoenergetyczne paliwo kognitywne.', 
         image: 'https://images.unsplash.com/photo-1622484211148-356ec37db7bb?q=80&w=1200&auto=format&fit=crop', 
         items: [
-            'Racje żywnościowe x4', 
-            'Tabletki uzdatniające duża paka', 
-            'Kuchenka polowa + gaz', 
-            'Zestaw naczyń polowych'
+            'baton energetyczny orzechowy NUT-RATION 100 g (550 kcal), 4 szt.',
+            'batony energetyczne daktylowe NUTRIBASE 660 g (2500 kcal), 2 szt.',
+            'elektrolity HID-RATION (28 tabletek w tubie), 1 szt.',
+            'składana szeroka butelka 1 L, 2 szt.',
+            'worek doypack 1 L do uzdatniania wody, 2 szt.',
+            'tabletki do uzdatniania wody, 30 szt.',
+            'pudełko na tabletki, 1 szt.',
+            'indywidualny filtr do wody, 2 szt.',
+            'kubek z pokrywką ze stali nierdzewnej 600 ml, 4 szt.',
+            'składany łyżkowidelec, 4 szt.',
+            'składana kuchenka na paliwo stałe i drewno, 1 szt.',
+            'paliwo stałe do kuchenki (8 tabletek w tubie), 2 szt.'
         ] 
     },
 
@@ -209,11 +224,19 @@ const moduleDatabase = {
         desc: 'Prewencja chorobowa i czystość operacyjna w każdych warunkach.', 
         image: 'https://images.unsplash.com/photo-1556228578-0d85b1a4d571?q=80&w=1200&auto=format&fit=crop', 
         items: [
-            'Szczoteczki do zębów x4', 
-            'Ręczniki szybkoschnące x4', 
-            'Duży płyn uniwersalny', 
-            'Chusteczki nawilżane XL', 
-            'Waciki'
+             ' 4 zestawy:',
+            'żel i szampon 2w1 20 ml, 1 szt.',
+            'sól fizjologiczna, 3 szt.',
+            'chusteczki higieniczne 10 szt., 1 paczka',
+            'chusteczki nawilżające, 3 szt.',
+            'chusteczki do dezynfekcji, 3 szt.',
+            'płatki higieniczne, 4 szt.',
+            'patyczki do uszu, 4 szt.',
+            'zatyczki do uszu w pudełku, 1 para',
+            'szczoteczka do zębów, 1 szt.',
+            'osłonka na szczoteczkę do zębów, 1 szt.',
+            'koncentrat pasty do zębów 6 ml, 1 szt.',
+            'skompresowany ręcznik jednorazowy, 4 szt.'
         ] 
     },
 
@@ -223,10 +246,28 @@ const moduleDatabase = {
         desc: 'Zabezpieczenie ran, urazów i wsparcie medyczne.', 
         image: 'https://images.unsplash.com/photo-1603398938378-e54eab446dde?q=80&w=1200&auto=format&fit=crop', 
         items: [
-            'Apteczka powiększona TRAUMA', 
-            'Leki przeciwbólowe (dorośli i dzieci)', 
-            'Zestaw opatrunków XL', 
-            'Termometr polowy'
+            'apteczka wraz z panelem rzepowym systemu Molle - 1 szt.',
+            'gumki (troki) mocujące szybkiego montażu - 2 szt.',
+            'rękawiczki diagnostyczne nitrylowe - 4 szt.',
+            'maseczka do RKO z filtrem - 1 szt.',
+            'opatrunek z wkładem chłonnym 5 x 7,2 cm - 4 szt.',
+            'paski do zamykania ran 3 x 75 mm - 1 blister',
+            'paski do zamykania ran 12 x 100 mm - 1 blister',
+            'siatka opatrunkowa nr 3, długość 1 m - 1 szt.',
+            'siatka opatrunkowa nr 6, długość 1 m - 1 szt.',
+            'plaster z opatrunkiem - 3 szt.',
+            'pęseta jednorazowa - 1 szt.',
+            'chusta trójkątna włókninowa - 2 szt.',
+            'nożyczki ratownicze Black Front Standard - 1 szt.',
+            'opaska elastyczna 12 cm x 4 m - 2 szt.',
+            'opaska dziana 10 cm x 4 m - 2 szt.',
+            'gaza opatrunkowa jałowa 1 m² - 1 szt.',
+            'kompres gazowe jałowe 10 x 10 cm - 3 szt.',
+            'koc ratunkowy NRC (folia izotermiczna) - 1 szt.',
+            'żel schładzający o pojemności 120ml - 1 szt.',
+            'kleszczołapki - 1 szt.',
+            'opaska uciskowa, staza taktyczna Black Front (fluo) - 1 szt.',
+            'marker permanentny - 1 szt.'
         ] 
     }
 }; 
