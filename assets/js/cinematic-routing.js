@@ -122,8 +122,29 @@ const moduleDatabase = {
         desc: 'Zabezpieczenie ran, urazów i wsparcie medyczne.', 
         image: 'https://images.unsplash.com/photo-1603398938378-e54eab446dde?q=80&w=1200&auto=format&fit=crop', 
         items: [
-            'wielorazowy ogrzewacz do rąk', 
-            'apteczka pierwszej pomocy w etui DIN 13164'
+           'apteczka wraz z panelem rzepowym systemu Molle - 1 szt.',
+            'gumki (troki) mocujące szybkiego montażu - 2 szt.- apteczka wraz z panelem rzepowym systemu Molle - 1 szt.',
+            'rękawiczki diagnostyczne nitrylowe - 4 szt.',
+            'maseczka do RKO z filtrem - 1 szt.',
+            'opatrunek z wkładem chłonnym 5 x 7,2 cm - 4 szt.',
+            'paski do zamykania ran 3 x 75 mm - 1 blister',
+            'paski do zamykania ran 12 x 100 mm - 1 blister',
+            'siatka opatrunkowa nr 3, długość 1 m - 1 szt.',
+            'siatka opatrunkowa nr 6, długość 1 m - 1 szt.',
+            'plaster z opatrunkiem - 3 szt.',
+            'pęseta jednorazowa - 1 szt.',
+            'chusta trójkątna włókninowa - 2 szt.',
+            'nożyczki ratownicze Black Front Standard - 1 szt.',
+            'opaska elastyczna 12 cm x 4 m - 2 szt.',
+            'opaska dziana 10 cm x 4 m - 2 szt.',
+            'gaza opatrunkowa jałowa 1 m² - 1 szt.',
+            'kompres gazowe jałowe 10 x 10 cm - 3 szt.',
+            'koc ratunkowy NRC (folia izotermiczna) - 1 szt.',
+            'żel schładzający o pojemności 120ml - 1 szt.',
+            'kleszczołapki - 1 szt.',
+            'opaska uciskowa, staza taktyczna Black Front (fluo) - 1 szt.',
+            'marker permanentny - 1 szt.'
+            
         ] 
     }, 
 
