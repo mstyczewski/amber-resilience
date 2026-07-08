@@ -209,10 +209,10 @@
                                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 4v16m8-8H4"/></svg>
                                 </button>
                             </div>
-                            <button type="submit" id="order-btn" data-product-img="/photo/pi1.png" data-product-id="indywidualny" data-product-name="Amber Resilience - Indywidualny" data-base-price="1700" class="group relative inline-flex items-center justify-center w-full sm:w-2/3 px-12 py-5 bg-transparent border border-brand-gold/30 hover:border-brand-gold transition-colors duration-500 overflow-hidden cursor-pointer outline-none">
-    <span class="absolute inset-0 bg-brand-gold/10 transform scale-x-0 group-hover:scale-x-100 origin-left transition-transform duration-500 ease-out"></span>
-    <span class="relative z-10 font-mono text-[15px] uppercase tracking-[0.4em] text-brand-gold group-hover:text-brand-ivory transition-colors duration-500">Zamów</span>
-</button>
+                            <button type="submit" class="group relative inline-flex items-center justify-center w-full sm:w-2/3 px-12 py-5 bg-transparent border border-brand-gold/30 hover:border-brand-gold transition-colors duration-500 overflow-hidden cursor-pointer outline-none">
+                                <span class="absolute inset-0 bg-brand-gold/10 transform scale-x-0 group-hover:scale-x-100 origin-left transition-transform duration-500 ease-out"></span>
+                                <span class="relative z-10 font-mono text-[15px] uppercase tracking-[0.4em] text-brand-gold group-hover:text-brand-ivory transition-colors duration-500">Zamów</span>
+                            </button>
                         </div>
 
                         <div class="flex justify-between px-2 mt-4">
@@ -370,139 +370,14 @@ krótsze wyprawy.
                 <span class="absolute top-10 right-10 font-mono text-[10px] uppercase tracking-[0.3em] text-brand-gold">Kliknij aby zamknąć</span>
             </div>
 
-
-    
-    <div class="px-8 py-8 md:py-10 border-b border-white/5 flex justify-between items-center bg-brand-dark relative z-10 flex-shrink-0">
-        <div>
-            <span class="font-mono text-[10px] text-brand-gold tracking-[0.4em] uppercase block mb-2 flex items-center gap-2">
-                <span class="w-1.5 h-1.5 rounded-full bg-brand-gold animate-pulse"></span> Bezpieczna Transakcja
-            </span>
-            <h2 class="font-display text-3xl text-brand-ivory leading-none">Checkout</h2>
-        </div>
-        <button id="close-payment" class="text-brand-muted hover:text-brand-gold transition-colors duration-300 focus:outline-none cursor-pointer p-2">
-            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"></path></svg>
-        </button>
-    </div>
-
-    <div class="flex-grow overflow-y-auto custom-scrollbar p-8 md:p-10 relative">
-        
-        <div class="mb-10 bg-black/40 border border-white/5 p-4 flex gap-5 items-center">
-            <div class="w-20 h-24 bg-brand-surface border border-white/10 relative overflow-hidden flex-shrink-0 group">
-                <img id="drawer-product-img" src="" class="absolute inset-0 w-full h-full object-cover mix-blend-luminosity opacity-70 group-hover:opacity-100 transition-opacity duration-500" alt="Wybrany moduł">
-            </div>
-            <div class="flex-grow">
-                <span id="drawer-product-name" class="font-display text-xl text-brand-ivory leading-tight block mb-2">Wczytywanie...</span>
-                <div class="flex justify-between items-end">
-                    <span class="font-mono text-[9px] uppercase tracking-[0.3em] text-brand-muted">Ilość: <span id="drawer-qty" class="text-brand-gold">1</span></span>
-                    <span id="drawer-total-price" class="font-mono text-lg text-brand-gold tracking-tight">0 PLN</span>
-                </div>
-            </div>
-        </div>
-
-        <form id="payment-form" class="space-y-6 flex flex-col h-full">
-            <div id="payment-element" class="min-h-[200px]">
-                <div class="w-full h-48 border border-white/5 bg-white/[0.02] flex items-center justify-center">
-                    <span class="font-mono text-[10px] uppercase tracking-[0.4em] text-brand-muted animate-pulse">Inicjalizacja łącza...</span>
-                </div>
-            </div>
-            
-            <div class="mt-8 mb-4">
-                <button id="submit-payment" class="group relative inline-flex items-center justify-center w-full px-12 py-5 bg-transparent border border-brand-gold/30 hover:border-brand-gold transition-colors duration-500 overflow-hidden cursor-pointer outline-none disabled:opacity-50 disabled:cursor-not-allowed">
-                    <span class="absolute inset-0 bg-brand-gold/10 transform scale-x-0 group-hover:scale-x-100 origin-left transition-transform duration-500 ease-out"></span>
-                    <span class="relative z-10 font-mono text-[15px] uppercase tracking-[0.4em] text-brand-gold group-hover:text-brand-ivory transition-colors duration-500 flex items-center gap-3">
-                        <span id="button-text">Zapłać</span>
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M17.25 8.25L21 12m0 0l-3.75 3.75M21 12H3"></path></svg>
-                    </span>
-                </button>
-                <div id="payment-message" class="hidden text-red-500 font-mono text-[11px] tracking-widest uppercase mt-4 text-center"></div>
-            </div>
-
-            <div class="flex justify-between items-center px-1 mt-auto pt-4 border-t border-white/5">
-                <span class="font-mono text-[8px] uppercase tracking-[0.2em] text-brand-muted/70 flex items-center gap-2">
-                    <svg class="w-3 h-3 text-brand-gold/70" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z"></path></svg>
-                    256-Bit SSL
-                </span>
-                <span class="font-mono text-[8px] uppercase tracking-[0.2em] text-brand-muted/70 flex items-center gap-2">
-                    <svg class="w-3 h-3 text-brand-gold/70" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 18.75a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h6m-9 0H3.375a1.125 1.125 0 01-1.125-1.125V14.25m17.25 4.5a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h1.125c.621 0 1.129-.504 1.09-1.124a17.902 17.902 0 00-3.213-9.193 2.056 2.056 0 00-1.58-.86H14.25M16.5 18.75h-2.25m0-11.177v-.958c0-.568-.422-1.048-.987-1.106a48.554 48.554 0 00-10.026 0 1.106 1.106 0 00-.987 1.106v7.635m12-6.677v6.677m0 4.5v-4.5m0 0h-12"></path></svg>
-                    Darmowa Dostawa
-                </span>
-            </div>
-        </form>
-    </div>
-</div>
-            
         </main>
     </div> <!-- KONIEC WRAPPERA BARBA.JS -->
 
-    </div> <div id="dynamic-footer" class="block w-full bg-brand-surface relative z-20"></div>
-
-    <div id="payment-overlay" class="fixed inset-0 z-[300] bg-brand-dark/80 backdrop-blur-md opacity-0 pointer-events-none transition-opacity duration-700"></div>
-
-    <div id="payment-drawer" class="fixed top-0 right-0 z-[310] w-full md:w-[480px] h-full bg-brand-surface border-l border-white/5 transform translate-x-[120%] flex flex-col shadow-2xl shadow-black">
-        
-        <div class="px-8 py-8 md:py-10 border-b border-white/5 flex justify-between items-center bg-brand-dark relative z-10 flex-shrink-0">
-            <div>
-                <span class="font-mono text-[10px] text-brand-gold tracking-[0.4em] uppercase block mb-2 flex items-center gap-2">
-                    <span class="w-1.5 h-1.5 rounded-full bg-brand-gold animate-pulse"></span> Bezpieczna Transakcja
-                </span>
-                <h2 class="font-display text-3xl text-brand-ivory leading-none">Checkout</h2>
-            </div>
-            <button id="close-payment" class="text-brand-muted hover:text-brand-gold transition-colors duration-300 focus:outline-none cursor-pointer p-2">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"></path></svg>
-            </button>
-        </div>
-
-        <div class="flex-grow overflow-y-auto custom-scrollbar p-8 md:p-10 relative">
-            
-            <div class="mb-10 bg-black/40 border border-white/5 p-4 flex gap-5 items-center">
-                <div class="w-20 h-24 bg-brand-surface border border-white/10 relative overflow-hidden flex-shrink-0 group">
-                    <img id="drawer-product-img" src="" class="absolute inset-0 w-full h-full object-cover mix-blend-luminosity opacity-70 group-hover:opacity-100 transition-opacity duration-500" alt="Wybrany moduł">
-                </div>
-                <div class="flex-grow">
-                    <span id="drawer-product-name" class="font-display text-xl text-brand-ivory leading-tight block mb-2">Wczytywanie...</span>
-                    <div class="flex justify-between items-end">
-                        <span class="font-mono text-[9px] uppercase tracking-[0.3em] text-brand-muted">Ilość: <span id="drawer-qty" class="text-brand-gold">1</span></span>
-                        <span id="drawer-total-price" class="font-mono text-lg text-brand-gold tracking-tight">0 PLN</span>
-                    </div>
-                </div>
-            </div>
-
-            <form id="payment-form" class="space-y-6 flex flex-col h-full">
-                <div id="payment-element" class="min-h-[200px]">
-                    <div class="w-full h-48 border border-white/5 bg-white/[0.02] flex items-center justify-center">
-                        <span class="font-mono text-[10px] uppercase tracking-[0.4em] text-brand-muted animate-pulse">Inicjalizacja łącza...</span>
-                    </div>
-                </div>
-                
-                <div class="mt-8 mb-4">
-                    <button id="submit-payment" class="group relative inline-flex items-center justify-center w-full px-12 py-5 bg-transparent border border-brand-gold/30 hover:border-brand-gold transition-colors duration-500 overflow-hidden cursor-pointer outline-none disabled:opacity-50 disabled:cursor-not-allowed">
-                        <span class="absolute inset-0 bg-brand-gold/10 transform scale-x-0 group-hover:scale-x-100 origin-left transition-transform duration-500 ease-out"></span>
-                        <span class="relative z-10 font-mono text-[15px] uppercase tracking-[0.4em] text-brand-gold group-hover:text-brand-ivory transition-colors duration-500 flex items-center gap-3">
-                            <span id="button-text">Zapłać</span>
-                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M17.25 8.25L21 12m0 0l-3.75 3.75M21 12H3"></path></svg>
-                        </span>
-                    </button>
-                    <div id="payment-message" class="hidden text-red-500 font-mono text-[11px] tracking-widest uppercase mt-4 text-center"></div>
-                </div>
-
-                <div class="flex justify-between items-center px-1 mt-auto pt-4 border-t border-white/5">
-                    <span class="font-mono text-[8px] uppercase tracking-[0.2em] text-brand-muted/70 flex items-center gap-2">
-                        <svg class="w-3 h-3 text-brand-gold/70" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z"></path></svg>
-                        256-Bit SSL
-                    </span>
-                    <span class="font-mono text-[8px] uppercase tracking-[0.2em] text-brand-muted/70 flex items-center gap-2">
-                        <svg class="w-3 h-3 text-brand-gold/70" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 18.75a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h6m-9 0H3.375a1.125 1.125 0 01-1.125-1.125V14.25m17.25 4.5a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h1.125c.621 0 1.129-.504 1.09-1.124a17.902 17.902 0 00-3.213-9.193 2.056 2.056 0 00-1.58-.86H14.25M16.5 18.75h-2.25m0-11.177v-.958c0-.568-.422-1.048-.987-1.106a48.554 48.554 0 00-10.026 0 1.106 1.106 0 00-.987 1.106v7.635m12-6.677v6.677m0 4.5v-4.5m0 0h-12"></path></svg>
-                        Darmowa Dostawa
-                    </span>
-                </div>
-            </form>
-        </div>
-    </div>
+    <div id="dynamic-footer" class="block w-full bg-brand-surface relative z-20"></div>
 
     <!-- TYLKO ZEWNĘTRZNE BIBLIOTEKI, ABSOLUTNE ZERO INLINE SCRIPTÓW -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
-    <script src="https://js.stripe.com/v3/"></script>
     <script src="https://cdn.jsdelivr.net/npm/@barba/core"></script>
     <script src="/assets/js/cinematic-routing.js"></script>
 
