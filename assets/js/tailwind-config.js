@@ -15,6 +15,7 @@ tailwind.config = {
             fontFamily: {
                 display: ['"Cormorant Garamond"', 'serif'],
                 body: ['"Outfit"', 'sans-serif']
+                mono: ['"JetBrains Mono"', 'monospace']
             }
         }
     }
