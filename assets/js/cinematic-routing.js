@@ -1009,6 +1009,112 @@ function renderFAQ() {
     });
 }
 
+
+/* =========================================================================
+   STRIPE PAYMENT ENGINE | SECURE CHECKOUT DRAWER
+   ========================================================================= */
+window.initStripeDrawer = function() {
+    const orderBtn = document.getElementById('order-btn'); 
+    const qtyInput = document.getElementById('qty-input'); 
+    const closeBtn = document.getElementById('close-payment');
+    const overlay = document.getElementById('payment-overlay');
+    const drawer = document.getElementById('payment-drawer');
+
+    if (!orderBtn || !drawer) return; // Ignorujemy na podstronach bez koszyka
+
+    // Klonowanie przycisku zapobiega wielokrotnemu bindowaniu zdarzeń przez Barba.js
+    const newOrderBtn = orderBtn.cloneNode(true);
+    orderBtn.parentNode.replaceChild(newOrderBtn, orderBtn);
+
+    let paymentDrawerTimeline = gsap.timeline({ paused: true, defaults: { ease: "power4.inOut", duration: 0.8 } });
+    
+    paymentDrawerTimeline
+        .to(overlay, { opacity: 1, pointerEvents: "auto", duration: 0.5 })
+        .to(drawer, { x: "0%", duration: 0.8 }, "-=0.4");
+
+    newOrderBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        
+        const quantity = parseInt(qtyInput ? qtyInput.value : 1);
+        const basePrice = parseInt(newOrderBtn.getAttribute('data-base-price')) || 1700;
+        const productId = newOrderBtn.getAttribute('data-product-id') || 'indywidualny';
+        const productName = newOrderBtn.getAttribute('data-product-name') || 'Amber Resilience - Indywidualny';
+        
+        const totalPrice = basePrice * quantity;
+        const formattedPrice = totalPrice.toLocaleString('pl-PL');
+
+        document.getElementById('drawer-product-name').innerText = productName;
+        document.getElementById('drawer-qty').innerText = `x${quantity}`;
+        document.getElementById('drawer-total-price').innerText = `${formattedPrice} PLN`;
+        document.getElementById('button-text').innerText = `Zapłać ${formattedPrice} PLN`;
+
+        document.body.style.overflow = 'hidden'; // Luksusowa blokada tła
+        paymentDrawerTimeline.play();
+        
+        if (typeof Stripe === 'undefined') {
+            console.error("[Premium Engine] Brak biblioteki Stripe.js. Dodaj skrypt w <head>.");
+            return;
+        }
+        initializeStripe(productId, quantity); 
+    });
+
+    const closeDrawer = () => {
+        paymentDrawerTimeline.reverse();
+        setTimeout(() => { document.body.style.overflow = ''; }, 800);
+    };
+    
+    if(closeBtn) {
+        const newCloseBtn = closeBtn.cloneNode(true);
+        closeBtn.parentNode.replaceChild(newCloseBtn, closeBtn);
+        newCloseBtn.addEventListener('click', closeDrawer);
+    }
+    if(overlay) overlay.addEventListener('click', closeDrawer);
+
+    let stripeInstance, elements;
+
+    async function initializeStripe(productId, quantity) {
+        if(stripeInstance) return; // Ochrona przed podwójnym renderem iframe
+        stripeInstance = Stripe("pk_test_TWOJ_KLUCZ_PUBLICZNY_STRIPE"); // WPISZ KLUCZ PUBLICZNY
+
+        try {
+            const response = await fetch("/create-payment-intent.php", { 
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ productId: productId, quantity: quantity })
+            });
+
+            if (!response.ok) throw new Error('Payment API Error');
+
+            const { clientSecret } = await response.json();
+
+            const appearance = {
+                theme: 'night',
+                variables: {
+                    fontFamily: '"Outfit", sans-serif',
+                    colorBackground: '#111111',
+                    colorText: '#F9F7F2',
+                    borderRadius: '0px',
+                    colorPrimary: '#C5A059',
+                },
+                rules: {
+                    '.Input': { backgroundColor: 'transparent', border: '1px solid rgba(255, 255, 255, 0.1)', padding: '16px 12px', fontFamily: '"JetBrains Mono", monospace' },
+                    '.Input:focus': { border: '1px solid #C5A059', outline: 'none' },
+                    '.Label': { textTransform: 'uppercase', letterSpacing: '0.2em', fontSize: '9px', fontFamily: '"JetBrains Mono", monospace', color: '#A3A3A3' }
+                }
+            };
+
+            elements = stripeInstance.elements({ clientSecret, appearance });
+            const paymentElement = elements.create("payment", { layout: "tabs" });
+            paymentElement.mount("#payment-element");
+        } catch (error) {
+            const msg = document.getElementById('payment-message');
+            if(msg) {
+                msg.innerText = "Błąd połączenia z serwerem. Odśwież stronę.";
+                msg.classList.remove('hidden');
+            }
+        }
+    }
+};
 /* =========================================================================
    GŁÓWNY INICJATOR
    ========================================================================= */
@@ -1052,6 +1158,7 @@ async function initAll(targetHash = null) {
         initMobileMenu();
         window.syncPriceDisplay();
         window.initSmartHeader();
+        window.initStripeDrawer();
        
        
         if (typeof ScrollTrigger !== 'undefined') {
