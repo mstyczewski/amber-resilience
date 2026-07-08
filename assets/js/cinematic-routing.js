@@ -1039,15 +1039,12 @@ window.initStripeDrawer = function() {
         const basePrice = parseInt(newOrderBtn.getAttribute('data-base-price')) || 1700;
         const productId = newOrderBtn.getAttribute('data-product-id') || 'indywidualny';
         const productName = newOrderBtn.getAttribute('data-product-name') || 'Amber Resilience - Indywidualny';
+        const productImg = newOrderBtn.getAttribute('data-product-img') || '/photo/pi1.png';
         
         const totalPrice = basePrice * quantity;
         const formattedPrice = totalPrice.toLocaleString('pl-PL');
 
-        document.getElementById('drawer-product-name').innerText = productName;
-        document.getElementById('drawer-qty').innerText = quantity;
-       
-       // POBIERANIE ZDJĘCIA Z PRZYCISKU
-        const productImg = newOrderBtn.getAttribute('data-product-img') || '/photo/pi1.png';
+        // Wstrzyknięcie danych do luksusowego panelu podsumowania
         const imgElement = document.getElementById('drawer-product-img');
         if (imgElement) imgElement.src = productImg;
 
@@ -1055,13 +1052,8 @@ window.initStripeDrawer = function() {
         document.getElementById('drawer-qty').innerText = quantity;
         document.getElementById('drawer-total-price').innerText = `${formattedPrice} PLN`;
         document.getElementById('button-text').innerText = `Zapłać ${formattedPrice} PLN`;
-       
 
-       
-        document.getElementById('drawer-total-price').innerText = `${formattedPrice} PLN`;
-        document.getElementById('button-text').innerText = `Zapłać ${formattedPrice} PLN`;
-
-        document.body.style.overflow = 'hidden'; // Luksusowa blokada tła
+        document.body.style.overflow = 'hidden'; 
         paymentDrawerTimeline.play();
         
         if (typeof Stripe === 'undefined') {
@@ -1086,8 +1078,8 @@ window.initStripeDrawer = function() {
     let stripeInstance, elements;
 
     async function initializeStripe(productId, quantity) {
-        if(stripeInstance) return; // Ochrona przed podwójnym renderem iframe
-        stripeInstance = Stripe("pk_test_TWOJ_KLUCZ_PUBLICZNY_STRIPE"); // WPISZ KLUCZ PUBLICZNY
+        if(stripeInstance) return; 
+        stripeInstance = Stripe("pk_test_TWOJ_KLUCZ_PUBLICZNY_STRIPE"); // TUTAJ PODMIENISZ KLUCZ
 
         try {
             const response = await fetch("/create-payment-intent.php", { 
