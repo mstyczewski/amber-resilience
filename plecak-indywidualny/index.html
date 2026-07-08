@@ -370,6 +370,45 @@ krótsze wyprawy.
                 <span class="absolute top-10 right-10 font-mono text-[10px] uppercase tracking-[0.3em] text-brand-gold">Kliknij aby zamknąć</span>
             </div>
 
+<div id="payment-overlay" class="fixed inset-0 z-[300] bg-brand-dark/80 backdrop-blur-md opacity-0 pointer-events-none transition-opacity duration-700"></div>
+
+<div id="payment-drawer" class="fixed top-0 right-0 z-[310] w-full md:w-[480px] h-full bg-brand-surface border-l border-white/5 transform translate-x-full flex flex-col shadow-2xl shadow-black">
+    <div class="px-8 py-8 md:py-12 border-b border-white/5 flex justify-between items-center bg-brand-dark relative z-10">
+        <div>
+            <span class="font-mono text-[10px] text-brand-gold tracking-[0.4em] uppercase block mb-2">Autoryzacja</span>
+            <h2 class="font-display text-3xl text-brand-ivory leading-none">Checkout</h2>
+        </div>
+        <button id="close-payment" class="text-brand-muted hover:text-brand-gold transition-colors duration-300 focus:outline-none cursor-pointer p-2">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"></path></svg>
+        </button>
+    </div>
+
+    <div class="flex-grow overflow-y-auto custom-scrollbar p-8 md:p-12 relative">
+        <div class="mb-10">
+            <div class="flex justify-between items-baseline mb-2">
+                <span id="drawer-product-name" class="font-body text-sm text-brand-muted">Wczytywanie...</span>
+                <span class="font-mono text-brand-ivory text-sm"><span id="drawer-qty">x1</span></span>
+            </div>
+            <div class="w-full h-[1px] bg-white/5 my-4"></div>
+            <div class="flex justify-between items-baseline">
+                <span class="font-mono text-[10px] uppercase tracking-[0.2em] text-brand-muted">Do zapłaty</span>
+                <span id="drawer-total-price" class="font-mono text-xl text-brand-gold tracking-tight">0 PLN</span>
+            </div>
+        </div>
+
+        <form id="payment-form" class="space-y-6">
+            <div id="payment-element" class="min-h-[200px]"></div>
+            <button id="submit-payment" class="group relative inline-flex items-center justify-center w-full px-12 py-5 bg-transparent border border-brand-gold/30 hover:border-brand-gold transition-colors duration-500 overflow-hidden cursor-pointer outline-none mt-8 disabled:opacity-50">
+                <span class="absolute inset-0 bg-brand-gold/10 transform scale-x-0 group-hover:scale-x-100 origin-left transition-transform duration-500 ease-out"></span>
+                <span class="relative z-10 font-mono text-[15px] uppercase tracking-[0.4em] text-brand-gold group-hover:text-brand-ivory transition-colors duration-500 flex items-center gap-3">
+                    <span id="button-text">Zapłać</span>
+                </span>
+            </button>
+            <div id="payment-message" class="hidden text-red-500 font-mono text-[11px] tracking-widest uppercase mt-4 text-center"></div>
+        </form>
+    </div>
+</div>
+            
         </main>
     </div> <!-- KONIEC WRAPPERA BARBA.JS -->
 
