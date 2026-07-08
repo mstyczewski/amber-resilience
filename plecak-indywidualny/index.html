@@ -209,7 +209,7 @@
                                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 4v16m8-8H4"/></svg>
                                 </button>
                             </div>
-                            <button type="submit" id="order-btn" data-product-img="/photo/pi1.png" data-product-id="indywidualny" data-product-name="Amber Resilience - Indywidualny" data-base-price="1700" class="...">
+                            <button type="submit" id="order-btn" data-product-img="/photo/pi1.png" data-product-id="indywidualny" data-product-name="Amber Resilience - Indywidualny" data-base-price="1700" class="group relative inline-flex items-center justify-center w-full sm:w-2/3 px-12 py-5 bg-transparent border border-brand-gold/30 hover:border-brand-gold transition-colors duration-500 overflow-hidden cursor-pointer outline-none">
     <span class="absolute inset-0 bg-brand-gold/10 transform scale-x-0 group-hover:scale-x-100 origin-left transition-transform duration-500 ease-out"></span>
     <span class="relative z-10 font-mono text-[15px] uppercase tracking-[0.4em] text-brand-gold group-hover:text-brand-ivory transition-colors duration-500">Zamów</span>
 </button>
@@ -370,9 +370,7 @@ krótsze wyprawy.
                 <span class="absolute top-10 right-10 font-mono text-[10px] uppercase tracking-[0.3em] text-brand-gold">Kliknij aby zamknąć</span>
             </div>
 
-<div id="payment-overlay" class="fixed inset-0 z-[300] bg-brand-dark/80 backdrop-blur-md opacity-0 pointer-events-none transition-opacity duration-700"></div>
 
-<div id="payment-drawer" class="fixed top-0 right-0 z-[310] w-full md:w-[480px] h-full bg-brand-surface border-l border-white/5 transform translate-x-[140%] flex flex-col shadow-2xl shadow-black">
     
     <div class="px-8 py-8 md:py-10 border-b border-white/5 flex justify-between items-center bg-brand-dark relative z-10 flex-shrink-0">
         <div>
@@ -437,6 +435,9 @@ krótsze wyprawy.
     </div> <!-- KONIEC WRAPPERA BARBA.JS -->
 
     <div id="dynamic-footer" class="block w-full bg-brand-surface relative z-20"></div>
+    <div id="payment-overlay" class="fixed inset-0 z-[300] bg-brand-dark/80 backdrop-blur-md opacity-0 pointer-events-none transition-opacity duration-700"></div>
+
+<div id="payment-drawer" class="fixed top-0 right-0 z-[310] w-full md:w-[480px] h-full bg-brand-surface border-l border-white/5 transform translate-x-[140%] flex flex-col shadow-2xl shadow-black">
 
     <!-- TYLKO ZEWNĘTRZNE BIBLIOTEKI, ABSOLUTNE ZERO INLINE SCRIPTÓW -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
