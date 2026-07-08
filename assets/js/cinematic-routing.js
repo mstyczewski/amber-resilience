@@ -1044,7 +1044,20 @@ window.initStripeDrawer = function() {
         const formattedPrice = totalPrice.toLocaleString('pl-PL');
 
         document.getElementById('drawer-product-name').innerText = productName;
-        document.getElementById('drawer-qty').innerText = `x${quantity}`;
+        document.getElementById('drawer-qty').innerText = quantity;
+       
+       // POBIERANIE ZDJĘCIA Z PRZYCISKU
+        const productImg = newOrderBtn.getAttribute('data-product-img') || '/photo/pi1.png';
+        const imgElement = document.getElementById('drawer-product-img');
+        if (imgElement) imgElement.src = productImg;
+
+        document.getElementById('drawer-product-name').innerText = productName;
+        document.getElementById('drawer-qty').innerText = quantity;
+        document.getElementById('drawer-total-price').innerText = `${formattedPrice} PLN`;
+        document.getElementById('button-text').innerText = `Zapłać ${formattedPrice} PLN`;
+       
+
+       
         document.getElementById('drawer-total-price').innerText = `${formattedPrice} PLN`;
         document.getElementById('button-text').innerText = `Zapłać ${formattedPrice} PLN`;
 
