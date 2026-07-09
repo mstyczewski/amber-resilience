@@ -79,7 +79,7 @@ const moduleDatabase = {
         image: 'https://images.unsplash.com/photo-1622484211148-356ec37db7bb?q=80&w=1200&auto=format&fit=crop', 
         items: [
            'baton energetyczny orzechowy NUT-RATION 100 g (550 kcal), 1 szt.',
-           'Lio&dried food: Zupa pomidorowa z ryżem 85 g (342 kcal), 1 szt., 1 szt.',
+           'Lio&dried food: Zupa pomidorowa z ryżem 85 g (342 kcal), 1 szt.',
             'batony energetyczne daktylowe NUTRIBASE 660 g (2500 kcal), 1 szt.',
             'elektrolity w proszku HID-RATION 3 g, 9 szt.',
             'składana szeroka butelka 1 L, 1 szt.',
