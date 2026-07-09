@@ -102,7 +102,7 @@ const moduleDatabase = {
         image: 'https://images.unsplash.com/photo-1556228578-0d85b1a4d571?q=80&w=1200&auto=format&fit=crop', 
         items: [
            'żel i szampon 2w1 20 ml, 1 szt.',
-            'sól fizjologiczna 0,9% 5 ml, 3 szt., 3 szt.',
+            'sól fizjologiczna 0,9% 5 ml, 3 szt.',
             'chusteczki higieniczne 10 szt., 1 paczka',
             'chusteczki nawilżające, 3 szt.',
             'chusteczki do dezynfekcji, 3 szt.',
