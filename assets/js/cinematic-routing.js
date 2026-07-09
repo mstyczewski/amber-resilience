@@ -25,13 +25,13 @@ const moduleDatabase = {
     'tools': { 
         number: 'Moduł 01', 
         title: 'Narzędzia', 
-        desc: 'Wszystko, co pozwoli Ci działać. Niezbędny hardware do przetrwania w terenie.', 
+        desc: 'Wszystko, co pozwoli Ci działać. Niezbędny sprzęt do przetrwania w terenie.', 
         image: 'https://images.unsplash.com/photo-1589104052309-84b2c15e83ce?q=80&w=1200&auto=format&fit=crop', 
         items: [
             'narzędzie wielofunkcyjne, 1 szt.',
             'nóż taktyczny z krzesiwem, osełką i gwizdkiem, 1 szt.',
             'taśma naprawcza 5 cm x 2,5 m, 1 szt.',
-            'zapałki sztormowe w pudełku 14 szt.',
+            'zapałki sztormowe w pudełku, 14 szt.',
             'linka o grubości 2 mm – 10 m, 1 szt.',
             'trytytka wielorazowa 20 cm, 10 szt.',
             'brelok EDC z retraktorem, 1 szt.',
@@ -50,8 +50,8 @@ const moduleDatabase = {
         items: [
                'mapa samochodowa Polski w skali 1:700000 (wersja 01.2026), 1 szt.',
                'notes wodoodporny, 1 szt.',
-               'radio awaryjne z latarką LED i powerbankiem (2000 mAh), zasilane akumulatorem typu 18650 (3.7V) ładowane korbką lub panelem solarnym 1 szt.',
-               'latarka czołowa LED 1500 lumenów o zasięgu 300 m, zasilana 2 x akumulatorem typu 18650 (3.7V) ładowanie ładowarką sieciową lub samochodową 1 szt.',
+               'radio awaryjne z latarką LED i powerbankiem (2000 mAh), zasilane akumulatorem typu 18650 (3.7V) ładowane korbką lub panelem solarnym, 1 szt.',
+               'latarka czołowa LED 1500 lumenów o zasięgu 300 m, zasilana 2 x akumulatorem typu 18650 (3.7V) ładowanie ładowarką sieciową lub samochodową, 1 szt.',
                'wodoodporne etui na dokumenty, 1 szt.',
                'gwizdek z kompasem i termometrem, 1 szt.'
                
@@ -64,7 +64,7 @@ const moduleDatabase = {
         desc: 'Ochrona przed żywiołami i izolacja termiczna.', 
         image: 'https://images.unsplash.com/photo-1504280390224-3ea3391b1513?q=80&w=1200&auto=format&fit=crop', 
         items: [
-            'kurta przeciwdeszczowa rozmiar L, 1 szt.',
+            'kurtka przeciwdeszczowa rozmiar L, 1 szt.',
             'śpiwór awaryjny w worku z gwizdkiem, wymiary 215 x 90 cm, 1 szt.',
             'ogrzewacz do rąk, 1 para',
             'ogrzewacz do stóp, 1 para'
@@ -75,10 +75,11 @@ const moduleDatabase = {
     'nutrition': { 
         number: 'Moduł 04', 
         title: 'Wyżywienie', 
-        desc: 'Kluczowe nawodnienie i wysokoenergetyczne paliwo kognitywne.', 
+        desc: 'Wysokiej jakości żywność i elektrolity dla zachowania odpowiedniej kondycji psychofizycznej. Sprzęt niezbędny do pozyskania i przechowywania wody oraz przygotowania i spożycia ciepłego posiłku.', 
         image: 'https://images.unsplash.com/photo-1622484211148-356ec37db7bb?q=80&w=1200&auto=format&fit=crop', 
         items: [
            'baton energetyczny orzechowy NUT-RATION 100 g (550 kcal), 1 szt.',
+           'Lio&dried food: Zupa pomidorowa z ryżem 85 g (342 kcal), 1 szt., 1 szt.',
             'batony energetyczne daktylowe NUTRIBASE 660 g (2500 kcal), 1 szt.',
             'elektrolity w proszku HID-RATION 3 g, 9 szt.',
             'składana szeroka butelka 1 L, 1 szt.',
@@ -97,11 +98,11 @@ const moduleDatabase = {
     'hygiene': { 
         number: 'Moduł 05', 
         title: 'Higiena', 
-        desc: 'Prewencja chorobowa i czystość operacyjna w każdych warunkach.', 
+        desc: 'Zapewnienie higieny osobistej i uczucia komfortu w każdych warunkach.', 
         image: 'https://images.unsplash.com/photo-1556228578-0d85b1a4d571?q=80&w=1200&auto=format&fit=crop', 
         items: [
            'żel i szampon 2w1 20 ml, 1 szt.',
-            'sól fizjologiczna, 3 szt.',
+            'sól fizjologiczna 0,9% 5 ml, 3 szt., 3 szt.',
             'chusteczki higieniczne 10 szt., 1 paczka',
             'chusteczki nawilżające, 3 szt.',
             'chusteczki do dezynfekcji, 3 szt.',
@@ -119,7 +120,7 @@ const moduleDatabase = {
     'medical': { 
         number: 'Moduł 06', 
         title: 'Pierwsza Pomoc', 
-        desc: 'Zabezpieczenie ran, urazów i wsparcie medyczne.', 
+        desc: 'Podstawowe wsparcie medyczne. ', 
         image: 'https://images.unsplash.com/photo-1603398938378-e54eab446dde?q=80&w=1200&auto=format&fit=crop', 
         items: [
            'apteczka wraz z panelem rzepowym systemu Molle - 1 szt.',
@@ -153,13 +154,13 @@ const moduleDatabase = {
     'tools-family': { 
         number: 'Moduł 01', 
         title: 'Narzędzia', 
-        desc: 'Wszystko, co pozwoli Ci działać. Niezbędny hardware do przetrwania w terenie.', 
+        desc: 'Wszystko, co pozwoli Ci działać. Niezbędny sprzęt do przetrwania w terenie.', 
         image: 'https://images.unsplash.com/photo-1589104052309-84b2c15e83ce?q=80&w=1200&auto=format&fit=crop', 
         items: [
             'narzędzie wielofunkcyjne, 1 szt.',
             'nóż taktyczny z krzesiwem, osełką i gwizdkiem, 1 szt.',
             'taśma naprawcza 5 cm x 2,5 m, 1 szt.',
-            'zapałki sztormowe w pudełku 14 szt.',
+            'zapałki sztormowe w pudełku, 14 szt.',
             'linka o grubości 2 mm – 10 m, 1 szt.',
             'trytytka wielorazowa 20 cm, 10 szt.',
             'brelok EDC z retraktorem, 2 szt.',
@@ -176,8 +177,8 @@ const moduleDatabase = {
         items: [
             'mapa samochodowa Polski w skali 1:700000 (wersja 01.2026), 1 szt.',
                'notes wodoodporny, 1 szt.',
-               'radio awaryjne z latarką LED i powerbankiem (2000 mAh), zasilane akumulatorem typu 18650 (3.7V) ładowane korbką lub panelem solarnym 2 szt.',
-               'latarka czołowa LED 1500 lumenów o zasięgu 300 m, zasilana 2 x akumulatorem typu 18650 (3.7V) ładowanie ładowarką sieciową lub samochodową 2 szt.',
+               'radio awaryjne z latarką LED i powerbankiem (2000 mAh), zasilane akumulatorem typu 18650 (3.7V) ładowane korbką lub panelem solarnym, 2 szt.',
+               'latarka czołowa LED 1500 lumenów o zasięgu 300 m, zasilana 2 x akumulatorem typu 18650 (3.7V) ładowanie ładowarką sieciową lub samochodową, 2 szt.',
                'wodoodporne etui na dokumenty, 4 szt.',
                'gwizdek z kompasem i termometrem, 2 szt.'
         ] 
@@ -189,8 +190,8 @@ const moduleDatabase = {
         desc: 'Ochrona przed żywiołami i izolacja termiczna.', 
         image: 'https://images.unsplash.com/photo-1504280390224-3ea3391b1513?q=80&w=1200&auto=format&fit=crop', 
         items: [
-            'kurta przeciwdeszczowa rozmiar L, 2 szt.',
-            'kurta przeciwdeszczowa rozmiar M, 2 szt.',
+            'kurtka przeciwdeszczowa rozmiar L, 2 szt.',
+            'kurtka przeciwdeszczowa rozmiar M, 2 szt.',
             'śpiwór awaryjny w worku z gwizdkiem, wymiary 215 x 90 cm, 4 szt.',
             'ogrzewacz do rąk, 4 pary',
             'ogrzewacz do stóp, 4 pary'
@@ -200,11 +201,12 @@ const moduleDatabase = {
     'nutrition-family': { 
         number: 'Moduł 04', 
         title: 'Wyżywienie', 
-        desc: 'Kluczowe nawodnienie i wysokoenergetyczne paliwo kognitywne.', 
+        desc: 'Wysokiej jakości żywność i elektrolity dla zachowania odpowiedniej kondycji psychofizycznej. Sprzęt niezbędny do pozyskania i przechowywania wody oraz przygotowania i spożycia ciepłego posiłku.', 
         image: 'https://images.unsplash.com/photo-1622484211148-356ec37db7bb?q=80&w=1200&auto=format&fit=crop', 
         items: [
             'baton energetyczny orzechowy NUT-RATION 100 g (550 kcal), 4 szt.',
             'batony energetyczne daktylowe NUTRIBASE 660 g (2500 kcal), 2 szt.',
+           'Lio&dried food: Zupa pomidorowa z ryżem 85 g (342 kcal), 1 szt., 1 szt.',
             'elektrolity HID-RATION (28 tabletek w tubie), 1 szt.',
             'składana szeroka butelka 1 L, 2 szt.',
             'worek doypack 1 L do uzdatniania wody, 2 szt.',
@@ -221,7 +223,7 @@ const moduleDatabase = {
     'hygiene-family': { 
         number: 'Moduł 05', 
         title: 'Higiena', 
-        desc: 'Prewencja chorobowa i czystość operacyjna w każdych warunkach.', 
+        desc: 'Zapewnienie higieny osobistej i uczucia komfortu w każdych warunkach.', 
         image: 'https://images.unsplash.com/photo-1556228578-0d85b1a4d571?q=80&w=1200&auto=format&fit=crop', 
         items: [
              ' 4 zestawy:',
@@ -243,7 +245,7 @@ const moduleDatabase = {
     'medical-family': { 
         number: 'Moduł 06', 
         title: 'Pierwsza Pomoc', 
-        desc: 'Zabezpieczenie ran, urazów i wsparcie medyczne.', 
+        desc: 'Podstawowe wsparcie medyczne.', 
         image: 'https://images.unsplash.com/photo-1603398938378-e54eab446dde?q=80&w=1200&auto=format&fit=crop', 
         items: [
             'apteczka wraz z panelem rzepowym systemu Molle - 1 szt.',
