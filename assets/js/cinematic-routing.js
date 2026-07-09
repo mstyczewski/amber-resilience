@@ -103,7 +103,7 @@ const moduleDatabase = {
         items: [
            'żel i szampon 2w1 20 ml, 1 szt.',
             'sól fizjologiczna 0,9% 5 ml, 3 szt.',
-            'chusteczki higieniczne 10 szt., 1 paczka',
+            'chusteczki higieniczne 10 szt. 1 paczka',
             'chusteczki nawilżające, 3 szt.',
             'chusteczki do dezynfekcji, 3 szt.',
             'płatki higieniczne, 4 szt.',
@@ -206,7 +206,7 @@ const moduleDatabase = {
         items: [
             'baton energetyczny orzechowy NUT-RATION 100 g (550 kcal), 4 szt.',
             'batony energetyczne daktylowe NUTRIBASE 660 g (2500 kcal), 2 szt.',
-           'Lio&dried food: Zupa pomidorowa z ryżem 85 g (342 kcal), 1 szt., 2 szt.',
+           'Lio&dried food: Zupa pomidorowa z ryżem 85 g (342 kcal), 2 szt.',
            'Lio&dried food: Zupa krem z pieczarek 85 g (341 kcal), 2 szt.',
             'elektrolity HID-RATION (28 tabletek w tubie), 1 szt.',
             'składana szeroka butelka 1 L, 2 szt.',
