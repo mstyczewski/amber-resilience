@@ -299,8 +299,16 @@ window.openDossier = function(moduleId) {
         listContainer.innerHTML = ''; 
         data.items.forEach(item => {
             const li = document.createElement('li');
-            li.className = 'flex items-start gap-4';
-            li.innerHTML = `<span class="text-brand-gold mt-1 font-mono text-[10px]">///</span><span class="leading-relaxed font-light text-sm">${item}</span>`;
+            
+            // Architektura Premium: Wyłapujemy etykietę i nadajemy jej intencjonalny styl
+            if (item.trim() === '4 zestawy:') {
+                li.className = 'flex items-start mt-4 mb-2'; // Dodatkowe światło (whitespace)
+                li.innerHTML = `<span class="text-brand-gold font-mono text-[11px] uppercase tracking-[0.2em]">${item.trim()}</span>`;
+            } else {
+                li.className = 'flex items-start gap-4';
+                li.innerHTML = `<span class="text-brand-gold mt-1 font-mono text-[10px]">///</span><span class="leading-relaxed font-light text-sm">${item}</span>`;
+            }
+            
             listContainer.appendChild(li);
         });
     }
