@@ -5,7 +5,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Oferta dla Instytucji Publicznych | Amber Resilience</title>
     <!-- Zachowaj swoje istniejące meta tagi, SEO i linki do CSS/Tailwind z index.html -->
+    <style>
+        html, body {
+            background-color: #050505 !important;
+            margin: 0;
+            padding: 0;
+        }
+    </style>
+<style>
+    /* Wymuszamy na karcie, aby nie walczyła z CSS */
+    #wybor-plecaka a {
+        transition: none !important; /* Wyłączamy CSS-owe transition dla tych elementów, zostawiamy tylko GSAP */
+        will-change: transform, opacity; /* Pomaga pozbyć się "mignięć" (flickeringu) */
+    }
+</style>
     
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Outfit:wght@300;400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@100..800&display=swap](https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@100..800&display=swap)" rel="stylesheet">
     
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
