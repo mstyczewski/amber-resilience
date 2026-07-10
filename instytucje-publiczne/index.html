@@ -5,7 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Oferta dla Instytucji Publicznych | Amber Resilience</title>
     <!-- Zachowaj swoje istniejące meta tagi, SEO i linki do CSS/Tailwind z index.html -->
-    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Outfit:wght@300;400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@100..800&display=swap](https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@100..800&display=swap)" rel="stylesheet">
+
+    
+    script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
             theme: {
@@ -24,7 +31,51 @@
 </head>
 <body class="font-body selection:bg-brand-gold selection:text-brand-dark bg-brand-dark text-brand-ivory">
 
-    <!-- Tutaj wstaw swój globalny tag <nav id="premium-nav"> (zaktualizowany o nową zakładkę) -->
+ <nav id="premium-nav" class="fixed top-0 left-0 w-full z-50 py-6 px-6 md:px-16 flex justify-between items-center transition-all duration-[0.8s] ease-[cubic-bezier(0.16,1,0.3,1)] transform-gpu isolate will-change-transform bg-transparent">
+            <div class="w-24 md:w-24">
+            <a href="/">
+                <img src="/logo.png" alt="Amber Resilience Logo" class="w-full h-auto mix-blend-screen filter contrast-110 brightness-125">
+            </a>
+        </div>
+        
+        <ul class="hidden md:flex items-center gap-12 text-[14px] uppercase tracking-[0.25em] text-brand-muted font-mono font-light">
+    <li>
+        <a href="/o-nas/" class="hover:text-brand-ivory transition-colors duration-500 relative group outline-none">
+            KONCEPCJA
+            <span class="absolute -bottom-2 left-0 w-0 h-[1px] bg-brand-gold transition-all duration-500 group-hover:w-full"></span>
+        </a>
+    </li>
+            <li>
+        <a href="/instytucje-publiczne/" class="hover:text-brand-ivory transition-colors duration-500 relative group outline-none">
+            INSTYTUCJE PUBLICZNE
+            <span class="absolute -bottom-2 left-0 w-0 h-[1px] bg-brand-gold transition-all duration-500 group-hover:w-full"></span>
+        </a>
+    </li>
+    <li>
+        <a href="/index.html#wybor-plecaka" class="hover:text-brand-ivory transition-colors duration-500 relative group outline-none">
+            NASZE PLECAKI
+            <span class="absolute -bottom-2 left-0 w-0 h-[1px] bg-brand-gold transition-all duration-500 group-hover:w-full"></span>
+        </a>
+    </li>
+    <li>
+        <a href="/faq/" class="hover:text-brand-ivory transition-colors duration-500 relative group outline-none">
+            FAQ
+            <span class="absolute -bottom-2 left-0 w-0 h-[1px] bg-brand-gold transition-all duration-500 group-hover:w-full"></span>
+        </a>
+    </li>
+    <li>
+        <a href="/kontakt/" class="hover:text-brand-ivory transition-colors duration-500 relative group outline-none">
+            KONTAKT
+            <span class="absolute -bottom-2 left-0 w-0 h-[1px] bg-brand-gold transition-all duration-500 group-hover:w-full"></span>
+        </a>
+    </li>
+</ul>
+
+        <!-- Zmodyfikowany przycisk (dostał ID oraz odrzucił generyczne klasy) -->
+        <button id="mobile-menu-trigger" class="md:hidden text-brand-muted hover:text-brand-gold transition-colors duration-300 pointer-events-auto focus:outline-none">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+        </button>
+    </nav>
 
     <div data-barba="wrapper">
         <main data-barba="container" data-barba-namespace="institutions">
