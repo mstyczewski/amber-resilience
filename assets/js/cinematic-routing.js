@@ -1020,27 +1020,28 @@ function renderFAQ() {
     });
 }
 /* =========================================================================
-   LUXURY DROPDOWN ENGINE (Wysuwane menu "Nasze plecaki")
+   LUXURY HOVER DROPDOWN ENGINE (Bezkolizyjne wysuwanie na hover)
    ========================================================================= */
 function initBackpacksDropdown() {
+    const container = document.querySelector('.dropdown-container');
     const trigger = document.getElementById('backpacks-dropdown-trigger');
     const menu = document.getElementById('backpacks-dropdown-menu');
-    const container = trigger ? trigger.closest('.dropdown-container') : null;
 
-    if (!trigger || !menu || !container) return;
+    if (!container || !trigger || !menu) return;
 
-    // Usunięcie starych nasłuchiwaczy (zapobieganie wyciekom przy Barba.js)
-    const newTrigger = trigger.cloneNode(true);
-    trigger.parentNode.replaceChild(newTrigger, trigger);
-    
+    // Czyszczenie poprzednich instancji przy przejściach Barba.js (zapobieganie wyciekom pamięci)
+    const newContainer = container.cloneNode(true);
+    container.parentNode.replaceChild(newContainer, container);
+
+    const freshContainer = document.querySelector('.dropdown-container');
     const freshTrigger = document.getElementById('backpacks-dropdown-trigger');
     const freshMenu = document.getElementById('backpacks-dropdown-menu');
     const freshArrow = freshTrigger.querySelector('.dropdown-arrow');
 
-    let isOpen = false;
+    let hoverTimeout = null;
 
     function openMenu() {
-        isOpen = true;
+        clearTimeout(hoverTimeout);
         freshTrigger.setAttribute('aria-expanded', 'true');
         freshMenu.classList.remove('opacity-0', 'pointer-events-none', '-translate-y-2');
         freshMenu.classList.add('opacity-100', 'pointer-events-auto', 'translate-y-0');
@@ -1048,38 +1049,20 @@ function initBackpacksDropdown() {
     }
 
     function closeMenu() {
-        isOpen = false;
-        freshTrigger.setAttribute('aria-expanded', 'false');
-        freshMenu.classList.remove('opacity-100', 'pointer-events-auto', 'translate-y-0');
-        freshMenu.classList.add('opacity-0', 'pointer-events-none', '-translate-y-2');
-        if (freshArrow) freshArrow.style.transform = 'rotate(0deg)';
+        clearTimeout(hoverTimeout);
+        // Mikroskopijny bufor czasowy (100ms) zapobiegający irytującemu miganiu przy ruchu kursora
+        hoverTimeout = setTimeout(() => {
+            freshTrigger.setAttribute('aria-expanded', 'false');
+            freshMenu.classList.remove('opacity-100', 'pointer-events-auto', 'translate-y-0');
+            freshMenu.classList.add('opacity-0', 'pointer-events-none', '-translate-y-2');
+            if (freshArrow) freshArrow.style.transform = 'rotate(0deg)';
+        }, 100);
     }
 
-    // Obsługa kliknięcia w przycisk (toggle)
-    freshTrigger.addEventListener('click', (e) => {
-        e.stopPropagation();
-        if (isOpen) {
-            closeMenu();
-        } else {
-            openMenu();
-        }
-    });
-
-    // Zamknięcie po kliknięciu w dowolne miejsce poza menu
-    document.addEventListener('click', (e) => {
-        if (!container.contains(e.target) && isOpen) {
-            closeMenu();
-        }
-    });
-
-    // Zamknięcie po wciśnięciu klawisza ESC
-    document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape' && isOpen) {
-            closeMenu();
-        }
-    });
+    // Nasłuchiwanie wejścia i wyjścia kursora ze strefy nawigacji
+    freshContainer.addEventListener('mouseenter', openMenu);
+    freshContainer.addEventListener('mouseleave', closeMenu);
 }
-
 /* =========================================================================
    GŁÓWNY INICJATOR
    ========================================================================= */
