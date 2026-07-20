@@ -35,44 +35,87 @@
 
 <body class="font-body selection:bg-brand-gold selection:text-brand-dark">
 
-    <nav id="premium-nav" class="fixed top-0 left-0 w-full z-50 py-6 px-6 md:px-16 flex justify-between items-center transition-all duration-[0.8s] ease-[cubic-bezier(0.16,1,0.3,1)] transform-gpu isolate will-change-transform bg-transparent">
-        <div class="w-24 md:w-24">
-            <a href="/">
-                <img src="/logo.png" alt="Amber Resilience Logo" class="w-full h-auto mix-blend-screen filter contrast-110 brightness-125">
+<nav id="premium-nav" class="fixed top-0 left-0 w-full z-50 py-6 px-6 md:px-16 flex justify-between items-center transition-all duration-[0.8s] ease-[cubic-bezier(0.16,1,0.3,1)] transform-gpu isolate will-change-transform bg-transparent">
+    <div class="w-24 md:w-24">
+        <a href="/">
+            <img src="/logo.png" alt="Amber Resilience Logo" class="w-full h-auto mix-blend-screen filter contrast-110 brightness-125">
+        </a>
+    </div>
+    
+    <ul class="hidden md:flex items-center gap-12 text-[14px] uppercase tracking-[0.25em] text-brand-muted font-mono font-light">
+        <li>
+            <a href="/o-nas/" class="hover:text-brand-ivory transition-colors duration-500 relative group outline-none">
+                KONCEPCJA
+                <span class="absolute -bottom-2 left-0 w-0 h-[1px] bg-brand-gold transition-all duration-500 group-hover:w-full"></span>
+            </a>
+        </li>
+        <li>
+            <a href="/instytucje-publiczne/" class="hover:text-brand-ivory transition-colors duration-500 relative group outline-none">
+                INSTYTUCJE PUBLICZNE
+                <span class="absolute -bottom-2 left-0 w-0 h-[1px] bg-brand-gold transition-all duration-500 group-hover:w-full"></span>
+            </a>
+        </li>
+        
+        <!-- NOWOŚĆ: WYSUWANE MENU (DROPDOWN) DLA "NASZE PLECAKI" -->
+       <li class="relative dropdown-container py-2">
+    <a href="/index.html#wybor-plecaka" id="backpacks-dropdown-trigger" aria-expanded="false" class="flex items-center gap-2 hover:text-brand-ivory transition-colors duration-500 relative group outline-none cursor-pointer">
+        NASZE PLECAKI
+        <svg class="w-3 h-3 text-brand-gold transform transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] dropdown-arrow" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"></path>
+        </svg>
+        <span class="absolute -bottom-2 left-0 w-0 h-[1px] bg-brand-gold transition-all duration-500 group-hover:w-full"></span>
+    </a>
+    
+    <!-- Panel wysuwany aktywowany najechaniem -->
+    <div id="backpacks-dropdown-menu" class="absolute top-full left-1/2 -translate-x-1/2 pt-3 w-72 opacity-0 pointer-events-none transform -translate-y-2 transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)]">
+        <!-- Zewnętrzna poświata krawędziowa (Ambient Glow) -->
+        <div class="absolute inset-0 pt-3 rounded-2xl bg-gradient-to-b from-brand-gold/10 via-transparent to-transparent opacity-50 pointer-events-none"></div>
+        
+        <!-- Właściwy kontener menu (Onyx Glassmorphism) -->
+        <div class="relative bg-[#080808]/90 backdrop-blur-2xl border border-white/[0.08] p-2 shadow-[0_30px_60px_rgba(0,0,0,0.8)] rounded-lg flex flex-col gap-1 overflow-hidden">
+            
+            <!-- Refleks światła u góry karty -->
+            <div class="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-white/20 to-transparent"></div>
+
+            <a href="/plecak-indywidualny/" class="px-5 py-4 text-[11px] tracking-[0.25em] font-mono text-brand-muted hover:text-brand-ivory hover:bg-white/[0.04] transition-all duration-300 flex items-center justify-between group/sub rounded">
+                <span class="relative">
+                    Plecak Indywidualny
+                    <span class="absolute -bottom-1 left-0 w-0 h-[1px] bg-brand-gold transition-all duration-300 group-hover/sub:w-full"></span>
+                </span>
+                <span class="text-brand-gold transform -translate-x-2 opacity-0 group-hover/sub:translate-x-0 group-hover/sub:opacity-100 transition-all duration-300">→</span>
+            </a>
+            
+            <div class="h-[1px] w-full bg-white/[0.04] my-0.5"></div>
+
+            <a href="/plecak-rodzinny/" class="px-5 py-4 text-[11px] tracking-[0.25em] font-mono text-brand-muted hover:text-brand-ivory hover:bg-white/[0.04] transition-all duration-300 flex items-center justify-between group/sub rounded">
+                <span class="relative">
+                    Plecak Rodzinny
+                    <span class="absolute -bottom-1 left-0 w-0 h-[1px] bg-brand-gold transition-all duration-300 group-hover/sub:w-full"></span>
+                </span>
+                <span class="text-brand-gold transform -translate-x-2 opacity-0 group-hover/sub:translate-x-0 group-hover/sub:opacity-100 transition-all duration-300">→</span>
             </a>
         </div>
-        
-<ul class="hidden md:flex items-center gap-12 text-[14px] uppercase tracking-[0.25em] text-brand-muted font-mono font-light">
-    <li>
-        <a href="/o-nas/" class="hover:text-brand-ivory transition-colors duration-500 relative group outline-none">
-            KONCEPCJA
-            <span class="absolute -bottom-2 left-0 w-0 h-[1px] bg-brand-gold transition-all duration-500 group-hover:w-full"></span>
-        </a>
-    </li>
-    <li>
-        <a href="/index.html#wybor-plecaka" class="hover:text-brand-ivory transition-colors duration-500 relative group outline-none">
-            NASZE PLECAKI
-            <span class="absolute -bottom-2 left-0 w-0 h-[1px] bg-brand-gold transition-all duration-500 group-hover:w-full"></span>
-        </a>
-    </li>
-    <li>
-        <a href="/faq/" class="hover:text-brand-ivory transition-colors duration-500 relative group outline-none">
-            FAQ
-            <span class="absolute -bottom-2 left-0 w-0 h-[1px] bg-brand-gold transition-all duration-500 group-hover:w-full"></span>
-        </a>
-    </li>
-    <li>
-        <a href="/kontakt/" class="hover:text-brand-ivory transition-colors duration-500 relative group outline-none">
-            KONTAKT
-            <span class="absolute -bottom-2 left-0 w-0 h-[1px] bg-brand-gold transition-all duration-500 group-hover:w-full"></span>
-        </a>
-    </li>
-</ul>
-        
-        <button class="md:hidden text-brand-muted hover:text-brand-ivory transition-colors">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
-        </button>
-    </nav>
+    </div>
+</li>
+
+        <li>
+            <a href="/faq/" class="hover:text-brand-ivory transition-colors duration-500 relative group outline-none">
+                FAQ
+                <span class="absolute -bottom-2 left-0 w-0 h-[1px] bg-brand-gold transition-all duration-500 group-hover:w-full"></span>
+            </a>
+        </li>
+        <li>
+            <a href="/kontakt/" class="hover:text-brand-ivory transition-colors duration-500 relative group outline-none">
+                KONTAKT
+                <span class="absolute -bottom-2 left-0 w-0 h-[1px] bg-brand-gold transition-all duration-500 group-hover:w-full"></span>
+            </a>
+        </li>
+    </ul>
+
+    <button id="mobile-menu-trigger" class="md:hidden text-brand-muted hover:text-brand-gold transition-colors duration-300 pointer-events-auto focus:outline-none">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+    </button>
+</nav>
 
 
     <div data-barba="wrapper">
