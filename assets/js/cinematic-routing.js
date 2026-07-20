@@ -1019,6 +1019,66 @@ function renderFAQ() {
         container.insertAdjacentHTML('beforeend', faqHTML);
     });
 }
+/* =========================================================================
+   LUXURY DROPDOWN ENGINE (Wysuwane menu "Nasze plecaki")
+   ========================================================================= */
+function initBackpacksDropdown() {
+    const trigger = document.getElementById('backpacks-dropdown-trigger');
+    const menu = document.getElementById('backpacks-dropdown-menu');
+    const container = trigger ? trigger.closest('.dropdown-container') : null;
+
+    if (!trigger || !menu || !container) return;
+
+    // Usunięcie starych nasłuchiwaczy (zapobieganie wyciekom przy Barba.js)
+    const newTrigger = trigger.cloneNode(true);
+    trigger.parentNode.replaceChild(newTrigger, trigger);
+    
+    const freshTrigger = document.getElementById('backpacks-dropdown-trigger');
+    const freshMenu = document.getElementById('backpacks-dropdown-menu');
+    const freshArrow = freshTrigger.querySelector('.dropdown-arrow');
+
+    let isOpen = false;
+
+    function openMenu() {
+        isOpen = true;
+        freshTrigger.setAttribute('aria-expanded', 'true');
+        freshMenu.classList.remove('opacity-0', 'pointer-events-none', '-translate-y-2');
+        freshMenu.classList.add('opacity-100', 'pointer-events-auto', 'translate-y-0');
+        if (freshArrow) freshArrow.style.transform = 'rotate(180deg)';
+    }
+
+    function closeMenu() {
+        isOpen = false;
+        freshTrigger.setAttribute('aria-expanded', 'false');
+        freshMenu.classList.remove('opacity-100', 'pointer-events-auto', 'translate-y-0');
+        freshMenu.classList.add('opacity-0', 'pointer-events-none', '-translate-y-2');
+        if (freshArrow) freshArrow.style.transform = 'rotate(0deg)';
+    }
+
+    // Obsługa kliknięcia w przycisk (toggle)
+    freshTrigger.addEventListener('click', (e) => {
+        e.stopPropagation();
+        if (isOpen) {
+            closeMenu();
+        } else {
+            openMenu();
+        }
+    });
+
+    // Zamknięcie po kliknięciu w dowolne miejsce poza menu
+    document.addEventListener('click', (e) => {
+        if (!container.contains(e.target) && isOpen) {
+            closeMenu();
+        }
+    });
+
+    // Zamknięcie po wciśnięciu klawisza ESC
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && isOpen) {
+            closeMenu();
+        }
+    });
+}
 
 /* =========================================================================
    GŁÓWNY INICJATOR
@@ -1061,6 +1121,7 @@ async function initAll(targetHash = null) {
         initObfuscatedEmails();
         initNavLinks();
         initMobileMenu();
+        initBackpacksDropdown();
         window.syncPriceDisplay();
         window.initSmartHeader();
        
