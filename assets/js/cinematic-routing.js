@@ -363,7 +363,7 @@ window.updatePriceDisplay = function(quantity) {
     const priceElement = document.getElementById('price-display');
     if (priceElement) {
         // Dynamiczne czytanie ceny: zadziała i dla 1700 i dla 3700
-        const basePrice = parseInt(priceElement.getAttribute('data-base-price')) || 1700;
+        const basePrice = parseInt(priceElement.getAttribute('data-base-price')) || 1800;
         const formattedPrice = (basePrice * quantity).toLocaleString('pl-PL');
         
         priceElement.style.opacity = '0.5';
