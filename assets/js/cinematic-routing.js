@@ -79,8 +79,8 @@ const moduleDatabase = {
         image: 'https://images.unsplash.com/photo-1622484211148-356ec37db7bb?q=80&w=1200&auto=format&fit=crop', 
         items: [
            'baton energetyczny orzechowy NUT-RATION 100 g (550 kcal), 1 szt.',
-           'Lio&dried food: Zupa pomidorowa z ryżem 85 g (342 kcal), 1 szt.',
-            'batony energetyczne daktylowe NUTRIBASE 660 g (2500 kcal), 1 szt.',
+           'batony energetyczne daktylowe NUTRIBASE 660 g (2500 kcal), 1 szt.',
+           'lio&dried food: Zupa pomidorowa z ryżem 85 g (342 kcal), 1 szt.',
             'elektrolity w proszku HID-RATION 3 g, 9 szt.',
             'składana szeroka butelka 1 L, 1 szt.',
             'worek doypack 1 L do uzdatniania wody, 1 szt.',
@@ -206,8 +206,8 @@ const moduleDatabase = {
         items: [
             'baton energetyczny orzechowy NUT-RATION 100 g (550 kcal), 4 szt.',
             'batony energetyczne daktylowe NUTRIBASE 660 g (2500 kcal), 2 szt.',
-           'Lio&dried food: Zupa pomidorowa z ryżem 85 g (342 kcal), 2 szt.',
-           'Lio&dried food: Zupa krem z pieczarek 85 g (341 kcal), 2 szt.',
+           'lio&dried food: Zupa pomidorowa z ryżem 85 g (342 kcal), 2 szt.',
+           'lio&dried food: Zupa krem z pieczarek 85 g (341 kcal), 2 szt.',
             'elektrolity HID-RATION (28 tabletek w tubie), 1 szt.',
             'składana szeroka butelka 1 L, 2 szt.',
             'worek doypack 1 L do uzdatniania wody, 2 szt.',
