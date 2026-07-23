@@ -488,18 +488,32 @@ window.navigateMainImage = function(direction) {
     thumbnails[newIndex].scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
 };
 
-window.openLightbox = function() {
-    const dossierImage = document.getElementById('dossier-image');
-    if (!dossierImage) return;
+/* =========================================================================
+   CINEMATIC LIGHTBOX ENGINE (FULLSCREEN INSPECTION)
+   ========================================================================= */
 
-    const imageUrl = dossierImage.style.backgroundImage.replace(/url\(['"]?(.*?)['"]?\)/, '$1');
+window.openLightbox = function() {
+    const activeImage = document.getElementById('dossier-active-image');
+    if (!activeImage) return;
+
+    // Wyciągamy aktualny URL zdjęcia w tle z stylów inline
+    const bgImageStyle = activeImage.style.backgroundImage;
+    const imageUrl = bgImageStyle.replace(/url\(['"]?(.*?)['"]?\)/, '$1');
+    
+    if (!imageUrl) return;
+
     const lightbox = document.getElementById('lightbox-overlay');
     const lightboxImg = document.getElementById('lightbox-img');
     
     if (lightbox && lightboxImg) {
         lightboxImg.src = imageUrl;
+        // Otwieramy overlay z płynnym wejściem (Motion that whispers)
         lightbox.classList.remove('opacity-0', 'pointer-events-none');
-        setTimeout(() => { lightboxImg.classList.remove('scale-90'); }, 50);
+        lightbox.classList.add('opacity-100', 'pointer-events-auto');
+        setTimeout(() => { 
+            lightboxImg.classList.remove('scale-90'); 
+            lightboxImg.classList.add('scale-100');
+        }, 50);
     }
 };
 
@@ -508,7 +522,9 @@ window.closeLightbox = function() {
     const lightboxImg = document.getElementById('lightbox-img');
     
     if (lightbox && lightboxImg) {
+        lightboxImg.classList.remove('scale-100');
         lightboxImg.classList.add('scale-90');
+        lightbox.classList.remove('opacity-100', 'pointer-events-auto');
         lightbox.classList.add('opacity-0', 'pointer-events-none');
     }
 };
