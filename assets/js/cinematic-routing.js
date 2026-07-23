@@ -1020,48 +1020,102 @@ function renderFAQ() {
     });
 }
 /* =========================================================================
-   LUXURY HOVER DROPDOWN ENGINE (Bezkolizyjne wysuwanie na hover)
+   LUXURY DROPDOWN & MOBILE ACCORDION ENGINE (Hybryda Desktop + Mobile)
    ========================================================================= */
 function initBackpacksDropdown() {
+    // 1. OBSŁUGA DESKTOP (Hover Intent)
     const container = document.querySelector('.dropdown-container');
     const trigger = document.getElementById('backpacks-dropdown-trigger');
     const menu = document.getElementById('backpacks-dropdown-menu');
 
-    if (!container || !trigger || !menu) return;
+    if (container && trigger && menu) {
+        const newContainer = container.cloneNode(true);
+        container.parentNode.replaceChild(newContainer, container);
 
-    // Czyszczenie poprzednich instancji przy przejściach Barba.js (zapobieganie wyciekom pamięci)
-    const newContainer = container.cloneNode(true);
-    container.parentNode.replaceChild(newContainer, container);
+        const freshContainer = document.querySelector('.dropdown-container');
+        const freshTrigger = document.getElementById('backpacks-dropdown-trigger');
+        const freshMenu = document.getElementById('backpacks-dropdown-menu');
+        const freshArrow = freshTrigger.querySelector('.dropdown-arrow');
 
-    const freshContainer = document.querySelector('.dropdown-container');
-    const freshTrigger = document.getElementById('backpacks-dropdown-trigger');
-    const freshMenu = document.getElementById('backpacks-dropdown-menu');
-    const freshArrow = freshTrigger.querySelector('.dropdown-arrow');
+        let hoverTimeout = null;
 
-    let hoverTimeout = null;
+        function openMenu() {
+            clearTimeout(hoverTimeout);
+            freshTrigger.setAttribute('aria-expanded', 'true');
+            freshMenu.classList.remove('opacity-0', 'pointer-events-none', '-translate-y-2');
+            freshMenu.classList.add('opacity-100', 'pointer-events-auto', 'translate-y-0');
+            if (freshArrow) freshArrow.style.transform = 'rotate(180deg)';
+        }
 
-    function openMenu() {
-        clearTimeout(hoverTimeout);
-        freshTrigger.setAttribute('aria-expanded', 'true');
-        freshMenu.classList.remove('opacity-0', 'pointer-events-none', '-translate-y-2');
-        freshMenu.classList.add('opacity-100', 'pointer-events-auto', 'translate-y-0');
-        if (freshArrow) freshArrow.style.transform = 'rotate(180deg)';
+        function closeMenu() {
+            clearTimeout(hoverTimeout);
+            hoverTimeout = setTimeout(() => {
+                freshTrigger.setAttribute('aria-expanded', 'false');
+                freshMenu.classList.remove('opacity-100', 'pointer-events-auto', 'translate-y-0');
+                freshMenu.classList.add('opacity-0', 'pointer-events-none', '-translate-y-2');
+                if (freshArrow) freshArrow.style.transform = 'rotate(0deg)';
+            }, 100);
+        }
+
+        freshContainer.addEventListener('mouseenter', openMenu);
+        freshContainer.addEventListener('mouseleave', closeMenu);
+        
+        // Zabezpieczenie dla tabletów/ekranów dotykowych z desktopowym widokiem: kliknięcie toggluje stan
+        freshTrigger.addEventListener('click', (e) => {
+            // Jeśli urządzenie ma cechy dotykowe, zamieniamy kliknięcie w interakcję toggle
+            if (window.matchMedia('(pointer: coarse)').matches) {
+                e.preventDefault();
+                const isExpanded = freshTrigger.getAttribute('aria-expanded') === 'true';
+                if (isExpanded) {
+                    closeMenu();
+                } else {
+                    openMenu();
+                }
+            }
+        });
     }
 
-    function closeMenu() {
-        clearTimeout(hoverTimeout);
-        // Mikroskopijny bufor czasowy (100ms) zapobiegający irytującemu miganiu przy ruchu kursora
-        hoverTimeout = setTimeout(() => {
-            freshTrigger.setAttribute('aria-expanded', 'false');
-            freshMenu.classList.remove('opacity-100', 'pointer-events-auto', 'translate-y-0');
-            freshMenu.classList.add('opacity-0', 'pointer-events-none', '-translate-y-2');
-            if (freshArrow) freshArrow.style.transform = 'rotate(0deg)';
-        }, 100);
-    }
+    // 2. OBSŁUGA MOBILNEGO AKORDEONU (Wewnątrz menu hamburgerowego)
+    const mobileToggle = document.getElementById('mobile-backpacks-toggle');
+    const mobileSubmenu = document.getElementById('mobile-backpacks-submenu');
+    const mobileArrow = document.getElementById('mobile-backpacks-arrow');
 
-    // Nasłuchiwanie wejścia i wyjścia kursora ze strefy nawigacji
-    freshContainer.addEventListener('mouseenter', openMenu);
-    freshContainer.addEventListener('mouseleave', closeMenu);
+    if (mobileToggle && mobileSubmenu) {
+        const newMobileToggle = mobileToggle.cloneNode(true);
+        mobileToggle.parentNode.replaceChild(newMobileToggle, mobileToggle);
+
+        const freshToggle = document.getElementById('mobile-backpacks-toggle');
+        const freshSubmenu = document.getElementById('mobile-backpacks-submenu');
+        const freshArrowMob = document.getElementById('mobile-backpacks-arrow');
+
+        freshToggle.addEventListener('click', () => {
+            const isExpanded = freshToggle.getAttribute('aria-expanded') === 'true';
+            
+            if (isExpanded) {
+                freshToggle.setAttribute('aria-expanded', 'false');
+                freshSubmenu.style.gridTemplateRows = '0fr';
+                if (freshArrowMob) freshArrowMob.style.transform = 'rotate(0deg)';
+            } else {
+                freshToggle.setAttribute('aria-expanded', 'true');
+                freshSubmenu.style.gridTemplateRows = '1fr';
+                if (freshArrowMob) freshArrowMob.style.transform = 'rotate(180deg)';
+            }
+        });
+
+        // Zamknięcie głównego menu mobilnego po kliknięciu w podzakładkę
+        const subLinks = document.querySelectorAll('.mobile-sub-link');
+        const menuOverlay = document.getElementById('mobile-menu-overlay');
+        
+        subLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                document.body.style.overflow = '';
+                if (menuOverlay) {
+                    menuOverlay.classList.remove('opacity-100', 'pointer-events-auto');
+                    menuOverlay.classList.add('opacity-0', 'pointer-events-none');
+                }
+            });
+        });
+    }
 }
 /* =========================================================================
    GŁÓWNY INICJATOR
