@@ -124,7 +124,10 @@ const moduleDatabase = {
         number: 'Moduł 06', 
         title: 'Pierwsza Pomoc', 
         desc: 'Podstawowe wsparcie medyczne. ', 
-        image: 'https://images.unsplash.com/photo-1603398938378-e54eab446dde?q=80&w=1200&auto=format&fit=crop', 
+        images: [
+            '/photo-moduly/apteczka.png',
+            '/photo-moduly/apteczka2.jpg'
+        ],
         items: [
            'apteczka wraz z panelem rzepowym systemu Molle - 1 szt.',
             'gumki (troki) mocujące szybkiego montażu - 2 szt.',
@@ -253,7 +256,10 @@ const moduleDatabase = {
         number: 'Moduł 06', 
         title: 'Pierwsza Pomoc', 
         desc: 'Podstawowe wsparcie medyczne.', 
-        image: 'https://images.unsplash.com/photo-1603398938378-e54eab446dde?q=80&w=1200&auto=format&fit=crop', 
+        images: [
+            '/photo-moduly/apteczka.png',
+            '/photo-moduly/apteczka2.jpg'
+        ],
         items: [
             'apteczka wraz z panelem rzepowym systemu Molle - 1 szt.',
             'gumki (troki) mocujące szybkiego montażu - 2 szt.',
