@@ -719,7 +719,6 @@ function initMobileMenu() {
     const trigger = document.getElementById('mobile-menu-trigger');
     const closeBtn = document.getElementById('mobile-menu-close');
     const overlay = document.getElementById('mobile-menu-overlay');
-    const links = document.querySelectorAll('.mobile-nav-link');
     
     if (!trigger || !overlay) return;
 
@@ -758,15 +757,15 @@ function initMobileMenu() {
     newTrigger.addEventListener('click', toggleMenu);
     if (newCloseBtn) newCloseBtn.addEventListener('click', toggleMenu);
 
-    // Gdy użytkownik klika w link, zamknij menu z animacją
+    // Standardowe linki zamykają menu
+    const links = document.querySelectorAll('.mobile-nav-link');
     links.forEach(link => {
         link.addEventListener('click', () => {
             document.body.style.overflow = '';
             tl.reverse();
             
-            // Obsługa skoku do zakotwiczenia (anchor) dla mobilnej nawigacji
             const href = link.getAttribute('href');
-            if(href.includes('#')) {
+            if(href && href.includes('#')) {
                 const hashPart = href.split('#')[1];
                 if (document.getElementById(hashPart)) {
                     setTimeout(() => window.scrollToAnchor('#' + hashPart), 400);
@@ -774,8 +773,16 @@ function initMobileMenu() {
             }
         });
     });
-}
 
+    // Podzakładki plecaków również zamykają menu mobilne po kliknięciu
+    const subLinks = document.querySelectorAll('.mobile-sub-link');
+    subLinks.forEach(subLink => {
+        subLink.addEventListener('click', () => {
+            document.body.style.overflow = '';
+            tl.reverse();
+        });
+    });
+}
 document.addEventListener('DOMContentLoaded', () => {
     const cookieModal = document.getElementById('premium-cookie-modal');
     const acceptAllBtn = document.getElementById('cookie-accept-all');
