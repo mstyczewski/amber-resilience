@@ -295,81 +295,59 @@ window.openDossier = function(moduleId) {
     if(titleEl) titleEl.innerText = data.title;
     if(descEl) descEl.innerText = data.desc;
 
-    // Obsługa wielu zdjęć: Główny podgląd + kontener miniaturek wewnątrz modala
     const mainImgContainer = document.getElementById('dossier-active-image');
     const thumbsContainer = document.getElementById('dossier-thumbs-container');
     
     if (data.images && data.images.length > 0) {
-        // Ustawienie pierwszego zdjęcia jako aktywnego domyślnie
         if (mainImgContainer) {
             mainImgContainer.style.backgroundImage = `url('${data.images[0]}')`;
         }
 
-        // Generowanie miniaturek wewnątrz modala
         if (thumbsContainer) {
             thumbsContainer.innerHTML = '';
-            data.images.forEach((imgUrl, index) => {
-                const thumbBtn = document.createElement('button');
-                // Architektura stylów Tailwind: Aktywna miniaturka ma złote obramowanie
-                thumbBtn.className = `flex-none w-16 h-16 bg-brand-surface border ${index === 0 ? 'border-brand-gold' : 'border-white/10'} relative overflow-hidden group cursor-pointer focus:outline-none transition-all duration-300`;
-                thumbBtn.innerHTML = `<div class="absolute inset-0 bg-cover bg-center ${index === 0 ? 'brightness-100' : 'brightness-50'} group-hover:brightness-100 transition-all duration-300" style="background-image: url('${imgUrl}')"></div>`;
-                
-                thumbBtn.onclick = () => {
-                    // Zmiana głównego zdjęcia z efektem płynności
-                    mainImgContainer.style.opacity = '0';
-                    setTimeout(() => {
-                        mainImgContainer.style.backgroundImage = `url('${imgUrl}')`;
-                        mainImgContainer.style.opacity = '1';
-                    }, 150);
+            // Jeśli moduł ma tylko 1 zdjęcie, ukrywamy pasek miniaturek dla czystości wizualnej, jeśli ma > 1 - pokazujemy
+            if (data.images.length > 1) {
+                thumbsContainer.style.display = 'flex';
+                data.images.forEach((imgUrl, index) => {
+                    const thumbBtn = document.createElement('button');
+                    thumbBtn.className = `flex-none w-16 h-16 bg-brand-surface border ${index === 0 ? 'border-brand-gold' : 'border-white/10'} relative overflow-hidden group cursor-pointer focus:outline-none transition-all duration-300`;
+                    thumbBtn.innerHTML = `<div class="absolute inset-0 bg-cover bg-center ${index === 0 ? 'brightness-100' : 'brightness-50'} group-hover:brightness-100 transition-all duration-300" style="background-image: url('${imgUrl}')"></div>`;
+                    
+                    thumbBtn.onclick = () => {
+                        mainImgContainer.style.opacity = '0';
+                        setTimeout(() => {
+                            mainImgContainer.style.backgroundImage = `url('${imgUrl}')`;
+                            mainImgContainer.style.opacity = '1';
+                        }, 150);
 
-                    // Przełączenie klas obramowań miniaturek
-                    thumbsContainer.querySelectorAll('button').forEach(b => {
-                        b.classList.remove('border-brand-gold');
-                        b.classList.add('border-white/10');
-                        b.querySelector('div').classList.remove('brightness-100');
-                        b.querySelector('div').classList.add('brightness-50');
-                    });
-                    thumbBtn.classList.remove('border-white/10');
-                    thumbBtn.classList.add('border-brand-gold');
-                    thumbBtn.querySelector('div').classList.remove('brightness-50');
-                    thumbBtn.querySelector('div').classList.add('brightness-100');
-                };
+                        thumbsContainer.querySelectorAll('button').forEach(b => {
+                            b.classList.remove('border-brand-gold');
+                            b.classList.add('border-white/10');
+                            b.querySelector('div').classList.remove('brightness-100');
+                            b.querySelector('div').classList.add('brightness-50');
+                        });
+                        thumbBtn.classList.remove('border-white/10');
+                        thumbBtn.classList.add('border-brand-gold');
+                        thumbBtn.querySelector('div').classList.remove('brightness-50');
+                        thumbBtn.querySelector('div').classList.add('brightness-100');
+                    };
 
-                thumbsContainer.appendChild(thumbBtn);
-            });
+                    thumbsContainer.appendChild(thumbBtn);
+                });
+            } else {
+                thumbsContainer.style.display = 'none';
+            }
         }
     }
 
-    // Renderowanie list elementów (zachowane z oryginalnej architektury)[cite: 1]
     const listContainer = document.getElementById('dossier-list');
     if (listContainer) {
         listContainer.innerHTML = ''; 
         data.items.forEach(item => {
             const li = document.createElement('li');
-            li.className = 'flex items-start gap-4';
-            li.innerHTML = `<span class="text-brand-gold mt-1 font-mono text-[10px]">///</span><span class="leading-relaxed font-light text-sm">${item}</span>`;
-            listContainer.appendChild(li);
-        });
-    }
-
-    const overlay = document.getElementById('dossier-overlay');
-    const panel = document.getElementById('dossier-panel');
-    
-    document.body.style.overflow = 'hidden';
-    
-    if (overlay) {
-        overlay.classList.remove('opacity-0', 'pointer-events-none');
-        overlay.classList.add('opacity-100', 'pointer-events-auto');
-    }
-    if (panel) {
-        panel.classList.remove('translate-y-12');
-        panel.classList.add('translate-y-0');
-    }
-};
             
-            // Architektura Premium: Wyłapujemy etykietę i nadajemy jej intencjonalny styl
             if (item.trim() === '4 zestawy:') {
-                li.className = 'flex items-start mt-4 mb-2'; // Dodatkowe światło (whitespace)
+                li.className = 'flex items-start mt-4 mb-2';
                 li.innerHTML = `<span class="text-brand-gold font-mono text-[11px] uppercase tracking-[0.2em]">${item.trim()}</span>`;
             } else {
                 li.className = 'flex items-start gap-4';
