@@ -390,30 +390,43 @@ krótsze wyprawy.
             <!-- =========================================================================
                  OVERLAYE MUSZĄ BYĆ WEWNĄTRZ DATA-BARBA="CONTAINER", ABY BYŁY ŁADOWANE
                  ========================================================================= -->
-            <div id="dossier-overlay" class="fixed inset-0 z-[100] flex items-center justify-center opacity-0 pointer-events-none transition-all duration-700">
-                <div onclick="window.closeDossier()" class="absolute inset-0 bg-brand-dark/80 backdrop-blur-md"></div>
-                <div id="dossier-panel" class="relative w-full max-w-6xl h-[85vh] bg-brand-surface border border-white/10 flex flex-col md:flex-row transform translate-y-12 transition-all duration-700 mx-4 shadow-2xl shadow-black">
-                    <button onclick="window.closeDossier()" class="absolute top-0 right-0 z-50 p-6 text-brand-muted hover:text-brand-gold transition-colors duration-300 focus:outline-none">
-                        <span class="font-mono text-[9px] uppercase tracking-[0.4em] flex items-center gap-3">
-                            Zamknij <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"></path></svg>
-                        </span>
-                    </button>
-                    <div id="dossier-image" class="w-full md:w-5/12 h-64 md:h-full bg-cover bg-center img-premium-filter border-b md:border-b-0 md:border-r border-white/5 relative">
-                        <div class="absolute inset-0 bg-gradient-to-t from-brand-dark to-transparent opacity-50"></div>
-                    </div>
-                    <div class="w-full md:w-7/12 h-full p-8 md:p-16 flex flex-col overflow-y-auto custom-scrollbar relative bg-brand-surface">
-                        <div class="mb-10">
-                            <span id="dossier-number" class="text-brand-gold font-mono text-[10px] tracking-[0.4em] uppercase block mb-4"></span>
-                            <h2 id="dossier-title" class="font-display text-4xl md:text-5xl text-brand-ivory leading-tight mb-4">Tytuł Modułu</h2>
-                            <p id="dossier-desc" class="font-light text-brand-muted text-sm leading-relaxed">Krótki opis taktyczny.</p>
-                        </div>
-                        <div class="mt-4 border-t border-white/5 pt-8">
-                            <span class="block font-mono text-[9px] text-brand-muted tracking-[0.3em] uppercase mb-6">Wykaz Sprzętu:</span>
-                            <ul id="dossier-list" class="space-y-4 text-brand-ivory font-light text-sm"></ul>
-                        </div>
-                    </div>
-                </div>
+  <div id="dossier-overlay" class="fixed inset-0 z-[100] flex items-center justify-center opacity-0 pointer-events-none transition-all duration-700">
+    <div onclick="window.closeDossier()" class="absolute inset-0 bg-brand-dark/80 backdrop-blur-md"></div>
+    <div id="dossier-panel" class="relative w-full max-w-6xl h-[85vh] bg-brand-surface border border-white/10 flex flex-col md:flex-row transform translate-y-12 transition-all duration-700 mx-4 shadow-2xl shadow-black overflow-hidden">
+        
+        <button onclick="window.closeDossier()" class="absolute top-0 right-0 z-50 p-6 text-brand-muted hover:text-brand-gold transition-colors duration-300 focus:outline-none">
+            <span class="font-mono text-[9px] uppercase tracking-[0.4em] flex items-center gap-3">
+                Zamknij <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"></path></svg>
+            </span>
+        </button>
+
+        <!-- LEWA KOLUMNA: Galeria zdjęć wewnątrz modala -->
+        <div class="w-full md:w-5/12 h-64 md:h-full bg-brand-dark border-b md:border-b-0 md:border-r border-white/5 flex flex-col relative">
+            <!-- Główne zdjęcie podglądu -->
+            <div id="dossier-active-image" class="flex-1 bg-cover bg-center img-premium-filter transition-opacity duration-300 relative">
+                <div class="absolute inset-0 bg-gradient-to-t from-brand-dark to-transparent opacity-40"></div>
             </div>
+            <!-- Pasek miniaturek wewnątrz modala -->
+            <div id="dossier-thumbs-container" class="flex gap-3 p-4 bg-brand-surface/90 backdrop-blur-md border-t border-white/5 overflow-x-auto">
+                <!-- Generowane dynamicznie przez JS -->
+            </div>
+        </div>
+
+        <!-- PRAWA KOLUMNA: Treść operacyjna i wykaz sprzętu -->
+        <div class="w-full md:w-7/12 h-full p-8 md:p-16 flex flex-col overflow-y-auto custom-scrollbar relative bg-brand-surface">
+            <div class="mb-10">
+                <span id="dossier-number" class="text-brand-gold font-mono text-[10px] tracking-[0.4em] uppercase block mb-4"></span>
+                <h2 id="dossier-title" class="font-display text-4xl md:text-5xl text-brand-ivory leading-tight mb-4">Tytuł Modułu</h2>
+                <p id="dossier-desc" class="font-light text-brand-muted text-sm leading-relaxed">Krótki opis taktyczny.</p>
+            </div>
+            <div class="mt-4 border-t border-white/5 pt-8">
+                <span class="block font-mono text-[9px] text-brand-muted tracking-[0.3em] uppercase mb-6">Wykaz Sprzętu:</span>
+                <ul id="dossier-list" class="space-y-4 text-brand-ivory font-light text-sm"></ul>
+            </div>
+        </div>
+
+    </div>
+</div>
 
             <div id="lightbox-overlay" class="fixed inset-0 z-[200] flex items-center justify-center bg-black/95 opacity-0 pointer-events-none transition-opacity duration-500 cursor-zoom-out" onclick="window.closeLightbox()">
                 <img id="lightbox-img" src="" class="max-w-[90%] max-h-[90%] object-contain shadow-2xl transform transition-transform duration-500 scale-90">
