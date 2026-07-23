@@ -401,16 +401,19 @@ krótsze wyprawy.
         </button>
 
         <!-- LEWA KOLUMNA: Galeria zdjęć wewnątrz modala -->
-        <div class="w-full md:w-5/12 h-64 md:h-full bg-brand-dark border-b md:border-b-0 md:border-r border-white/5 flex flex-col relative">
-            <!-- Główne zdjęcie podglądu -->
-            <div id="dossier-active-image" class="flex-1 bg-cover bg-center img-premium-filter transition-opacity duration-300 relative">
-                <div class="absolute inset-0 bg-gradient-to-t from-brand-dark to-transparent opacity-40"></div>
-            </div>
-            <!-- Pasek miniaturek wewnątrz modala -->
-            <div id="dossier-thumbs-container" class="flex gap-3 p-4 bg-brand-surface/90 backdrop-blur-md border-t border-white/5 overflow-x-auto">
-                <!-- Generowane dynamicznie przez JS -->
-            </div>
+<div class="w-full md:w-5/12 h-64 md:h-full bg-brand-dark border-b md:border-b-0 md:border-r border-white/5 flex flex-col relative">
+    <!-- Główne zdjęcie podglądu z obsługą kliknięcia do Lightboxa -->
+    <div id="dossier-active-image" onclick="window.openLightbox()" class="flex-1 bg-cover bg-center img-premium-filter transition-opacity duration-300 relative cursor-zoom-in group/zoom">
+        <div class="absolute inset-0 bg-gradient-to-t from-brand-dark to-transparent opacity-40"></div>
+        <!-- Subtelna ikona powiększenia w rogu (architektura detalu) -->
+        <div class="absolute bottom-4 right-4 z-20 bg-brand-dark/80 backdrop-blur-md border border-white/10 p-2.5 text-brand-gold opacity-0 group-hover/zoom:opacity-100 transition-opacity duration-300 pointer-events-none">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607zM10.5 7.5v6m3-3h-6"/></svg>
         </div>
+    </div>
+    
+    <!-- Pasek miniaturek -->
+    <div id="dossier-thumbs-container" class="flex gap-3 p-4 bg-brand-surface/90 backdrop-blur-md border-t border-white/5 overflow-x-auto"></div>
+</div>
 
         <!-- PRAWA KOLUMNA: Treść operacyjna i wykaz sprzętu -->
         <div class="w-full md:w-7/12 h-full p-8 md:p-16 flex flex-col overflow-y-auto custom-scrollbar relative bg-brand-surface">
