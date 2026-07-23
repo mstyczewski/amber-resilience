@@ -228,7 +228,10 @@ const moduleDatabase = {
         number: 'Moduł 05', 
         title: 'Higiena', 
         desc: 'Zapewnienie higieny osobistej i uczucia komfortu w każdych warunkach.', 
-        image: 'https://images.unsplash.com/photo-1556228578-0d85b1a4d571?q=80&w=1200&auto=format&fit=crop', 
+       images: [
+            '/photo-moduly/higiena-r1.png',
+            '/photo-moduly/higiena-r2.png'
+        ],
         items: [
              ' 4 zestawy:',
             'żel i szampon 2w1 20 ml, 1 szt.',
