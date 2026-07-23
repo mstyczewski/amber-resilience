@@ -26,7 +26,10 @@ const moduleDatabase = {
         number: 'Moduł 01', 
         title: 'Narzędzia', 
         desc: 'Wszystko, co pozwoli Ci działać. Niezbędny sprzęt do przetrwania w terenie.', 
-        image: 'https://images.unsplash.com/photo-1589104052309-84b2c15e83ce?q=80&w=1200&auto=format&fit=crop', 
+        images: [
+            '/photo-moduly/narzedzia1.png',
+            '/photo-moduly/narzedzia2.png'
+        ], 
         items: [
             'narzędzie wielofunkcyjne, 1 szt.',
             'nóż taktyczny z krzesiwem, osełką i gwizdkiem, 1 szt.',
@@ -46,7 +49,10 @@ const moduleDatabase = {
         number: 'Moduł 02', 
         title: 'Orientacja', 
         desc: 'Znajdź drogę, utrzymaj świadomość sytuacyjną i komunikację.', 
-        image: 'https://images.unsplash.com/photo-1524661135-423995f22d0b?q=80&w=1200&auto=format&fit=crop', 
+        images: [
+            '/photo-moduly/orientacja1.png',
+            '/photo-moduly/orientacja2.png'
+        ],
         items: [
                'mapa samochodowa Polski w skali 1:700000 (wersja 01.2026), 1 szt.',
                'notes wodoodporny, 1 szt.',
@@ -62,7 +68,10 @@ const moduleDatabase = {
         number: 'Moduł 03', 
         title: 'Schronienie', 
         desc: 'Ochrona przed żywiołami i izolacja termiczna.', 
-        image: 'https://images.unsplash.com/photo-1504280390224-3ea3391b1513?q=80&w=1200&auto=format&fit=crop', 
+        images: [
+            '/photo-moduly/schronienie.png',
+            '/photo-moduly/schronienie2.png'
+        ],
         items: [
             'kurtka przeciwdeszczowa rozmiar L, 1 szt.',
             'śpiwór awaryjny w worku z gwizdkiem, wymiary 215 x 90 cm, 1 szt.',
@@ -76,7 +85,10 @@ const moduleDatabase = {
         number: 'Moduł 04', 
         title: 'Wyżywienie', 
         desc: 'Wysokiej jakości żywność i elektrolity dla zachowania odpowiedniej kondycji psychofizycznej. Sprzęt niezbędny do pozyskania i przechowywania wody oraz przygotowania i spożycia ciepłego posiłku.', 
-        image: 'https://images.unsplash.com/photo-1622484211148-356ec37db7bb?q=80&w=1200&auto=format&fit=crop', 
+        images: [
+            '/photo-moduly/wyzywienie.png',
+            '/photo-moduly/wyzywienie2.png'
+        ],
         items: [
            'baton energetyczny orzechowy NUT-RATION 100 g (550 kcal), 1 szt.',
            'batony energetyczne daktylowe NUTRIBASE 660 g (2500 kcal), 1 szt.',
@@ -161,7 +173,10 @@ const moduleDatabase = {
         number: 'Moduł 01', 
         title: 'Narzędzia', 
         desc: 'Wszystko, co pozwoli Ci działać. Niezbędny sprzęt do przetrwania w terenie.', 
-        image: 'https://images.unsplash.com/photo-1589104052309-84b2c15e83ce?q=80&w=1200&auto=format&fit=crop', 
+        images: [
+            '/photo-moduly/narzedzia1.png',
+            '/photo-moduly/narzedzia2.png'
+        ], 
         items: [
             'narzędzie wielofunkcyjne, 1 szt.',
             'nóż taktyczny z krzesiwem, osełką i gwizdkiem, 1 szt.',
@@ -179,7 +194,10 @@ const moduleDatabase = {
         number: 'Moduł 02', 
         title: 'Orientacja', 
         desc: 'Znajdź drogę, utrzymaj świadomość sytuacyjną i komunikację.', 
-        image: 'https://images.unsplash.com/photo-1524661135-423995f22d0b?q=80&w=1200&auto=format&fit=crop', 
+        images: [
+            '/photo-moduly/oreinracja-r1.png',
+            '/photo-moduly/orientacja-r2.png'
+        ],
         items: [
             'mapa samochodowa Polski w skali 1:700000 (wersja 01.2026), 1 szt.',
                'notes wodoodporny, 1 szt.',
@@ -194,7 +212,10 @@ const moduleDatabase = {
         number: 'Moduł 03', 
         title: 'Schronienie', 
         desc: 'Ochrona przed żywiołami i izolacja termiczna.', 
-        image: 'https://images.unsplash.com/photo-1504280390224-3ea3391b1513?q=80&w=1200&auto=format&fit=crop', 
+       images: [
+            '/photo-moduly/schronienie-r1.png',
+            '/photo-moduly/schronienie-r2.png'
+        ],
         items: [
             'kurtka przeciwdeszczowa rozmiar L, 2 szt.',
             'kurtka przeciwdeszczowa rozmiar M, 2 szt.',
@@ -208,7 +229,10 @@ const moduleDatabase = {
         number: 'Moduł 04', 
         title: 'Wyżywienie', 
         desc: 'Wysokiej jakości żywność i elektrolity dla zachowania odpowiedniej kondycji psychofizycznej. Sprzęt niezbędny do pozyskania i przechowywania wody oraz przygotowania i spożycia ciepłego posiłku.', 
-        image: 'https://images.unsplash.com/photo-1622484211148-356ec37db7bb?q=80&w=1200&auto=format&fit=crop', 
+        images: [
+            '/photo-moduly/wyzywienie-r1.png',
+            '/photo-moduly/wyzywienie-r2.png'
+        ],
         items: [
             'baton energetyczny orzechowy NUT-RATION 100 g (550 kcal), 4 szt.',
             'batony energetyczne daktylowe NUTRIBASE 660 g (2500 kcal), 2 szt.',
