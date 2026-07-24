@@ -27,7 +27,7 @@ const moduleDatabase = {
         title: 'Narzędzia', 
         desc: 'Wszystko, co pozwoli Ci działać. Niezbędny sprzęt do przetrwania w terenie.', 
         images: [
-            '/photo-moduly/narzedzia1.png',
+            '/photo-moduly/narzedzia-i.png',
             '/photo-moduly/narzedzia2.png'
         ], 
         items: [
@@ -50,7 +50,7 @@ const moduleDatabase = {
         title: 'Orientacja', 
         desc: 'Znajdź drogę, utrzymaj świadomość sytuacyjną i komunikację.', 
         images: [
-            '/photo-moduly/orientacja1.png',
+            '/photo-moduly/orientacja-i.png',
             '/photo-moduly/orientacja2.png'
         ],
         items: [
@@ -69,7 +69,7 @@ const moduleDatabase = {
         title: 'Schronienie', 
         desc: 'Ochrona przed żywiołami i izolacja termiczna.', 
         images: [
-            '/photo-moduly/schronienie.png',
+            '/photo-moduly/schronienie-i.png',
             '/photo-moduly/schronienie2.png'
         ],
         items: [
@@ -86,7 +86,7 @@ const moduleDatabase = {
         title: 'Wyżywienie', 
         desc: 'Wysokiej jakości żywność i elektrolity dla zachowania odpowiedniej kondycji psychofizycznej. Sprzęt niezbędny do pozyskania i przechowywania wody oraz przygotowania i spożycia ciepłego posiłku.', 
         images: [
-            '/photo-moduly/wyzywienie.png',
+            '/photo-moduly/wyzywienie-i.png',
             '/photo-moduly/wyzywienie2.png'
         ],
         items: [
