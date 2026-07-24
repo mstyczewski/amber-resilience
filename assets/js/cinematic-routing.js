@@ -470,7 +470,11 @@ window.changeMainImage = function(imageUrl, btnElement) {
     if (mainBg) {
         mainBg.style.opacity = '0';
         setTimeout(() => {
+            // Jawne wymuszenie containment, aby produkt nigdy nie był ucinany
             mainBg.style.backgroundImage = `url('${imageUrl}')`;
+            mainBg.style.backgroundSize = 'contain';
+            mainBg.style.backgroundRepeat = 'no-repeat';
+            mainBg.style.backgroundPosition = 'center';
             mainBg.style.opacity = '1';
         }, 150); 
     }
@@ -480,7 +484,7 @@ window.changeMainImage = function(imageUrl, btnElement) {
         btn.classList.remove('border-brand-gold');
         btn.classList.add('border-white/5');
         const imgInner = btn.querySelector('.thumbnail-inner');
-        if (imgInner) imgInner.classList.add('brightness-50');
+        if (imgInner) imgInner.classList.remove('brightness-50');
     });
     
     if (btnElement) {
