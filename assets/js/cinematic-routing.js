@@ -113,7 +113,7 @@ const moduleDatabase = {
         desc: 'Zapewnienie higieny osobistej i komfortu w każdych warunkach.', 
         images: [
             '/photo-moduly/higiena1.png',
-            '/photo-moduly/higiena2.png'
+            '/photo-moduly/higiena2.jpg'
         ],
         items: [
            'żel i szampon 2w1 20 ml, 1 szt.',
