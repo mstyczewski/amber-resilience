@@ -1228,29 +1228,38 @@ function initBackpacksDropdown() {
 /* =========================================================================
    Logika GSAP ScrollTrigger
    ========================================================================= */
-function initThreatFlipAnimation() {
-    const containers = document.querySelectorAll('.threat-card-container');
-    if (containers.length === 0) return;
+function initThreatSequentialFlipAnimation() {
+    const cards = document.querySelectorAll('.threat-card');
+    if (cards.length === 0) return;
 
-    containers.forEach((container) => {
-        const card = container.querySelector('.threat-card');
-        
-        // 1. Scroll-driven flip (Parallax / Scrub) na desktopie
-        if (window.matchMedia('(min-width: 768px)').matches) {
-            gsap.to(card, {
+    // Desktop: Sekwencyjny obrót kart powiązany ze scrollowaniem (scrub)
+    if (window.matchMedia('(min-width: 768px)').matches) {
+        const tl = gsap.timeline({
+            scrollTrigger: {
+                trigger: ".threat-matrix-section",
+                start: "top top",
+                end: "+=2500", // Czas trwania przewijania dla całej sekwencji
+                pin: true,     // Blokuje sekcję do momentu zakończenia obrotu wszystkich kart
+                scrub: 1,      // Płynna interpolacja z ruchem myszi/scrolla
+                anticipatePin: 1
+            }
+        });
+
+        // Dodawanie kart do osi czasu jedna po drugiej (karta 2 zaczyna się obracać, gdy karta 1 kończy)
+        cards.forEach((card, index) => {
+            tl.to(card, {
                 rotateY: 180,
-                ease: "none",
-                scrollTrigger: {
-                    trigger: container,
-                    start: "top 80%",
-                    end: "bottom 20%",
-                    scrub: true,
-                }
-            });
-        } 
-        // 2. Kliknięcie/Tap dla urządzeń mobilnych
-        else {
+                duration: 1,
+                ease: "power2.inOut"
+            }, index > 0 ? "+=0.1" : 0); // Lekki odstęp czasowy między startem kolejnych kart
+        });
+    } 
+    // Mobile: Interaktywne dotknięcie (Tap-to-Flip) dla każdej karty niezależnie
+    else {
+        document.querySelectorAll('.threat-card-container').forEach((container) => {
+            const card = container.querySelector('.threat-card');
             let isFlipped = false;
+            
             container.addEventListener('click', () => {
                 isFlipped = !isFlipped;
                 gsap.to(card, {
@@ -1259,8 +1268,8 @@ function initThreatFlipAnimation() {
                     ease: "power2.inOut"
                 });
             });
-        }
-    });
+        });
+    }
 }
 /* =========================================================================
    GŁÓWNY INICJATOR
