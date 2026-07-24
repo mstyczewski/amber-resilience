@@ -334,6 +334,9 @@ window.openDossier = function(moduleId) {
     if (data.images && data.images.length > 0) {
         if (mainImgContainer) {
             mainImgContainer.style.backgroundImage = `url('${data.images[0]}')`;
+            mainImgContainer.style.backgroundSize = 'contain';
+            mainImgContainer.style.backgroundRepeat = 'no-repeat';
+            mainImgContainer.style.backgroundPosition = 'center';
         }
 
         if (thumbsContainer) {
