@@ -267,64 +267,175 @@
                 </div>
             </header>
 
-            <section class="py-32 px-6 bg-brand-dark relative z-20 threat-matrix-section">
-                <div class="max-w-7xl mx-auto">
-                    <div class="text-center mb-20 threat-header overflow-hidden">
-    <!-- Używamy bloku, aby GSAP mógł operować na każdym zdaniu osobno -->
-    <span class="block text-brand-gold text-[10px] md:text-xs tracking-[0.4em] uppercase mb-4 font-light threat-line-1">
-        Nie możesz przewidzieć wszystkiego
-    </span>
-    <h2 class="font-display text-4xl md:text-5xl lg:text-6xl text-brand-ivory leading-tight threat-line-2">
-        Ale możesz być gotowy.
-    </h2>
-    <div class="h-px w-16 bg-white/10 mx-auto mt-8 threat-line-3"></div>
-</div>
-                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 threat-grid">
-                        <div class="bg-brand-surface border border-white/5 p-10 hover:border-brand-gold/30 transition-colors duration-500 group ">
-                            <div class="text-brand-gold mb-6 transform group-hover:-translate-y-1 transition-transform duration-500">
-                                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z"/><path d="m13 14-2 4h4l-2 4"/></svg>
-                            </div>
-                            <h3 class="font-display text-2xl text-brand-ivory mb-3">Burze i nawałnice</h3>
-                            <p class="font-light text-brand-muted text-sm leading-relaxed">Coraz częstsze i bardziej gwałtowne zjawiska atmosferyczne, wymagające pełnej niezależności.</p>
+            <section class="py-32 px-6 bg-brand-dark relative z-20 threat-matrix-section overflow-hidden">
+    <div class="max-w-7xl mx-auto">
+        <div class="text-center mb-24 threat-header">
+            <span class="block text-brand-gold text-[10px] md:text-xs tracking-[0.4em] uppercase mb-4 font-light threat-line-1">
+                Nie możesz przewidzieć wszystkiego
+            </span>
+            <h2 class="font-display text-4xl md:text-5xl lg:text-6xl text-brand-ivory leading-tight threat-line-2">
+                Ale możesz być gotowy.
+            </h2>
+            <div class="h-px w-16 bg-white/10 mx-auto mt-8 threat-line-3"></div>
+        </div>
+
+        <!-- Siatka kart z perspektywą 3D -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 threat-grid">
+            
+            <!-- KARTA 1: Burze i nawałnice -->
+            <div class="threat-card-container h-[420px] cursor-pointer" style="perspective: 1000px;">
+                <div class="threat-card relative w-full h-full duration-700 transform-style-3d">
+                    
+                    <!-- AWERS (Przód: Hasło + Zdjęcie) -->
+                    <div class="absolute inset-0 backface-hidden bg-brand-surface border border-white/5 p-10 flex flex-col justify-between overflow-hidden group hover:border-brand-gold/40 transition-colors">
+                        <div class="absolute inset-0 z-0 opacity-35 mix-blend-luminosity bg-cover bg-center transform group-hover:scale-105 transition-transform duration-1000" style="background-image: url('/photo/burza.jpg')"></div>
+                        <div class="absolute inset-0 bg-gradient-to-t from-brand-surface via-brand-surface/70 to-transparent z-10"></div>
+                        
+                        <div class="relative z-20 flex justify-between items-center">
+                            <span class="font-mono text-[10px] uppercase tracking-[0.3em] text-brand-gold">[ 01 / Zagrożenie ]</span>
+                            <span class="w-1.5 h-1.5 rounded-full bg-brand-gold"></span>
                         </div>
-                        <div class="bg-brand-surface border border-white/5 p-10 hover:border-brand-gold/30 transition-colors duration-500 group " style="transition-delay: 100ms;">
-                            <div class="text-brand-gold mb-6 transform group-hover:-translate-y-1 transition-transform duration-500">
-                                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12h4l3-9 5 18 3-9h5"/></svg>
-                            </div>
-                            <h3 class="font-display text-2xl text-brand-ivory mb-3">Powodzie i podtopienia</h3>
-                            <p class="font-light text-brand-muted text-sm leading-relaxed">Żywioł, który w kilka minut odcina całe dzielnice od dostaw prądu, czystej wody i pomocy ratunkowej.</p>
-                        </div>
-                        <div class="bg-brand-surface border border-white/5 p-10 hover:border-brand-gold/30 transition-colors duration-500 group" style="transition-delay: 200ms;">
-                            <div class="text-brand-gold mb-6 transform group-hover:-translate-y-1 transition-transform duration-500">
-                                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><path d="M18.36 6.64A9 9 0 0 1 20.77 15"/><path d="M6.16 6.16a9 9 0 1 0 12.68 12.68"/><path d="M12 2v4"/><path d="m2 2 20 20"/></svg>
-                            </div>
-                            <h3 class="font-display text-2xl text-brand-ivory mb-3">Awarie zasilania</h3>
-                            <p class="font-light text-brand-muted text-sm leading-relaxed">Globalny blackout oznacza natychmiastowy brak łączności, ciepła i bazowego bezpieczeństwa.</p>
-                        </div>
-                        <div class="bg-brand-surface border border-white/5 p-10 hover:border-brand-gold/30 transition-colors duration-500 group" style="transition-delay: 300ms;">
-                            <div class="text-brand-gold mb-6 transform group-hover:-translate-y-1 transition-transform duration-500">
-                                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10"/><path d="m12 8-2 4h4l-2 4"/></svg>
-                            </div>
-                            <h4 class="font-display text-2xl text-brand-ivory mb-3">Awarie w podróży</h4>
-                            <p class="font-light text-brand-muted text-sm leading-relaxed">Nagła sytuacja drogowa lub awaria pojazdu może błyskawicznie przerodzić się w kryzys operacyjny.</p>
-                        </div>
-                        <div class="bg-brand-surface border border-white/5 p-10 hover:border-brand-gold/30 transition-colors duration-500 group" style="transition-delay: 400ms;">
-                            <div class="text-brand-gold mb-6 transform group-hover:-translate-y-1 transition-transform duration-500">
-                                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" x2="9" y1="12" y2="12"/></svg>
-                            </div>
-                            <h3 class="font-display text-2xl text-brand-ivory mb-3">Pilne ewakuacje</h3>
-                            <p class="font-light text-brand-muted text-sm leading-relaxed">Pożar czy konflikt zbrojny może zmusić do natychmiastowego opuszczenia bezpiecznej strefy komfortu.</p>
-                        </div>
-                        <div class="bg-brand-surface border border-white/5 p-10 hover:border-brand-gold/30 transition-colors duration-500 group" style="transition-delay: 500ms;">
-                            <div class="text-brand-gold mb-6 transform group-hover:-translate-y-1 transition-transform duration-500">
-                                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><path d="m8 3 4 8 5-5 5 15H2L8 3z"/></svg>
-                            </div>
-                            <h3 class="font-display text-2xl text-brand-ivory mb-3">Outdoor i Survival</h3>
-                            <p class="font-light text-brand-muted text-sm leading-relaxed">Świadomość zagrożeń podczas wyjścia w teren.</p>
+                        
+                        <div class="relative z-20">
+                            <h3 class="font-display text-3xl lg:text-4xl text-brand-ivory mb-2">Burze i nawałnice</h3>
+                            <span class="font-mono text-[9px] uppercase tracking-[0.25em] text-brand-muted">↓ Przewiń, aby odkryć analizę</span>
                         </div>
                     </div>
+
+                    <!-- REWERS (Tył: Głęboki opis tekstowy) -->
+                    <div class="absolute inset-0 backface-hidden bg-[#0A0A0A] border border-brand-gold/30 p-10 flex flex-col justify-center rotate-y-180 z-20 shadow-2xl">
+                        <span class="font-mono text-[10px] uppercase tracking-[0.3em] text-brand-gold mb-6">Analiza Operacyjna</span>
+                        <p class="font-light text-brand-ivory text-base md:text-lg leading-relaxed">
+                            Coraz częstsze i bardziej gwałtowne zjawiska atmosferyczne, wymagające pełnej niezależności.
+                        </p>
+                    </div>
+
                 </div>
-            </section>
+            </div>
+
+            <!-- KARTA 2: Powodzie i podtopienia -->
+            <div class="threat-card-container h-[420px] cursor-pointer" style="perspective: 1000px;">
+                <div class="threat-card relative w-full h-full duration-700 transform-style-3d">
+                    <div class="absolute inset-0 backface-hidden bg-brand-surface border border-white/5 p-10 flex flex-col justify-between overflow-hidden group hover:border-brand-gold/40 transition-colors">
+                        <div class="absolute inset-0 z-0 opacity-35 mix-blend-luminosity bg-cover bg-center transform group-hover:scale-105 transition-transform duration-1000" style="background-image: url('/photo/powodz.jpg')"></div>
+                        <div class="absolute inset-0 bg-gradient-to-t from-brand-surface via-brand-surface/70 to-transparent z-10"></div>
+                        <div class="relative z-20 flex justify-between items-center">
+                            <span class="font-mono text-[10px] uppercase tracking-[0.3em] text-brand-gold">[ 02 / Zagrożenie ]</span>
+                            <span class="w-1.5 h-1.5 rounded-full bg-brand-gold"></span>
+                        </div>
+                        <div class="relative z-20">
+                            <h3 class="font-display text-3xl lg:text-4xl text-brand-ivory mb-2">Powodzie i podtopienia</h3>
+                            <span class="font-mono text-[9px] uppercase tracking-[0.25em] text-brand-muted">↓ Przewiń, aby odkryć analizę</span>
+                        </div>
+                    </div>
+                    <div class="absolute inset-0 backface-hidden bg-[#0A0A0A] border border-brand-gold/30 p-10 flex flex-col justify-center rotate-y-180 z-20 shadow-2xl">
+                        <span class="font-mono text-[10px] uppercase tracking-[0.3em] text-brand-gold mb-6">Analiza Operacyjna</span>
+                        <p class="font-light text-brand-ivory text-base md:text-lg leading-relaxed">
+                            Żywioł, który w kilka minut odcina całe dzielnice od dostaw prądu, czystej wody i pomocy ratunkowej.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- KARTA 3: Awarie zasilania -->
+            <div class="threat-card-container h-[420px] cursor-pointer" style="perspective: 1000px;">
+                <div class="threat-card relative w-full h-full duration-700 transform-style-3d">
+                    <div class="absolute inset-0 backface-hidden bg-brand-surface border border-white/5 p-10 flex flex-col justify-between overflow-hidden group hover:border-brand-gold/40 transition-colors">
+                        <div class="absolute inset-0 z-0 opacity-35 mix-blend-luminosity bg-cover bg-center transform group-hover:scale-105 transition-transform duration-1000" style="background-image: url('/photo/blackout.jpg')"></div>
+                        <div class="absolute inset-0 bg-gradient-to-t from-brand-surface via-brand-surface/70 to-transparent z-10"></div>
+                        <div class="relative z-20 flex justify-between items-center">
+                            <span class="font-mono text-[10px] uppercase tracking-[0.3em] text-brand-gold">[ 03 / Zagrożenie ]</span>
+                            <span class="w-1.5 h-1.5 rounded-full bg-brand-gold"></span>
+                        </div>
+                        <div class="relative z-20">
+                            <h3 class="font-display text-3xl lg:text-4xl text-brand-ivory mb-2">Awarie zasilania</h3>
+                            <span class="font-mono text-[9px] uppercase tracking-[0.25em] text-brand-muted">↓ Przewiń, aby odkryć analizę</span>
+                        </div>
+                    </div>
+                    <div class="absolute inset-0 backface-hidden bg-[#0A0A0A] border border-brand-gold/30 p-10 flex flex-col justify-center rotate-y-180 z-20 shadow-2xl">
+                        <span class="font-mono text-[10px] uppercase tracking-[0.3em] text-brand-gold mb-6">Analiza Operacyjna</span>
+                        <p class="font-light text-brand-ivory text-base md:text-lg leading-relaxed">
+                            Globalny blackout oznacza natychmiastowy brak łączności, ciepła i bazowego bezpieczeństwa.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- KARTA 4: Awarie w podróży -->
+            <div class="threat-card-container h-[420px] cursor-pointer" style="perspective: 1000px;">
+                <div class="threat-card relative w-full h-full duration-700 transform-style-3d">
+                    <div class="absolute inset-0 backface-hidden bg-brand-surface border border-white/5 p-10 flex flex-col justify-between overflow-hidden group hover:border-brand-gold/40 transition-colors">
+                        <div class="absolute inset-0 z-0 opacity-35 mix-blend-luminosity bg-cover bg-center transform group-hover:scale-105 transition-transform duration-1000" style="background-image: url('/photo/podroza.jpg')"></div>
+                        <div class="absolute inset-0 bg-gradient-to-t from-brand-surface via-brand-surface/70 to-transparent z-10"></div>
+                        <div class="relative z-20 flex justify-between items-center">
+                            <span class="font-mono text-[10px] uppercase tracking-[0.3em] text-brand-gold">[ 04 / Zagrożenie ]</span>
+                            <span class="w-1.5 h-1.5 rounded-full bg-brand-gold"></span>
+                        </div>
+                        <div class="relative z-20">
+                            <h3 class="font-display text-3xl lg:text-4xl text-brand-ivory mb-2">Awarie w podróży</h3>
+                            <span class="font-mono text-[9px] uppercase tracking-[0.25em] text-brand-muted">↓ Przewiń, aby odkryć analizę</span>
+                        </div>
+                    </div>
+                    <div class="absolute inset-0 backface-hidden bg-[#0A0A0A] border border-brand-gold/30 p-10 flex flex-col justify-center rotate-y-180 z-20 shadow-2xl">
+                        <span class="font-mono text-[10px] uppercase tracking-[0.3em] text-brand-gold mb-6">Analiza Operacyjna</span>
+                        <p class="font-light text-brand-ivory text-base md:text-lg leading-relaxed">
+                            Nagła sytuacja drogowa lub awaria pojazdu może błyskawicznie przerodzić się w kryzys operacyjny.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- KARTA 5: Pilne ewakuacje -->
+            <div class="threat-card-container h-[420px] cursor-pointer" style="perspective: 1000px;">
+                <div class="threat-card relative w-full h-full duration-700 transform-style-3d">
+                    <div class="absolute inset-0 backface-hidden bg-brand-surface border border-white/5 p-10 flex flex-col justify-between overflow-hidden group hover:border-brand-gold/40 transition-colors">
+                        <div class="absolute inset-0 z-0 opacity-35 mix-blend-luminosity bg-cover bg-center transform group-hover:scale-105 transition-transform duration-1000" style="background-image: url('/photo/ewakuacja.jpg')"></div>
+                        <div class="absolute inset-0 bg-gradient-to-t from-brand-surface via-brand-surface/70 to-transparent z-10"></div>
+                        <div class="relative z-20 flex justify-between items-center">
+                            <span class="font-mono text-[10px] uppercase tracking-[0.3em] text-brand-gold">[ 05 / Zagrożenie ]</span>
+                            <span class="w-1.5 h-1.5 rounded-full bg-brand-gold"></span>
+                        </div>
+                        <div class="relative z-20">
+                            <h3 class="font-display text-3xl lg:text-4xl text-brand-ivory mb-2">Pilne ewakuacje</h3>
+                            <span class="font-mono text-[9px] uppercase tracking-[0.25em] text-brand-muted">↓ Przewiń, aby odkryć analizę</span>
+                        </div>
+                    </div>
+                    <div class="absolute inset-0 backface-hidden bg-[#0A0A0A] border border-brand-gold/30 p-10 flex flex-col justify-center rotate-y-180 z-20 shadow-2xl">
+                        <span class="font-mono text-[10px] uppercase tracking-[0.3em] text-brand-gold mb-6">Analiza Operacyjna</span>
+                        <p class="font-light text-brand-ivory text-base md:text-lg leading-relaxed">
+                            Pożar czy konflikt zbrojny może zmusić do natychmiastowego opuszczenia bezpiecznej strefy komfortu.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- KARTA 6: Outdoor i Survival -->
+            <div class="threat-card-container h-[420px] cursor-pointer" style="perspective: 1000px;">
+                <div class="threat-card relative w-full h-full duration-700 transform-style-3d">
+                    <div class="absolute inset-0 backface-hidden bg-brand-surface border border-white/5 p-10 flex flex-col justify-between overflow-hidden group hover:border-brand-gold/40 transition-colors">
+                        <div class="absolute inset-0 z-0 opacity-35 mix-blend-luminosity bg-cover bg-center transform group-hover:scale-105 transition-transform duration-1000" style="background-image: url('/photo/survival.jpg')"></div>
+                        <div class="absolute inset-0 bg-gradient-to-t from-brand-surface via-brand-surface/70 to-transparent z-10"></div>
+                        <div class="relative z-20 flex justify-between items-center">
+                            <span class="font-mono text-[10px] uppercase tracking-[0.3em] text-brand-gold">[ 06 / Zagrożenie ]</span>
+                            <span class="w-1.5 h-1.5 rounded-full bg-brand-gold"></span>
+                        </div>
+                        <div class="relative z-20">
+                            <h3 class="font-display text-3xl lg:text-4xl text-brand-ivory mb-2">Outdoor i Survival</h3>
+                            <span class="font-mono text-[9px] uppercase tracking-[0.25em] text-brand-muted">↓ Przewiń, aby odkryć analizę</span>
+                        </div>
+                    </div>
+                    <div class="absolute inset-0 backface-hidden bg-[#0A0A0A] border border-brand-gold/30 p-10 flex flex-col justify-center rotate-y-180 z-20 shadow-2xl">
+                        <span class="font-mono text-[10px] uppercase tracking-[0.3em] text-brand-gold mb-6">Analiza Operacyjna</span>
+                        <p class="font-light text-brand-ivory text-base md:text-lg leading-relaxed">
+                            Pełna świadomość i przygotowanie na zagrożenia podczas wyjścia w trudny teren.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
             
 <section class="py-32 md:py-40 px-6 bg-brand-dark relative z-20 text-center border-t border-white/5">
                 <div class="max-w-4xl mx-auto fade-in-up">
