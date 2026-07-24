@@ -164,40 +164,33 @@
             
 <div class="lg:col-span-7 fade-in-up flex flex-col gap-6">
                 
-                <div class="relative w-full aspect-[4/5] lg:max-h-[600px] bg-brand-surface border border-white/5 overflow-hidden group/main">
-                    
-                    <div class="absolute inset-0 bg-gradient-to-t from-brand-surface via-transparent to-transparent z-10 opacity-60 pointer-events-none"></div>
-                    
-                    <div id="main-image-bg" class="absolute inset-0 bg-[url('/photo/pr1.png')] bg-cover bg-center transition-transform duration-[2s] ease-out group-hover/main:scale-105"></div>
-                    
-                    <div class="absolute inset-0 z-20 flex">
-                        
-                        <button onclick="navigateMainImage('prev')" class="w-1/2 h-full flex items-center justify-start px-6 opacity-0 group-hover/main:opacity-100 transition-opacity duration-700 outline-none cursor-pointer">
-                            <div class="bg-brand-dark/40 backdrop-blur-md border border-white/10 p-4 rounded-full text-brand-ivory hover:text-brand-gold hover:border-brand-gold/50 transition-all duration-300 transform -translate-x-8 group-hover/main:translate-x-0">
-                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
-                                </svg>
-                            </div>
-                        </button>
-                        
-                        <button onclick="navigateMainImage('next')" class="w-1/2 h-full flex items-center justify-end px-6 opacity-0 group-hover/main:opacity-100 transition-opacity duration-700 outline-none cursor-pointer">
-                            <div class="bg-brand-dark/40 backdrop-blur-md border border-white/10 p-4 rounded-full text-brand-ivory hover:text-brand-gold hover:border-brand-gold/50 transition-all duration-300 transform translate-x-8 group-hover/main:translate-x-0">
-                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
-                                </svg>
-                            </div>
-                        </button>
-                    </div>
-                    
-                    <div class="absolute bottom-8 left-8 z-30 flex flex-wrap gap-4 pr-8 pointer-events-none">
-                        <span class="font-mono text-[9px] uppercase tracking-[0.4em] text-brand-gold bg-brand-dark/90 px-3 py-2 backdrop-blur-sm border border-white/10">
-                            Wariant Rodzinny
-                        </span>
-                        <span class="font-mono text-[9px] uppercase tracking-[0.4em] text-brand-ivory bg-brand-dark/90 px-3 py-2 backdrop-blur-sm border border-white/10">
-                            76 Elementów
-                        </span>
-                    </div>
-                </div>
+             <div class="relative w-full aspect-[4/5] lg:max-h-[600px] bg-brand-surface border border-white/5 overflow-hidden group/main">
+    <div class="absolute inset-0 bg-gradient-to-t from-brand-surface via-transparent to-transparent z-10 opacity-60 pointer-events-none"></div>
+    
+    <!-- POPRAWKA: Wstrzykniety stan inline od pierwszego renderu DOM -->
+    <div id="main-image-bg" 
+         style="opacity: 1; background-image: url('/photo/pi1.png'); background-size: contain; background-repeat: no-repeat; background-position: center;" 
+         class="absolute inset-0 transition-all duration-300 ease-out group-hover/main:scale-105"></div>
+    
+    <div class="absolute inset-0 z-20 flex">
+        <button onclick="window.navigateMainImage('prev')" class="w-1/2 h-full flex items-center justify-start px-6 opacity-0 group-hover/main:opacity-100 transition-opacity duration-700 outline-none cursor-pointer">
+            <div class="bg-brand-dark/40 backdrop-blur-md border border-white/10 p-4 rounded-full text-brand-ivory hover:text-brand-gold hover:border-brand-gold/50 transition-all duration-300 transform -translate-x-8 group-hover/main:translate-x-0">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" /></svg>
+            </div>
+        </button>
+        
+        <button onclick="window.navigateMainImage('next')" class="w-1/2 h-full flex items-center justify-end px-6 opacity-0 group-hover/main:opacity-100 transition-opacity duration-700 outline-none cursor-pointer">
+            <div class="bg-brand-dark/40 backdrop-blur-md border border-white/10 p-4 rounded-full text-brand-ivory hover:text-brand-gold hover:border-brand-gold/50 transition-all duration-300 transform translate-x-8 group-hover/main:translate-x-0">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" /></svg>
+            </div>
+        </button>
+    </div>
+    
+    <div class="absolute bottom-8 left-8 z-30 flex flex-wrap gap-4 pr-8 pointer-events-none">
+        <span class="font-mono text-[9px] uppercase tracking-[0.4em] text-brand-gold bg-brand-dark/90 px-3 py-2 backdrop-blur-sm border border-white/10">Wariant Rodzinny</span>
+        <span class="font-mono text-[9px] uppercase tracking-[0.4em] text-brand-ivory bg-brand-dark/90 px-3 py-2 backdrop-blur-sm border border-white/10">76 Elementów</span>
+    </div>
+</div>
 
                 <div class="relative w-full group/gallery">
                     
