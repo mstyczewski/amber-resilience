@@ -1301,7 +1301,7 @@ async function initAll(targetHash = null) {
     setTimeout(() => {
         setupPortals();
         renderFAQ();
-        initThreatFlipAnimation();
+        initThreatSequentialFlipAnimation();
         initAnimations();
         initCinematicMedia();
         initBackpackCardsAnimation();
