@@ -1226,6 +1226,43 @@ function initBackpacksDropdown() {
     }
 }
 /* =========================================================================
+   Logika GSAP ScrollTrigger
+   ========================================================================= */
+function initThreatFlipAnimation() {
+    const containers = document.querySelectorAll('.threat-card-container');
+    if (containers.length === 0) return;
+
+    containers.forEach((container) => {
+        const card = container.querySelector('.threat-card');
+        
+        // 1. Scroll-driven flip (Parallax / Scrub) na desktopie
+        if (window.matchMedia('(min-width: 768px)').matches) {
+            gsap.to(card, {
+                rotateY: 180,
+                ease: "none",
+                scrollTrigger: {
+                    trigger: container,
+                    start: "top 80%",
+                    end: "bottom 20%",
+                    scrub: true,
+                }
+            });
+        } 
+        // 2. Kliknięcie/Tap dla urządzeń mobilnych
+        else {
+            let isFlipped = false;
+            container.addEventListener('click', () => {
+                isFlipped = !isFlipped;
+                gsap.to(card, {
+                    rotateY: isFlipped ? 180 : 0,
+                    duration: 0.6,
+                    ease: "power2.inOut"
+                });
+            });
+        }
+    });
+}
+/* =========================================================================
    GŁÓWNY INICJATOR
    ========================================================================= */
 async function initAll(targetHash = null) {
@@ -1255,6 +1292,7 @@ async function initAll(targetHash = null) {
     setTimeout(() => {
         setupPortals();
         renderFAQ();
+        initThreatFlipAnimation();
         initAnimations();
         initCinematicMedia();
         initBackpackCardsAnimation();
