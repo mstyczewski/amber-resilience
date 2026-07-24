@@ -1226,35 +1226,35 @@ function initBackpacksDropdown() {
     }
 }
 /* =========================================================================
-   Logika GSAP ScrollTrigger
+   POPRAWIONY SILNIK SEKWENCYJNEGO OBROTU KART (SEQUENTIAL FLIP)
    ========================================================================= */
 function initThreatSequentialFlipAnimation() {
     const cards = document.querySelectorAll('.threat-card');
     if (cards.length === 0) return;
 
-    // Desktop: Sekwencyjny obrót kart powiązany ze scrollowaniem (scrub)
+    // Desktop: Płynny obrót sekwencyjny sterowany scrollowaniem (przypięta sekcja)
     if (window.matchMedia('(min-width: 768px)').matches) {
         const tl = gsap.timeline({
             scrollTrigger: {
                 trigger: ".threat-matrix-section",
                 start: "top top",
-                end: "+=2500", // Czas trwania przewijania dla całej sekwencji
-                pin: true,     // Blokuje sekcję do momentu zakończenia obrotu wszystkich kart
-                scrub: 1,      // Płynna interpolacja z ruchem myszi/scrolla
+                end: "+=2200", // Optymalny dystans scrolla dla 6 kart
+                pin: true,     // Kotwiczy sekcję do momentu obrotu całości
+                scrub: 1,      // Płynna interpolacja ruchu
                 anticipatePin: 1
             }
         });
 
-        // Dodawanie kart do osi czasu jedna po drugiej (karta 2 zaczyna się obracać, gdy karta 1 kończy)
+        // Każda kolejna karta obraca się dopiero, gdy poprzednia wykona swój ruch
         cards.forEach((card, index) => {
             tl.to(card, {
                 rotateY: 180,
                 duration: 1,
                 ease: "power2.inOut"
-            }, index > 0 ? "+=0.1" : 0); // Lekki odstęp czasowy między startem kolejnych kart
+            }, index > 0 ? "+=0.15" : 0); // Odstęp czasowy między startem kolejnych kart
         });
     } 
-    // Mobile: Interaktywne dotknięcie (Tap-to-Flip) dla każdej karty niezależnie
+    // Mobile: Niezależne dotknięcie (Tap-to-Flip) dla wygody użytkowników smartfonów
     else {
         document.querySelectorAll('.threat-card-container').forEach((container) => {
             const card = container.querySelector('.threat-card');
