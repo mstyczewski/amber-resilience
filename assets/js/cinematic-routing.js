@@ -1226,52 +1226,6 @@ function initBackpacksDropdown() {
     }
 }
 /* =========================================================================
-   POPRAWIONY SILNIK SEKWENCYJNEGO OBROTU KART (SEQUENTIAL FLIP)
-   ========================================================================= */
-function initThreatSequentialFlipAnimation() {
-    const cards = document.querySelectorAll('.threat-card');
-    if (cards.length === 0) return;
-
-    // Desktop: Płynny obrót sekwencyjny sterowany scrollowaniem (przypięta sekcja)
-    if (window.matchMedia('(min-width: 768px)').matches) {
-        const tl = gsap.timeline({
-            scrollTrigger: {
-                trigger: ".threat-matrix-section",
-                start: "top top",
-                end: "+=2200", // Optymalny dystans scrolla dla 6 kart
-                pin: true,     // Kotwiczy sekcję do momentu obrotu całości
-                scrub: 1,      // Płynna interpolacja ruchu
-                anticipatePin: 1
-            }
-        });
-
-        // Każda kolejna karta obraca się dopiero, gdy poprzednia wykona swój ruch
-        cards.forEach((card, index) => {
-            tl.to(card, {
-                rotateY: 180,
-                duration: 1,
-                ease: "power2.inOut"
-            }, index > 0 ? "+=0.15" : 0); // Odstęp czasowy między startem kolejnych kart
-        });
-    } 
-    // Mobile: Niezależne dotknięcie (Tap-to-Flip) dla wygody użytkowników smartfonów
-    else {
-        document.querySelectorAll('.threat-card-container').forEach((container) => {
-            const card = container.querySelector('.threat-card');
-            let isFlipped = false;
-            
-            container.addEventListener('click', () => {
-                isFlipped = !isFlipped;
-                gsap.to(card, {
-                    rotateY: isFlipped ? 180 : 0,
-                    duration: 0.6,
-                    ease: "power2.inOut"
-                });
-            });
-        });
-    }
-}
-/* =========================================================================
    GŁÓWNY INICJATOR
    ========================================================================= */
 async function initAll(targetHash = null) {
@@ -1301,7 +1255,6 @@ async function initAll(targetHash = null) {
     setTimeout(() => {
         setupPortals();
         renderFAQ();
-        initThreatSequentialFlipAnimation();
         initAnimations();
         initCinematicMedia();
         initBackpackCardsAnimation();
