@@ -102,3 +102,15 @@ input:-webkit-autofill, textarea:-webkit-autofill {
 .faq-item.active .faq-content { grid-template-rows: 1fr; }
 .faq-item.active .faq-icon { transform: rotate(45deg); }
 
+/* Wymagane klasy dla układu 3D Flip Cards */
+.transform-style-3d {
+    transform-style: preserve-3d;
+}
+.backface-hidden {
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+}
+.rotate-y-180 {
+    transform: rotateY(180deg);
+}
+
