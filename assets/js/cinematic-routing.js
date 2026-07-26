@@ -282,7 +282,7 @@ const moduleDatabase = {
         desc: 'Podstawowe wsparcie medyczne.', 
         images: [
             '/photo-moduly/apteczka.png',
-            '/photo-moduly/apteczka2.jpg'
+            '/photo-moduly/apteczka2.png'
         ],
         items: [
             'apteczka wraz z panelem rzepowym systemu Molle - 1 szt.',
