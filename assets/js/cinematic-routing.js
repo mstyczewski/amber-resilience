@@ -195,7 +195,7 @@ const moduleDatabase = {
         title: 'Orientacja', 
         desc: 'Znajdź drogę, utrzymaj świadomość sytuacyjną i komunikację.', 
         images: [
-            '/photo-moduly/oreinracja-r.png',
+            '/photo-moduly/orientacja-r.png',
             '/photo-moduly/orientacja-r2.png'
         ],
         items: [
