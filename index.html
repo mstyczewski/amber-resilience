@@ -280,49 +280,90 @@
     <div class="h-px w-16 bg-white/10 mx-auto mt-8 threat-line-3"></div>
 </div>
                     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 threat-grid">
-                        <div class="bg-brand-surface border border-white/5 p-10 hover:border-brand-gold/30 transition-colors duration-500 group ">
-                            <div class="text-brand-gold mb-6 transform group-hover:-translate-y-1 transition-transform duration-500">
-                                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z"/><path d="m13 14-2 4h4l-2 4"/></svg>
-                            </div>
-                            <h3 class="font-display text-2xl text-brand-ivory mb-3">Burze i nawałnice</h3>
-                            <p class="font-light text-brand-muted text-sm leading-relaxed">Coraz częstsze i bardziej gwałtowne zjawiska atmosferyczne, wymagające pełnej niezależności.</p>
-                        </div>
-                        <div class="bg-brand-surface border border-white/5 p-10 hover:border-brand-gold/30 transition-colors duration-500 group " style="transition-delay: 100ms;">
-                            <div class="text-brand-gold mb-6 transform group-hover:-translate-y-1 transition-transform duration-500">
-                                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12h4l3-9 5 18 3-9h5"/></svg>
-                            </div>
-                            <h3 class="font-display text-2xl text-brand-ivory mb-3">Powodzie i podtopienia</h3>
-                            <p class="font-light text-brand-muted text-sm leading-relaxed">Żywioł, który w kilka minut odcina całe dzielnice od dostaw prądu, czystej wody i pomocy ratunkowej.</p>
-                        </div>
-                        <div class="bg-brand-surface border border-white/5 p-10 hover:border-brand-gold/30 transition-colors duration-500 group" style="transition-delay: 200ms;">
-                            <div class="text-brand-gold mb-6 transform group-hover:-translate-y-1 transition-transform duration-500">
-                                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><path d="M18.36 6.64A9 9 0 0 1 20.77 15"/><path d="M6.16 6.16a9 9 0 1 0 12.68 12.68"/><path d="M12 2v4"/><path d="m2 2 20 20"/></svg>
-                            </div>
-                            <h3 class="font-display text-2xl text-brand-ivory mb-3">Awarie zasilania</h3>
-                            <p class="font-light text-brand-muted text-sm leading-relaxed">Globalny blackout oznacza natychmiastowy brak łączności, ciepła i bazowego bezpieczeństwa.</p>
-                        </div>
-                        <div class="bg-brand-surface border border-white/5 p-10 hover:border-brand-gold/30 transition-colors duration-500 group" style="transition-delay: 300ms;">
-                            <div class="text-brand-gold mb-6 transform group-hover:-translate-y-1 transition-transform duration-500">
-                                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10"/><path d="m12 8-2 4h4l-2 4"/></svg>
-                            </div>
-                            <h4 class="font-display text-2xl text-brand-ivory mb-3">Awarie w podróży</h4>
-                            <p class="font-light text-brand-muted text-sm leading-relaxed">Nagła sytuacja drogowa lub awaria pojazdu może błyskawicznie przerodzić się w kryzys operacyjny.</p>
-                        </div>
-                        <div class="bg-brand-surface border border-white/5 p-10 hover:border-brand-gold/30 transition-colors duration-500 group" style="transition-delay: 400ms;">
-                            <div class="text-brand-gold mb-6 transform group-hover:-translate-y-1 transition-transform duration-500">
-                                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" x2="9" y1="12" y2="12"/></svg>
-                            </div>
-                            <h3 class="font-display text-2xl text-brand-ivory mb-3">Pilne ewakuacje</h3>
-                            <p class="font-light text-brand-muted text-sm leading-relaxed">Pożar czy konflikt zbrojny może zmusić do natychmiastowego opuszczenia bezpiecznej strefy komfortu.</p>
-                        </div>
-                        <div class="bg-brand-surface border border-white/5 p-10 hover:border-brand-gold/30 transition-colors duration-500 group" style="transition-delay: 500ms;">
-                            <div class="text-brand-gold mb-6 transform group-hover:-translate-y-1 transition-transform duration-500">
-                                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><path d="m8 3 4 8 5-5 5 15H2L8 3z"/></svg>
-                            </div>
-                            <h3 class="font-display text-2xl text-brand-ivory mb-3">Outdoor i Survival</h3>
-                            <p class="font-light text-brand-muted text-sm leading-relaxed">Świadomość zagrożeń podczas wyjścia w teren.</p>
-                        </div>
-                    </div>
+    
+    <!-- 01: Burze i nawałnice (Chmura z piorunem) -->
+    <div class="bg-brand-surface border border-white/5 p-10 hover:border-brand-gold/30 transition-colors duration-500 group">
+        <div class="text-brand-gold mb-6 transform group-hover:-translate-y-1 transition-transform duration-500">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M6 16.326A7 7 0 1 1 15.71 8h1.79a4.5 4.5 0 0 1 .5 8.973"/>
+                <path d="m13 12-3 5h4l-3 5"/>
+            </svg>
+        </div>
+        <h3 class="font-display text-2xl text-brand-ivory mb-3">Burze i nawałnice</h3>
+        <p class="font-light text-brand-muted text-sm leading-relaxed">Coraz częstsze i bardziej gwałtowne zjawiska atmosferyczne, wymagające pełnej niezależności.</p>
+    </div>
+
+    <!-- 02: Powodzie i podtopienia (Fale) -->
+    <div class="bg-brand-surface border border-white/5 p-10 hover:border-brand-gold/30 transition-colors duration-500 group" style="transition-delay: 100ms;">
+        <div class="text-brand-gold mb-6 transform group-hover:-translate-y-1 transition-transform duration-500">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M2 6c.6.5 1.2 1 2.5 1 1.5 0 2.5-1 3.5-1s2 1 3.5 1 2.5-1 3.5-1 2 1 3.5 1c1.3 0 1.9-.5 2.5-1"/>
+                <path d="M2 12c.6.5 1.2 1 2.5 1 1.5 0 2.5-1 3.5-1s2 1 3.5 1 2.5-1 3.5-1 2 1 3.5 1c1.3 0 1.9-.5 2.5-1"/>
+                <path d="M2 18c.6.5 1.2 1 2.5 1 1.5 0 2.5-1 3.5-1s2 1 3.5 1 2.5-1 3.5-1 2 1 3.5 1c1.3 0 1.9-.5 2.5-1"/>
+            </svg>
+        </div>
+        <h3 class="font-display text-2xl text-brand-ivory mb-3">Powodzie i podtopienia</h3>
+        <p class="font-light text-brand-muted text-sm leading-relaxed">Żywioł, który w kilka minut odcina całe dzielnice od dostaw prądu, czystej wody i pomocy ratunkowej.</p>
+    </div>
+
+    <!-- 03: Awarie zasilania (Przekreślony piorun / Blackout) -->
+    <div class="bg-brand-surface border border-white/5 p-10 hover:border-brand-gold/30 transition-colors duration-500 group" style="transition-delay: 200ms;">
+        <div class="text-brand-gold mb-6 transform group-hover:-translate-y-1 transition-transform duration-500">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M12.41 6.75 13 2l-2.43 2.92"/>
+                <path d="M18.57 12.91 21 10h-5.34"/>
+                <path d="M8 8l-5 6h9l-1 8 5-6"/>
+                <line x1="2" y1="2" x2="22" y2="22"/>
+            </svg>
+        </div>
+        <h3 class="font-display text-2xl text-brand-ivory mb-3">Awarie zasilania</h3>
+        <p class="font-light text-brand-muted text-sm leading-relaxed">Globalny blackout oznacza natychmiastowy brak łączności, ciepła i bazowego bezpieczeństwa.</p>
+    </div>
+
+    <!-- 04: Awarie w podróży (Front pojazdu) -->
+    <div class="bg-brand-surface border border-white/5 p-10 hover:border-brand-gold/30 transition-colors duration-500 group" style="transition-delay: 300ms;">
+        <div class="text-brand-gold mb-6 transform group-hover:-translate-y-1 transition-transform duration-500">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="m21 8-2 2-1.5-3.7A2 2 0 0 0 15.6 5H8.4a2 2 0 0 0-1.9 1.3L5 10 3 8"/>
+                <path d="M3 10v9a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-1h8v1a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-9"/>
+                <path d="M5 10h14"/>
+                <path d="M8 14h.01"/>
+                <path d="M16 14h.01"/>
+            </svg>
+        </div>
+        <h4 class="font-display text-2xl text-brand-ivory mb-3">Awarie w podróży</h4>
+        <p class="font-light text-brand-muted text-sm leading-relaxed">Nagła sytuacja drogowa lub awaria pojazdu może błyskawicznie przerodzić się w kryzys operacyjny.</p>
+    </div>
+
+    <!-- 05: Pilne ewakuacje (Wyjście ze strefy) -->
+    <div class="bg-brand-surface border border-white/5 p-10 hover:border-brand-gold/30 transition-colors duration-500 group" style="transition-delay: 400ms;">
+        <div class="text-brand-gold mb-6 transform group-hover:-translate-y-1 transition-transform duration-500">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
+                <polyline points="16 17 21 12 16 7"/>
+                <line x1="21" y1="12" x2="9" y2="12"/>
+            </svg>
+        </div>
+        <h3 class="font-display text-2xl text-brand-ivory mb-3">Pilne ewakuacje</h3>
+        <p class="font-light text-brand-muted text-sm leading-relaxed">Pożar czy konflikt zbrojny może zmusić do natychmiastowego opuszczenia bezpiecznej strefy komfortu.</p>
+    </div>
+
+    <!-- 06: Outdoor i Survival (Namiot) -->
+    <div class="bg-brand-surface border border-white/5 p-10 hover:border-brand-gold/30 transition-colors duration-500 group" style="transition-delay: 500ms;">
+        <div class="text-brand-gold mb-6 transform group-hover:-translate-y-1 transition-transform duration-500">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M2 20h20"/>
+                <path d="m12 3-9 17"/>
+                <path d="m12 3 9 17"/>
+                <path d="m12 12-4 8"/>
+                <path d="m12 12 4 8"/>
+            </svg>
+        </div>
+        <h3 class="font-display text-2xl text-brand-ivory mb-3">Outdoor i Survival</h3>
+        <p class="font-light text-brand-muted text-sm leading-relaxed">Świadomość zagrożeń podczas wyjścia w teren.</p>
+    </div>
+
+</div>
                 </div>
             </section>
             
