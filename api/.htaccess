@@ -1,0 +1,9 @@
+# Blokada indeksowania katalogu
+Options -Indexes
+
+# (Opcjonalnie) Zabezpieczenie przed bezpośrednim wejściem z przeglądarki (GET)
+# Akceptujemy tylko ruch z metody POST (czyli wysyłkę formularza)
+<Limit GET>
+    Order Allow,Deny
+    Deny from all
+</Limit>
