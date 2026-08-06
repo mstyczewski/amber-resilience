@@ -727,17 +727,18 @@ function initFAQ() {
 }
 
 function initContactForm() {
+    const form = document.getElementById('premium-contact-form');
     const privacyCheckbox = document.getElementById('privacy-policy');
     const submitBtn = document.getElementById('submit-btn');
 
-    if (!privacyCheckbox || !submitBtn) return;
+    if (!form || !privacyCheckbox || !submitBtn) return;
 
+    // Klonowanie checkboxa (czyszczenie starych eventów dla Barba.js)
     const newCheckbox = privacyCheckbox.cloneNode(true);
     privacyCheckbox.parentNode.replaceChild(newCheckbox, privacyCheckbox);
 
     newCheckbox.addEventListener('change', (e) => {
-        const isChecked = e.target.checked;
-        if (isChecked) {
+        if (e.target.checked) {
             submitBtn.disabled = false;
             submitBtn.classList.remove('opacity-40', 'pointer-events-none', 'grayscale');
             if (typeof gsap !== 'undefined') {
@@ -748,7 +749,64 @@ function initContactForm() {
             submitBtn.classList.add('opacity-40', 'pointer-events-none', 'grayscale');
         }
     });
+
+    // Przechwycenie wysyłki
+    form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        
+        const btnText = submitBtn.querySelector('span.relative.z-10');
+        const originalText = btnText.innerText;
+        
+        // Stan ładowania (Motion that whispers)
+        btnText.innerText = 'WYSYŁANIE...';
+        submitBtn.classList.add('opacity-70', 'pointer-events-none');
+        gsap.to(submitBtn, { opacity: 0.5, yoyo: true, repeat: -1, duration: 0.6, ease: "power1.inOut" });
+
+        const formData = new FormData(form);
+
+        try {
+            const response = await fetch('/api/mailer.php', {
+                method: 'POST',
+                body: formData
+            });
+
+            const result = await response.json();
+            gsap.killTweensOf(submitBtn);
+
+            if (result.success) {
+                // Sukces estetyczny
+                submitBtn.classList.remove('opacity-70', 'border-brand-gold/30');
+                submitBtn.classList.add('border-brand-gold', 'bg-brand-gold/10');
+                gsap.to(submitBtn, { opacity: 1, duration: 0.3 });
+                btnText.innerText = 'WIADOMOŚĆ PRZEKAZANA';
+                btnText.classList.remove('text-brand-gold');
+                btnText.classList.add('text-brand-ivory');
+                form.reset();
+                newCheckbox.checked = false;
+            } else {
+                throw new Error(result.error);
+            }
+        } catch (error) {
+            console.error('[Amber Resilience | Error]', error);
+            gsap.killTweensOf(submitBtn);
+            gsap.to(submitBtn, { opacity: 1, duration: 0.3 });
+            
+            // Animacja błędu (shake)
+            gsap.fromTo(submitBtn, 
+                { x: -5 }, 
+                { x: 5, duration: 0.1, yoyo: true, repeat: 5, ease: "none", 
+                  onComplete: () => { btnText.innerText = 'BŁĄD. SPRÓBUJ PONOWNIE'; }
+                }
+            );
+            
+            setTimeout(() => {
+                btnText.innerText = originalText;
+                submitBtn.classList.remove('pointer-events-none');
+            }, 3000);
+        }
+    });
 }
+
 function initObfuscatedEmails() {
     const emailLinks = document.querySelectorAll('.obfuscated-link');
     
