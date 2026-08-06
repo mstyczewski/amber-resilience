@@ -147,27 +147,31 @@
                         </p>
                     </div>
 
-                    <form action="#" method="POST" class="space-y-10">
-                        <div class="input-wrapper">
-                            <label class="block text-brand-muted font-mono text-[9px] tracking-[0.3em] uppercase mb-2">[Imię i Nazwisko] *</label>
-                            <input type="text" required class="premium-input" placeholder="Wpisz dane">
-                            <span class="focus-line"></span>
-                        </div>
-                        <div class="input-wrapper">
-                            <label class="block text-brand-muted font-mono text-[9px] tracking-[0.3em] uppercase mb-2">[E-mail] *</label>
-                            <input type="email" required class="premium-input" placeholder="adres@siec.com">
-                            <span class="focus-line"></span>
-                        </div>
-                        <div class="input-wrapper">
-                            <label class="block text-brand-muted font-mono text-[9px] tracking-[0.3em] uppercase mb-2">[Temat]</label>
-                            <input type="text" class="premium-input" placeholder="Opcjonalnie">
-                            <span class="focus-line"></span>
-                        </div>
-                        <div class="input-wrapper mb-8">
-                            <label class="block text-brand-muted font-mono text-[9px] tracking-[0.3em] uppercase mb-2">[Wiadomość] *</label>
-                            <textarea required rows="4" class="premium-input resize-none" placeholder="Wprowadź treść komunikatu..."></textarea>
-                            <span class="focus-line"></span>
-                        </div>
+               <form id="premium-contact-form" class="space-y-10">
+    <!-- Hiddent Honeypot Field -->
+    <input type="text" name="website_url" class="hidden absolute opacity-0 pointer-events-none -z-50" tabindex="-1" autocomplete="off">
+    
+    <div class="input-wrapper">
+        <label class="block text-brand-muted font-mono text-[9px] tracking-[0.3em] uppercase mb-2">[Imię i Nazwisko] *</label>
+        <input type="text" name="name" required class="premium-input" placeholder="Wpisz dane">
+        <span class="focus-line"></span>
+    </div>
+    <div class="input-wrapper">
+        <label class="block text-brand-muted font-mono text-[9px] tracking-[0.3em] uppercase mb-2">[E-mail] *</label>
+        <input type="email" name="email" required class="premium-input" placeholder="adres@siec.com">
+        <span class="focus-line"></span>
+    </div>
+    <div class="input-wrapper">
+        <label class="block text-brand-muted font-mono text-[9px] tracking-[0.3em] uppercase mb-2">[Temat]</label>
+        <input type="text" name="subject" class="premium-input" placeholder="Opcjonalnie">
+        <span class="focus-line"></span>
+    </div>
+    <div class="input-wrapper mb-8">
+        <label class="block text-brand-muted font-mono text-[9px] tracking-[0.3em] uppercase mb-2">[Wiadomość] *</label>
+        <textarea name="message" required rows="4" class="premium-input resize-none" placeholder="Wprowadź treść komunikatu..."></textarea>
+        <span class="focus-line"></span>
+    </div>
+    <!-- Reszta formularza (checkbox) bez zmian -->
 
                         <div class="flex items-start gap-4 mb-10 group/checkbox">
                             <div class="relative flex items-center pt-1">
