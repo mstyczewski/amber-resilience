@@ -1284,6 +1284,65 @@ function initBackpacksDropdown() {
     }
 }
 /* =========================================================================
+   STRIPE CHECKOUT ENGINE (SAQ A COMPLIANT)
+   ========================================================================= */
+function initStripeCheckout() {
+    const checkoutBtn = document.getElementById('stripe-checkout-btn');
+    const qtyInput = document.getElementById('qty-input');
+    
+    if (!checkoutBtn || !qtyInput) return;
+
+    // Unikamy powielania eventów w Barba.js
+    const newCheckoutBtn = checkoutBtn.cloneNode(true);
+    checkoutBtn.parentNode.replaceChild(newCheckoutBtn, checkoutBtn);
+
+    newCheckoutBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        
+        const btnText = newCheckoutBtn.querySelector('.btn-text');
+        const quantity = parseInt(qtyInput.value) || 1;
+        
+        // Zabezpieczenie przed kliknięciem
+        newCheckoutBtn.classList.add('pointer-events-none', 'border-brand-gold');
+        
+        // Motion that whispers: Estetyka ładowania autoryzacji
+        gsap.to(newCheckoutBtn, { 
+            opacity: 0.7, 
+            yoyo: true, 
+            repeat: -1, 
+            duration: 0.6, 
+            ease: "power1.inOut" 
+        });
+        
+        btnText.innerText = 'AUTORYZACJA...';
+        btnText.classList.remove('text-brand-gold');
+        btnText.classList.add('text-brand-ivory');
+
+        // Identyfikacja produktu po cenie bazowej z DOM
+        const priceDisplay = document.getElementById('price-display');
+        const basePrice = priceDisplay ? parseInt(priceDisplay.getAttribute('data-base-price')) : 0;
+        
+        let paymentLink = '';
+        
+        // Dynamiczne przypisanie linków Stripe Payment Link
+        if (basePrice === 1800) {
+            // Wklej tutaj swój link do produktu INDYWIDUALNEGO ze Stripe
+            paymentLink = `https://buy.stripe.com/test_indywidualny?quantity=${quantity}`;
+        } else if (basePrice === 3700) {
+            // Wklej tutaj swój link do produktu RODZINNEGO ze Stripe
+            paymentLink = `https://buy.stripe.com/test_rodzinny?quantity=${quantity}`;
+        } else {
+            console.error('[Premium Engine] Błąd walidacji produktu.');
+            return;
+        }
+
+        // Opóźnienie dla elegancji i płynne przejście
+        setTimeout(() => {
+            window.location.href = paymentLink;
+        }, 800);
+    });
+}
+/* =========================================================================
    GŁÓWNY INICJATOR
    ========================================================================= */
 async function initAll(targetHash = null) {
@@ -1321,6 +1380,7 @@ async function initAll(targetHash = null) {
         initFAQ();
         initLightboxBind();
         initContactForm();
+        initStripeCheckout();
         initObfuscatedEmails();
         initNavLinks();
         initMobileMenu();
