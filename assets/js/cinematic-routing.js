@@ -1327,7 +1327,7 @@ function initStripeCheckout() {
         // Dynamiczne przypisanie linków Stripe Payment Link
         if (basePrice === 1800) {
             // Wklej tutaj swój link do produktu INDYWIDUALNEGO ze Stripe
-            paymentLink = `https://buy.stripe.com/test_indywidualny?quantity=${quantity}`;
+            paymentLink = `https://buy.stripe.com/test_00w7sM6MI50F3cr7P96kg02?quantity=${quantity}`;
         } else if (basePrice === 3700) {
             // Wklej tutaj swój link do produktu RODZINNEGO ze Stripe
             paymentLink = `https://buy.stripe.com/test_rodzinny?quantity=${quantity}`;
