@@ -142,7 +142,6 @@ const moduleDatabase = {
         ],
         items: [
            'apteczka wraz z panelem rzepowym systemu Molle - 1 szt.',
-            'gumki (troki) mocujące szybkiego montażu - 2 szt.',
             'Opaska uciskowa, staza taktyczna Black Front (fluo) - 1 szt.',
 'Marker permanentny - 1 szt.',
 'Opatrunek indywidualny typu izraelskiego 10 cm - 1 szt.',
@@ -294,7 +293,6 @@ const moduleDatabase = {
         ],
         items: [
             'apteczka wraz z panelem rzepowym systemu Molle - 1 szt.',
-            'gumki (troki) mocujące szybkiego montażu - 2 szt.',
             'Opaska uciskowa, staza taktyczna Black Front (fluo) - 1 szt.',
 'Marker permanentny - 1 szt.',
 'Opatrunek indywidualny typu izraelskiego 10 cm - 1 szt.',
