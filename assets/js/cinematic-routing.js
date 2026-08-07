@@ -1284,7 +1284,7 @@ function initBackpacksDropdown() {
     }
 }
 /* =========================================================================
-   STRIPE CHECKOUT ENGINE (SAQ A COMPLIANT)
+   STRIPE CHECKOUT ENGINE (SERVER-SIDE API / SAQ A COMPLIANT)
    ========================================================================= */
 function initStripeCheckout() {
     const checkoutBtn = document.getElementById('stripe-checkout-btn');
@@ -1292,54 +1292,73 @@ function initStripeCheckout() {
     
     if (!checkoutBtn || !qtyInput) return;
 
-    // Unikamy powielania eventów w Barba.js
+    // Czyszczenie eventów Barba.js (ochrona pamięci i stanu)
     const newCheckoutBtn = checkoutBtn.cloneNode(true);
     checkoutBtn.parentNode.replaceChild(newCheckoutBtn, checkoutBtn);
 
-    newCheckoutBtn.addEventListener('click', (e) => {
+    newCheckoutBtn.addEventListener('click', async (e) => {
         e.preventDefault();
         
         const btnText = newCheckoutBtn.querySelector('.btn-text');
         const quantity = parseInt(qtyInput.value) || 1;
         
-        // Zabezpieczenie przed kliknięciem
+        // Rozpoznawanie produktu z widoku (Architektura Danych)
+        const priceDisplay = document.getElementById('price-display');
+        const basePrice = priceDisplay ? parseInt(priceDisplay.getAttribute('data-base-price')) : 0;
+
+        if (basePrice !== 1800 && basePrice !== 3700) {
+            console.error('[Premium Engine] Błąd struktury ceny w DOM.');
+            return;
+        }
+
+        // Motion that whispers: Zablokowanie interfejsu i płynna pulsacja GSAP
         newCheckoutBtn.classList.add('pointer-events-none', 'border-brand-gold');
-        
-        // Motion that whispers: Estetyka ładowania autoryzacji
         gsap.to(newCheckoutBtn, { 
-            opacity: 0.7, 
-            yoyo: true, 
-            repeat: -1, 
-            duration: 0.6, 
-            ease: "power1.inOut" 
+            opacity: 0.7, yoyo: true, repeat: -1, duration: 0.6, ease: "power1.inOut" 
         });
         
         btnText.innerText = 'AUTORYZACJA...';
         btnText.classList.remove('text-brand-gold');
         btnText.classList.add('text-brand-ivory');
 
-        // Identyfikacja produktu po cenie bazowej z DOM
-        const priceDisplay = document.getElementById('price-display');
-        const basePrice = priceDisplay ? parseInt(priceDisplay.getAttribute('data-base-price')) : 0;
-        
-        let paymentLink = '';
-        
-        // Dynamiczne przypisanie linków Stripe Payment Link
-        if (basePrice === 1800) {
-            // Wklej tutaj swój link do produktu INDYWIDUALNEGO ze Stripe
-            paymentLink = `https://buy.stripe.com/test_00w7sM6MI50F3cr7P96kg02?quantity=${quantity}`;
-        } else if (basePrice === 3700) {
-            // Wklej tutaj swój link do produktu RODZINNEGO ze Stripe
-            paymentLink = `https://buy.stripe.com/test_rodzinny?quantity=${quantity}`;
-        } else {
-            console.error('[Premium Engine] Błąd walidacji produktu.');
-            return;
-        }
+        try {
+            // Bezpieczne zapytanie (fetch) do naszej nowej mikrousługi PHP
+            const response = await fetch('/api/stripe-checkout.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    basePrice: basePrice,
+                    quantity: quantity
+                })
+            });
 
-        // Opóźnienie dla elegancji i płynne przejście
-        setTimeout(() => {
-            window.location.href = paymentLink;
-        }, 800);
+            const data = await response.json();
+
+            if (data.url) {
+                // Skok do zaufanego środowiska (CDE) Stripe z idealnie wyliczoną kwotą
+                window.location.href = data.url;
+            } else {
+                throw new Error('Serwer odrzucił generację sesji.');
+            }
+            
+        } catch (err) {
+            console.error('[Amber Resilience | Terminal Error]', err);
+            
+            // Reakcja na błąd w interfejsie
+            gsap.killTweensOf(newCheckoutBtn);
+            gsap.to(newCheckoutBtn, { opacity: 1, duration: 0.3 });
+            
+            btnText.innerText = 'BŁĄD POŁĄCZENIA';
+            
+            setTimeout(() => {
+                btnText.innerText = 'ZAMÓW';
+                newCheckoutBtn.classList.remove('pointer-events-none', 'border-brand-gold');
+                btnText.classList.remove('text-brand-ivory');
+                btnText.classList.add('text-brand-gold');
+            }, 3000);
+        }
     });
 }
 /* =========================================================================
