@@ -445,25 +445,33 @@ function initBackpackCardsAnimation() {
     const wrappers = gsap.utils.toArray('.stack-card-wrapper');
     if (wrappers.length === 0 || typeof ScrollTrigger === 'undefined') return;
 
-    // Kinowe wejście pierwszej karty z dołu
-    gsap.from(wrappers[0], {
-        y: 80, opacity: 0, duration: 1.2, ease: "power3.out",
-        scrollTrigger: {
-            trigger: "#wybor-plecaka",
-            start: "top 75%",
-            toggleActions: "play none none reverse"
-        }
-    });
+    // THE $10K FIX: Wyciągamy wewnętrzną kartę pierwszego wrappera
+    // Absolutny ZAKAZ animowania 'wrappers[0]', ponieważ 'transform' zabija 'position: sticky'
+    const firstInner = wrappers[0].querySelector('.stack-card-inner');
+    
+    if (firstInner) {
+        gsap.from(firstInner, {
+            y: 80, 
+            opacity: 0, 
+            duration: 1.2, 
+            ease: "power3.out",
+            scrollTrigger: {
+                trigger: "#wybor-plecaka",
+                start: "top 75%",
+                toggleActions: "play none none reverse"
+            }
+        });
+    }
 
-    // Płynny mechanizm Stacking (Depth & Overlay)
+    // Kinowy mechanizm nakładania warstw (Stacking Depth)
     wrappers.forEach((wrapper, index) => {
-        // Ostatnia karta (Rodzinny) zostaje na górze, nie miażdżymy jej.
+        // Ostatnia karta (Wariant Rodzinny) pozostaje na górze, więc jej nie miażdżymy
         if (index === wrappers.length - 1) return;
 
         const nextWrapper = wrappers[index + 1];
         const innerCard = wrapper.querySelector('.stack-card-inner');
         
-        // Na urządzeniach mobilnych skalujemy delikatniej, by utrzymać czytelność (WCAG)
+        // Responsywna fizyka materiału - na mobile zachowujemy większą czytelność
         const isMobile = window.innerWidth < 768;
         const targetScale = isMobile ? 0.96 : 0.92;
 
@@ -474,9 +482,9 @@ function initBackpackCardsAnimation() {
             ease: "none",
             scrollTrigger: {
                 trigger: nextWrapper,
-                start: "top bottom", // Zaczyna się, gdy karta 02 pojawia się na dole ekranu
-                end: "top top+=12%", // Kończy się idealnie, gdy karta 02 dokuje na swoim miejscu
-                scrub: true,         // Synchronizacja klatka w klatkę ze scrollem
+                start: "top bottom", // Interakcja startuje, gdy górna krawędź Rodzinnego pojawia się na dole ekranu
+                end: "top top+=12%", // Kończy się bezszelestnie, gdy Rodzinny zadokuje w swoim miejscu (12vh od góry)
+                scrub: true,         // Wiązanie z kółkiem myszy
             }
         });
     });
