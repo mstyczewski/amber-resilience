@@ -445,10 +445,7 @@ function initBackpackCardsAnimation() {
     const wrappers = gsap.utils.toArray('.stack-card-wrapper');
     if (wrappers.length === 0 || typeof ScrollTrigger === 'undefined') return;
 
-    // THE $10K FIX: Animujemy wejście PIERWSZEJ KARTY, 
-    // upewniając się, że nie dotykamy elementu posiadającego "sticky"
     const firstInner = wrappers[0].querySelector('.stack-card-inner');
-    
     if (firstInner) {
         gsap.from(firstInner, {
             y: 80, 
@@ -463,30 +460,25 @@ function initBackpackCardsAnimation() {
         });
     }
 
-    // Kinowy mechanizm nakładania warstw (Stacking Depth) zoptymalizowany pod Webflow-feel
     wrappers.forEach((wrapper, index) => {
-        // Ostatnia karta pozostaje nietknięta na samej górze
         if (index === wrappers.length - 1) return;
 
         const nextWrapper = wrappers[index + 1];
         const innerCard = wrapper.querySelector('.stack-card-inner');
         
         const isMobile = window.innerWidth < 768;
-        // Na telefonach skalujemy tylko odrobinę (0.96), by zachować wytyczne WCAG odnośnie czytelności
-        const targetScale = isMobile ? 0.96 : 0.92;
+        const targetScale = isMobile ? 0.95 : 0.92;
 
         gsap.to(innerCard, {
             scale: targetScale,
             opacity: 0.4,
-            filter: "brightness(0.4)",
+            filter: "brightness(0.35)", // Mocne przyciemnienie dla odczucia głębi (Depth)
             ease: "none",
             scrollTrigger: {
                 trigger: nextWrapper,
-                // START: Animacja rusza dokładnie gdy GÓRNA krawędź Karty 2 przecina DOLNĄ krawędź okna przeglądarki
-                start: "top bottom", 
-                // END: Kończy się, gdy Karta 2 osiąga swój punkt "sticky" (5svh na mobile, 12vh na desktopie)
-                end: () => isMobile ? "top 5%" : "top 12%", 
-                scrub: true, // Bezwzględna synchronizacja ze scrollem
+                start: "top bottom", // START: Dokładnie w milisekundzie, gdy karta 02 pojawia się na dole ekranu
+                end: () => isMobile ? "top 8%" : "top 15%", // END: Karta 02 dokuje na 8svh/15vh
+                scrub: true,
             }
         });
     });
