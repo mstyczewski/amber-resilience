@@ -1,9 +1,6 @@
 #hero {
     will-change: transform;
 }
-#wybor-plecaka {
-    overflow: hidden; /* To zapobiegnie "wywalaniu się" układu przy animacji skali */
-}
 
 /* --- Architektura Barba.js --- */
 [data-barba="wrapper"] { position: relative; width: 100%; }
@@ -15,7 +12,7 @@ body {
     color: #F9F7F2;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    overflow-x: hidden;
+    overflow-x: clip;
 }
 
 /* --- Elegancki, minimalistyczny scrollbar (Globalny i dedykowany) --- */
