@@ -442,16 +442,43 @@ function initAnimations() {
 }
 
 function initBackpackCardsAnimation() {
-    const cards = document.querySelectorAll('#wybor-plecaka a');
-    if (cards.length === 0) return;
+    const cards = gsap.utils.toArray('.stack-card');
+    if (cards.length === 0 || typeof ScrollTrigger === 'undefined') return;
 
-    gsap.fromTo(cards, 
-        { y: 50, opacity: 0, scale: 0.95 }, 
-        {
-            y: 0, opacity: 1, scale: 1, duration: 0.8, stagger: 0.2, ease: "power3.out",
-            scrollTrigger: { trigger: "#wybor-plecaka", start: "top 70%", toggleActions: "play none none reverse" }
+    // Najpierw animujemy wejście całego bloku z dołu
+    gsap.from(cards[0], {
+        y: 80, opacity: 0, duration: 1.2, ease: "power3.out",
+        scrollTrigger: {
+            trigger: "#wybor-plecaka",
+            start: "top 75%",
+            toggleActions: "play none none reverse"
         }
-    );
+    });
+
+    // Kinowa logika zachodzenia na siebie (Stacking Depth)
+    cards.forEach((card, index) => {
+        // Ostatnia karta nie jest miażdżona, więc pomijamy
+        if (index === cards.length - 1) return;
+
+        const nextCard = cards[index + 1];
+        
+        // Dynamika zależna od urządzenia (subtelniejsza na mobile)
+        const isMobile = window.innerWidth < 768;
+        const targetScale = isMobile ? 0.97 : 0.94;
+
+        gsap.to(card, {
+            scale: targetScale,
+            opacity: 0.5,
+            filter: "brightness(0.6)",
+            ease: "none",
+            scrollTrigger: {
+                trigger: nextCard,
+                start: "top 95%", // Zaczyna, gdy górna krawędź KARTY 02 jest blisko dołu ekranu
+                end: "top 15%",   // Kończy, gdy KARTA 02 dokuje na swoim miejscu
+                scrub: true,
+            }
+        });
+    });
 }
 
 function initHeroAndThreatAnimations() {
