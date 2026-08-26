@@ -442,11 +442,11 @@ function initAnimations() {
 }
 
 function initBackpackCardsAnimation() {
-    const cards = gsap.utils.toArray('.stack-card');
-    if (cards.length === 0 || typeof ScrollTrigger === 'undefined') return;
+    const wrappers = gsap.utils.toArray('.stack-card-wrapper');
+    if (wrappers.length === 0 || typeof ScrollTrigger === 'undefined') return;
 
-    // Najpierw animujemy wejście całego bloku z dołu
-    gsap.from(cards[0], {
+    // Kinowe wejście pierwszej karty z dołu
+    gsap.from(wrappers[0], {
         y: 80, opacity: 0, duration: 1.2, ease: "power3.out",
         scrollTrigger: {
             trigger: "#wybor-plecaka",
@@ -455,27 +455,28 @@ function initBackpackCardsAnimation() {
         }
     });
 
-    // Kinowa logika zachodzenia na siebie (Stacking Depth)
-    cards.forEach((card, index) => {
-        // Ostatnia karta nie jest miażdżona, więc pomijamy
-        if (index === cards.length - 1) return;
+    // Płynny mechanizm Stacking (Depth & Overlay)
+    wrappers.forEach((wrapper, index) => {
+        // Ostatnia karta (Rodzinny) zostaje na górze, nie miażdżymy jej.
+        if (index === wrappers.length - 1) return;
 
-        const nextCard = cards[index + 1];
+        const nextWrapper = wrappers[index + 1];
+        const innerCard = wrapper.querySelector('.stack-card-inner');
         
-        // Dynamika zależna od urządzenia (subtelniejsza na mobile)
+        // Na urządzeniach mobilnych skalujemy delikatniej, by utrzymać czytelność (WCAG)
         const isMobile = window.innerWidth < 768;
-        const targetScale = isMobile ? 0.97 : 0.94;
+        const targetScale = isMobile ? 0.96 : 0.92;
 
-        gsap.to(card, {
+        gsap.to(innerCard, {
             scale: targetScale,
-            opacity: 0.5,
-            filter: "brightness(0.6)",
+            opacity: 0.35,
+            filter: "brightness(0.5)",
             ease: "none",
             scrollTrigger: {
-                trigger: nextCard,
-                start: "top 95%", // Zaczyna, gdy górna krawędź KARTY 02 jest blisko dołu ekranu
-                end: "top 15%",   // Kończy, gdy KARTA 02 dokuje na swoim miejscu
-                scrub: true,
+                trigger: nextWrapper,
+                start: "top bottom", // Zaczyna się, gdy karta 02 pojawia się na dole ekranu
+                end: "top top+=12%", // Kończy się idealnie, gdy karta 02 dokuje na swoim miejscu
+                scrub: true,         // Synchronizacja klatka w klatkę ze scrollem
             }
         });
     });
