@@ -441,17 +441,31 @@ function initAnimations() {
     });
 }
 
-function initBackpackCardsAnimation() {
-    const cards = document.querySelectorAll('#wybor-plecaka a');
-    if (cards.length === 0) return;
+function initStackingCardsEngine() {
+    const cards = gsap.utils.toArray('.stacking-card');
+    if (cards.length < 2 || typeof ScrollTrigger === 'undefined') return;
 
-    gsap.fromTo(cards, 
-        { y: 50, opacity: 0, scale: 0.95 }, 
-        {
-            y: 0, opacity: 1, scale: 1, duration: 0.8, stagger: 0.2, ease: "power3.out",
-            scrollTrigger: { trigger: "#wybor-plecaka", start: "top 70%", toggleActions: "play none none reverse" }
-        }
-    );
+    // Przechodzimy przez wszystkie karty oprócz ostatniej (ostatniej nic nie przykrywa)
+    cards.slice(0, -1).forEach((card, index) => {
+        const nextCard = cards[index + 1];
+
+        // Kinowy efekt głębi (karta zapada się w mrok, gdy nadjeżdża następna)
+        gsap.to(card, {
+            scale: 0.92,
+            filter: "brightness(0.3) blur(2px)",
+            opacity: 0.6,
+            ease: "none",
+            scrollTrigger: {
+                trigger: nextCard,
+                // Animacja zaczyna się, gdy górna krawędź najeżdżającej karty dotknie dołu ekranu
+                start: "top bottom",
+                // Animacja kończy się, gdy górna krawędź najeżdżającej karty osiągnie punkt przyklejenia (12vh / 10vh)
+                end: "top 12%",
+                scrub: true,
+                invalidateOnRefresh: true
+            }
+        });
+    });
 }
 
 function initHeroAndThreatAnimations() {
@@ -1302,7 +1316,7 @@ async function initAll(targetHash = null) {
     setupPortals();
     initAnimations();
     initCinematicMedia();
-    initBackpackCardsAnimation();
+    initStackingCardsEngine();
     initFeatureGridAnimation();
     initModulesGridAnimation();
 	initModuleMagnetic();
