@@ -512,6 +512,70 @@ function initFeatureGridAnimation() {
         }
     );
 }
+/* =========================================================================
+   CINEMATIC SIGNATURE REVEAL ENGINE (SPLITTEXT + SCROLLTRIGGER) 
+   ========================================================================= */
+function initSignatureTextAnimation() {
+    const section = document.querySelector('.signature-text-section');
+    if (!section) return;
+
+    const eyebrow = section.querySelector('.signature-eyebrow');
+    const lines = section.querySelectorAll('.signature-line');
+
+    // Bezpieczny fallback, gdyby SplitText / GSAP nie był dostępny
+    if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') {
+        if (eyebrow) eyebrow.style.opacity = '1';
+        lines.forEach(l => {
+            l.style.clipPath = 'none';
+            l.style.opacity = '1';
+        });
+        return;
+    }
+
+    // Reset stanów początkowych
+    gsap.set(eyebrow, { y: 20, opacity: 0, filter: 'blur(10px)' });
+    lines.forEach(line => {
+        const inner = line.querySelector('span');
+        gsap.set(line, { clipPath: 'inset(0 0 100% 0)', opacity: 0 });
+        if (inner) gsap.set(inner, { y: 40, filter: 'blur(8px)' });
+    });
+
+    const tl = gsap.timeline({
+        scrollTrigger: {
+            trigger: section,
+            start: 'top 80%',
+            end: 'bottom 20%',
+            toggleActions: 'play reverse play reverse', // Płynne cofanie przy scrollowaniu wstecz
+            markers: false
+        }
+    });
+
+    // 1. "Czas działa na niekorzyść" -> blur to sharp
+    tl.to(eyebrow, {
+        y: 0,
+        opacity: 1,
+        filter: 'blur(0px)',
+        duration: 1.0,
+        ease: 'power3.out'
+    });
+
+    // 2. Pierwsza linia ("Zdefiniuj bezpieczeństwo") wysuwa się spod maski
+    const line1 = lines[0];
+    const inner1 = line1 ? line1.querySelector('span') : null;
+    if (line1) {
+        tl.to(line1, { clipPath: 'inset(0 0 0% 0)', opacity: 1, duration: 1.2, ease: 'expo.out' }, '-=0.6');
+        if (inner1) tl.to(inner1, { y: 0, filter: 'blur(0px)', duration: 1.2, ease: 'expo.out' }, '<');
+    }
+
+    // 3. Druga linia ("swojej rodziny.") pojawia się chwilę później
+    const line2 = lines[1];
+    const inner2 = line2 ? line2.querySelector('span') : null;
+    if (line2) {
+        tl.to(line2, { clipPath: 'inset(0 0 0% 0)', opacity: 1, duration: 1.2, ease: 'expo.out' }, '-=0.9');
+        if (inner2) tl.to(inner2, { y: 0, filter: 'blur(0px)', duration: 1.2, ease: 'expo.out' }, '<');
+    }
+}
+
 
 // --- WEJŚCIE SIATKI MODUŁÓW: wycieranie clip-path + kaskadowe litery tytułu ---
 function initModulesGridAnimation() {
@@ -1237,6 +1301,7 @@ async function initAll(targetHash = null) {
     initBackpackCardsAnimation();
     initFeatureGridAnimation();
     initModulesGridAnimation();
+	initSignatureTextAnimation();
     initModuleMagnetic();
     initFAQ();
     initLightboxBind();
