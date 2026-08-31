@@ -442,46 +442,16 @@ function initAnimations() {
 }
 
 function initBackpackCardsAnimation() {
-    const wrappers = gsap.utils.toArray('.stack-card-wrapper');
-    if (wrappers.length === 0 || typeof ScrollTrigger === 'undefined') return;
+    const cards = document.querySelectorAll('#wybor-plecaka a');
+    if (cards.length === 0) return;
 
-    const firstInner = wrappers[0].querySelector('.stack-card-inner');
-    if (firstInner) {
-        gsap.from(firstInner, {
-            y: 80, 
-            opacity: 0, 
-            duration: 1.2, 
-            ease: "power3.out",
-            scrollTrigger: {
-                trigger: "#wybor-plecaka",
-                start: "top 75%",
-                toggleActions: "play none none reverse"
-            }
-        });
-    }
-
-    wrappers.forEach((wrapper, index) => {
-        if (index === wrappers.length - 1) return;
-
-        const nextWrapper = wrappers[index + 1];
-        const innerCard = wrapper.querySelector('.stack-card-inner');
-        
-        const isMobile = window.innerWidth < 768;
-        const targetScale = isMobile ? 0.95 : 0.92;
-
-        gsap.to(innerCard, {
-            scale: targetScale,
-            opacity: 0.4,
-            filter: "brightness(0.35)", // Mocne przyciemnienie dla odczucia głębi (Depth)
-            ease: "none",
-            scrollTrigger: {
-                trigger: nextWrapper,
-                start: "top bottom", // START: Dokładnie w milisekundzie, gdy karta 02 pojawia się na dole ekranu
-                end: () => isMobile ? "top 8%" : "top 15%", // END: Karta 02 dokuje na 8svh/15vh
-                scrub: true,
-            }
-        });
-    });
+    gsap.fromTo(cards, 
+        { y: 50, opacity: 0, scale: 0.95 }, 
+        {
+            y: 0, opacity: 1, scale: 1, duration: 0.8, stagger: 0.2, ease: "power3.out",
+            scrollTrigger: { trigger: "#wybor-plecaka", start: "top 70%", toggleActions: "play none none reverse" }
+        }
+    );
 }
 
 function initHeroAndThreatAnimations() {
