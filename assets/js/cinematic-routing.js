@@ -1155,9 +1155,14 @@ function initSignatureTextAnimation() {
     const tl = gsap.timeline({
         scrollTrigger: {
             trigger: section,
-            start: 'top 80%',
-            end: 'bottom 20%',
-            toggleActions: 'play reverse play reverse'
+            // Animacja startuje, gdy górna krawędź sekcji osiągnie 85% wysokości ekranu
+            start: 'top 85%',
+            // Animacja kończy się, gdy górna krawędź sekcji dotrze do 35% wysokości ekranu
+            end: 'top 35%',
+            // Zastępujemy toggleActions fizycznym powiązaniem ze scrollem.
+            // Wartość 1.2 oznacza "wygładzenie" – animacja podąża za scrollem z 1.2-sekundowym, kinowym opóźnieniem (interpolacja).
+            scrub: 1.2, 
+            markers: false
         }
     });
 
@@ -1166,26 +1171,27 @@ function initSignatureTextAnimation() {
         y: 0,
         opacity: 1,
         filter: 'blur(0px)',
-        duration: 1.0,
-        ease: 'power3.out'
+        duration: 1.0, // W trybie scrub 'duration' staje się proporcją odległości, nie czasem w sekundach
+        ease: 'none'   // Przy scrubbingu wyłączamy easingi (lub używamy 'none'), fizyka leży po stronie scrolla
     });
 
     // 2. Pierwsza linia ("Zdefiniuj bezpieczeństwo")
     const line1 = lines[0];
     const inner1 = line1 ? line1.querySelector('span') : null;
     if (line1) {
-        tl.to(line1, { clipPath: 'inset(0 0 0% 0)', opacity: 1, duration: 1.2, ease: 'expo.out' }, '-=0.6');
-        if (inner1) tl.to(inner1, { y: 0, filter: 'blur(0px)', duration: 1.2, ease: 'expo.out' }, '<');
+        tl.to(line1, { clipPath: 'inset(0 0 0% 0)', opacity: 1, duration: 1.2, ease: 'none' }, '-=0.6');
+        if (inner1) tl.to(inner1, { y: 0, filter: 'blur(0px)', duration: 1.2, ease: 'none' }, '<');
     }
 
     // 3. Druga linia ("swojej rodziny.")
     const line2 = lines[1];
     const inner2 = line2 ? line2.querySelector('span') : null;
     if (line2) {
-        tl.to(line2, { clipPath: 'inset(0 0 0% 0)', opacity: 1, duration: 1.2, ease: 'expo.out' }, '-=0.9');
-        if (inner2) tl.to(inner2, { y: 0, filter: 'blur(0px)', duration: 1.2, ease: 'expo.out' }, '<');
+        tl.to(line2, { clipPath: 'inset(0 0 0% 0)', opacity: 1, duration: 1.2, ease: 'none' }, '-=0.9');
+        if (inner2) tl.to(inner2, { y: 0, filter: 'blur(0px)', duration: 1.2, ease: 'none' }, '<');
     }
-}
+	}
+	
 /* =========================================================================
    GŁÓWNY INICJATOR Z ZINTEGROWANYM PRELOADEREM (Zoptymalizowany)
    ========================================================================= */
