@@ -519,93 +519,88 @@
     </div>
 </section>
             
-            <section id="wybor-plecaka" class="py-16 px-8 md:px-16 relative bg-brand-dark border-t border-white/5 z-20">
-    <div class="max-w-7xl mx-auto">
-        <div class="text-center mb-24">
-            <h2 class="sr-only">Wybór wariantu plecaka awaryjnego</h2>
+  <section id="wybor-plecaka" class="py-32 px-4 md:px-16 relative bg-brand-dark border-t border-white/5 z-20">
+    <div class="max-w-6xl mx-auto relative">
+        
+        <div class="text-center mb-24 md:mb-32">
             <span class="block text-brand-gold text-xs md:text-sm tracking-[0.4em] uppercase mb-8 font-light">
-                Wybierz plecak dopasowany do Ciebie
+                Wybierz wariant
             </span>
-            <div class="h-px w-16 bg-white/10 mx-auto mt-8"></div>
+            <div class="h-px w-16 bg-white/10 mx-auto"></div>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12 max-w-5xl mx-auto">
+        <!-- Kontener Stacking Cards -->
+        <div class="flex flex-col relative w-full gap-0 pb-[10vh]">
             
             <!-- KARTA 1: WARIANT INDYWIDUALNY -->
-            <a href="/plecak-indywidualny/" class="block bg-brand-surface border border-white/5 flex flex-col group hover:border-brand-gold/40 transition-colors duration-700 relative overflow-hidden outline-none focus:border-brand-gold cursor-pointer">
-                <div class="p-10 md:p-14 pb-0 relative z-10 min-h-[280px] lg:min-h-[300px] flex flex-col">
-                    <div class="flex justify-between items-start mb-6">
-                        <span class="text-brand-muted font-mono text-[10px] tracking-[0.3em] uppercase"></span>
-                        <span class="text-brand-gold font-mono text-xl tracking-tight">1 900 PLN</span>
+            <article class="stacking-card sticky top-[10vh] md:top-[12vh] z-10 w-full bg-brand-surface border border-white/5 h-[75vh] md:h-[70vh] flex flex-col md:flex-row overflow-hidden shadow-[0_20px_40px_rgba(0,0,0,0.8)] will-change-transform rounded-sm">
+                <!-- Treść -->
+                <div class="w-full md:w-1/2 p-8 md:p-14 flex flex-col justify-between relative z-20 bg-brand-surface">
+                    <div>
+                        <div class="flex justify-between items-start mb-8">
+                            <span class="text-brand-muted font-mono text-[10px] tracking-[0.3em] uppercase">Poziom 1</span>
+                            <span class="text-brand-gold font-mono text-xl tracking-tight">1 900 PLN</span>
+                        </div>
+                        <h3 class="font-display text-4xl lg:text-5xl text-brand-ivory mb-6">Wariant Indywidualny</h3>
+                        <p class="text-brand-muted font-light text-sm leading-relaxed max-w-sm">Niezbędne minimum operacyjne na 72 godziny dla jednej osoby, gwarantujące maksymalną mobilność w trudnym terenie.</p>
                     </div>
-                    <h3 class="font-display text-4xl lg:text-5xl text-brand-ivory mb-4 group-hover:text-brand-gold transition-colors duration-500">Wariant Indywidualny</h3>
-                    <p class="text-brand-muted font-light text-sm leading-relaxed">Dla jednej osoby. Niezbędne minimum operacyjne na 72 godziny, gwarantujące maksymalną mobilność.</p>
-                </div>
-                
-                <!-- Oczyszczony i powiększony kontener zdjęcia -->
-                <!-- Zredukowany padding pionowy z py-12 md:py-16 na py-6 md:py-10 -->
-<div class="relative w-full py-6 md:py-10 flex items-center justify-center mt-auto pointer-events-none">
-    <div class="absolute inset-0 bg-gradient-to-t from-brand-surface via-transparent to-transparent z-10"></div>
-    
-    <!-- Obniżenie wymuszonej wysokości h-[520px] na rzecz zbalansowanego h-[400px] i zwężenie max-w -->
-    <div class="relative w-full max-w-[280px] md:max-w-[340px] lg:max-w-[400px] h-[280px] md:h-[340px] lg:h-[400px] flex items-center justify-center transform group-hover:scale-105 transition-transform duration-[1.5s] ease-[cubic-bezier(0.16,1,0.3,1)] z-0">
-        <img 
-            src="/photo/plecakindywidualny.webp" 
-            alt="Plecak awaryjny Amber Resilience - Wariant Indywidualny" 
-            class="w-full h-full object-contain filter drop-shadow-[0_20px_30px_rgba(0,0,0,0.6)] mix-blend-screen"
-            loading="lazy"
-        />
-    </div>
-</div>
-
-                <div class="mt-auto border-t border-white/5 p-6 md:px-14 flex justify-between items-center bg-brand-dark/50 relative z-10">
-                    <div class="flex gap-6">
-                        <span class="font-mono text-[9px] uppercase tracking-[0.3em] text-brand-muted flex items-center gap-2"><span class="w-1 h-1 bg-brand-gold rounded-full"></span> 1 Osoba</span>
-                        <span class="font-mono text-[9px] uppercase tracking-[0.3em] text-brand-muted flex items-center gap-2"><span class="w-1 h-1 bg-brand-gold rounded-full"></span> 72 Godziny</span>
+                    
+                    <div class="mt-8 pt-8 border-t border-white/5">
+                        <div class="flex gap-6 mb-8">
+                            <span class="font-mono text-[9px] uppercase tracking-[0.3em] text-brand-muted flex items-center gap-2"><span class="w-1 h-1 bg-brand-gold rounded-full"></span> 1 Osoba</span>
+                            <span class="font-mono text-[9px] uppercase tracking-[0.3em] text-brand-muted flex items-center gap-2"><span class="w-1 h-1 bg-brand-gold rounded-full"></span> 72 Godziny</span>
+                        </div>
+                        <a href="/plecak-indywidualny/" class="inline-flex items-center gap-4 text-brand-gold group/link outline-none">
+                            <span class="font-mono text-[10px] uppercase tracking-[0.3em]">Odkryj specyfikację</span>
+                            <span class="transform translate-x-0 group-hover/link:translate-x-2 transition-transform duration-500 ease-out">→</span>
+                        </a>
                     </div>
-                    <span class="font-mono text-[10px] uppercase tracking-[0.3em] text-brand-gold border-b border-brand-gold/30 group-hover:border-brand-gold pb-1 transition-colors duration-300">Zobacz Szczegóły</span>
                 </div>
-            </a>
+                <!-- Obraz -->
+                <div class="w-full md:w-1/2 relative bg-[#0a0a0a] flex items-center justify-center p-8 md:p-16 h-full border-l border-white/5">
+                    <div class="absolute inset-0 bg-gradient-to-tr from-brand-surface to-transparent z-0 opacity-50"></div>
+                    <img src="/photo/plecakindywidualny.webp" alt="Wariant Indywidualny" class="w-full h-full object-contain filter drop-shadow-[0_20px_30px_rgba(0,0,0,0.8)] relative z-10 transition-transform duration-1000 hover:scale-105" loading="lazy" />
+                </div>
+            </article>
 
             <!-- KARTA 2: WARIANT RODZINNY -->
-            <a href="/plecak-rodzinny/" class="block bg-brand-surface border border-white/5 flex flex-col group hover:border-brand-gold/40 transition-colors duration-700 relative overflow-hidden outline-none focus:border-brand-gold cursor-pointer">
-                <div class="p-10 md:p-14 pb-0 relative z-10 min-h-[280px] lg:min-h-[300px] flex flex-col">
-                    <div class="flex justify-between items-start mb-6">
-                        <span class="text-brand-gold font-mono text-[10px] tracking-[0.3em] uppercase flex items-center gap-2"></span>
-                        <span class="text-brand-gold font-mono text-xl tracking-tight">3 800 PLN</span>
-                    </div>
-                    <h3 class="font-display text-4xl lg:text-5xl text-brand-ivory mb-4 group-hover:text-brand-gold transition-colors duration-500">Wariant Rodzinny</h3>
-                    <p class="text-brand-muted font-light text-sm leading-relaxed max-w-sm">Dla całej rodziny. Więcej miejsca, więcej bezpieczeństwa i zwielokrotnione zasoby logistyczne.</p>
-                </div>
+            <!-- Margines górny zapewnia miejsce na scrollowanie, z-20 sprawia, że przykrywa Kartę 1 -->
+            <article class="stacking-card sticky top-[10vh] md:top-[12vh] z-20 w-full bg-[#080808] border border-t-brand-gold/20 border-x-white/5 border-b-white/5 h-[75vh] md:h-[70vh] mt-[50vh] flex flex-col md:flex-row overflow-hidden shadow-[0_-20px_50px_rgba(0,0,0,0.95)] will-change-transform rounded-sm">
+                <!-- Refleks światła na górnej krawędzi -->
+                <div class="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-brand-gold/40 to-transparent z-30"></div>
                 
-                <!-- Oczyszczony i powiększony kontener zdjęcia -->
-                <!-- Zredukowany padding pionowy -->
-<div class="relative w-full py-6 md:py-10 flex items-center justify-center mt-auto pointer-events-none">
-    <div class="absolute inset-0 bg-gradient-to-t from-brand-surface via-transparent to-transparent z-10"></div>
-    
-    <!-- Identyczna redukcja dla zachowania rygorystycznej symetrii kart -->
-    <div class="relative w-full max-w-[280px] md:max-w-[340px] lg:max-w-[400px] h-[280px] md:h-[340px] lg:h-[400px] flex items-center justify-center transform group-hover:scale-105 transition-transform duration-[1.5s] ease-[cubic-bezier(0.16,1,0.3,1)] z-0">
-        <img 
-            src="/photo/plecakrodzinny.webp" 
-            alt="Plecak awaryjny Amber Resilience - Wariant Rodzinny" 
-            class="w-full h-full object-contain filter drop-shadow-[0_20px_30px_rgba(0,0,0,0.6)] mix-blend-screen"
-            loading="lazy"
-        />
-    </div>
-</div>
-
-                <div class="mt-auto border-t border-white/5 p-6 md:px-14 flex justify-between items-center bg-brand-dark/50 relative z-10">
-                    <div class="flex gap-6">
-                        <span class="font-mono text-[9px] uppercase tracking-[0.3em] text-brand-muted flex items-center gap-2"><span class="w-1 h-1 bg-brand-gold rounded-full"></span> 4 Osoby</span>
-                        <span class="font-mono text-[9px] uppercase tracking-[0.3em] text-brand-muted flex items-center gap-2"><span class="w-1 h-1 bg-brand-gold rounded-full"></span> 72 Godziny</span>
+                <!-- Treść -->
+                <div class="w-full md:w-1/2 p-8 md:p-14 flex flex-col justify-between relative z-20 bg-[#080808]">
+                    <div>
+                        <div class="flex justify-between items-start mb-8">
+                            <span class="text-brand-muted font-mono text-[10px] tracking-[0.3em] uppercase">Poziom 2</span>
+                            <span class="text-brand-gold font-mono text-xl tracking-tight">3 800 PLN</span>
+                        </div>
+                        <h3 class="font-display text-4xl lg:text-5xl text-brand-ivory mb-6">Wariant Rodzinny</h3>
+                        <p class="text-brand-muted font-light text-sm leading-relaxed max-w-sm">Dla całej rodziny. Więcej miejsca, więcej bezpieczeństwa i zwielokrotnione zasoby logistyczne pozwalające przetrwać grupie.</p>
                     </div>
-                    <span class="font-mono text-[10px] uppercase tracking-[0.3em] text-brand-gold border-b border-brand-gold/30 group-hover:border-brand-gold pb-1 transition-colors duration-300">Zobacz Szczegóły</span>
+                    
+                    <div class="mt-8 pt-8 border-t border-white/5">
+                        <div class="flex gap-6 mb-8">
+                            <span class="font-mono text-[9px] uppercase tracking-[0.3em] text-brand-muted flex items-center gap-2"><span class="w-1 h-1 bg-brand-gold rounded-full"></span> 4 Osoby</span>
+                            <span class="font-mono text-[9px] uppercase tracking-[0.3em] text-brand-muted flex items-center gap-2"><span class="w-1 h-1 bg-brand-gold rounded-full"></span> 72 Godziny</span>
+                        </div>
+                        <a href="/plecak-rodzinny/" class="inline-flex items-center gap-4 text-brand-gold group/link outline-none">
+                            <span class="font-mono text-[10px] uppercase tracking-[0.3em]">Odkryj specyfikację</span>
+                            <span class="transform translate-x-0 group-hover/link:translate-x-2 transition-transform duration-500 ease-out">→</span>
+                        </a>
+                    </div>
                 </div>
-            </a>
+                <!-- Obraz -->
+                <div class="w-full md:w-1/2 relative bg-[#050505] flex items-center justify-center p-8 md:p-16 h-full border-l border-white/5">
+                    <div class="absolute inset-0 bg-gradient-to-tr from-brand-surface to-transparent z-0 opacity-50"></div>
+                    <img src="/photo/plecakrodzinny.webp" alt="Wariant Rodzinny" class="w-full h-full object-contain filter drop-shadow-[0_20px_30px_rgba(0,0,0,0.8)] relative z-10 transition-transform duration-1000 hover:scale-105" loading="lazy" />
+                </div>
+            </article>
 
         </div>
     </div>
-</section>
+</section>>
             <section class="py-24 md:py-32 px-6 bg-brand-dark border-t border-white/5 z-20 relative">
     <div class="max-w-7xl mx-auto">
         <div class="feature-grid-container grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
