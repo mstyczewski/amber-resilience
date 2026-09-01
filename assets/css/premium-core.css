@@ -216,4 +216,32 @@ body {
     opacity: 1;
     transform: translateY(0);
 }
+/* =========================================================
+   WHY AMBER RESILIENCE - CINEMATIC STACKING CARDS
+   ========================================================= */
+
+.why-amber-stack {
+    /* Utrzymanie poprawnego stacking contextu dla z-indexów z hero/innych sekcji */
+    isolation: isolate; 
+}
+
+.why-card {
+    /* Wymuszamy na przeglądarce przygotowanie kompozycji przed animacją */
+    will-change: transform, opacity;
+}
+
+.why-card-inner {
+    /* Karta transformuje się względem górnej krawędzi (efekt zapadania) */
+    transform-origin: top center;
+    will-change: transform, opacity, filter;
+    /* Płynne oddanie kontroli do GSAP bez konfliktów CSS */
+    transition: box-shadow 0.5s ease;
+}
+
+.why-card-bg {
+    /* Sprzętowa akceleracja dla przenikania tła (Image Reveal) */
+    will-change: opacity, transform;
+    /* Uszlachetnienie zdjęć - odcięcie jaskrawych kolorów (The $10K Color System) */
+    filter: grayscale(80%) contrast(1.2); 
+}
 
