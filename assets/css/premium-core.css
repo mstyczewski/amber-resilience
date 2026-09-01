@@ -1,6 +1,9 @@
 #hero {
     will-change: transform;
 }
+#wybor-plecaka {
+    overflow: hidden; /* To zapobiegnie "wywalaniu się" układu przy animacji skali */
+}
 
 /* --- Architektura Barba.js --- */
 [data-barba="wrapper"] { position: relative; width: 100%; }
@@ -12,7 +15,7 @@ body {
     color: #F9F7F2;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    overflow-x: clip;
+    overflow-x: hidden;
 }
 
 /* --- Elegancki, minimalistyczny scrollbar (Globalny i dedykowany) --- */
@@ -98,4 +101,119 @@ input:-webkit-autofill, textarea:-webkit-autofill {
 /* --- Luksusowy Akordeon FAQ --- */
 .faq-item.active .faq-content { grid-template-rows: 1fr; }
 .faq-item.active .faq-icon { transform: rotate(45deg); }
+
+/* =========================================================
+   AMBER RESILIENCE | PREMIUM CORE STYLES
+   ========================================================= */
+
+body { 
+    background-color: #050505; 
+    color: #F9F7F2; 
+    -webkit-font-smoothing: antialiased; 
+    overflow-x: hidden;
+}
+
+::selection { 
+    background-color: rgba(197, 160, 89, 0.3); 
+    color: #F9F7F2; 
+}
+
+/* Luksusowy scrollbar */
+::-webkit-scrollbar,
+.custom-scrollbar::-webkit-scrollbar { 
+    width: 4px; 
+    height: 4px; 
+}
+::-webkit-scrollbar-track,
+.custom-scrollbar::-webkit-scrollbar-track { 
+    background: rgba(255,255,255,0.05); 
+}
+::-webkit-scrollbar-thumb,
+.custom-scrollbar::-webkit-scrollbar-thumb { 
+    background: #C5A059; 
+    border-radius: 2px; 
+}
+
+/* Ukrywanie paska dla horyzontalnych galerii (miniatury) */
+.hide-scroll { -ms-overflow-style: none; scrollbar-width: none; }
+.hide-scroll::-webkit-scrollbar { display: none; }
+
+/* Baza animacji wejścia (GSAP Intersection Observer) */
+.fade-in-up { 
+    opacity: 0; 
+    transform: translateY(30px); 
+    transition: opacity 1.2s cubic-bezier(0.16, 1, 0.3, 1), transform 1.2s cubic-bezier(0.16, 1, 0.3, 1); 
+}
+.fade-in-up.visible { opacity: 1; transform: translateY(0); }
+
+/* Filtry premium dla zdjęć */
+.img-premium-filter {
+    filter: grayscale(100%) contrast(1.1) brightness(0.6);
+    mix-blend-mode: luminosity;
+    transition: filter 1.5s ease, transform 2s ease;
+}
+.group:hover .img-premium-filter {
+    filter: grayscale(30%) contrast(1.1) brightness(0.9);
+    transform: scale(1.05);
+}
+
+/* =========================================================
+   MODUŁY — mikrointerakcje 3D i Spotlight
+   ========================================================= */
+.modules-grid { perspective: 1400px; }
+.module-card { will-change: transform; transform-style: preserve-3d; }
+
+.module-spotlight {
+    position: absolute; inset: 0; z-index: 15; pointer-events: none;
+    background: radial-gradient(280px circle at var(--x, 50%) var(--y, 50%), rgba(197, 160, 89, 0.16), transparent 70%);
+    opacity: 0; transition: opacity 0.5s ease;
+}
+.module-card:hover .module-spotlight { opacity: 1; }
+
+.module-explore {
+    opacity: 0; transform: translateY(10px);
+    transition: opacity 0.5s ease 0.05s, transform 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.05s;
+}
+.group:hover .module-explore { opacity: 1; transform: translateY(0); }
+.module-title-char { display: inline-block; }
+
+/* =========================================================
+   MODUŁY — Kinematic Hover (SPA-Safe Architecture)
+   ========================================================= */
+.kinematic-container {
+    transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.module-card:hover .kinematic-container {
+    transform: translateY(-28px);
+}
+
+.kinematic-line {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 1px;
+    background-color: #C5A059;
+    transform-origin: left;
+    transform: scaleX(0);
+    transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+    pointer-events: none;
+}
+.module-card:hover .kinematic-line {
+    transform: scaleX(1);
+}
+
+.kinematic-reveal {
+    position: absolute;
+    bottom: 2rem;
+    left: 2rem;
+    opacity: 0;
+    transform: translateY(16px);
+    transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.1s;
+    pointer-events: none;
+}
+.module-card:hover .kinematic-reveal {
+    opacity: 1;
+    transform: translateY(0);
+}
 
