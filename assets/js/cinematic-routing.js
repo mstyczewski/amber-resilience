@@ -514,17 +514,47 @@ function initCinematicMedia() {
     });
 }
 
-function initFeatureGridAnimation() {
-    const featureCards = document.querySelectorAll('.feature-card');
-    if (featureCards.length === 0) return;
+/* =========================================================
+   WHY AMBER RESILIENCE | STACKING CARDS ENGINE
+   ========================================================= */
+function initWhyAmberStacking() {
+    const cards = gsap.utils.toArray('.why-card');
+    if (cards.length === 0 || typeof gsap === 'undefined') return;
 
-    gsap.fromTo(featureCards, 
-        { y: 40, opacity: 0 }, 
-        {
-            y: 0, opacity: 1, duration: 1.5, stagger: 0.4, ease: "power2.out",
-            scrollTrigger: { trigger: ".feature-grid-container", start: "top 60%", toggleActions: "play none none reverse" }
+    cards.forEach((card, i) => {
+        const inner = card.querySelector('.why-card-inner');
+        const bg = card.querySelector('.why-card-bg');
+
+        // 1. Zjawiskowy Image Reveal (gdy karta osiąga ok. 70% ekranu)
+        if (bg) {
+            gsap.to(bg, {
+                opacity: 0.35, // Delikatna opaska obrazu (dbałość o WCAG i czytelność)
+                duration: 1.5,
+                ease: "power2.out",
+                scrollTrigger: {
+                    trigger: card,
+                    start: "top 65%",
+                    toggleActions: "play none none reverse"
+                }
+            });
         }
-    );
+
+        // 2. Kinematyczna symulacja głębi (kolejna karta wgniata i rozmywa poprzednią)
+        if (i < cards.length - 1) {
+            gsap.to(inner, {
+                scale: 0.92,
+                opacity: 0.2,
+                filter: "blur(12px)",
+                ease: "none",
+                scrollTrigger: {
+                    trigger: cards[i + 1],
+                    start: "top bottom", // Start, gdy nastepna karta pojawia sie u dolu
+                    end: "top top",      // Koniec, gdy nastepna karta doklei sie do sufitu
+                    scrub: true,         // Precyzyjne spięcie ze scrollem (hardware accelerated)
+                }
+            });
+        }
+    });
 }
 
 // --- WEJŚCIE SIATKI MODUŁÓW: wycieranie clip-path + kaskadowe litery tytułu ---
@@ -1317,7 +1347,7 @@ async function initAll(targetHash = null) {
     initAnimations();
     initCinematicMedia();
     initStackingCardsEngine();
-    initFeatureGridAnimation();
+    initWhyAmberStacking();
     initModulesGridAnimation();
 	initModuleMagnetic();
     initFAQ();
