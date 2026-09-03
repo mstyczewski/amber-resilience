@@ -245,7 +245,7 @@ body {
     filter: grayscale(80%) contrast(1.2); 
 }
 /* =========================================================
-   AMBER RESILIENCE | AWARDS / RECOGNITION (MEDAL + DIPLOMA)
+   AMBER RESILIENCE | AWARDS / RECOGNITION (MUSEUM EXHIBITION)
    ========================================================= */
 
 .ar-recognition {
@@ -255,7 +255,7 @@ body {
     --ar-muted: #858585;
 
     position: relative;
-    height: 330vh; /* Zwiększona przestrzeń dla pauzy i camera push-in */
+    height: 330vh; /* Przestrzeń pod reżyserię GSAP */
     background: var(--ar-black);
     color: var(--ar-ivory);
     overflow: clip;
@@ -317,57 +317,85 @@ body {
 .ar-recognition-orb--two { right: -15%; bottom: -20%; width: 30vw; height: 30vw; background: #FFFFFF; opacity: 0.025; }
 
 /* =========================================================
-   TYPOGRAPHY & CONTENT
+   TYPOGRAPHY & CONTENT (SYMMETRICAL LAYOUT)
    ========================================================= */
-.ar-recognition-meta {
-    position: absolute;
-    top: clamp(28px, 5vh, 60px);
-    left: clamp(24px, 5vw, 80px);
-    right: clamp(24px, 5vw, 80px);
-    display: flex;
-    align-items: center;
-    gap: 18px;
-    z-index: 10;
-    font-family: "JetBrains Mono", monospace;
-    font-size: 10px;
-    letter-spacing: 0.22em;
-    text-transform: uppercase;
-    color: rgba(249,247,242,0.55);
-}
-.ar-recognition-number { color: var(--ar-gold); }
-.ar-recognition-line { width: clamp(40px, 8vw, 110px); height: 1px; background: rgba(197,160,89,0.45); transform-origin: left center; }
-.ar-recognition-label { color: rgba(249,247,242,0.42); }
-
 .ar-recognition-heading {
     position: absolute;
-    left: clamp(24px, 8vw, 140px);
-    top: 50%;
-    width: min(560px, 42vw);
-    transform: translateY(-50%);
+    top: 12%; 
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    max-width: 700px;
+    text-align: center;
     z-index: 5;
 }
-.ar-recognition-kicker { margin-bottom: 25px; font-family: "JetBrains Mono", monospace; font-size: 9px; letter-spacing: 0.22em; color: var(--ar-gold); text-transform: uppercase; }
-.ar-recognition-title { margin: 0; display: flex; flex-direction: column; font-family: "Cormorant Garamond", serif; font-weight: 400; font-size: clamp(4rem, 7vw, 8rem); line-height: 0.84; letter-spacing: -0.045em; }
-.ar-recognition-title span { display: block; }
-.ar-recognition-title span:last-child { color: rgba(249,247,242,0.58); }
-.ar-recognition-intro { margin-top: 40px; max-width: 340px; font-family: "Outfit", sans-serif; font-size: clamp(14px, 1.2vw, 17px); line-height: 1.6; color: rgba(249,247,242,0.62); }
 
+.ar-recognition-kicker {
+    margin-bottom: 20px;
+    font-family: "JetBrains Mono", monospace;
+    font-size: 9px;
+    letter-spacing: 0.22em;
+    color: var(--ar-gold);
+    text-transform: uppercase;
+}
+
+.ar-recognition-title {
+    margin: 0;
+    font-family: "Cormorant Garamond", serif;
+    font-weight: 400;
+    font-size: clamp(2.8rem, 4.5vw, 4.5rem); 
+    line-height: 0.95;
+    letter-spacing: -0.03em;
+    color: var(--ar-ivory);
+}
+
+.ar-recognition-intro {
+    margin: 25px auto 0;
+    max-width: 380px;
+    font-family: "Outfit", sans-serif;
+    font-size: clamp(14px, 1.2vw, 16px);
+    line-height: 1.6;
+    color: rgba(249,247,242,0.62);
+}
+
+/* =========================================================
+   CAPTION (CENTERED BELOW OBJECTS)
+   ========================================================= */
 .ar-award-content {
     position: absolute;
-    right: clamp(30px, 7vw, 120px);
-    bottom: clamp(70px, 13vh, 150px);
-    width: min(270px, 24vw);
+    bottom: 15vh;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
     z-index: 6;
     opacity: 0;
-    visibility: hidden;
-    transform-origin: right center;
-    will-change: transform;
+    will-change: transform, opacity;
 }
-.ar-award-index { margin-bottom: 15px; font-family: "JetBrains Mono", monospace; font-size: 9px; letter-spacing: 0.2em; color: var(--ar-gold); }
-.ar-award-name { font-family: "Cormorant Garamond", serif; font-size: clamp(22px, 2.2vw, 34px); line-height: 0.92; letter-spacing: -0.02em; color: var(--ar-ivory); }
-.ar-award-name span { display: block; font-family: "Outfit", sans-serif; font-size: 12px; margin: 5px 0; color: var(--ar-gold); }
-.ar-award-event { margin-top: 13px; font-family: "JetBrains Mono", monospace; font-size: 10px; letter-spacing: 0.22em; color: rgba(249,247,242,0.48); }
-.ar-award-description { margin-top: 25px; font-family: "Outfit", sans-serif; font-size: 12px; line-height: 1.7; color: rgba(249,247,242,0.48); }
+
+.ar-award-name {
+    font-family: "Cormorant Garamond", serif;
+    font-size: clamp(20px, 2.2vw, 28px);
+    line-height: 1.1;
+    letter-spacing: 0.05em;
+    color: var(--ar-ivory);
+}
+
+.ar-award-name span {
+    display: inline-block;
+    font-family: "Outfit", sans-serif;
+    font-size: 14px;
+    margin: 0 8px;
+    color: var(--ar-gold);
+    vertical-align: middle;
+}
+
+.ar-award-event {
+    margin-top: 8px;
+    font-family: "JetBrains Mono", monospace;
+    font-size: 11px;
+    letter-spacing: 0.25em;
+    color: rgba(249,247,242,0.48);
+}
 
 .ar-recognition-footer {
     position: absolute;
@@ -389,13 +417,13 @@ body {
 .ar-recognition-footer-mark { margin-left: auto; color: rgba(249,247,242,0.2); }
 
 /* =========================================================
-   AWARD OBJECT SYSTEM (MEDAL + DIPLOMA)
+   AWARD OBJECT STAGE (DEAD CENTER)
    ========================================================= */
 .ar-award-stage {
     position: absolute;
-    top: 50%;
-    left: 64%;
-    width: min(44vw, 650px);
+    top: 52%; 
+    left: 50%;
+    width: min(50vw, 750px);
     aspect-ratio: 1;
     transform: translate(-50%, -50%);
     perspective: 1600px;
@@ -406,20 +434,42 @@ body {
     will-change: transform;
 }
 
-.ar-award-object { position: absolute; inset: 0; display: grid; place-items: center; transform-style: preserve-3d; will-change: transform, opacity; }
-.ar-award-medal-object { z-index: 5; }
-.ar-award-diploma-object {
-    z-index: 4; opacity: 0; visibility: hidden;
-    transform: translate3d(180px, 40px, -120px) rotateY(-28deg) rotateZ(4deg) scale(0.72);
-    transform-origin: center center;
+.ar-award-object { 
+    position: absolute; 
+    inset: 0; 
+    display: grid; 
+    place-items: center; 
+    transform-style: preserve-3d; 
+    will-change: transform, opacity; 
 }
 
 /* MEDAL */
-.ar-award-medal-wrap { position: relative; width: 62%; aspect-ratio: 1; transform-style: preserve-3d; will-change: transform; }
-.ar-award-medal { display: block; width: 100%; height: 100%; object-fit: contain; transform-style: preserve-3d; filter: drop-shadow(0 40px 55px rgba(0,0,0,0.72)) drop-shadow(0 0 30px rgba(255,255,255,0.035)); will-change: transform, filter; }
-.ar-award-shine { position: absolute; inset: -5%; border-radius: 50%; pointer-events: none; opacity: 0; background: linear-gradient(115deg, transparent 25%, rgba(255,255,255,0.5) 46%, rgba(255,255,255,0.08) 51%, transparent 67%); mix-blend-mode: screen; transform: translateX(-130%) rotate(15deg); will-change: transform, opacity; }
+.ar-award-medal-object { z-index: 5; }
+.ar-award-medal-wrap { 
+    position: relative; 
+    width: 62%; 
+    aspect-ratio: 1; 
+    transform-style: preserve-3d; 
+    will-change: transform; 
+}
+.ar-award-medal { 
+    display: block; 
+    width: 100%; 
+    height: 100%; 
+    object-fit: contain; 
+    transform-style: preserve-3d; 
+    filter: drop-shadow(0 40px 55px rgba(0,0,0,0.72)) drop-shadow(0 0 30px rgba(255,255,255,0.035)); 
+    will-change: transform, filter; 
+}
 
 /* DIPLOMA */
+.ar-award-diploma-object {
+    z-index: 4; 
+    opacity: 0; 
+    visibility: hidden;
+    transform: translate3d(180px, 40px, -120px) rotateY(-28deg) rotateZ(4deg) scale(0.72);
+    transform-origin: center center;
+}
 .ar-award-diploma-wrap { position: relative; width: 42%; transform-style: preserve-3d; will-change: transform; }
 .ar-award-diploma-frame { position: relative; padding: 9px; background: linear-gradient(135deg, #c5a059 0%, #ead7a7 25%, #9f7c3d 50%, #e4ca91 75%, #a47d3e 100%); box-shadow: 0 45px 80px rgba(0,0,0,0.7), 0 0 0 1px rgba(197,160,89,0.25), 0 0 60px rgba(197,160,89,0.08); transform-style: preserve-3d; }
 .ar-award-diploma-frame::after { content: ""; position: absolute; inset: 9px; border: 1px solid rgba(0,0,0,0.18); pointer-events: none; z-index: 2; }
@@ -435,42 +485,34 @@ body {
 .ar-award-ring--inner { width: 78%; height: 78%; border-color: rgba(249,247,242,0.07); }
 
 /* =========================================================
-   RESPONSIVENESS
+   RESPONSIVENESS (MOBILE CENTERED ARCHITECTURE)
    ========================================================= */
-@media (min-width: 1100px) { .ar-award-stage { left: 67%; } }
 @media (max-width: 1099px) {
     .ar-recognition { height: 280vh; }
-    .ar-recognition-heading { width: 44vw; }
-    .ar-award-stage { left: 68%; width: 48vw; }
-    .ar-award-content { right: 5vw; bottom: 10vh; }
+    .ar-award-stage { width: 65vw; }
 }
 @media (max-width: 767px) {
     .ar-recognition { height: 260vh; }
     .ar-recognition-sticky { min-height: 600px; }
-    .ar-recognition-meta { top: 24px; left: 20px; right: 20px; }
-    .ar-recognition-heading { top: 17%; left: 20px; width: calc(100% - 40px); transform: none; }
-    .ar-recognition-kicker { margin-bottom: 18px; }
-    .ar-recognition-title { font-size: clamp(3.6rem, 17vw, 6rem); line-height: 0.82; }
-    .ar-recognition-intro { margin-top: 25px; max-width: 280px; }
     
-    .ar-award-stage { top: 57%; left: 50%; width: min(92vw, 500px); }
+    .ar-recognition-heading { top: 10%; padding: 0 20px; }
+    .ar-recognition-title { font-size: clamp(2.5rem, 10vw, 3.5rem); }
+    .ar-recognition-intro { margin-top: 15px; }
+
+    .ar-award-stage { top: 48%; width: 95vw; }
     .ar-award-medal-wrap { width: 61%; }
     .ar-award-diploma-wrap { width: 54%; }
-    .ar-award-diploma-object { transform: translate3d(0, 60px, -100px) rotateY(-20deg) rotateZ(3deg) scale(0.65); }
+    
+    .ar-award-content { bottom: 12vh; width: 100%; }
+    .ar-award-name { font-size: 20px; }
 
-    .ar-award-content { left: 20px; right: 20px; bottom: 80px; width: auto; display: grid; grid-template-columns: auto 1fr; column-gap: 15px; }
-    .ar-award-index { grid-column: 1 / -1; }
-    .ar-award-name { font-size: 24px; }
-    .ar-award-description { display: none; }
     .ar-recognition-footer { left: 20px; right: 20px; bottom: 25px; font-size: 8px; }
     .ar-recognition-footer-mark { display: none; }
 }
 @media (max-width: 420px) {
-    .ar-recognition-title { font-size: 3.4rem; }
-    .ar-award-stage { top: 55%; }
-    .ar-award-content { bottom: 70px; }
+    .ar-recognition-title { font-size: 2.8rem; }
+    .ar-award-stage { top: 50%; }
 }
 @media (prefers-reduced-motion: reduce) {
     .ar-recognition, .ar-recognition * { scroll-behavior: auto !important; }
 }
-
