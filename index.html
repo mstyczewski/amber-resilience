@@ -640,10 +640,11 @@
     <article class="why-card sticky top-0 min-h-screen flex items-center px-6 py-16 overflow-hidden">
         <div class="why-card-inner relative w-full max-w-7xl mx-auto min-h-[70vh] bg-brand-surface border border-white/10 overflow-hidden shadow-[0_-20px_50px_rgba(0,0,0,0.6)]">
             <!-- Image Reveal (GSAP opacity) -->
-           <div class="why-card-bg absolute inset-0 bg-[url('/assets/img/jakosc-makro.png')] bg-cover bg-center opacity-0 z-0 opacity-60"></div>
+           <div class="why-card-bg absolute inset-0 bg-[url('/assets/img/jakosc-makro.png')] bg-cover bg-center opacity-0 z-0 saturate-[1.2]"></div>
             <!-- Zabezpieczenie kontrastu tekstu (WCAG) -->
-                        
-            <div class="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-brand-gold/60 to-transparent z-10"></div>
+            <div class="absolute inset-0 bg-gradient-to-t from-brand-surface via-brand-surface/60 to-brand-surface/30 z-0"></div>
+            <div class="absolute inset-0 bg-brand-gold/[0.08] z-0"></div>          
+         
             <div class="relative z-10 h-full min-h-[70vh] p-8 md:p-14 lg:p-20 flex flex-col justify-between pointer-events-none">
                 <div class="flex justify-between items-start pointer-events-auto">
                     <span class="why-number font-display text-brand-gold text-5xl md:text-7xl opacity-80">01</span>
