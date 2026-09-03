@@ -1169,6 +1169,125 @@ function initStripeCheckout() {
     });
 }
 /* =========================================================================
+   CINEMATIC RECOGNITION ENGINE (MEDAL + DIPLOMA)
+   ========================================================================= */
+function initAmberRecognition() {
+    const section = document.querySelector(".ar-recognition");
+    if (!section || typeof gsap === "undefined" || typeof ScrollTrigger === "undefined") return;
+    
+    // Elements
+    const meta = section.querySelector(".ar-recognition-meta");
+    const metaLine = section.querySelector(".ar-recognition-line");
+    const kicker = section.querySelector(".ar-recognition-kicker");
+    const titleSpans = section.querySelectorAll(".ar-recognition-title span");
+    const intro = section.querySelector(".ar-recognition-intro");
+
+    const medalStage = section.querySelector(".ar-award-stage");
+    const medalObject = section.querySelector(".ar-award-medal-object");
+    const medalWrap = section.querySelector(".ar-award-medal-wrap");
+    const medalShine = section.querySelector(".ar-award-shine");
+
+    const diplomaObject = section.querySelector(".ar-award-diploma-object");
+    const diplomaWrap = section.querySelector(".ar-award-diploma-wrap");
+
+    const aura = section.querySelector(".ar-award-aura");
+    const outerRing = section.querySelector(".ar-award-ring--outer");
+    const innerRing = section.querySelector(".ar-award-ring--inner");
+    
+    const awardContent = section.querySelector(".ar-award-content");
+    const awardDetails = section.querySelectorAll(".ar-award-index, .ar-award-name, .ar-award-event, .ar-award-description");
+    const footer = section.querySelector(".ar-recognition-footer");
+    const cameraOverlay = section.querySelector(".ar-recognition-camera-overlay");
+
+    // Initial States
+    gsap.set([meta, kicker, intro, awardDetails, footer], { opacity: 0, y: 20 });
+    gsap.set(meta, { y: -15 });
+    gsap.set(metaLine, { scaleX: 0 });
+    gsap.set(titleSpans, { opacity: 0, yPercent: 110, rotateX: -25 });
+    gsap.set(medalObject, { opacity: 1 });
+    gsap.set(medalWrap, { opacity: 0, scale: 0.55, rotationY: -35, rotationZ: -7, y: 100 });
+    gsap.set(diplomaObject, { opacity: 0, visibility: "hidden", x: 180, y: 40, z: -120, scale: 0.72, rotationY: -28, rotationZ: 4 });
+    gsap.set(diplomaWrap, { scale: 0.95 });
+    gsap.set(aura, { scale: 0.4, opacity: 0 });
+    gsap.set(outerRing, { scale: 0.65, opacity: 0, rotation: -25 });
+    gsap.set(innerRing, { scale: 0.75, opacity: 0, rotation: 20 });
+    gsap.set(awardContent, { opacity: 0, x: 50 });
+
+    // Reduced Motion Fallback (Accessibility / Graceful Degradation)
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+        gsap.set([meta, kicker, intro, awardContent, footer, titleSpans, awardDetails], { opacity: 1, x: 0, y: 0, yPercent: 0, rotateX: 0 });
+        gsap.set(metaLine, { scaleX: 1 });
+        gsap.set(medalWrap, { opacity: 1, scale: 1, rotationY: 0, rotationZ: 0, y: 0 });
+        gsap.set(diplomaObject, { opacity: 1, visibility: "visible", x: 0, y: 0, z: 0, scale: 1, rotationY: 0, rotationZ: 0 });
+        return;
+    }
+
+    const tl = gsap.timeline({
+        defaults: { ease: "power3.out" },
+        scrollTrigger: {
+            trigger: section,
+            start: "top top",
+            end: "bottom bottom",
+            scrub: 1.25,
+            invalidateOnRefresh: true
+        }
+    });
+
+    // Phase 1 - Intro
+    tl.to(meta, { opacity: 1, y: 0, duration: 0.35 }, 0)
+      .to(metaLine, { scaleX: 1, duration: 0.5, ease: "power2.inOut" }, 0.1)
+      .to(kicker, { opacity: 1, y: 0, duration: 0.45 }, 0.15)
+      .to(titleSpans, { opacity: 1, yPercent: 0, rotateX: 0, duration: 0.8, stagger: 0.12, ease: "power4.out" }, 0.25)
+      .to(intro, { opacity: 1, y: 0, duration: 0.5 }, 0.8);
+
+    // Phase 2 - Medal Arrival & Rings
+    tl.to(medalWrap, { opacity: 1, scale: 1, rotationY: 0, rotationZ: 0, y: 0, duration: 1.5, ease: "expo.out" }, 0.3)
+      .to(aura, { scale: 1, opacity: 0.65, duration: 1.2 }, 0.45)
+      .to(outerRing, { scale: 1, opacity: 1, rotation: 0, duration: 1 }, 0.4)
+      .to(innerRing, { scale: 1, opacity: 1, rotation: 0, duration: 1 }, 0.5);
+
+    // Phase 3 - Medal Cinematic Movement
+    tl.to(medalWrap, { rotationY: 22, rotationZ: 2, duration: 1.6, ease: "none" }, 1.25)
+      .to(medalWrap, { rotationY: -14, rotationZ: -1, duration: 1.6, ease: "none" }, 2.85)
+      .to(medalWrap, { rotationY: 0, rotationZ: 0, duration: 1.2, ease: "power2.inOut" }, 4.45);
+
+    // Phase 4 - Medal Shine
+    tl.to(medalShine, { opacity: 0.75, duration: 0.15 }, 2.1)
+      .to(medalShine, { xPercent: 130, duration: 1.35, ease: "power2.inOut" }, 2.2)
+      .to(medalShine, { opacity: 0, duration: 0.2 }, 3.5);
+
+    // Phase 5 - Medal Moves Left
+    tl.to(medalObject, { x: -135, scale: 0.80, duration: 1.4, ease: "power3.inOut" }, 4.7)
+      .to(medalWrap, { rotationY: -8, rotationZ: -1, duration: 1.4, ease: "power2.inOut" }, 4.7);
+
+    // Phase 6 - Diploma Enters
+    tl.set(diplomaObject, { visibility: "visible" }, 5.05)
+      .to(diplomaObject, { opacity: 1, x: 115, y: 0, z: 0, scale: 0.88, rotationY: -5, rotationZ: 1, duration: 1.7, ease: "expo.out" }, 5.05);
+
+    // Phase 6B - Final Object Settle & Award Text Reveal
+    tl.to(medalObject, { x: -135, y: 0, scale: 0.80, duration: 0.8, ease: "power2.out" }, 6.75)
+      .to(diplomaObject, { x: 115, y: 0, scale: 0.88, rotationY: 0, rotationZ: 0, duration: 0.8, ease: "power2.out" }, 6.75)
+      .to(awardContent, { opacity: 1, x: 0, duration: 0.8, ease: "power3.out" }, 6.8)
+      .to(awardDetails, { opacity: 1, y: 0, duration: 0.6, stagger: 0.08, ease: "power3.out" }, 7.0);
+
+    // Phase 7 - The Recognition Moment (Dead Hold)
+    tl.to({}, { duration: 1.8 });
+
+    // Phase 8 - Cinematic Camera Push-In
+    tl.to(medalStage, { scale: 1.055, yPercent: -10, duration: 2.4, ease: "power2.inOut" }, "+=0.1")
+      .to(medalWrap, { scale: 1.035, rotationY: -2, duration: 2.4, ease: "power2.inOut" }, "<")
+      .to(diplomaObject, { scale: 0.94, y: -4, duration: 2.4, ease: "power2.inOut" }, "<")
+      .to(outerRing, { scale: 1.055, rotation: 4, duration: 2.4, ease: "power2.inOut" }, "<")
+      .to(innerRing, { scale: 1.04, rotation: -3, duration: 2.4, ease: "power2.inOut" }, "<")
+      .to(".ar-recognition-bg", { scale: 1.08, yPercent: -2, duration: 2.4, ease: "power2.inOut" }, "<")
+      .to(awardContent, { scale: 1.025, x: -5, duration: 2.4, ease: "power2.inOut" }, "<")
+      .to(cameraOverlay, { opacity: 0.55, duration: 2.4, ease: "power2.inOut" }, "<");
+
+    // Phase 9 - Final Recognition & Hold
+    tl.to(footer, { opacity: 1, y: 0, duration: 0.7, ease: "power3.out" }, "<0.8")
+      .to({}, { duration: 2.5 });
+}
+/* =========================================================================
    CINEMATIC SIGNATURE REVEAL ENGINE (SPLITTEXT + SCROLLTRIGGER)
    ========================================================================= */
 function initSignatureTextAnimation() {
@@ -1359,6 +1478,7 @@ async function initAll(targetHash = null) {
     initMobileMenu();
     initBackpacksDropdown();
 	initSignatureTextAnimation();
+	initAmberRecognition();
     window.syncPriceDisplay();
     window.initSmartHeader();
        
