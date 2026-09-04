@@ -255,12 +255,13 @@ body {
     --ar-muted: #858585;
 
     position: relative;
-    height: 330vh; /* Przestrzeń pod reżyserię GSAP */
+    z-index: 25;
+    margin-top: -10vh; /* Zniwelowanie luki po poprzedniej sekcji */
+    height: 230vh; /* Zdecydowanie krótsza sekcja - szybsze odblokowanie scrolla */
     background: var(--ar-black);
     color: var(--ar-ivory);
     overflow: clip;
 }
-
 .ar-recognition-sticky {
     position: sticky;
     top: 0;
@@ -321,7 +322,7 @@ body {
    ========================================================= */
 .ar-recognition-heading {
     position: absolute;
-    top: 15%; /* Obniżone z 12% na 15% dla lepszego oddechu */
+    top: 15%; /* Trzymamy tekst wyżej */
     left: 50%;
     transform: translateX(-50%);
     width: 100%;
@@ -363,7 +364,7 @@ body {
    ========================================================= */
 .ar-award-content {
     position: absolute;
-    bottom: 10vh; /* Zmniejszone z 15vh, by zrobić miejsce na obniżoną gablotę */
+    bottom: 8vh; /* Obniżamy podpis, aby zrobić miejsce spadającym obiektom */
     left: 50%;
     transform: translateX(-50%);
     text-align: center;
@@ -397,33 +398,15 @@ body {
     color: rgba(249,247,242,0.48);
 }
 
-.ar-recognition-footer {
-    position: absolute;
-    left: clamp(24px, 5vw, 80px);
-    right: clamp(24px, 5vw, 80px);
-    bottom: 35px;
-    display: flex;
-    align-items: center;
-    gap: 20px;
-    z-index: 8;
-    font-family: "JetBrains Mono", monospace;
-    font-size: 9px;
-    letter-spacing: 0.16em;
-    text-transform: uppercase;
-    color: rgba(249,247,242,0.35);
-}
-.ar-recognition-footer-line { width: 45px; height: 1px; background: rgba(197,160,89,0.45); }
-.ar-recognition-footer p { margin: 0; }
-.ar-recognition-footer-mark { margin-left: auto; color: rgba(249,247,242,0.2); }
 
 /* =========================================================
    AWARD OBJECT STAGE (DEAD CENTER)
    ========================================================= */
 .ar-award-stage {
     position: absolute;
-    top: 56%; /* Obniżone z 52% na 56% - odsuwamy od tekstów */
+    top: 60%; /* Mocne obniżenie gabloty - z 52% na 60%, aby uciec od tekstu */
     left: 50%;
-    width: min(42vw, 750px); /* Zmniejszona baza (z 50vw na 42vw), zapobiega nachodzeniu */
+    width: min(42vw, 750px);
     aspect-ratio: 1;
     transform: translate(-50%, -50%);
     perspective: 1600px;
@@ -488,27 +471,25 @@ body {
    RESPONSIVENESS (MOBILE CENTERED ARCHITECTURE)
    ========================================================= */
 @media (max-width: 1099px) {
-    .ar-recognition { height: 280vh; }
+    .ar-recognition { height: 210vh; margin-top: -5vh; }
     .ar-award-stage { width: 55vw; }
 }
 @media (max-width: 767px) {
-    .ar-recognition { height: 260vh; }
+    .ar-recognition { height: 210vh; }
     .ar-recognition-sticky { min-height: 600px; }
     
-    .ar-recognition-heading { top: 10%; padding: 0 20px; }
+    .ar-recognition-heading { top: 12%; padding: 0 20px; }
     .ar-recognition-title { font-size: clamp(2.5rem, 10vw, 3.5rem); }
     .ar-recognition-intro { margin-top: 15px; }
 
-    .ar-award-stage { top: 52%; width: 90vw; }
+    .ar-award-stage { top: 56%; width: 85vw; }
     .ar-award-medal-wrap { width: 61%; }
     .ar-award-diploma-wrap { width: 54%; }
     
-    .ar-award-content { bottom: 8vh; width: 100%; }
+    .ar-award-content { bottom: 10vh; width: 100%; }
     .ar-award-name { font-size: 20px; }
 
-    .ar-recognition-footer { left: 20px; right: 20px; bottom: 25px; font-size: 8px; }
-    .ar-recognition-footer-mark { display: none; }
-}
+    }
 @media (max-width: 420px) {
     .ar-recognition-title { font-size: 2.8rem; }
     .ar-award-stage { top: 50%; }
