@@ -1187,12 +1187,16 @@ function initAmberRecognition() {
     const outerRing = section.querySelector(".ar-award-ring--outer");
     const innerRing = section.querySelector(".ar-award-ring--inner");
     const awardContent = section.querySelector(".ar-award-content");
-    const footer = section.querySelector(".ar-recognition-footer");
     const cameraOverlay = section.querySelector(".ar-recognition-camera-overlay");
     const bg = section.querySelector(".ar-recognition-bg");
 
+    // Detekcja Mobile do matematycznego rozsuwania obiektów
+    const isMobile = window.innerWidth < 768;
+    const shiftLeft = isMobile ? -75 : -210; // Ciasne rozsunięcie na telefonie, szerokie na desktopie
+    const shiftRight = isMobile ? 85 : 220;
+
     // === INICJALIZACJA STANÓW ===
-    gsap.set([kicker, title, intro, footer], { opacity: 0, y: 20 });
+    gsap.set([kicker, title, intro], { opacity: 0, y: 20 });
     gsap.set(awardContent, { opacity: 0, y: 30 });
     
     // Medal startuje ze środka
@@ -1208,10 +1212,10 @@ function initAmberRecognition() {
 
     // Fallback dla Accessibility
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-        gsap.set([kicker, title, intro, awardContent, footer], { opacity: 1, y: 0 });
+        gsap.set([kicker, title, intro, awardContent], { opacity: 1, y: 0 });
         gsap.set(medalWrap, { opacity: 1, scale: 1, rotationY: 0, y: 0 });
-        gsap.set(medalObject, { x: -160 }); 
-        gsap.set(diplomaObject, { opacity: 1, visibility: "visible", x: 160, z: 0, scale: 0.9, rotationY: 0 });
+        gsap.set(medalObject, { x: shiftLeft }); 
+        gsap.set(diplomaObject, { opacity: 1, visibility: "visible", x: shiftRight, z: 0, scale: 0.9, rotationY: 0 });
         return;
     }
 
@@ -1219,8 +1223,7 @@ function initAmberRecognition() {
         defaults: { ease: "power2.out" },
         scrollTrigger: {
             trigger: section,
-            // Animacja startuje dokładnie, gdy sekcja jest w 25% na ekranie 
-            // (czyli poprzednia karta 05 w 75% opuściła już widok)
+            // Animacja startuje szybko, aby zgubić przerwę (karta 05 wyjeżdża w 75%)
             start: "top 75%", 
             end: "bottom bottom",
             scrub: 1.2,
@@ -1239,28 +1242,19 @@ function initAmberRecognition() {
       .to(outerRing, { scale: 1, opacity: 1, rotation: 0, duration: 1.0 }, 0.4)
       .to(innerRing, { scale: 1, opacity: 1, rotation: 0, duration: 1.0 }, 0.5);
 
-    // Ekspozycja medalu przed podziałem
-    tl.to({}, { duration: 0.4 });
+    // FAZA 3: Podział z matematyczną responsywnością (bez zatrzymywania)
+    tl.set(diplomaObject, { visibility: "visible" }, "+=0.2")
+      .to(medalObject, { x: shiftLeft, rotationY: 10, duration: 1.4, ease: "power3.inOut" }, "<")
+      .to(diplomaObject, { opacity: 1, x: shiftRight, z: 0, scale: 0.9, rotationY: -6, rotationZ: 2, duration: 1.4, ease: "power3.inOut" }, "<");
 
-    // FAZA 3: Podział (Silne rozszerzenie na boki dla uniknięcia nachodzenia)
-    tl.set(diplomaObject, { visibility: "visible" }, "+=0")
-      // Medal ucieka daleko w lewo (-210px)
-      .to(medalObject, { x: -210, rotationY: 10, duration: 1.4, ease: "power3.inOut" }, "<")
-      // Dyplom ucieka daleko w prawo (220px)
-      .to(diplomaObject, { opacity: 1, x: 220, z: 0, scale: 0.9, rotationY: -6, rotationZ: 2, duration: 1.4, ease: "power3.inOut" }, "<");
-
-    // FAZA 4: Pojawienie się tekstu
-    tl.to(awardContent, { opacity: 1, y: 0, duration: 0.8, ease: "power3.out" }, "+=0.2");
-
-    // FAZA 5: Subtelna reżyseria cieni (bez skalowania obiektów!)
-    // Obiekty pozostają nieruchome i ostre. Zmienia się jedynie winieta i obrót pierścieni.
-    tl.to(outerRing, { rotation: 3, duration: 2.0, ease: "power1.inOut" }, "+=0")
-      .to(bg, { scale: 1.04, duration: 2.0, ease: "power1.inOut" }, "<")
-      .to(cameraOverlay, { opacity: 0.7, duration: 2.0, ease: "power1.inOut" }, "<");
-
-    // FAZA 6: Zakończenie
-    tl.to(footer, { opacity: 1, y: 0, duration: 0.6, ease: "power2.out" }, "<1.0")
-      .to({}, { duration: 1.5 }); // Końcowy bufor przewijania
+    // FAZA 4: Pojawienie się tekstu "QUALITY & INNOVATION" i winiety
+    // Wszystko dzieje się jednocześnie. Po tym osi czasu następuje koniec, co od razu odblokowuje skrolowanie w dół.
+    tl.to(awardContent, { opacity: 1, y: 0, duration: 0.8, ease: "power3.out" }, "-=0.4")
+      .to(outerRing, { rotation: 3, duration: 1.5, ease: "power1.inOut" }, "<")
+      .to(bg, { scale: 1.04, duration: 1.5, ease: "power1.inOut" }, "<")
+      .to(cameraOverlay, { opacity: 0.7, duration: 1.5, ease: "power1.inOut" }, "<");
+      
+    // Koniec osi czasu - ZERO sztucznych opóźnień na końcu
 }
 /* =========================================================================
    CINEMATIC SIGNATURE REVEAL ENGINE (SPLITTEXT + SCROLLTRIGGER)
