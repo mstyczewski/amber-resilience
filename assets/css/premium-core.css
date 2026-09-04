@@ -364,7 +364,7 @@ body {
    ========================================================= */
 .ar-award-content {
     position: absolute;
-    bottom: 8vh; /* Obniżamy podpis, aby zrobić miejsce spadającym obiektom */
+    bottom: 5vh; /* Obniżenie podpisu z 8vh na 5vh, by ustąpić miejsca opadającym obiektom */
     left: 50%;
     transform: translateX(-50%);
     text-align: center;
@@ -404,7 +404,7 @@ body {
    ========================================================= */
 .ar-award-stage {
     position: absolute;
-    top: 60%; /* Mocne obniżenie gabloty - z 52% na 60%, aby uciec od tekstu */
+    top: 66%; /* Zdecydowane obniżenie z 60% na 66% - pełen oddech dla nagłówka */
     left: 50%;
     width: min(42vw, 750px);
     aspect-ratio: 1;
