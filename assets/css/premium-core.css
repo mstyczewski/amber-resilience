@@ -364,7 +364,7 @@ body {
    ========================================================= */
 .ar-award-content {
     position: absolute;
-    bottom: 5vh; /* Obniżenie podpisu z 8vh na 5vh, by ustąpić miejsca opadającym obiektom */
+    bottom: 2vh; /* Obniżenie podpisu z 8vh na 5vh, by ustąpić miejsca opadającym obiektom */
     left: 50%;
     transform: translateX(-50%);
     text-align: center;
