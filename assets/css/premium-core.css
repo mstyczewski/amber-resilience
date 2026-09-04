@@ -321,7 +321,7 @@ body {
    ========================================================= */
 .ar-recognition-heading {
     position: absolute;
-    top: 12%; 
+    top: 15%; /* Obniżone z 12% na 15% dla lepszego oddechu */
     left: 50%;
     transform: translateX(-50%);
     width: 100%;
@@ -363,7 +363,7 @@ body {
    ========================================================= */
 .ar-award-content {
     position: absolute;
-    bottom: 15vh;
+    bottom: 10vh; /* Zmniejszone z 15vh, by zrobić miejsce na obniżoną gablotę */
     left: 50%;
     transform: translateX(-50%);
     text-align: center;
@@ -421,9 +421,9 @@ body {
    ========================================================= */
 .ar-award-stage {
     position: absolute;
-    top: 52%; 
+    top: 56%; /* Obniżone z 52% na 56% - odsuwamy od tekstów */
     left: 50%;
-    width: min(50vw, 750px);
+    width: min(42vw, 750px); /* Zmniejszona baza (z 50vw na 42vw), zapobiega nachodzeniu */
     aspect-ratio: 1;
     transform: translate(-50%, -50%);
     perspective: 1600px;
@@ -489,7 +489,7 @@ body {
    ========================================================= */
 @media (max-width: 1099px) {
     .ar-recognition { height: 280vh; }
-    .ar-award-stage { width: 65vw; }
+    .ar-award-stage { width: 55vw; }
 }
 @media (max-width: 767px) {
     .ar-recognition { height: 260vh; }
@@ -499,11 +499,11 @@ body {
     .ar-recognition-title { font-size: clamp(2.5rem, 10vw, 3.5rem); }
     .ar-recognition-intro { margin-top: 15px; }
 
-    .ar-award-stage { top: 48%; width: 95vw; }
+    .ar-award-stage { top: 52%; width: 90vw; }
     .ar-award-medal-wrap { width: 61%; }
     .ar-award-diploma-wrap { width: 54%; }
     
-    .ar-award-content { bottom: 12vh; width: 100%; }
+    .ar-award-content { bottom: 8vh; width: 100%; }
     .ar-award-name { font-size: 20px; }
 
     .ar-recognition-footer { left: 20px; right: 20px; bottom: 25px; font-size: 8px; }
