@@ -1191,15 +1191,15 @@ function initAmberRecognition() {
     const cameraOverlay = section.querySelector(".ar-recognition-camera-overlay");
     const bg = section.querySelector(".ar-recognition-bg");
 
-    // === INICJALIZACJA STANÓW (Zero Trust Layout) ===
+    // === INICJALIZACJA STANÓW ===
     gsap.set([kicker, title, intro, footer], { opacity: 0, y: 20 });
     gsap.set(awardContent, { opacity: 0, y: 30 });
     
-    // Medal startuje z idealnego środka, ale z głębi i w ukryciu
+    // Medal startuje ze środka
     gsap.set(medalObject, { x: 0, y: 0 });
     gsap.set(medalWrap, { opacity: 0, scale: 0.6, rotationY: -15, y: 50 });
     
-    // Dyplom startuje wtopiony w tło, za medalem
+    // Dyplom w ukryciu
     gsap.set(diplomaObject, { opacity: 0, visibility: "hidden", x: 0, y: 0, z: -100, scale: 0.7, rotationY: 10 });
     
     gsap.set(aura, { scale: 0.4, opacity: 0 });
@@ -1210,8 +1210,8 @@ function initAmberRecognition() {
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
         gsap.set([kicker, title, intro, awardContent, footer], { opacity: 1, y: 0 });
         gsap.set(medalWrap, { opacity: 1, scale: 1, rotationY: 0, y: 0 });
-        gsap.set(medalObject, { x: -120 }); // Od razu rozsunięte
-        gsap.set(diplomaObject, { opacity: 1, visibility: "visible", x: 120, z: 0, scale: 0.9, rotationY: 0 });
+        gsap.set(medalObject, { x: -160 }); 
+        gsap.set(diplomaObject, { opacity: 1, visibility: "visible", x: 160, z: 0, scale: 0.9, rotationY: 0 });
         return;
     }
 
@@ -1219,7 +1219,9 @@ function initAmberRecognition() {
         defaults: { ease: "power2.out" },
         scrollTrigger: {
             trigger: section,
-            start: "top top",
+            // Animacja startuje dokładnie, gdy sekcja jest w 25% na ekranie 
+            // (czyli poprzednia karta 05 w 75% opuściła już widok)
+            start: "top 75%", 
             end: "bottom bottom",
             scrub: 1.2,
             invalidateOnRefresh: true
@@ -1237,28 +1239,24 @@ function initAmberRecognition() {
       .to(outerRing, { scale: 1, opacity: 1, rotation: 0, duration: 1.0 }, 0.4)
       .to(innerRing, { scale: 1, opacity: 1, rotation: 0, duration: 1.0 }, 0.5);
 
-    // Chwila ekspozycji pojedynczego medalu (Dead Hold)
-    tl.to({}, { duration: 0.5 });
+    // Ekspozycja medalu przed podziałem
+    tl.to({}, { duration: 0.4 });
 
-    // FAZA 3: Podział (Split Exhibition) - Medal w lewo, Dyplom w prawo
-    // Wartości x są relatywne (zależne od responsywności CSS stage'a), ale wpisujemy twarde piksele, by kontrolować głębię
+    // FAZA 3: Podział (Silne rozszerzenie na boki dla uniknięcia nachodzenia)
     tl.set(diplomaObject, { visibility: "visible" }, "+=0")
-      .to(medalObject, { x: -130, rotationY: 8, duration: 1.4, ease: "power3.inOut" }, "<")
-      .to(diplomaObject, { opacity: 1, x: 140, z: 0, scale: 0.92, rotationY: -5, rotationZ: 2, duration: 1.4, ease: "power3.inOut" }, "<");
+      // Medal ucieka daleko w lewo (-210px)
+      .to(medalObject, { x: -210, rotationY: 10, duration: 1.4, ease: "power3.inOut" }, "<")
+      // Dyplom ucieka daleko w prawo (220px)
+      .to(diplomaObject, { opacity: 1, x: 220, z: 0, scale: 0.9, rotationY: -6, rotationZ: 2, duration: 1.4, ease: "power3.inOut" }, "<");
 
-    // FAZA 4: Pojawienie się tekstu pod obiektami
+    // FAZA 4: Pojawienie się tekstu
     tl.to(awardContent, { opacity: 1, y: 0, duration: 0.8, ease: "power3.out" }, "+=0.2");
 
-    // Ostatni punkt zatrzymania przed zoomem
-    tl.to({}, { duration: 1.0 });
-
-    // FAZA 5: Subtelny Push-In z Winietą
-    tl.to(medalStage, { scale: 1.04, duration: 2.0, ease: "power1.inOut" }, "+=0")
-      .to(medalObject, { scale: 1.02, rotationY: 2, duration: 2.0, ease: "power1.inOut" }, "<")
-      .to(diplomaObject, { scale: 0.95, rotationY: -2, duration: 2.0, ease: "power1.inOut" }, "<")
-      .to(outerRing, { scale: 1.05, rotation: 3, duration: 2.0 }, "<")
-      .to(bg, { scale: 1.06, duration: 2.0 }, "<")
-      .to(cameraOverlay, { opacity: 0.7, duration: 2.0 }, "<");
+    // FAZA 5: Subtelna reżyseria cieni (bez skalowania obiektów!)
+    // Obiekty pozostają nieruchome i ostre. Zmienia się jedynie winieta i obrót pierścieni.
+    tl.to(outerRing, { rotation: 3, duration: 2.0, ease: "power1.inOut" }, "+=0")
+      .to(bg, { scale: 1.04, duration: 2.0, ease: "power1.inOut" }, "<")
+      .to(cameraOverlay, { opacity: 0.7, duration: 2.0, ease: "power1.inOut" }, "<");
 
     // FAZA 6: Zakończenie
     tl.to(footer, { opacity: 1, y: 0, duration: 0.6, ease: "power2.out" }, "<1.0")
