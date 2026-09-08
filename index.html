@@ -799,132 +799,107 @@ Czujemy dumę i doceniamy tą nagrodę. Wierzymy jednocześnie, że to dopiero p
 			<!-- =========================================================
      AMBER RESILIENCE — AWARDS & CERTIFICATIONS SECTION (1 MEDAL + 1 DYPLOM)
      ========================================================= -->
-<section class="awards-section" id="awards" aria-labelledby="awards-title">
-  <div class="awards-noise" aria-hidden="true"></div>
-  <div class="awards-glow awards-glow--one" aria-hidden="true"></div>
-  <div class="awards-glow awards-glow--two" aria-hidden="true"></div>
-
-  <div class="awards-progress" aria-hidden="true">
-    <span class="awards-progress__line"></span>
-    <span class="awards-progress__number font-mono">01</span>
-    <span class="awards-progress__number font-mono">02</span>
-  </div>
-
-  <div class="awards-stage">
-    <!-- Intro / Storytelling Block -->
-    <div class="awards-intro">
-      <p class="awards-kicker">
-        <span class="awards-kicker__line"></span>
-        Dowody Jakości
-      </p>
-
-      <h2 id="awards-title" class="awards-title">
-        Wyróżnienia, które
-        <span>potwierdzają klasę.</span>
-      </h2>
-
-      <p class="awards-description">
-        W świecie przygotowania na kryzys nie ma miejsca na obietnice bez pokrycia. Oficjalny medal oraz dyplom uznania stanowią bezkompromisowy dowód jakości i niezawodności Amber Resilience.
-      </p>
-
-      <div class="awards-scroll-hint" aria-hidden="true">
-        <span class="awards-scroll-hint__arrow">↓</span>
-        <span>Przewiń, aby odkryć</span>
-      </div>
+<!-- ==========================================
+     SEKCJA: NAGRODY I WYRÓŻNIENIA ($10K AWARDS ENGINE)
+     ========================================== -->
+<section id="awards" class="relative w-full h-screen bg-[#050505] text-brand-ivory flex flex-col justify-center overflow-hidden z-20 border-t border-white/5">
+    
+    <!-- Cinematic Lighting & Noise -->
+    <div class="absolute inset-0 pointer-events-none z-0" aria-hidden="true">
+        <!-- Lewa, górna poświata -->
+        <div class="absolute top-[10%] left-[-10%] w-[50vw] h-[50vw] bg-brand-gold/5 rounded-full blur-[140px] mix-blend-screen translate-z-0"></div>
+        <!-- Prawa, dolna poświata -->
+        <div class="absolute bottom-[-10%] right-[-10%] w-[50vw] h-[50vw] bg-brand-gold/5 rounded-full blur-[140px] mix-blend-screen translate-z-0"></div>
+        <!-- Tekstura materiałowa (Noise) -->
+        <div class="absolute inset-0 opacity-[0.04]" style="background-image: url('/assets/img/noise.webp'); background-repeat: repeat;"></div>
     </div>
 
-    <!-- Gallery Wrap (Dwa kluczowe akty: Medal + Dyplom) -->
-    <div class="awards-gallery-wrap">
-      <div class="awards-gallery" data-awards-gallery>
+    <!-- Pasek postępu -->
+    <div class="absolute bottom-8 md:bottom-12 right-6 md:right-16 flex items-center gap-4 z-30" aria-hidden="true">
+        <span class="font-mono text-[10px] text-brand-muted tracking-[0.2em]">01</span>
+        <div class="w-24 md:w-40 h-[1px] bg-white/10 relative overflow-hidden">
+            <!-- GSAP modyfikuje width zamiast transform dla czystszego renderingu -->
+            <div class="awards-progress__line absolute top-0 left-0 h-full bg-brand-gold will-change-[width]" style="width: var(--award-progress, 0%);"></div>
+        </div>
+        <span class="font-mono text-[10px] text-brand-muted tracking-[0.2em]">05</span>
+    </div>
+
+    <div class="relative w-full max-w-[1440px] mx-auto px-6 md:px-16 flex flex-col md:flex-row items-center justify-between z-10 h-full">
         
-  <!-- ARTEFAKT 01: MEDAL JAKOŚCI (Z RZECZYWISTYM ZDJĘCIEM) -->
-<article class="award-card award-card--featured" aria-label="Wyróżnienie: Medal Jakości i Niezawodności">
-  <div class="award-card__topline">
-    <span class="font-mono">01 / 02</span>
-    <span class="award-card__status">Medal Jakości</span>
-  </div>
+        <!-- Lewa kolumna: Kontekst i Typografia -->
+        <div class="w-full md:w-[40%] flex flex-col shrink-0 relative pt-12 md:pt-0">
+            <div class="flex items-center gap-4 mb-8">
+                <span class="font-mono text-[10px] tracking-[0.4em] uppercase text-brand-gold">Uznanie</span>
+                <div class="awards-kicker__line w-12 h-[1px] bg-brand-gold origin-left"></div>
+            </div>
+            
+            <h2 class="awards-title font-display text-4xl md:text-5xl lg:text-[4rem] leading-[1.05] mb-6 tracking-tight">
+                Nagrody, które<br>
+                <em class="text-brand-gold font-normal italic">potwierdzają jakość.</em>
+            </h2>
+            
+            <p class="awards-desc font-body font-light text-brand-muted text-sm md:text-base leading-relaxed max-w-sm mb-12">
+                Eksperci branżowi i instytucje certyfikujące nie oceniają obietnic. Oceniają fakty, architekturę i niezawodność w warunkach brzegowych.
+            </p>
+            
+            <div class="awards-scroll-hint flex items-center gap-3 text-brand-muted font-mono text-[9px] uppercase tracking-[0.3em]">
+                <span>Przewiń, aby odkryć</span>
+                <svg class="w-3 h-3 text-brand-gold animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
+                </svg>
+            </div>
+        </div>
 
-  <!-- Kontener na zdjęcie Medalu -->
-  <figure class="award-card__media award-card__media--medal">
-    <!-- Rekomendacja: Użyj przezroczystego pliku WebP/PNG -->
-    <img 
-      src="/assets/img/amber-medal.webp" 
-      alt="Oficjalny złoty medal niezawodności operacyjnej przyznany Amber Resilience"
-      width="300" 
-      height="300"
-      loading="lazy"
-      decoding="async"
-      class="award-card__img"
-    >
-    <div class="award-card__media-glow" aria-hidden="true"></div>
-  </figure>
+        <!-- Prawa kolumna: Przestrzenna Galeria Kart -->
+        <div class="w-full md:w-[60%] h-[50vh] md:h-[70vh] mt-12 md:mt-0 relative overflow-x-auto md:overflow-visible no-scrollbar">
+            <div data-awards-gallery class="flex gap-6 md:gap-12 w-max items-center h-full pl-4 md:pl-20 pr-8 md:pr-40">
+                
+                <!-- KARTA 1 -->
+                <article class="award-card relative w-[280px] md:w-[380px] h-[380px] md:h-[480px] bg-[#0A0A0A] border border-white/[0.04] p-8 flex flex-col justify-between group overflow-hidden transition-all duration-[0.8s] ease-[cubic-bezier(0.16,1,0.3,1)] hover:border-brand-gold/40 hover:bg-[#030303] shadow-2xl shrink-0 cursor-default">
+                    <!-- Efekt światła (Sweep) -->
+                    <div class="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/5 to-transparent awards-sweep pointer-events-none z-0"></div>
+                    
+                    <div class="relative z-10">
+                        <span class="font-mono text-[10px] text-brand-gold tracking-[0.3em] uppercase">01 /// 2025</span>
+                        <h3 class="font-display text-2xl md:text-3xl mt-6 text-white group-hover:text-brand-ivory transition-colors">Red Dot Design Award</h3>
+                        <p class="font-body font-light text-[13px] md:text-sm text-brand-muted mt-4 leading-relaxed group-hover:text-white/80 transition-colors">Wyróżnienie za bezkompromisowe połączenie taktycznej użyteczności z minimalistycznym designem w warunkach stresu.</p>
+                    </div>
+                    
+                    <div class="relative z-10 w-12 h-12 md:w-16 md:h-16 border border-white/10 rounded-full flex items-center justify-center opacity-40 group-hover:opacity-100 group-hover:border-brand-gold transition-all duration-700">
+                        <svg class="w-5 h-5 text-brand-gold" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" /></svg>
+                    </div>
+                </article>
 
-  <div class="award-card__content">
-    <p class="award-card__eyebrow">Oficjalne Wyróżnienie</p>
-    <h3>Medal Niezawodności Operacyjnej</h3>
-    <p class="award-card__year font-mono">2024</p>
-  </div>
+                <!-- KARTA 2 -->
+                <article class="award-card relative w-[280px] md:w-[380px] h-[380px] md:h-[480px] bg-[#0A0A0A] border border-white/[0.04] p-8 flex flex-col justify-between group overflow-hidden transition-all duration-[0.8s] ease-[cubic-bezier(0.16,1,0.3,1)] hover:border-brand-gold/40 hover:bg-[#030303] shadow-2xl shrink-0 cursor-default">
+                    <div class="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/5 to-transparent awards-sweep pointer-events-none z-0"></div>
+                    <div class="relative z-10">
+                        <span class="font-mono text-[10px] text-brand-gold tracking-[0.3em] uppercase">02 /// 2024</span>
+                        <h3 class="font-display text-2xl md:text-3xl mt-6 text-white group-hover:text-brand-ivory transition-colors">Tactical Excellence</h3>
+                        <p class="font-body font-light text-[13px] md:text-sm text-brand-muted mt-4 leading-relaxed group-hover:text-white/80 transition-colors">Wybór ekspertów survivalu jako najpewniejszy system wsparcia życia (Life Support System) do zastosowań miejskich.</p>
+                    </div>
+                    <div class="relative z-10 w-12 h-12 md:w-16 md:h-16 border border-white/10 rounded-full flex items-center justify-center opacity-40 group-hover:opacity-100 group-hover:border-brand-gold transition-all duration-700">
+                        <svg class="w-5 h-5 text-brand-gold" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" /></svg>
+                    </div>
+                </article>
 
-  <div class="award-card__footer">
-    <span>Standardy Przetrwania</span>
-    <span class="award-card__arrow" aria-hidden="true">✦</span>
-  </div>
-</article>
+                <!-- KARTA 3 (Dodaj kolejne wg. wzoru) -->
+                <article class="award-card relative w-[280px] md:w-[380px] h-[380px] md:h-[480px] bg-[#0A0A0A] border border-white/[0.04] p-8 flex flex-col justify-between group overflow-hidden transition-all duration-[0.8s] ease-[cubic-bezier(0.16,1,0.3,1)] hover:border-brand-gold/40 hover:bg-[#030303] shadow-2xl shrink-0 cursor-default">
+                    <div class="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/5 to-transparent awards-sweep pointer-events-none z-0"></div>
+                    <div class="relative z-10">
+                        <span class="font-mono text-[10px] text-brand-gold tracking-[0.3em] uppercase">03 /// 2024</span>
+                        <h3 class="font-display text-2xl md:text-3xl mt-6 text-white group-hover:text-brand-ivory transition-colors">Forbes Resilience</h3>
+                        <p class="font-body font-light text-[13px] md:text-sm text-brand-muted mt-4 leading-relaxed group-hover:text-white/80 transition-colors">Tytuł najbardziej innowacyjnego polskiego startupu w sektorze personalnego bezpieczeństwa strategicznego.</p>
+                    </div>
+                    <div class="relative z-10 w-12 h-12 md:w-16 md:h-16 border border-white/10 rounded-full flex items-center justify-center opacity-40 group-hover:opacity-100 group-hover:border-brand-gold transition-all duration-700">
+                        <svg class="w-5 h-5 text-brand-gold" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
+                    </div>
+                </article>
 
-<!-- ARTEFAKT 02: DYPLOM UZNANIA (Z RZECZYWISTYM ZDJĘCIEM) -->
-<article class="award-card" aria-label="Wyróżnienie: Dyplom Uznania Operacyjnego">
-  <div class="award-card__topline">
-    <span class="font-mono">02 / 02</span>
-    <span class="award-card__status">Dyplom Uznania</span>
-  </div>
-
-  <!-- Kontener na zdjęcie Dyplomu -->
-  <figure class="award-card__media award-card__media--diploma">
-    <!-- Rekomendacja: Wysokiej rozdzielczości skan lub mockup 3D -->
-    <img 
-      src="/assets/img/amber-dyplom.webp" 
-      alt="Skan oficjalnego dyplomu doskonałości konstrukcyjnej Amber Resilience"
-      width="300" 
-      height="420"
-      loading="lazy"
-      decoding="async"
-      class="award-card__img"
-    >
-  </figure>
-
-  <div class="award-card__content">
-    <p class="award-card__eyebrow">Certyfikacja Branżowa</p>
-    <h3>Dyplom Doskonałości Konstrukcyjnej</h3>
-    <p class="award-card__year font-mono">2024</p>
-  </div>
-
-  <div class="award-card__footer">
-    <span>Atest Mobilności & Bezpieczeństwa</span>
-    <span class="award-card__arrow" aria-hidden="true">✦</span>
-  </div>
-</article>
-
-      </div>
+            </div>
+        </div>
     </div>
-  </div>
-
-  <!-- Marquee Tła -->
-  <div class="awards-marquee" aria-hidden="true">
-    <div class="awards-marquee__track font-mono">
-      <span>EXCELLENCE</span>
-      <i>✦</i>
-      <span>RESILIENCE</span>
-      <i>✦</i>
-      <span>AUTHENTICITY</span>
-      <i>✦</i>
-      <span>EXCELLENCE</span>
-      <i>✦</i>
-      <span>RESILIENCE</span>
-      <i>✦</i>
-    </div>
-  </div>
 </section>
-
           
 
         </main>
