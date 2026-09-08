@@ -557,105 +557,145 @@ function initAwardsSection() {
     const section = document.querySelector("#awards");
     const gallery = document.querySelector("[data-awards-gallery]");
 
-    if (!section || !gallery || typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') return;
+    if (!section || !gallery) return;
 
-    const cards = Array.from(gallery.querySelectorAll(".award-card"));
+    const cards = [...gallery.querySelectorAll(".award-card")];
     const progressLine = section.querySelector(".awards-progress__line");
-    const title = section.querySelector(".awards-title");
-    const desc = section.querySelector(".awards-desc");
-    const hint = section.querySelector(".awards-scroll-hint");
-    
     const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-    // Bezpieczeństwo i czyszczenie pamięci: Usuwamy stare triggery powiązane z sekcją
-    ScrollTrigger.getAll().forEach(st => {
-        if (st.trigger === section || st.trigger === gallery) st.kill();
-    });
-
-    // Zawsze czyscimy ewentualne stare listenery z kart przed ponowną inicjalizacją
-    cards.forEach((card) => {
-        if (card._awardsMove) card.removeEventListener("pointermove", card._awardsMove);
-        if (card._awardsLeave) card.removeEventListener("pointerleave", card._awardsLeave);
-        gsap.set(card, { clearProps: "transform" });
-    });
-
-    if (reducedMotion) return;
-
-    // 1. Wejście Typografii (Power4 Ease)
-    const introTl = gsap.timeline({
-        scrollTrigger: { 
-            trigger: section, 
-            start: "top 75%", 
-            toggleActions: "play none none reverse" 
-        }
-    });
-
-    const kickerLine = section.querySelector(".awards-kicker__line");
-    if (kickerLine) {
-        introTl.fromTo(kickerLine, { scaleX: 0 }, { scaleX: 1, duration: 1.2, ease: "power4.out" }, 0);
+    if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
+        gsap.registerPlugin(ScrollTrigger);
     }
 
-    if (title && desc && hint) {
-        introTl.fromTo([title, desc, hint],
-            { y: 30, opacity: 0 },
-            { y: 0, opacity: 1, duration: 1.2, stagger: 0.15, ease: "power4.out", clearProps: "transform" },
-            0.2
-        );
+    if (reducedMotion || typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') return;
+
+    // Obsługa natywnego scrollu dla urządzeń mobilnych
+    if (window.matchMedia("(max-width: 900px)").matches) {
+        return;
     }
 
-    // 2. Horyzontalny Scroll i aktualizacja paska postępu (Desktop Only >= 768px)
-    if (window.matchMedia("(min-width: 768px)").matches) {
-        // Poprawione wyliczenie faktycznej szerokości przewijania
-        const getDistance = () => gallery.scrollWidth - window.innerWidth + 120; // 120px marginesu technologicznego
+    const runScrollEngine = () => {
+        // Czyszczenie starych instancji ScrollTrigger dla bezpieczeństwa (HMR / Barba)
+        ScrollTrigger.getAll().forEach(st => {
+            if (st.trigger === section) st.kill();
+        });
+
+        const getDistance = () => {
+            const style = window.getComputedStyle(gallery);
+            const gap = parseFloat(style.gap) || 40;
+            let totalWidth = 0;
+            cards.forEach(card => {
+                totalWidth += card.offsetWidth;
+            });
+            totalWidth += gap * (cards.length - 1);
+            return Math.max(0, totalWidth - window.innerWidth * 0.55);
+        };
+
+        const distance = getDistance();
+        if (distance <= 0) return;
 
         const horizontalTimeline = gsap.timeline({
             scrollTrigger: {
                 trigger: section,
                 start: "top top",
-                end: () => `+=${getDistance()}`,
+                end: () => `+=${Math.max(window.innerHeight * 1.8, getDistance())}`,
                 pin: true,
+                pinSpacing: true,
                 scrub: 1,
                 invalidateOnRefresh: true,
                 onUpdate: (self) => {
                     if (progressLine) {
-                        progressLine.style.setProperty("--award-progress", `${(self.progress * 100).toFixed(2)}%`);
+                        progressLine.style.setProperty(
+                            "--award-progress",
+                            `${self.progress}`
+                        );
                     }
                 }
             }
         });
 
         horizontalTimeline
-            .to(gallery, { x: () => -getDistance(), ease: "none" })
-            .to(cards, { 
-                rotateY: (index) => (index % 2 === 0 ? 3 : -3), 
-                y: (index) => (index % 2 === 0 ? -10 : 10), 
-                stagger: 0.05, 
-                ease: "none" 
-            }, 0);
+            .to(gallery, {
+                x: () => -getDistance(),
+                ease: "none"
+            })
+            .to(
+                cards,
+                {
+                    rotateY: (index) => (index % 2 ? 4 : -4),
+                    y: (index) => (index % 2 ? -14 : 14),
+                    stagger: 0.04,
+                    ease: "none"
+                },
+                0
+            );
 
-        // 3. Efekt 3D na Hover (Affordance) zoptymalizowany przez quickTo
-        if (window.matchMedia("(pointer: fine)").matches) {
-            cards.forEach((card) => {
-                const setRotateX = gsap.quickTo(card, "rotateX", { duration: 0.5, ease: "power3.out" });
-                const setRotateY = gsap.quickTo(card, "rotateY", { duration: 0.5, ease: "power3.out" });
+        const introTl = gsap.timeline({
+            scrollTrigger: {
+                trigger: section,
+                start: "top 70%",
+                once: true
+            }
+        });
 
-                card._awardsMove = (e) => {
-                    const bounds = card.getBoundingClientRect();
-                    const x = e.clientX - bounds.left;
-                    const y = e.clientY - bounds.top;
-                    setRotateX(((y / bounds.height) - 0.5) * -6);
-                    setRotateY(((x / bounds.width) - 0.5) * 8);
-                };
-
-                card._awardsLeave = () => {
-                    gsap.to(card, { rotateX: 0, rotateY: 0, duration: 0.7, ease: "power3.out", overwrite: true });
-                };
-
-                card.addEventListener("pointermove", card._awardsMove);
-                card.addEventListener("pointerleave", card._awardsLeave);
-            });
+        const kickerLine = section.querySelector(".awards-kicker__line");
+        if (kickerLine) {
+            introTl.from(kickerLine, { scaleX: 0, duration: 1.2, ease: "power4.out" }, 0);
         }
-    }
+
+        introTl.from(".awards-title", {
+            y: 80,
+            opacity: 0,
+            duration: 1.4,
+            ease: "power4.out"
+        }, 0.2)
+        .from(".awards-description, .awards-scroll-hint", {
+            y: 30,
+            opacity: 0,
+            duration: 1,
+            stagger: 0.12,
+            ease: "power3.out"
+        }, 0.4);
+
+        // Czyszczenie starych listenerów i przypisanie nowych (Memory Leak Prevention)
+        cards.forEach((card) => {
+            if (card._awardsMove) card.removeEventListener("pointermove", card._awardsMove);
+            if (card._awardsLeave) card.removeEventListener("pointerleave", card._awardsLeave);
+
+            card._awardsMove = (event) => {
+                const bounds = card.getBoundingClientRect();
+                const x = event.clientX - bounds.left;
+                const y = event.clientY - bounds.top;
+
+                gsap.to(card, {
+                    rotateX: ((y / bounds.height) - 0.5) * -5,
+                    rotateY: ((x / bounds.width) - 0.5) * 7,
+                    duration: 0.5,
+                    ease: "power3.out",
+                    overwrite: true
+                });
+            };
+
+            card._awardsLeave = () => {
+                gsap.to(card, {
+                    rotateX: 0,
+                    rotateY: 0,
+                    duration: 0.8,
+                    ease: "elastic.out(1, 0.45)",
+                    overwrite: true
+                });
+            };
+
+            card.addEventListener("pointermove", card._awardsMove);
+            card.addEventListener("pointerleave", card._awardsLeave);
+        });
+
+        ScrollTrigger.refresh();
+    };
+
+    requestAnimationFrame(() => {
+        runScrollEngine();
+    });
 }
 function initModuleMagnetic() {
     const cards = document.querySelectorAll('.module-card');
