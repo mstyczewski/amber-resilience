@@ -355,7 +355,7 @@ body {
 .awards-gallery-wrap {
   position: relative;
   width: calc(100vw - min(38vw, 500px));
-  overflow: visible;
+  overflow: hidden;
 }
 
 .awards-gallery {
