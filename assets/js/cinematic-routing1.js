@@ -3,6 +3,7 @@
    ========================================================================= */
 
 let premiumScrollTarget = null;
+let isInitialLoad = true;
 
 if ('scrollRestoration' in history) {
     history.scrollRestoration = 'manual';
@@ -18,320 +19,82 @@ if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
     gsap.registerPlugin(ScrollTrigger);
 }
 
-// --- BAZA DANYCH MODUŁÓW (Indywidualne + Rodzinne) ---
-const moduleDatabase = {
-    // === PLECAK INDYWIDUALNY ===
-    
-    'tools': { 
-        number: 'Moduł 01', 
-        title: 'Narzędzia', 
-        desc: 'Wszystko, co pozwoli Ci działać. Niezbędny sprzęt do przetrwania w terenie.', 
-        images: [
-            '/photo-moduly/narzedzia-i.png',
-            '/photo-moduly/narzedzia2.png'
-        ], 
-        items: [
-            'narzędzie wielofunkcyjne, 1 szt.',
-            'nóż taktyczny z krzesiwem, osełką i gwizdkiem, 1 szt.',
-            'taśma naprawcza 5 cm x 2,5 m, 1 szt.',
-            'zapałki sztormowe w pudełku, 14 szt.',
-            'linka o grubości 2 mm – 10 m, 1 szt.',
-            'trytytka wielorazowa 20 cm, 10 szt.',
-            'brelok EDC z retraktorem, 1 szt.',
-            'zestaw do szycia, 1 szt.',
-            'rękawice ochronne z poliestru powlekane poliuretanem – rozmiar 8, 1 para'
-             
-           
-        ] 
-    },
-
-    'orientation': { 
-        number: 'Moduł 02', 
-        title: 'Orientacja', 
-        desc: 'Znajdź drogę, utrzymaj świadomość sytuacyjną i komunikację.', 
-        images: [
-            '/photo-moduly/orientacja-i.png',
-            '/photo-moduly/orientacja2.png'
-        ],
-        items: [
-               'mapa samochodowa Polski w skali 1:700000 (wersja 01.2026), 1 szt.',
-               'notes wodoodporny, 1 szt.',
-               'radio awaryjne z latarką LED i powerbankiem (2000 mAh), zasilane akumulatorem typu 18650 (3.7V) ładowane korbką lub panelem solarnym, 1 szt.',
-               'latarka czołowa LED 1500 lumenów o zasięgu 300 m, zasilana 2 x akumulatorem typu 18650 (3.7V) ładowanie ładowarką sieciową lub samochodową, 1 szt.',
-               'wodoodporne etui na dokumenty, 1 szt.',
-               'karabińczyk z kompasem i termometrem, 1 szt.'
-               
-        ] 
-    },
-
-    'shelter': { 
-        number: 'Moduł 03', 
-        title: 'Schronienie', 
-        desc: 'Ochrona przed żywiołami i izolacja termiczna.', 
-        images: [
-            '/photo-moduly/schronienie-i.png',
-            '/photo-moduly/schronienie2.png'
-        ],
-        items: [
-            'kurtka przeciwdeszczowa rozmiar L, 1 szt.',
-            'śpiwór awaryjny w worku z gwizdkiem, wymiary 215 x 90 cm, 1 szt.',
-            'ogrzewacz do rąk, 1 para',
-            'ogrzewacz do stóp, 1 para'
-            
-        ] 
-    },
-
-    'nutrition': { 
-        number: 'Moduł 04', 
-        title: 'Wyżywienie', 
-        desc: 'Wysokiej jakości żywność i elektrolity dla zachowania odpowiedniej kondycji psychofizycznej. Sprzęt niezbędny do pozyskania i przechowywania wody oraz przygotowania i spożycia ciepłego posiłku.', 
-        images: [
-            '/photo-moduly/wyzywienie-i.png',
-            '/photo-moduly/wyzywienie2.png'
-        ],
-        items: [
-           'baton energetyczny orzechowy NUT-RATION 100 g (550 kcal), 1 szt.',
-           'batony energetyczne daktylowe NUTRIBASE 660 g (2500 kcal), 1 szt.',
-           'lio&dried food: Zupa pomidorowa z ryżem 85 g (342 kcal), 1 szt.',
-            'elektrolity w proszku HID-RATION 3 g, 9 szt.',
-            'składana szeroka butelka 1 L, 1 szt.',
-            'worek doypack 1 L do uzdatniania wody, 1 szt.',
-            'tabletki do uzdatniania wody, 20 szt.',
-            'pudełko na tabletki, 1 szt.',
-            'indywidualny filtr do wody, 1 szt.',
-            'kubek z pokrywką ze stali nierdzewnej 600 ml, 1 szt.',
-            'składany łyżkowidelec, 1 szt.',
-            'składana kuchenka na paliwo stałe i drewno, 1 szt.',
-            'paliwo stałe do kuchenki (8 tabletek w tubie), 1 szt.'
-            
-        ] 
-    },
-
-    'hygiene': { 
-        number: 'Moduł 05', 
-        title: 'Higiena', 
-        desc: 'Zapewnienie higieny osobistej i komfortu w każdych warunkach.', 
-        images: [
-            '/photo-moduly/higiena1.png',
-            '/photo-moduly/higiena2.jpg'
-        ],
-        items: [
-           'żel i szampon 2w1 20 ml, 1 szt.',
-            'sól fizjologiczna 0,9% 5 ml, 3 szt.',
-            'chusteczki higieniczne 10 szt. 1 paczka',
-            'chusteczki nawilżające, 3 szt.',
-            'chusteczki do dezynfekcji, 3 szt.',
-            'płatki higieniczne, 4 szt.',
-            'patyczki do uszu, 4 szt.',
-            'zatyczki do uszu w pudełku, 1 para',
-            'szczoteczka do zębów, 1 szt.',
-            'osłonka na szczoteczkę do zębów, 1 szt.',
-            'koncentrat pasty do zębów 6 ml, 1 szt.',
-            'skompresowany ręcznik jednorazowy, 4 szt.'
-            
-        ] 
-    },
-
-    'medical': { 
-        number: 'Moduł 06', 
-        title: 'Pierwsza Pomoc', 
-        desc: 'Podstawowe wsparcie medyczne. ', 
-        images: [
-            '/photo-moduly/apteczka.png',
-            '/photo-moduly/apteczka2.png'
-        ],
-        items: [
-           'apteczka wraz z panelem rzepowym systemu Molle - 1 szt.',
-            'Opaska uciskowa, staza taktyczna Black Front (fluo) - 1 szt.',
-'Marker permanentny - 1 szt.',
-'Opatrunek indywidualny typu izraelskiego 10 cm - 1 szt.',
-'Opaska dziana 10 cm x 4 m - 1 szt.',
-'Opaska elasska uciskowa, staza taktyczna Black Front (fluo) - 1 szt.',
-'Marker permanentny - 1 szt.',
-'Opatrunek intyczna 10 cm x 4 m - 1 szt.',
-'Gaziki nasączone alkoholem – 4 szt.',
-'Gaza opatrunkowa jałowa 1 m2 - 1 szt.',
-'Kompres gazowe jałowe 10 x 10 cm - 2 szt.',
-'Siatka opatrunkowa nr 3, długość 1 m - 1 szt.',
-'Siatka opatrunkowa nr 6, długość 1 m - 1 szt.',
-'Chusta trójkątna włókninowa - 1 szt.',
-'Pęseta jednorazowa - 1 szt.',
-'Nożyczki ratownicze Black Front Mini - 1 szt.',
-'Koc ratunkowy NRC (folia izotermiczna) - 2 szt.',
-'Opatrunek hydrożelowy 5 x 5 cm - 1 szt',
-'Opatrunek hydrożelowy 5 x 15 cm - 1 szt',
-'Rękawiczki diagnostyczne, nitrylowe - 4 szt.',
-'Paski do zamykania ran 3 x 75 mm - 1 blister',
-'Paski do zamykania ran 12 x 100 mm - 1 blister',
-'Plaster z opatrunkiem - 4 szt.',
-'Opatrunek z wkładem chłonnym 5 x 7,2 cm – 2 szt.',
-'Opatrunek z wkładem chłonnym 10 x 10 cm – 1 szt.',
-'Maska ratownicza typu POCKET MASK - 1 szt',
-'Ponczo przeciwdeszczowe – 1 szt.',
-'Światło chemiczne - 1 szt.',
-'Kleszczołapki - 1 szt.'
-            
-        ] 
-    }, 
-
-    // === PLECAK RODZINNY ===
-    
-    'tools-family': { 
-        number: 'Moduł 01', 
-        title: 'Narzędzia', 
-        desc: 'Wszystko, co pozwoli Ci działać. Niezbędny sprzęt do przetrwania w terenie.', 
-        images: [
-            '/photo-moduly/narzedzia-r.png',
-            '/photo-moduly/narzedzia2.png'
-        ], 
-        items: [
-            'narzędzie wielofunkcyjne, 1 szt.',
-            'nóż taktyczny z krzesiwem, osełką i gwizdkiem, 1 szt.',
-            'taśma naprawcza 5 cm x 2,5 m, 1 szt.',
-            'zapałki sztormowe w pudełku, 14 szt.',
-            'linka o grubości 2 mm – 10 m, 1 szt.',
-            'trytytka wielorazowa 20 cm, 10 szt.',
-            'brelok EDC z retraktorem, 2 szt.',
-            'zestaw do szycia, 1 szt.',
-            'rękawice ochronne z poliestru powlekane poliuretanem – rozmiar 8, 2 pary'
-        ] 
-    },
-
-    'orientation-family': { 
-        number: 'Moduł 02', 
-        title: 'Orientacja', 
-        desc: 'Znajdź drogę, utrzymaj świadomość sytuacyjną i komunikację.', 
-        images: [
-            '/photo-moduly/orientacja-r.png',
-            '/photo-moduly/orientacja-r2.png'
-        ],
-        items: [
-            'mapa samochodowa Polski w skali 1:700000 (wersja 01.2026), 1 szt.',
-               'notes wodoodporny, 1 szt.',
-               'radio awaryjne z latarką LED i powerbankiem (2000 mAh), zasilane akumulatorem typu 18650 (3.7V) ładowane korbką lub panelem solarnym, 2 szt.',
-               'latarka czołowa LED 1500 lumenów o zasięgu 300 m, zasilana 2 x akumulatorem typu 18650 (3.7V) ładowanie ładowarką sieciową lub samochodową, 2 szt.',
-               'wodoodporne etui na dokumenty, 4 szt.',
-               'karabińczyk z kompasem i termometrem, 2 szt.'
-        ] 
-    },
-
-    'shelter-family': { 
-        number: 'Moduł 03', 
-        title: 'Schronienie', 
-        desc: 'Ochrona przed żywiołami i izolacja termiczna.', 
-       images: [
-            '/photo-moduly/schronienie-r.png',
-            '/photo-moduly/schronienie-r2.png'
-        ],
-        items: [
-            'kurtka przeciwdeszczowa rozmiar L, 2 szt.',
-            'kurtka przeciwdeszczowa rozmiar M, 2 szt.',
-            'śpiwór awaryjny w worku z gwizdkiem, wymiary 215 x 90 cm, 4 szt.',
-            'ogrzewacz do rąk, 4 pary',
-            'ogrzewacz do stóp, 4 pary'
-        ] 
-    },
-
-    'nutrition-family': { 
-        number: 'Moduł 04', 
-        title: 'Wyżywienie', 
-        desc: 'Wysokiej jakości żywność i elektrolity dla zachowania odpowiedniej kondycji psychofizycznej. Sprzęt niezbędny do pozyskania i przechowywania wody oraz przygotowania i spożycia ciepłego posiłku.', 
-        images: [
-            '/photo-moduly/wyzywienie-r.png',
-            '/photo-moduly/wyzywienie-r2.png'
-        ],
-        items: [
-            'baton energetyczny orzechowy NUT-RATION 100 g (550 kcal), 4 szt.',
-            'batony energetyczne daktylowe NUTRIBASE 660 g (2500 kcal), 2 szt.',
-           'lio&dried food: Zupa pomidorowa z ryżem 85 g (342 kcal), 2 szt.',
-           'lio&dried food: Zupa krem z pieczarek 85 g (341 kcal), 2 szt.',
-            'elektrolity HID-RATION (28 tabletek w tubie), 1 szt.',
-            'składana szeroka butelka 1 L, 2 szt.',
-            'worek doypack 1 L do uzdatniania wody, 2 szt.',
-            'tabletki do uzdatniania wody, 30 szt.',
-            'pudełko na tabletki, 1 szt.',
-            'indywidualny filtr do wody, 2 szt.',
-            'kubek z pokrywką ze stali nierdzewnej 600 ml, 4 szt.',
-            'składany łyżkowidelec, 4 szt.',
-            'składana kuchenka na paliwo stałe i drewno, 1 szt.',
-            'paliwo stałe do kuchenki (8 tabletek w tubie), 2 szt.'
-        ] 
-    },
-
-    'hygiene-family': { 
-        number: 'Moduł 05', 
-        title: 'Higiena', 
-        desc: 'Zapewnienie higieny osobistej i uczucia komfortu w każdych warunkach.', 
-       images: [
-            '/photo-moduly/higiena-r1.png',
-            '/photo-moduly/higiena-r2.png'
-        ],
-        items: [
-             ' 4 zestawy:',
-            'żel i szampon 2w1 20 ml, 1 szt.',
-            'sól fizjologiczna 0,9% 5 ml, 3 szt.',
-            'chusteczki higieniczne 10 szt., 1 paczka',
-            'chusteczki nawilżające, 3 szt.',
-            'chusteczki do dezynfekcji, 3 szt.',
-            'płatki higieniczne, 4 szt.',
-            'patyczki do uszu, 4 szt.',
-            'zatyczki do uszu w pudełku, 1 para',
-            'szczoteczka do zębów, 1 szt.',
-            'osłonka na szczoteczkę do zębów, 1 szt.',
-            'koncentrat pasty do zębów 6 ml, 1 szt.',
-            'skompresowany ręcznik jednorazowy, 4 szt.'
-        ] 
-    },
-
-    'medical-family': { 
-        number: 'Moduł 06', 
-        title: 'Pierwsza Pomoc', 
-        desc: 'Podstawowe wsparcie medyczne.', 
-        images: [
-            '/photo-moduly/apteczka.png',
-            '/photo-moduly/apteczka2.png'
-        ],
-        items: [
-            'apteczka wraz z panelem rzepowym systemu Molle - 1 szt.',
-            'Opaska uciskowa, staza taktyczna Black Front (fluo) - 1 szt.',
-'Marker permanentny - 1 szt.',
-'Opatrunek indywidualny typu izraelskiego 10 cm - 1 szt.',
-'Opaska dziana 10 cm x 4 m - 1 szt.',
-'Opaska elasska uciskowa, staza taktyczna Black Front (fluo) - 1 szt.',
-'Marker permanentny - 1 szt.',
-'Opatrunek intyczna 10 cm x 4 m - 1 szt.',
-'Gaziki nasączone alkoholem – 4 szt.',
-'Gaza opatrunkowa jałowa 1 m2 - 1 szt.',
-'Kompres gazowe jałowe 10 x 10 cm - 2 szt.',
-'Siatka opatrunkowa nr 3, długość 1 m - 1 szt.',
-'Siatka opatrunkowa nr 6, długość 1 m - 1 szt.',
-'Chusta trójkątna włókninowa - 1 szt.',
-'Pęseta jednorazowa - 1 szt.',
-'Nożyczki ratownicze Black Front Mini - 1 szt.',
-'Koc ratunkowy NRC (folia izotermiczna) - 2 szt.',
-'Opatrunek hydrożelowy 5 x 5 cm - 1 szt',
-'Opatrunek hydrożelowy 5 x 15 cm - 1 szt',
-'Rękawiczki diagnostyczne, nitrylowe - 4 szt.',
-'Paski do zamykania ran 3 x 75 mm - 1 blister',
-'Paski do zamykania ran 12 x 100 mm - 1 blister',
-'Plaster z opatrunkiem - 4 szt.',
-'Opatrunek z wkładem chłonnym 5 x 7,2 cm – 2 szt.',
-'Opatrunek z wkładem chłonnym 10 x 10 cm – 1 szt.',
-'Maska ratownicza typu POCKET MASK - 1 szt',
-'Ponczo przeciwdeszczowe – 1 szt.',
-'Światło chemiczne - 1 szt.',
-'Kleszczołapki - 1 szt.'
-        ] 
-    }
-}; 
+// --- BAZA DANYCH MODUŁÓW ---
+const moduleDatabase = {};
 
 /* =========================================================================
    GLOBALNE FUNKCJE LOGIKI PRODUKTU
    ========================================================================= */
 
-// --- NOWY SILNIK WYŚWIETLANIA WIELE ZDJĘĆ W DOSSIER ---
+function getModuleData(moduleId) {
+    const tile = document.querySelector(`[data-module="${moduleId}"]`);
+    const dataEl = tile ? tile.querySelector('.module-data') : null;
+
+    if (tile && dataEl) {
+        const numberEl = tile.querySelector('.module-number');
+        const titleEl = tile.querySelector('.module-title');
+        const descEl = dataEl.querySelector('.module-desc');
+
+        return {
+            number: numberEl ? `Moduł ${numberEl.textContent.trim()}` : '',
+            title: titleEl ? titleEl.textContent.trim() : '',
+            desc: descEl ? descEl.textContent.trim() : '',
+            items: Array.from(dataEl.querySelectorAll('.module-items li')).map(li => li.textContent.trim()),
+            images: Array.from(dataEl.querySelectorAll('.module-images img')).map(img => img.getAttribute('src'))
+        };
+    }
+    return moduleDatabase[moduleId] || null;
+}
+
+function scrambleNumber(el) {
+    if (!el || el._scrambling) return;
+    const final = el.dataset.final || el.textContent.trim();
+    el.dataset.final = final;
+    el._scrambling = true;
+
+    let iterations = 0;
+    const maxIterations = 7;
+    const interval = setInterval(() => {
+        el.textContent = String(Math.floor(Math.random() * 90 + 10));
+        iterations++;
+        if (iterations >= maxIterations) {
+            clearInterval(interval);
+            el.textContent = final;
+            el._scrambling = false;
+        }
+    }, 35);
+}
+
+// --- Podział tytułu modułu na pojedyncze znaki (do kaskadowej animacji wejścia) ---
+function splitChars(el) {
+    if (!el) return [];
+    if (el.dataset.split === 'true') {
+        return Array.from(el.querySelectorAll('.module-title-char'));
+    }
+    const text = el.textContent;
+    el.textContent = '';
+    el.dataset.split = 'true';
+    
+    const chars = [...text].map(ch => {
+        const span = document.createElement('span');
+        span.className = 'module-title-char';
+        span.textContent = ch === ' ' ? ' ' : ch;
+        el.appendChild(span);
+        return span;
+    });
+
+    // THE $10K FIX: Twardy Reflow / Repaint
+    // W środowiskach SPA (Barba.js), wymiana DOM odbywa się synchronicznie i błyskawicznie.
+    // Usunięcie i dodanie węzłów tekstowych potrafi "zgubić" warstwę transformacji 
+    // pseudo-elementu (::after) w kompozytorze przeglądarki (szczególnie WebKit).
+    // Odczyt offsetWidth zmusza przeglądarkę do fizycznego przeliczenia geometrii elementu.
+    void el.offsetWidth;
+
+    return chars;
+}
+
 window.openDossier = function(moduleId) {
-    const data = moduleDatabase[moduleId];
+    const data = getModuleData(moduleId);
     if (!data) return;
 
     const numberEl = document.getElementById('dossier-number');
@@ -355,7 +118,6 @@ window.openDossier = function(moduleId) {
 
         if (thumbsContainer) {
             thumbsContainer.innerHTML = '';
-            // Jeśli moduł ma tylko 1 zdjęcie, ukrywamy pasek miniaturek dla czystości wizualnej, jeśli ma > 1 - pokazujemy
             if (data.images.length > 1) {
                 thumbsContainer.style.display = 'flex';
                 data.images.forEach((imgUrl, index) => {
@@ -395,15 +157,15 @@ window.openDossier = function(moduleId) {
         listContainer.innerHTML = ''; 
         data.items.forEach(item => {
             const li = document.createElement('li');
-            
-            if (item.trim() === '4 zestawy:') {
+            const trimmedItem = item.trim();
+        
+            if (trimmedItem === '4 zestawy:' || trimmedItem === 'oraz:') {
                 li.className = 'flex items-start mt-4 mb-2';
-                li.innerHTML = `<span class="text-brand-gold font-mono text-[11px] uppercase tracking-[0.2em]">${item.trim()}</span>`;
+                li.innerHTML = `<span class="text-brand-gold font-mono text-[11px] uppercase tracking-[0.2em]">${trimmedItem}</span>`;
             } else {
                 li.className = 'flex items-start gap-4';
                 li.innerHTML = `<span class="text-brand-gold mt-1 font-mono text-[10px]">///</span><span class="leading-relaxed font-light text-sm">${item}</span>`;
             }
-            
             listContainer.appendChild(li);
         });
     }
@@ -421,11 +183,34 @@ window.openDossier = function(moduleId) {
         panel.classList.remove('translate-y-12');
         panel.classList.add('translate-y-0');
     }
+
+    if (typeof gsap !== 'undefined') {
+        const introItems = [numberEl, titleEl, descEl].filter(Boolean);
+        const listItemEls = listContainer ? Array.from(listContainer.children) : [];
+        const thumbEls = thumbsContainer ? Array.from(thumbsContainer.children) : [];
+
+        gsap.killTweensOf([mainImgContainer, ...introItems, ...listItemEls, ...thumbEls]);
+
+        if (mainImgContainer) gsap.set(mainImgContainer, { clipPath: 'inset(0 100% 0 0)' });
+        gsap.set(introItems, { y: 22, opacity: 0 });
+        gsap.set(listItemEls, { x: 18, opacity: 0 });
+        gsap.set(thumbEls, { y: 10, opacity: 0 });
+
+        const tl = gsap.timeline({ delay: 0.15 });
+        if (mainImgContainer) tl.to(mainImgContainer, { clipPath: 'inset(0 0% 0 0)', duration: 1, ease: 'expo.inOut' }, 0);
+        tl.to(introItems, { y: 0, opacity: 1, duration: 0.7, stagger: 0.08, ease: 'power3.out' }, 0.25)
+          .to(listItemEls, { x: 0, opacity: 1, duration: 0.5, stagger: 0.035, ease: 'power2.out' }, 0.4)
+          .to(thumbEls, { y: 0, opacity: 1, duration: 0.5, stagger: 0.05, ease: 'power2.out' }, 0.5);
+    }
 };
 
 window.closeDossier = function() {
     const overlay = document.getElementById('dossier-overlay');
     const panel = document.getElementById('dossier-panel');
+
+    if (typeof gsap !== 'undefined' && panel) {
+        gsap.to(panel, { y: 30, opacity: 0.7, duration: 0.4, ease: 'power2.in' });
+    }
     
     if (overlay) {
         overlay.classList.remove('opacity-100', 'pointer-events-auto');
@@ -436,10 +221,12 @@ window.closeDossier = function() {
         panel.classList.add('translate-y-12');
     }
 
-    setTimeout(() => { document.body.style.overflow = ''; }, 700); 
+    setTimeout(() => {
+        document.body.style.overflow = '';
+        if (typeof gsap !== 'undefined' && panel) gsap.set(panel, { clearProps: 'all' });
+    }, 700);
 };
 
-// 1. Kontroler Ilości (odbiera kliknięcie)
 window.updateQuantity = function(change) {
     const input = document.getElementById('qty-input');
     if (!input) return;
@@ -449,16 +236,14 @@ window.updateQuantity = function(change) {
     
     if (newValue >= 1 && newValue <= 10) { 
         input.value = newValue;
-        window.updatePriceDisplay(newValue); // Przekazuje nową ilość do widoku
+        window.updatePriceDisplay(newValue);
     }
 };
 
-// 2. Motion that whispers: Aktualizacja wizualna z animacją (zwrócona do kodu)
 window.updatePriceDisplay = function(quantity) {
     const priceElement = document.getElementById('price-display');
     if (priceElement) {
-        // Dynamiczne czytanie ceny: zadziała i dla 1700 i dla 3700
-        const basePrice = parseInt(priceElement.getAttribute('data-base-price')) || 1800;
+        const basePrice = parseInt(priceElement.getAttribute('data-base-price')) || 1900;
         const formattedPrice = (basePrice * quantity).toLocaleString('pl-PL');
         
         priceElement.style.opacity = '0.5';
@@ -469,13 +254,12 @@ window.updatePriceDisplay = function(quantity) {
     }
 };
 
-// 3. The Invisible Expensive Stuff: Cicha synchronizacja przy starcie Barba.js
 window.syncPriceDisplay = function() {
     const priceElement = document.getElementById('price-display');
     const qtyInput = document.getElementById('qty-input');
     
     if (priceElement && qtyInput) {
-        const basePrice = parseInt(priceElement.getAttribute('data-base-price')) || 1700;
+        const basePrice = parseInt(priceElement.getAttribute('data-base-price')) || 1900;
         const currentValue = parseInt(qtyInput.value) || 1;
         
         priceElement.innerText = `${(basePrice * currentValue).toLocaleString('pl-PL')} PLN`;
@@ -487,7 +271,6 @@ window.changeMainImage = function(imageUrl, btnElement) {
     if (mainBg) {
         mainBg.style.opacity = '0';
         setTimeout(() => {
-            // Jawne wymuszenie containment, aby produkt nigdy nie był ucinany
             mainBg.style.backgroundImage = `url('${imageUrl}')`;
             mainBg.style.backgroundSize = 'contain';
             mainBg.style.backgroundRepeat = 'no-repeat';
@@ -542,15 +325,10 @@ window.navigateMainImage = function(direction) {
     thumbnails[newIndex].scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
 };
 
-/* =========================================================================
-   CINEMATIC LIGHTBOX ENGINE (FULLSCREEN INSPECTION)
-   ========================================================================= */
-
 window.openLightbox = function() {
     const activeImage = document.getElementById('dossier-active-image');
     if (!activeImage) return;
 
-    // Wyciągamy aktualny URL zdjęcia w tle z stylów inline
     const bgImageStyle = activeImage.style.backgroundImage;
     const imageUrl = bgImageStyle.replace(/url\(['"]?(.*?)['"]?\)/, '$1');
     
@@ -561,7 +339,6 @@ window.openLightbox = function() {
     
     if (lightbox && lightboxImg) {
         lightboxImg.src = imageUrl;
-        // Otwieramy overlay z płynnym wejściem (Motion that whispers)
         lightbox.classList.remove('opacity-0', 'pointer-events-none');
         lightbox.classList.add('opacity-100', 'pointer-events-auto');
         setTimeout(() => { 
@@ -582,9 +359,7 @@ window.closeLightbox = function() {
         lightbox.classList.add('opacity-0', 'pointer-events-none');
     }
 };
-/* =========================================================================
-   CONTEXTUAL NAVIGATION (INSTANT EDITORIAL HIDE + FROSTED ONYX)
-   ========================================================================= */
+
 window.initSmartHeader = function() {
     const nav = document.getElementById('premium-nav');
     if (!nav) return;
@@ -596,27 +371,19 @@ window.initSmartHeader = function() {
     window._smartHeaderScroll = function() {
         const currentScrollY = window.scrollY;
         
-        // 1. KONTROLA WIDOCZNOŚCI (Natychmiastowa reakcja)
-        // Jeśli scrollujemy w dół (i minęliśmy próg 10px chroniący przed drganiem touchpada) -> Chowamy!
         if (currentScrollY > lastScrollY && currentScrollY > 10) {
             nav.classList.add('-translate-y-full');
         } 
-        // Jeśli scrollujemy w górę -> Pokazujemy z powrotem
         else if (currentScrollY < lastScrollY) {
             nav.classList.remove('-translate-y-full');
         }
         
-        // 2. KONTROLA MATERIAŁU (Przezroczystość vs Matowe szkło)
-        // Jeśli jesteśmy oderwani od samej góry (> 50px), nawigacja (gdy się pojawi) musi mieć tło
         if (currentScrollY > 50) {
             nav.classList.add('bg-brand-dark/60', 'backdrop-blur-lg', 'shadow-2xl');
             nav.classList.remove('bg-transparent');
-            
-            // Kompaktowy tryb (niższy pasek, żeby mniej zasłaniał)
             nav.classList.remove('py-6');
             nav.classList.add('py-4');
         } else {
-            // Jesteśmy na absolutnym szczycie sekcji Hero -> Pełna przezroczystość i oddech
             nav.classList.remove('bg-brand-dark/60', 'backdrop-blur-lg', 'shadow-2xl', 'py-4');
             nav.classList.add('bg-transparent', 'py-6');
         }
@@ -625,14 +392,8 @@ window.initSmartHeader = function() {
     };
 
     window.addEventListener('scroll', window._smartHeaderScroll, { passive: true });
-    
-    // Wymuszenie kalkulacji startowej
     window._smartHeaderScroll();
 };
-
-/* =========================================================================
-   SILNIKI ANIMACJI GSAP I CYKL ŻYCIA
-   ========================================================================= */
 
 function initAnimations() {
     const observer = new IntersectionObserver((entries) => {
@@ -666,10 +427,13 @@ function initBackpackCardsAnimation() {
 function initHeroAndThreatAnimations() {
     const hero = document.querySelector("#hero");
     if (hero) {
-        gsap.to(hero, {
-            scrollTrigger: { trigger: hero, start: "top top", end: "bottom top", scrub: 1 },
-            scale: 0.95, opacity: 0.5, filter: "blur(10px)", ease: "none"
-        });
+        gsap.fromTo(hero, 
+            { scale: 1, opacity: 1, filter: "blur(0px)" },
+            {
+                scrollTrigger: { trigger: hero, start: "top top", end: "bottom top", scrub: 1 },
+                scale: 0.95, opacity: 0.5, filter: "blur(10px)", ease: "none"
+            }
+        );
     }
 
     gsap.from(".threat-line-1, .threat-line-2, .threat-line-3", {
@@ -685,17 +449,13 @@ function initHeroAndThreatAnimations() {
         }
     );
 }
+
 function initCinematicMedia() {
     const cinematicVideos = document.querySelectorAll('video[autoplay]');
     
     cinematicVideos.forEach(video => {
-        // USUNIĘTO: video.load(); - Nie niszczymy natywnego bufora przeglądarki!
-        
-        // Sprawdzamy, czy wideo faktycznie potrzebuje naszej pomocy do startu
-        // (np. po przejściu Barba.js z innej podstrony)
         if (video.paused) {
             const playPromise = video.play();
-            
             if (playPromise !== undefined) {
                 playPromise.catch(error => {
                     console.warn("[Amber Resilience | Premium Engine] Zablokowano autoodtwarzanie:", error);
@@ -705,17 +465,227 @@ function initCinematicMedia() {
     });
 }
 
-function initFeatureGridAnimation() {
-    const featureCards = document.querySelectorAll('.feature-card');
-    if (featureCards.length === 0) return;
+/* =========================================================
+   WHY AMBER RESILIENCE | STACKING CARDS ENGINE
+   ========================================================= */
+function initWhyAmberStacking() {
+    const cards = gsap.utils.toArray('.why-card');
+    if (cards.length === 0 || typeof gsap === 'undefined') return;
 
-    gsap.fromTo(featureCards, 
-        { y: 40, opacity: 0 }, 
-        {
-            y: 0, opacity: 1, duration: 1.5, stagger: 0.4, ease: "power2.out",
-            scrollTrigger: { trigger: ".feature-grid-container", start: "top 60%", toggleActions: "play none none reverse" }
+    cards.forEach((card, i) => {
+        const inner = card.querySelector('.why-card-inner');
+        const bg = card.querySelector('.why-card-bg');
+
+        // 1. Zjawiskowy Image Reveal (gdy karta osiąga ok. 70% ekranu)
+        if (bg) {
+            gsap.to(bg, {
+                opacity: 0.35, // Delikatna opaska obrazu (dbałość o WCAG i czytelność)
+                duration: 1.5,
+                ease: "power2.out",
+                scrollTrigger: {
+                    trigger: card,
+                    start: "top 65%",
+                    toggleActions: "play none none reverse"
+                }
+            });
         }
-    );
+
+        // 2. Kinematyczna symulacja głębi (kolejna karta wgniata i rozmywa poprzednią)
+        if (i < cards.length - 1) {
+            gsap.to(inner, {
+                scale: 0.92,
+                opacity: 0.2,
+                filter: "blur(12px)",
+                ease: "none",
+                scrollTrigger: {
+                    trigger: cards[i + 1],
+                    start: "top bottom", // Start, gdy nastepna karta pojawia sie u dolu
+                    end: "top top",      // Koniec, gdy nastepna karta doklei sie do sufitu
+                    scrub: true,         // Precyzyjne spięcie ze scrollem (hardware accelerated)
+                }
+            });
+        }
+    });
+}
+
+
+
+// --- WEJŚCIE SIATKI MODUŁÓW: wycieranie clip-path + kaskadowe litery tytułu ---
+function initModulesGridAnimation() {
+    const cards = document.querySelectorAll('.module-card');
+    if (cards.length === 0 || typeof gsap === 'undefined') return;
+
+    cards.forEach((card, i) => {
+        const chars = splitChars(card.querySelector('.module-title'));
+
+        gsap.set(card, { clipPath: 'inset(0% 0 100% 0)', opacity: 0, y: 30 });
+        if (chars.length) gsap.set(chars, { yPercent: 120, opacity: 0 });
+
+        const tl = gsap.timeline({
+            scrollTrigger: { trigger: card, start: 'top 88%', toggleActions: 'play none none reverse' },
+            delay: (i % 3) * 0.08
+        });
+
+        // THE $10K FIX: Dodajemy clearProps: 'transform,clipPath'
+        // Gdy GSAP kończy animację osi Y (translate), pozostawia inline style (np. transform: translate(0,0)).
+        // Taki inline transform na elemencie rodzica potrafi nieodwracalnie zaburzyć "stacking context" 
+        // i usunąć warstwę kompozycji dla pseudoelementów (::after) w Safari i Chrome. 
+        // Wyczyszczenie transformacji natychmiast po animacji naprawia bug ze złotą kreską.
+        tl.to(card, { 
+            clipPath: 'inset(0% 0 0% 0)', 
+            opacity: 1, 
+            y: 0, 
+            duration: 1.1, 
+            ease: 'power4.out',
+            clearProps: 'transform,clipPath' 
+        });
+        
+        if (chars.length) {
+            tl.to(chars, { 
+                yPercent: 0, 
+                opacity: 1, 
+                duration: 0.6, 
+                stagger: 0.018, 
+                ease: 'power3.out',
+                clearProps: 'transform' // Czysty DOM po animacji
+            }, '-=0.55');
+        }
+    });
+}
+
+function initAwardsSection() {
+    const section = document.querySelector("#awards");
+    const gallery = document.querySelector("[data-awards-gallery]");
+
+    if (!section || !gallery || typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') return;
+
+    const cards = Array.from(gallery.querySelectorAll(".award-card"));
+    const progressLine = section.querySelector(".awards-progress__line");
+    const title = section.querySelector(".awards-title");
+    const desc = section.querySelector(".awards-desc");
+    const hint = section.querySelector(".awards-scroll-hint");
+    
+    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    // Bezpieczeństwo i czyszczenie pamięci: Usuwamy stare triggery powiązane z sekcją
+    ScrollTrigger.getAll().forEach(st => {
+        if (st.trigger === section || st.trigger === gallery) st.kill();
+    });
+
+    // Zawsze czyscimy ewentualne stare listenery z kart przed ponowną inicjalizacją
+    cards.forEach((card) => {
+        if (card._awardsMove) card.removeEventListener("pointermove", card._awardsMove);
+        if (card._awardsLeave) card.removeEventListener("pointerleave", card._awardsLeave);
+        gsap.set(card, { clearProps: "transform" });
+    });
+
+    if (reducedMotion) return;
+
+    // 1. Wejście Typografii (Power4 Ease)
+    const introTl = gsap.timeline({
+        scrollTrigger: { 
+            trigger: section, 
+            start: "top 75%", 
+            toggleActions: "play none none reverse" 
+        }
+    });
+
+    const kickerLine = section.querySelector(".awards-kicker__line");
+    if (kickerLine) {
+        introTl.fromTo(kickerLine, { scaleX: 0 }, { scaleX: 1, duration: 1.2, ease: "power4.out" }, 0);
+    }
+
+    if (title && desc && hint) {
+        introTl.fromTo([title, desc, hint],
+            { y: 30, opacity: 0 },
+            { y: 0, opacity: 1, duration: 1.2, stagger: 0.15, ease: "power4.out", clearProps: "transform" },
+            0.2
+        );
+    }
+
+    // 2. Horyzontalny Scroll i aktualizacja paska postępu (Desktop Only >= 768px)
+    if (window.matchMedia("(min-width: 768px)").matches) {
+        // Poprawione wyliczenie faktycznej szerokości przewijania
+        const getDistance = () => gallery.scrollWidth - window.innerWidth + 120; // 120px marginesu technologicznego
+
+        const horizontalTimeline = gsap.timeline({
+            scrollTrigger: {
+                trigger: section,
+                start: "top top",
+                end: () => `+=${getDistance()}`,
+                pin: true,
+                scrub: 1,
+                invalidateOnRefresh: true,
+                onUpdate: (self) => {
+                    if (progressLine) {
+                        progressLine.style.setProperty("--award-progress", `${(self.progress * 100).toFixed(2)}%`);
+                    }
+                }
+            }
+        });
+
+        horizontalTimeline
+            .to(gallery, { x: () => -getDistance(), ease: "none" })
+            .to(cards, { 
+                rotateY: (index) => (index % 2 === 0 ? 3 : -3), 
+                y: (index) => (index % 2 === 0 ? -10 : 10), 
+                stagger: 0.05, 
+                ease: "none" 
+            }, 0);
+
+        // 3. Efekt 3D na Hover (Affordance) zoptymalizowany przez quickTo
+        if (window.matchMedia("(pointer: fine)").matches) {
+            cards.forEach((card) => {
+                const setRotateX = gsap.quickTo(card, "rotateX", { duration: 0.5, ease: "power3.out" });
+                const setRotateY = gsap.quickTo(card, "rotateY", { duration: 0.5, ease: "power3.out" });
+
+                card._awardsMove = (e) => {
+                    const bounds = card.getBoundingClientRect();
+                    const x = e.clientX - bounds.left;
+                    const y = e.clientY - bounds.top;
+                    setRotateX(((y / bounds.height) - 0.5) * -6);
+                    setRotateY(((x / bounds.width) - 0.5) * 8);
+                };
+
+                card._awardsLeave = () => {
+                    gsap.to(card, { rotateX: 0, rotateY: 0, duration: 0.7, ease: "power3.out", overwrite: true });
+                };
+
+                card.addEventListener("pointermove", card._awardsMove);
+                card.addEventListener("pointerleave", card._awardsLeave);
+            });
+        }
+    }
+}
+function initModuleMagnetic() {
+    const cards = document.querySelectorAll('.module-card');
+    if (cards.length === 0 || typeof gsap === 'undefined') return;
+    if (!window.matchMedia('(pointer: fine)').matches) return;
+
+    cards.forEach(card => {
+        const setRotateX = gsap.quickTo(card, 'rotateX', { duration: 0.6, ease: 'power3.out' });
+        const setRotateY = gsap.quickTo(card, 'rotateY', { duration: 0.6, ease: 'power3.out' });
+
+        card._magneticMove = (e) => {
+            const rect = card.getBoundingClientRect();
+            const px = (e.clientX - rect.left) / rect.width;
+            const py = (e.clientY - rect.top) / rect.height;
+            setRotateY((px - 0.5) * 8);
+            setRotateX(-(py - 0.5) * 8);
+            card.style.setProperty('--x', `${px * 100}%`);
+            card.style.setProperty('--y', `${py * 100}%`);
+        };
+        card._magneticLeave = () => { setRotateX(0); setRotateY(0); };
+        card._magneticEnter = () => scrambleNumber(card.querySelector('.module-number'));
+
+        card.removeEventListener('mousemove', card._magneticMove);
+        card.removeEventListener('mouseleave', card._magneticLeave);
+        card.removeEventListener('mouseenter', card._magneticEnter);
+
+        card.addEventListener('mousemove', card._magneticMove);
+        card.addEventListener('mouseleave', card._magneticLeave);
+        card.addEventListener('mouseenter', card._magneticEnter);
+    });
 }
 
 function initLightboxBind() {
@@ -747,7 +717,6 @@ function initContactForm() {
 
     if (!form || !privacyCheckbox || !submitBtn) return;
 
-    // Klonowanie checkboxa (czyszczenie starych eventów dla Barba.js)
     const newCheckbox = privacyCheckbox.cloneNode(true);
     privacyCheckbox.parentNode.replaceChild(newCheckbox, privacyCheckbox);
 
@@ -764,14 +733,12 @@ function initContactForm() {
         }
     });
 
-    // Przechwycenie wysyłki
     form.addEventListener('submit', async (e) => {
         e.preventDefault();
         
         const btnText = submitBtn.querySelector('span.relative.z-10');
         const originalText = btnText.innerText;
         
-        // Stan ładowania (Motion that whispers)
         btnText.innerText = 'WYSYŁANIE...';
         submitBtn.classList.add('opacity-70', 'pointer-events-none');
         gsap.to(submitBtn, { opacity: 0.5, yoyo: true, repeat: -1, duration: 0.6, ease: "power1.inOut" });
@@ -788,7 +755,6 @@ function initContactForm() {
             gsap.killTweensOf(submitBtn);
 
             if (result.success) {
-                // Sukces estetyczny
                 submitBtn.classList.remove('opacity-70', 'border-brand-gold/30');
                 submitBtn.classList.add('border-brand-gold', 'bg-brand-gold/10');
                 gsap.to(submitBtn, { opacity: 1, duration: 0.3 });
@@ -805,7 +771,6 @@ function initContactForm() {
             gsap.killTweensOf(submitBtn);
             gsap.to(submitBtn, { opacity: 1, duration: 0.3 });
             
-            // Animacja błędu (shake)
             gsap.fromTo(submitBtn, 
                 { x: -5 }, 
                 { x: 5, duration: 0.1, yoyo: true, repeat: 5, ease: "none", 
@@ -833,7 +798,6 @@ function initObfuscatedEmails() {
             link.href = `mailto:${emailAddress}`;
             link.textContent = emailAddress;
             
-            // Oczyszczamy DOM z atrybutów technicznych dla bezwzględnej estetyki kodu
             link.removeAttribute('data-user');
             link.removeAttribute('data-domain');
         }
@@ -888,6 +852,7 @@ function initNavLinks() {
         });
     });
 }
+
 function initMobileMenu() {
     const trigger = document.getElementById('mobile-menu-trigger');
     const closeBtn = document.getElementById('mobile-menu-close');
@@ -895,14 +860,12 @@ function initMobileMenu() {
     
     if (!trigger || !overlay) return;
 
-    // Klonowanie przycisków zapobiega wyciekom pamięci w Barba.js
     const newTrigger = trigger.cloneNode(true);
     trigger.parentNode.replaceChild(newTrigger, trigger);
     
     const newCloseBtn = closeBtn ? closeBtn.cloneNode(true) : null;
     if (closeBtn) closeBtn.parentNode.replaceChild(newCloseBtn, closeBtn);
 
-    // Oś czasu GSAP (wstrzymana)
     const tl = gsap.timeline({ paused: true, reversed: true });
     
     tl.to(overlay, { opacity: 1, pointerEvents: "auto", duration: 0.4, ease: "power2.inOut" })
@@ -930,7 +893,6 @@ function initMobileMenu() {
     newTrigger.addEventListener('click', toggleMenu);
     if (newCloseBtn) newCloseBtn.addEventListener('click', toggleMenu);
 
-    // Standardowe linki zamykają menu
     const links = document.querySelectorAll('.mobile-nav-link');
     links.forEach(link => {
         link.addEventListener('click', () => {
@@ -947,7 +909,6 @@ function initMobileMenu() {
         });
     });
 
-    // Podzakładki plecaków również zamykają menu mobilne po kliknięciu
     const subLinks = document.querySelectorAll('.mobile-sub-link');
     subLinks.forEach(subLink => {
         subLink.addEventListener('click', () => {
@@ -956,6 +917,7 @@ function initMobileMenu() {
         });
     });
 }
+
 document.addEventListener('DOMContentLoaded', () => {
     const cookieModal = document.getElementById('premium-cookie-modal');
     const acceptAllBtn = document.getElementById('cookie-accept-all');
@@ -963,10 +925,8 @@ document.addEventListener('DOMContentLoaded', () => {
     
     const cookieConsentName = 'amber_resilience_consent';
 
-    // Jeśli brak panelu w kodzie HTML, przerywamy skrypt by uniknąć błędów
     if (!cookieModal) return; 
 
-    // GSAP Animation Timeline
     const tlCookie = gsap.timeline({ paused: true });
     
     tlCookie.to(cookieModal, {
@@ -991,12 +951,10 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     };
 
-    // Sprawdzenie stanu (czy użytkownik już zaakceptował)
     if (!localStorage.getItem(cookieConsentName)) {
         setTimeout(() => tlCookie.play(), 2500); 
     }
 
-    // Handlery przycisków wewnątrz panelu
     if (acceptAllBtn) {
         acceptAllBtn.addEventListener('click', () => {
             localStorage.setItem(cookieConsentName, 'all');
@@ -1011,22 +969,16 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // ROZWIĄZANIE PROBLEMU: Delegacja zdarzeń (Event Delegation)
-    // Nasłuchujemy na całym dokumencie, co rozwiązuje konflikt z dynamicznie ładowaną stopką
     document.addEventListener('click', (e) => {
-        // Sprawdzamy, czy kliknięty element to nasz przycisk, lub czy znajduje się w jego wnętrzu (np. ikona SVG)
         const openSettingsBtn = e.target.closest('#open-cookie-settings');
         
         if (openSettingsBtn) {
-            e.preventDefault(); // Blokujemy domyślne zachowanie linku
-            tlCookie.restart(); // Otwieramy panel cookies
+            e.preventDefault(); 
+            tlCookie.restart(); 
         }
     });
 });
 
-/* =========================================================================
-   PORTAL ENGINE 
-   ========================================================================= */
 function setupPortals() {
     const dossier = document.getElementById('dossier-overlay');
     const lightbox = document.getElementById('lightbox-overlay');
@@ -1039,171 +991,7 @@ function setupPortals() {
     }
 }
 
-/* =========================================================================
-   FAQ ENGINE | DATA-DRIVEN ARCHITECTURE
-   ========================================================================= */
-
-/* =========================================================================
-   FAQ ENGINE | DATA-DRIVEN ARCHITECTURE
-   ========================================================================= */
-
-const faqDatabase = [
-    {
-        question: "Czym jest plecak awaryjny i do czego służy?",
-        answer: `Plecak awaryjny to wcześniej przygotowany zestaw najważniejszych rzeczy potrzebnych podczas
-konieczności nagłego wystąpienia sytuacji kryzysowej. Może być wykorzystywany podczas awarii
-infrastruktury, ewakuacji, długotrwałego braku prądu, klęsk żywiołowych lub innych
-nieprzewidzianych zdarzeń.`
-    },
-    {
-        question: "Jaka jest różnica między plecakiem awaryjnym a ewakuacyjnym?",
-        answer: `Obie nazwy w ujęciu potocznym często występują zamiennie. Plecak awaryjny jest pojęciem szerszym
-i może służyć podczas różnych sytuacji kryzysowych w miejscu, w którym aktualnie przebywamy.
-Takie sytuacje to m.in. blackout, paraliż komunikacyjny czy też nagłe zdarzenie podczas wyprawy.
-Plecak ewakuacyjny jest przygotowany głównie z myślą o szybkim opuszczeniu miejsca zamieszkania i
-samodzielnym funkcjonowaniu i zabezpieczeniu podstawowych potrzeb przez określony czas w z
-góry zaplanowanym miejscu docelowym.
-W obliczu możliwości wystąpienia różnych rodzajów kryzysów, nazewnictwo często ma mniejsze
-znaczenie dla praktycznego wykorzystania, może mieć jednak znaczenie psychologiczne. Ewakuacja
-często kojarzy się z konfliktami zbrojnymi czy poważnymi katastrofami naturalnymi, co w przypadku
-braku poczucia bezpośredniego zagrożenia wpływa na brak potrzeby zabezpieczenia. Możliwość
-wystąpienia awarii lokalnej czy krajowej jest bardziej prawdopodobna i ta myśl powinna być punktem
-wyjścia do decyzji o zaopatrzeniu się w plecak awaryjny.`
-    },
-    {
-        question: "Na ile dni powinien wystarczyć plecak awaryjny?",
-        answer: `Najczęściej rekomenduje się przygotowanie plecaka awaryjnego na minimum 72 godziny. To czas, który często uznaje się za kluczowy podczas pierwszej fazy sytuacji kryzysowej lub ograniczonego dostępu do pomocy. Po tym czasie pomoc powinna zostać ustrukturyzowana i działania powinny być koordynowane przed odpowiednie służby. W kontekście przeznaczenia na 72 godziny, najważniejszą kwestią jest zabezpieczenie się w adekwatną ilość żywności i wody, ponieważ są to zasoby, których ilość maleje w czasie.`
-    },
-    {
-        question: "Jaką żywność powinien zawierać plecak awaryjny?",
-        answer: `Wg wytycznych WHO (ang. World Health Organisation) w sytuacjach awaryjnych zaleca się
-dostarczenie organizmowi ilości energii na poziomie 2100 kcal/ dobę [Food and Nutrition Needs in
-Emergencies, WHO 2004], co przekłada się na ponad 6000 kcal/ 72 godziny. Dla porównania w
-przypadku racji awaryjnych dla żołnierzy wytyczne stanowią, że wystarczająca wartość energetyczna
-restrykcyjnej racji pokarmowej na przetrwanie wynosi ok. 1500 kcal/ dobę (Bertrandt J. i wsp., Racja
-pokarmowa na przetrwanie., Problemy Higieny i Epidemiologii 2011). Wobec przytoczonych danych
-decyzja o ilości zaplanowanej żywności może wydawać się trudna. Zatem należy racjonalnie
-podchodzić do ilości pożywienia na 72 h i pamiętać, że w sytuacji kryzysowej najważniejsze jest
-zabezpieczenie najbardziej podstawowych potrzeb żywieniowych. Nie należy również marginalizować
-kwestii walorów odżywczo-smakowych, które w warunkach kryzysu mogą mieć niebagatelny wpływ
-na kondycję psychofizyczną.`
-    },
-    {
-        question: "Co powinien zawierać plecak ewakuacyjny?",
-        answer: `Plecak awaryjny powinien zawierać podstawowe wyposażenie pozwalające przetrwać minimum 72
-godziny poza miejscem zamieszkania. Co oczywiste, każdy element plecaka może być użyteczny w
-innych okolicznościach, dlatego na zawartość plecaka należy patrzeć kompleksowo, ze świadomością,
-że niektóre elementy będę wykorzystywane częściej, a niektóre być może wcale. Plecak awaryjny ma
-dawać poczucie bezpieczeństwa w różnych warunkach. Co do samej zawartości, najczęściej
-wymieniane są: zapas wody i/lub akcesoria do jej uzdatniania, żywność o długim terminie
-przydatności do spożycia, apteczka, latarka, powerbank, radio, dokumenty, odzież, środki higieniczne
-oraz narzędzia wielofunkcyjne. Dokładną zawartość należy określić indywidualnie i zależy ona m.in.
-od takich czynników jak pora roku czy docelowe miejsce przebywania w razie wystąpienia sytuacji
-kryzysowej.`
-    },
-    {
-        question: "Dlaczego warto mieć gotowy plecak w domu?",
-        answer: `TAK — gotowy plecak pozwala zaoszczędzić czas i ograniczyć stres w razie wystąpienia sytuacji
-wymagającej szybkiego działania. Regularnie sprawdzany i uzupełniany zestaw zwiększa gotowość na
-nieprzewidziane zdarzenia. Plecak można również wykorzystywać podczas bardziej codziennych
-sytuacji (np. wielogodzinnych wypraw czy wyjazdów), aby sprawdzić lub przećwiczyć działanie
-wyposażenia. Może to być pomocne w razie wystąpienia realnego zagrożenia.`
-    },
-    {
-        question: "Gdzie przechowywać plecak awaryjny?",
-        answer: `Najlepiej przechowywać go w miejscu łatwo dostępnym dla domowników — np. przy wyjściu z domu,
-w szafie w przedpokoju lub innym miejscu umożliwiającym szybkie zabranie plecaka. Gdy często
-poruszamy się samochodem, warto rozważyć przechowywanie plecaka w samochodzie.`
-    },
-    {
-        question: "Jak często należy aktualizować zawartość plecaka?",
-        answer: `Warto sprawdzać zawartość co najmniej raz na 6 miesięcy. Należy kontrolować terminy ważności
-żywności, leków czy mniej oczywistych elementów takich jak tabletki do uzdatniania wody czy
-ogrzewacze do rąk/ stóp. Można sprawdzić działanie baterii i ewentualnie je naładować. Okresowy
-przegląd zawartości plecaka pomoże dostosowywać wyposażenie do aktualnych potrzeb.`
-    },
-    {
-        question: "Czym wyróżnia się plecak rodzinny?",
-        answer: `Zgodnie z wytycznymi zaleca się, aby każdy domownik, w tym dzieci powyżej 10 roku życia posiadały
-własny plecak awaryjny. Nie precyzuje się co dokładnie powinien zawierać plecak awaryjny dla dzieci,
-tym bardziej tych będących w wieku poniżej 10 lat. Założenie ogólne są teoretyczne. Plecak rodzinny
-jest rozwiązaniem, które wspiera rodziny z dziećmi. Dzieci, zwłaszcza te które nie miały styczności z
-survivalem czy też realną sytuacją kryzysową będą potrzebowały wsparcia ze strony rodziców –
-niezależnie od tego czy są w wieku poniżej lub powyżej 10 lat. Odrębną kwestią są dzieci czy nawet
-osoby dorosłe z niepełnosprawnościami, które wymagają szczególnej opieki. Wiele z takich osób nie
-będzie w stanie poradzić sobie samemu w sytuacji kryzysowej, dodatkowo z obciążeniem w postaci
-plecaka. W plecaku rodzinnym tylko wybrane elementy są przewidziane dla każdej osoby. Część
-elementów jest wspólna, co znacznie obniża ciężar całego plecaka. Z uwagi na fakt, że dzieci inaczej
-znoszą sytuacje stresujące, elementem dodatkowym, o który warto zadbać indywidualnie we
-własnym zakresie są przedmioty, które zapewnią dzieciom namiastkę normalności – np. przenośne
-gry czy dla najmłodszych – przytulanki.`
-    },
-   {
-        question: "Ile powinien ważyć plecak awaryjny?",
-        answer: `Przyjmuje się, że w celu komfortowego użytkowania, plecak z wyposażeniem nie powinien
-przekraczać 10-20% masy ciała, osoby, która będzie go nosić. Jednak w realnych sytuacjach, zależy to
-w dużej mierze od kilku czynników takich jak wiek czy ogólne możliwości użytkownika. Generalnie im
-lżejszy plecak tym lepiej. Warto mieć na uwadze możliwość wystąpienia sytuacji, w której zajdzie
-potrzeba pomocy innym.`
-    },
-   {
-        question: "Czy posiadanie plecaka awaryjnego oznacza szykowanie się na wojne?",
-        answer: `NIE. Prawdą jest, że o potrzebie posiadania plecaków awaryjnych mówi się więcej od momentu
-wybuchu wojny na Ukrainie i dalszej kolejności zmianami prawnymi w Polsce w odniesieniu do
-ochrony ludności i obrony cywilnej. Pamiętać jednak należy, że dosyć stabilna sytuacja polityczna w
-Europie w ostatnich dekadach spowodowała być może zbyt duży spokój wśród polityków i w
-społeczeństwie. Wyposażenie plecaka awaryjnego jest na tyle uniwersalne, że z powodzeniem można
-z niego korzystać w wielu innych sytuacjach – podczas podróży, nagłego paraliżu komunikacyjnego
-czy awarii prądu w domu. Wszystkie niezbędne elementy mamy pod ręką.`
-    },
-      {
-        question: "Czy gotowy plecak jest lepszy niż samodzielnie skompletowany?",
-        answer: `W dyskusji o plecakach awaryjnych nie chodzi o wskazywanie lepszych lub gorszych rozwiązań.
-Nawet bardzo podstawowy zestaw elementów będzie skuteczniejszy niż brak czegokolwiek. Gotowy
-zestaw pozwala osiągnąć podstawowy poziom przygotowania od razu, przy czym należy pamiętać, że
-trzeba się z zawartością plecaka zapoznać, aby umieć z niego skorzystać. Gotowy plecak gwarantuje
-również profesjonalny dobór elementów. Wiele osób, z różnych względów chętniej skorzysta z
-gotowych sprawdzonych rozwiązań, zamiast samodzielnie wyszukiwać pojedyncze elementy. Warto
-zwrócić jeszcze uwagę na fakt, że plecak awaryjny można rozbudowywać na bardzo wiele sposobów,
-zależnie od indywidualnych potrzeb. Gotowy plecak daje pewną podstawę i punkt wyjścia do
-ewentualnego rozszerzenia zawartości.`
-    }
-];
-
-function renderFAQ() {
-    const container = document.getElementById('faq-dynamic-container');
-    if (!container) return;
-
-    container.innerHTML = ''; // Czyszczenie przed renderowaniem
-
-    faqDatabase.forEach((item) => {
-        const faqHTML = `
-            <div class="faq-item border-b border-white/10 group">
-                <button aria-expanded="false" class="faq-trigger w-full text-left py-8 flex justify-between items-center outline-none focus-visible:bg-white/[0.02]">
-                    <h3 class="font-display text-2xl md:text-3xl text-brand-ivory group-hover:text-brand-gold transition-colors duration-500 pr-8">
-                        ${item.question}
-                    </h3>
-                    <span class="faq-icon text-brand-gold transform transition-transform duration-[0.8s] ease-[cubic-bezier(0.16,1,0.3,1)] flex-shrink-0">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 5v14M5 12h14"/></svg>
-                    </span>
-                </button>
-                <div class="faq-content grid grid-rows-[0fr] transition-[grid-template-rows] duration-[0.8s] ease-[cubic-bezier(0.16,1,0.3,1)]">
-                    <div class="overflow-hidden">
-                        <p class="pb-8 text-brand-muted font-light text-lg leading-relaxed max-w-3xl">
-                            ${item.answer}
-                        </p>
-                    </div>
-                </div>
-            </div>
-        `;
-        container.insertAdjacentHTML('beforeend', faqHTML);
-    });
-}
-/* =========================================================================
-   LUXURY DROPDOWN & MOBILE ACCORDION ENGINE (Hybryda Desktop + Mobile)
-   ========================================================================= */
 function initBackpacksDropdown() {
-    // 1. OBSŁUGA DESKTOP (Hover Intent)
     const container = document.querySelector('.dropdown-container');
     const trigger = document.getElementById('backpacks-dropdown-trigger');
     const menu = document.getElementById('backpacks-dropdown-menu');
@@ -1240,9 +1028,7 @@ function initBackpacksDropdown() {
         freshContainer.addEventListener('mouseenter', openMenu);
         freshContainer.addEventListener('mouseleave', closeMenu);
         
-        // Zabezpieczenie dla tabletów/ekranów dotykowych z desktopowym widokiem: kliknięcie toggluje stan
         freshTrigger.addEventListener('click', (e) => {
-            // Jeśli urządzenie ma cechy dotykowe, zamieniamy kliknięcie w interakcję toggle
             if (window.matchMedia('(pointer: coarse)').matches) {
                 e.preventDefault();
                 const isExpanded = freshTrigger.getAttribute('aria-expanded') === 'true';
@@ -1255,7 +1041,6 @@ function initBackpacksDropdown() {
         });
     }
 
-    // 2. OBSŁUGA MOBILNEGO AKORDEONU (Wewnątrz menu hamburgerowego)
     const mobileToggle = document.getElementById('mobile-backpacks-toggle');
     const mobileSubmenu = document.getElementById('mobile-backpacks-submenu');
     const mobileArrow = document.getElementById('mobile-backpacks-arrow');
@@ -1282,7 +1067,6 @@ function initBackpacksDropdown() {
             }
         });
 
-        // Zamknięcie głównego menu mobilnego po kliknięciu w podzakładkę
         const subLinks = document.querySelectorAll('.mobile-sub-link');
         const menuOverlay = document.getElementById('mobile-menu-overlay');
         
@@ -1297,101 +1081,251 @@ function initBackpacksDropdown() {
         });
     }
 }
-/* =========================================================================
-   STRIPE CHECKOUT ENGINE (SERVER-SIDE API / SAQ A COMPLIANT)
-   ========================================================================= */
+
 function initStripeCheckout() {
-    const checkoutBtn = document.getElementById('stripe-checkout-btn');
-    const qtyInput = document.getElementById('qty-input');
+    const triggerBtn = document.getElementById('stripe-checkout-btn');
+    let drawer = document.getElementById('checkout-drawer');
+    let overlay = document.getElementById('checkout-drawer-overlay');
+    let closeBtn = document.getElementById('close-drawer-btn');
+    let form = document.getElementById('premium-checkout-form');
     
-    if (!checkoutBtn || !qtyInput) return;
+    if (!triggerBtn || !drawer || !form) return;
 
-    // Czyszczenie eventów Barba.js (ochrona pamięci i stanu)
-    const newCheckoutBtn = checkoutBtn.cloneNode(true);
-    checkoutBtn.parentNode.replaceChild(newCheckoutBtn, checkoutBtn);
+    const newForm = form.cloneNode(true);
+    form.parentNode.replaceChild(newForm, form);
+    form = newForm;
 
-    newCheckoutBtn.addEventListener('click', async (e) => {
+    const newCloseBtn = closeBtn.cloneNode(true);
+    closeBtn.parentNode.replaceChild(newCloseBtn, closeBtn);
+    closeBtn = newCloseBtn;
+
+    const newOverlay = overlay.cloneNode(true);
+    overlay.parentNode.replaceChild(newOverlay, overlay);
+    overlay = newOverlay;
+
+    setTimeout(() => {
+        drawer.classList.add('transition-all', 'duration-[0.8s]', 'ease-[cubic-bezier(0.16,1,0.3,1)]');
+    }, 100);
+
+    const updateDrawerPrice = () => {
+        const qtyInput = document.getElementById('qty-input');
+        const priceDisplay = document.getElementById('price-display');
+        const drawerPrice = document.getElementById('drawer-price');
+        
+        if (!qtyInput || !priceDisplay || !drawerPrice) return;
+
+        const qty = parseInt(qtyInput.value) || 1;
+        const base = parseInt(priceDisplay.getAttribute('data-base-price')) || 0;
+        drawerPrice.innerText = (base * qty).toLocaleString('pl-PL') + ' PLN';
+    };
+
+    triggerBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        updateDrawerPrice();
+        document.body.style.overflow = 'hidden';
+        overlay.classList.remove('opacity-0', 'pointer-events-none');
+        overlay.classList.add('opacity-100', 'pointer-events-auto');
+        
+        drawer.classList.remove('translate-x-full', 'shadow-none');
+        drawer.classList.add('translate-x-0', 'shadow-2xl');
+    });
+
+    const closeDrawer = () => {
+        document.body.style.overflow = '';
+        overlay.classList.remove('opacity-100', 'pointer-events-auto');
+        overlay.classList.add('opacity-0', 'pointer-events-none');
+        
+        drawer.classList.remove('translate-x-0', 'shadow-2xl');
+        drawer.classList.add('translate-x-full', 'shadow-none');
+    };
+
+    closeBtn.addEventListener('click', closeDrawer);
+    overlay.addEventListener('click', closeDrawer);
+
+    form.addEventListener('submit', async (e) => {
         e.preventDefault();
         
-        const btnText = newCheckoutBtn.querySelector('.btn-text');
-        const quantity = parseInt(qtyInput.value) || 1;
+        const submitBtn = document.getElementById('final-checkout-btn');
+        const btnText = submitBtn.querySelector('.btn-text');
         
-        // Rozpoznawanie produktu z widoku (Architektura Danych)
-        const priceDisplay = document.getElementById('price-display');
-        const basePrice = priceDisplay ? parseInt(priceDisplay.getAttribute('data-base-price')) : 0;
-
-        if (basePrice !== 1800 && basePrice !== 3700) {
-            console.error('[Premium Engine] Błąd struktury ceny w DOM.');
-            return;
+        submitBtn.classList.add('pointer-events-none');
+        if (typeof gsap !== 'undefined') {
+            gsap.to(submitBtn, { opacity: 0.7, yoyo: true, repeat: -1, duration: 0.6 });
         }
-
-        // Motion that whispers: Zablokowanie interfejsu i płynna pulsacja GSAP
-        newCheckoutBtn.classList.add('pointer-events-none', 'border-brand-gold');
-        gsap.to(newCheckoutBtn, { 
-            opacity: 0.7, yoyo: true, repeat: -1, duration: 0.6, ease: "power1.inOut" 
-        });
+        btnText.innerText = 'ŁĄCZENIE ZE STRIPE...';
         
-        btnText.innerText = 'AUTORYZACJA...';
-        btnText.classList.remove('text-brand-gold');
-        btnText.classList.add('text-brand-ivory');
+        const customerTypeRadio = form.querySelector('input[name="customer_type"]:checked');
+        const colorRadio = form.querySelector('input[name="backpack_color"]:checked');
+        const deliveryRadio = form.querySelector('input[name="delivery_method"]:checked'); 
+        const qtyInput = document.getElementById('qty-input');
+        const priceDisplay = document.getElementById('price-display');
+        
+        const payload = {
+            quantity: qtyInput ? (parseInt(qtyInput.value) || 1) : 1,
+            basePrice: priceDisplay ? (parseInt(priceDisplay.getAttribute('data-base-price')) || 0) : 0,
+            customer_type: customerTypeRadio ? customerTypeRadio.value : 'person',
+            backpack_color: colorRadio ? colorRadio.value : 'Czarny',
+            delivery_method: deliveryRadio ? deliveryRadio.value : 'shipping' 
+        };
 
         try {
-            // Bezpieczne zapytanie (fetch) do naszej nowej mikrousługi PHP
             const response = await fetch('/api/stripe-checkout.php', {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    basePrice: basePrice,
-                    quantity: quantity
-                })
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
             });
 
             const data = await response.json();
-
+            
             if (data.url) {
-                // Skok do zaufanego środowiska (CDE) Stripe z idealnie wyliczoną kwotą
-                window.location.href = data.url;
+                window.location.href = data.url; 
             } else {
-                throw new Error('Serwer odrzucił generację sesji.');
+                throw new Error('Serwer odrzucił sesję.');
             }
-            
         } catch (err) {
-            console.error('[Amber Resilience | Terminal Error]', err);
+            console.error('[Terminal Error]', err);
             
-            // Reakcja na błąd w interfejsie
-            gsap.killTweensOf(newCheckoutBtn);
-            gsap.to(newCheckoutBtn, { opacity: 1, duration: 0.3 });
+            if (typeof gsap !== 'undefined') {
+                gsap.killTweensOf(submitBtn);
+                gsap.to(submitBtn, { opacity: 1, duration: 0.3 });
+            }
             
             btnText.innerText = 'BŁĄD POŁĄCZENIA';
             
             setTimeout(() => {
-                btnText.innerText = 'ZAMÓW';
-                newCheckoutBtn.classList.remove('pointer-events-none', 'border-brand-gold');
-                btnText.classList.remove('text-brand-ivory');
-                btnText.classList.add('text-brand-gold');
+                btnText.innerText = 'AUTORYZUJ TRANSAKCJĘ';
+                submitBtn.classList.remove('pointer-events-none');
             }, 3000);
         }
     });
 }
-/* =========================================================================
-   GŁÓWNY INICJATOR
-   ========================================================================= */
+
+function initSignatureTextAnimation() {
+    const section = document.querySelector('.signature-text-section');
+    if (!section) return;
+
+    const eyebrow = section.querySelector('.signature-eyebrow');
+    const lines = section.querySelectorAll('.signature-line');
+
+    if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') {
+        if (eyebrow) eyebrow.style.opacity = '1';
+        lines.forEach(l => {
+            l.style.clipPath = 'none';
+            l.style.opacity = '1';
+        });
+        return;
+    }
+
+    gsap.set(eyebrow, { y: 20, opacity: 0, filter: 'blur(10px)' });
+    lines.forEach(line => {
+        const inner = line.querySelector('span');
+        gsap.set(line, { clipPath: 'inset(0 0 100% 0)', opacity: 0 });
+        if (inner) gsap.set(inner, { y: 40, filter: 'blur(8px)' });
+    });
+
+    const tl = gsap.timeline({
+        scrollTrigger: {
+            trigger: section,
+            start: 'top 85%',
+            end: 'top 35%',
+            scrub: 1.2, 
+            markers: false
+        }
+    });
+
+    tl.to(eyebrow, { y: 0, opacity: 1, filter: 'blur(0px)', duration: 1.0, ease: 'none' });
+
+    const line1 = lines[0];
+    const inner1 = line1 ? line1.querySelector('span') : null;
+    if (line1) {
+        tl.to(line1, { clipPath: 'inset(0 0 0% 0)', opacity: 1, duration: 1.2, ease: 'none' }, '-=0.6');
+        if (inner1) tl.to(inner1, { y: 0, filter: 'blur(0px)', duration: 1.2, ease: 'none' }, '<');
+    }
+
+    const line2 = lines[1];
+    const inner2 = line2 ? line2.querySelector('span') : null;
+    if (line2) {
+        tl.to(line2, { clipPath: 'inset(0 0 0% 0)', opacity: 1, duration: 1.2, ease: 'none' }, '-=0.9');
+        if (inner2) tl.to(inner2, { y: 0, filter: 'blur(0px)', duration: 1.2, ease: 'none' }, '<');
+    }
+}
+
 async function initAll(targetHash = null) {
-// 1. THE $10K ARCHITECTURE: Pobieramy i montujemy stopkę PRZED odpaleniem animacji.
-    const footerContainer = document.getElementById('dynamic-footer');
+    const preloader = document.getElementById('premium-preloader');
     
-    // Sprawdzamy, czy kontener istnieje i czy jest pusty, aby zapobiec pobieraniu tego samego kodu 
-    // przy każdym przejściu między podstronami przez Barba.js
+    if (isInitialLoad && preloader) {
+        document.body.style.overflow = 'hidden';
+        window.scrollTo(0, 0);
+
+        const logo = document.getElementById('preloader-logo');
+        const line = document.getElementById('preloader-line');
+        const meta = document.getElementById('preloader-meta');
+        const counterEl = document.getElementById('preloader-counter');
+        const topPanel = preloader.querySelector('.top-panel');
+        const bottomPanel = preloader.querySelector('.bottom-panel');
+        const video = document.getElementById('hero-video'); 
+        const counter = { val: 0 };
+
+        const tlIntro = gsap.timeline();
+        tlIntro.to(logo, { opacity: 1, scale: 1, filter: "blur(0px)", duration: 2.5, ease: "power2.out" }, "+=0.1")
+               .to(line, { width: "140px", duration: 1.5, ease: "expo.out" }, "-=1.5")
+               .to(meta, { opacity: 1, y: 0, duration: 1.5, ease: "power3.out" }, "-=1.2");
+
+        const tlCounter = gsap.to(counter, {
+            val: 85, duration: 2.8, ease: "power1.inOut",
+            onUpdate: function() {
+                if (counterEl) counterEl.innerText = Math.round(this.targets()[0].val).toString().padStart(3, '0');
+            }
+        });
+
+        const luxuryBrandingTime = 3500; 
+
+        setTimeout(() => {
+            tlCounter.kill();
+            
+            gsap.set('.hero-overlay + div', { y: 40, opacity: 0, filter: "blur(5px)" });
+            
+            const closeTl = gsap.timeline({
+                onComplete: () => {
+                    document.body.style.overflow = '';
+                    preloader.remove();
+                    
+                    initHeroAndThreatAnimations(); 
+                    if (typeof ScrollTrigger !== 'undefined') ScrollTrigger.refresh();
+                    if (hashToScroll) scrollToAnchor(hashToScroll);
+                    isInitialLoad = false; 
+                }
+            });
+
+            closeTl.to(counter, {
+                val: 100, duration: 0.6, ease: "power4.out",
+                onUpdate: function() {
+                    if (counterEl) counterEl.innerText = Math.round(this.targets()[0].val).toString().padStart(3, '0');
+                }
+            })
+            .to(counterEl, { color: '#C5A059', duration: 0.3 }, "-=0.2")
+            .to([logo, meta, line], { opacity: 0, scale: 0.95, duration: 0.8, stagger: 0.1, ease: "power2.inOut" }, "+=0.3")
+            .to(topPanel, { yPercent: -100, duration: 1.5, ease: "expo.inOut" }, "-=0.2")
+            .to(bottomPanel, { yPercent: 100, duration: 1.5, ease: "expo.inOut" }, "<")
+            .to('.hero-overlay + div', { y: 0, opacity: 1, filter: "blur(0px)", duration: 2, ease: "power3.out" }, "-=1.0"); 
+            
+            if (video && video.paused) {
+                const playPromise = video.play();
+                if (playPromise !== undefined) {
+                    playPromise.catch(error => {
+                        console.warn("[Premium Architecture] Chromium zablokowało autoplay. Fallback do postera zaaplikowany.");
+                    });
+                }
+            }
+        }, luxuryBrandingTime);
+    }
+    
+    const footerContainer = document.getElementById('dynamic-footer');
     if (footerContainer && footerContainer.innerHTML.trim() === '') {
         try {
             const response = await fetch('/assets/components/footer.html');
             if (response.ok) {
                 footerContainer.innerHTML = await response.text();
-                console.log("[Premium Engine] Stopka została pomyślnie zamontowana w DOM.");
-            } else {
-                console.error("[Premium Engine] Błąd ładowania pliku footer.html:", response.status);
             }
         } catch (error) {
             console.error("[Premium Engine] Krytyczny błąd sieci przy ładowaniu stopki:", error);
@@ -1402,51 +1336,47 @@ async function initAll(targetHash = null) {
         ScrollTrigger.getAll().forEach(t => t.kill());
     }
     
-    setTimeout(() => {
-        setupPortals();
-        renderFAQ();
-        initAnimations();
-        initCinematicMedia();
-        initBackpackCardsAnimation();
+    setupPortals();
+    initAnimations();
+    initCinematicMedia();
+    initBackpackCardsAnimation();
+    initWhyAmberStacking();
+    initModulesGridAnimation();
+	initAwardsSection();
+    initModuleMagnetic();
+    initFAQ();
+    initLightboxBind();
+    initContactForm();
+    initStripeCheckout();
+    initObfuscatedEmails();
+    initNavLinks();
+    initMobileMenu();
+    initBackpacksDropdown();
+    initSignatureTextAnimation();
+    window.syncPriceDisplay();
+    window.initSmartHeader();
+       
+    if (typeof ScrollTrigger !== 'undefined') {
+        ScrollTrigger.refresh();
+    }
+
+    let hashToScroll = null;
+    if (premiumScrollTarget) {
+        hashToScroll = premiumScrollTarget;
+        premiumScrollTarget = null;
+    } else if (window.location.hash) {
+        hashToScroll = window.location.hash;
+    }
+
+    if (!isInitialLoad || !preloader) {
         initHeroAndThreatAnimations();
-        initFeatureGridAnimation();
-        initFAQ();
-        initLightboxBind();
-        initContactForm();
-        initStripeCheckout();
-        initObfuscatedEmails();
-        initNavLinks();
-        initMobileMenu();
-        initBackpacksDropdown();
-        window.syncPriceDisplay();
-        window.initSmartHeader();
-       
-       
-        if (typeof ScrollTrigger !== 'undefined') {
-            ScrollTrigger.refresh();
-        }
-
-        let hashToScroll = null;
-
-        if (premiumScrollTarget) {
-            hashToScroll = premiumScrollTarget;
-            premiumScrollTarget = null;
-        } else if (window.location.hash) {
-            hashToScroll = window.location.hash;
-        }
-
-        if (hashToScroll) {
-            scrollToAnchor(hashToScroll);
-        }
-    }, 50); 
+        if (hashToScroll) scrollToAnchor(hashToScroll);
+        isInitialLoad = false;
+    }
 }
 
-window.addEventListener("load", () => initAll());
+document.addEventListener("DOMContentLoaded", () => initAll());
 
-
-/* =========================================================================
-   SILNIK INTEGRACJI BARBA.JS + GSAP
-   ========================================================================= */
 if (typeof barba !== 'undefined') {
     barba.init({
         sync: false, 
@@ -1468,6 +1398,8 @@ if (typeof barba !== 'undefined') {
             async enter(data) {
                 window.scrollTo(0, 0); 
                 gsap.set(data.next.container, { y: -40, opacity: 0, filter: "blur(15px)" });
+
+                gsap.set(data.next.container.querySelectorAll('.module-card'), { clearProps: "all" });
                 
                 return gsap.to(data.next.container, {
                     y: 0, opacity: 1, filter: "blur(0px)", duration: 0.9, ease: "power3.out",
