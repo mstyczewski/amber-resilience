@@ -553,62 +553,40 @@ function initModulesGridAnimation() {
     });
 }
 
+/* =========================================================================
+   AMBER RESILIENCE | AWARDS SECTION ENGINE (INTEGRATED)
+   ========================================================================= */
+
 function initAwardsSection() {
     const section = document.querySelector("#awards");
     const gallery = document.querySelector("[data-awards-gallery]");
 
     if (!section || !gallery) return;
 
-    const cards = [...gallery.querySelectorAll(".award-card")];
+    const cards = Array.from(gallery.querySelectorAll(".award-card"));
     const progressLine = section.querySelector(".awards-progress__line");
     const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-    if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
-        gsap.registerPlugin(ScrollTrigger);
-    }
+    if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') return;
 
-    if (reducedMotion || typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') return;
+    // Czyszczenie instancji ScrollTrigger powiązanych z tą sekcją przed reinicjalizacją
+    ScrollTrigger.getAll().filter(st => st.trigger === section).forEach(st => st.kill());
 
-    // Obsługa natywnego scrollu dla urządzeń mobilnych
-    if (window.matchMedia("(max-width: 900px)").matches) {
-        return;
-    }
-
-    const runScrollEngine = () => {
-        // Czyszczenie starych instancji ScrollTrigger dla bezpieczeństwa (HMR / Barba)
-        ScrollTrigger.getAll().forEach(st => {
-            if (st.trigger === section) st.kill();
-        });
-
-        const getDistance = () => {
-            const style = window.getComputedStyle(gallery);
-            const gap = parseFloat(style.gap) || 40;
-            let totalWidth = 0;
-            cards.forEach(card => {
-                totalWidth += card.offsetWidth;
-            });
-            totalWidth += gap * (cards.length - 1);
-            return Math.max(0, totalWidth - window.innerWidth * 0.55);
-        };
-
-        const distance = getDistance();
-        if (distance <= 0) return;
+    if (!reducedMotion) {
+        // Precyzyjne wyliczenie dystansu przesuwu dla galerii
+        const getDistance = () => Math.max(0, gallery.scrollWidth - window.innerWidth * 0.45);
 
         const horizontalTimeline = gsap.timeline({
             scrollTrigger: {
                 trigger: section,
                 start: "top top",
-                end: () => `+=${Math.max(window.innerHeight * 1.8, getDistance())}`,
+                end: () => `+=${Math.max(window.innerHeight * 1.2, getDistance() * 1.5)}`,
                 pin: true,
-                pinSpacing: true,
                 scrub: 1,
                 invalidateOnRefresh: true,
                 onUpdate: (self) => {
                     if (progressLine) {
-                        progressLine.style.setProperty(
-                            "--award-progress",
-                            `${self.progress}`
-                        );
+                        progressLine.style.setProperty("--award-progress", `${(self.progress * 100).toFixed(2)}%`);
                     }
                 }
             }
@@ -622,80 +600,77 @@ function initAwardsSection() {
             .to(
                 cards,
                 {
-                    rotateY: (index) => (index % 2 ? 4 : -4),
-                    y: (index) => (index % 2 ? -14 : 14),
-                    stagger: 0.04,
+                    rotateY: (index) => (index % 2 === 0 ? 3 : -3),
+                    y: (index) => (index % 2 === 0 ? -10 : 10),
+                    stagger: 0.05,
                     ease: "none"
                 },
                 0
             );
 
-        const introTl = gsap.timeline({
-            scrollTrigger: {
-                trigger: section,
-                start: "top 70%",
-                once: true
-            }
-        });
-
+        // Intro Animations z czyszczeniem transformacji dla WebKit
         const kickerLine = section.querySelector(".awards-kicker__line");
         if (kickerLine) {
-            introTl.from(kickerLine, { scaleX: 0, duration: 1.2, ease: "power4.out" }, 0);
+            gsap.fromTo(kickerLine, 
+                { scaleX: 0 },
+                {
+                    scaleX: 1,
+                    duration: 1.2,
+                    ease: "power4.out",
+                    scrollTrigger: { trigger: section, start: "top 70%", toggleActions: "play none none reverse" }
+                }
+            );
         }
 
-        introTl.from(".awards-title", {
-            y: 80,
-            opacity: 0,
-            duration: 1.4,
-            ease: "power4.out"
-        }, 0.2)
-        .from(".awards-description, .awards-scroll-hint", {
-            y: 30,
-            opacity: 0,
-            duration: 1,
-            stagger: 0.12,
-            ease: "power3.out"
-        }, 0.4);
+        const title = section.querySelector(".awards-title");
+        if (title) {
+            gsap.fromTo(title,
+                { y: 60, opacity: 0 },
+                {
+                    y: 0,
+                    opacity: 1,
+                    duration: 1.2,
+                    ease: "power4.out",
+                    scrollTrigger: { trigger: section, start: "top 70%", toggleActions: "play none none reverse" },
+                    clearProps: "transform"
+                }
+            );
+        }
 
-        // Czyszczenie starych listenerów i przypisanie nowych (Memory Leak Prevention)
-        cards.forEach((card) => {
-            if (card._awardsMove) card.removeEventListener("pointermove", card._awardsMove);
-            if (card._awardsLeave) card.removeEventListener("pointerleave", card._awardsLeave);
+        // Wysokowydajny efekt 3D Tilt z reakcją na wskaźnik (tylko desktop)
+        if (window.matchMedia("(pointer: fine)").matches) {
+            cards.forEach((card) => {
+                const setRotateX = gsap.quickTo(card, "rotateX", { duration: 0.4, ease: "power2.out" });
+                const setRotateY = gsap.quickTo(card, "rotateY", { duration: 0.4, ease: "power2.out" });
 
-            card._awardsMove = (event) => {
-                const bounds = card.getBoundingClientRect();
-                const x = event.clientX - bounds.left;
-                const y = event.clientY - bounds.top;
+                card._awardsMove = (event) => {
+                    const bounds = card.getBoundingClientRect();
+                    const x = event.clientX - bounds.left;
+                    const y = event.clientY - bounds.top;
 
-                gsap.to(card, {
-                    rotateX: ((y / bounds.height) - 0.5) * -5,
-                    rotateY: ((x / bounds.width) - 0.5) * 7,
-                    duration: 0.5,
-                    ease: "power3.out",
-                    overwrite: true
-                });
-            };
+                    setRotateX(((y / bounds.height) - 0.5) * -6);
+                    setRotateY(((x / bounds.width) - 0.5) * 8);
+                };
 
-            card._awardsLeave = () => {
-                gsap.to(card, {
-                    rotateX: 0,
-                    rotateY: 0,
-                    duration: 0.8,
-                    ease: "elastic.out(1, 0.45)",
-                    overwrite: true
-                });
-            };
+                card._awardsLeave = () => {
+                    gsap.to(card, {
+                        rotateX: 0,
+                        rotateY: 0,
+                        duration: 0.7,
+                        ease: "power2.out",
+                        overwrite: true
+                    });
+                };
 
-            card.addEventListener("pointermove", card._awardsMove);
-            card.addEventListener("pointerleave", card._awardsLeave);
-        });
+                // Zabezpieczenie przed nakładaniem listenerów przy Barba transitions
+                card.removeEventListener("pointermove", card._awardsMove);
+                card.removeEventListener("pointerleave", card._awardsLeave);
 
-        ScrollTrigger.refresh();
-    };
-
-    requestAnimationFrame(() => {
-        runScrollEngine();
-    });
+                card.addEventListener("pointermove", card._awardsMove);
+                card.addEventListener("pointerleave", card._awardsLeave);
+            });
+        }
+    }
 }
 function initModuleMagnetic() {
     const cards = document.querySelectorAll('.module-card');
