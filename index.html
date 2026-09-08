@@ -802,97 +802,127 @@ Czujemy dumę i doceniamy tą nagrodę. Wierzymy jednocześnie, że to dopiero p
 <!-- ==========================================
      SEKCJA: NAGRODY I WYRÓŻNIENIA ($10K AWARDS ENGINE)
      ========================================== -->
-<section id="awards" class="relative w-full h-screen bg-[#050505] text-brand-ivory flex flex-col justify-center overflow-hidden z-20 border-t border-white/5">
+<section id="awards" class="relative w-full h-screen bg-[#050505] text-[#F4F4F0] flex flex-col justify-center overflow-hidden z-20 border-t border-white/5" aria-labelledby="awards-heading">
     
-    <!-- Cinematic Lighting & Noise -->
+    <!-- Cinematic Lighting & Noise (Dekoracyjne - ukryte przed czytnikami) -->
     <div class="absolute inset-0 pointer-events-none z-0" aria-hidden="true">
-        <!-- Lewa, górna poświata -->
-        <div class="absolute top-[10%] left-[-10%] w-[50vw] h-[50vw] bg-brand-gold/5 rounded-full blur-[140px] mix-blend-screen translate-z-0"></div>
-        <!-- Prawa, dolna poświata -->
-        <div class="absolute bottom-[-10%] right-[-10%] w-[50vw] h-[50vw] bg-brand-gold/5 rounded-full blur-[140px] mix-blend-screen translate-z-0"></div>
-        <!-- Tekstura materiałowa (Noise) -->
+        <div class="absolute top-[10%] left-[-10%] w-[50vw] h-[50vw] bg-[#C5A059]/5 rounded-full blur-[140px] mix-blend-screen translate-z-0"></div>
+        <div class="absolute bottom-[-10%] right-[-10%] w-[50vw] h-[50vw] bg-[#C5A059]/5 rounded-full blur-[140px] mix-blend-screen translate-z-0"></div>
         <div class="absolute inset-0 opacity-[0.04]" style="background-image: url('/assets/img/noise.webp'); background-repeat: repeat;"></div>
     </div>
 
-    <!-- Pasek postępu -->
+    <!-- Pasek postępu (Dekoracyjny wizualizator) -->
     <div class="absolute bottom-8 md:bottom-12 right-6 md:right-16 flex items-center gap-4 z-30" aria-hidden="true">
-        <span class="font-mono text-[10px] text-brand-muted tracking-[0.2em]">01</span>
+        <span class="font-mono text-[10px] text-white/40 tracking-[0.2em]">01</span>
         <div class="w-24 md:w-40 h-[1px] bg-white/10 relative overflow-hidden">
-            <!-- GSAP modyfikuje width zamiast transform dla czystszego renderingu -->
-            <div class="awards-progress__line absolute top-0 left-0 h-full bg-brand-gold will-change-[width]" style="width: var(--award-progress, 0%);"></div>
+            <div class="awards-progress__line absolute top-0 left-0 h-full bg-[#C5A059] will-change-[width]" style="width: var(--award-progress, 0%);"></div>
         </div>
-        <span class="font-mono text-[10px] text-brand-muted tracking-[0.2em]">05</span>
+        <span class="font-mono text-[10px] text-white/40 tracking-[0.2em]">03</span>
     </div>
 
     <div class="relative w-full max-w-[1440px] mx-auto px-6 md:px-16 flex flex-col md:flex-row items-center justify-between z-10 h-full">
         
         <!-- Lewa kolumna: Kontekst i Typografia -->
-        <div class="w-full md:w-[40%] flex flex-col shrink-0 relative pt-12 md:pt-0">
-            <div class="flex items-center gap-4 mb-8">
-                <span class="font-mono text-[10px] tracking-[0.4em] uppercase text-brand-gold">Uznanie</span>
-                <div class="awards-kicker__line w-12 h-[1px] bg-brand-gold origin-left"></div>
+        <header class="w-full md:w-[35%] flex flex-col shrink-0 relative pt-12 md:pt-0">
+            <div class="flex items-center gap-4 mb-8" aria-hidden="true">
+                <span class="font-mono text-[10px] tracking-[0.4em] uppercase text-[#C5A059]">Uznanie</span>
+                <div class="awards-kicker__line w-12 h-[1px] bg-[#C5A059] origin-left"></div>
             </div>
             
-            <h2 class="awards-title font-display text-4xl md:text-5xl lg:text-[4rem] leading-[1.05] mb-6 tracking-tight">
+            <h2 id="awards-heading" class="awards-title font-display text-4xl md:text-5xl lg:text-[4rem] leading-[1.05] mb-6 tracking-tight">
                 Nagrody, które<br>
-                <em class="text-brand-gold font-normal italic">potwierdzają jakość.</em>
+                <em class="text-[#C5A059] font-normal italic">potwierdzają jakość.</em>
             </h2>
             
-            <p class="awards-desc font-body font-light text-brand-muted text-sm md:text-base leading-relaxed max-w-sm mb-12">
-                Eksperci branżowi i instytucje certyfikujące nie oceniają obietnic. Oceniają fakty, architekturę i niezawodność w warunkach brzegowych.
+            <p class="awards-desc font-body font-light text-white/60 text-sm md:text-base leading-relaxed max-w-sm mb-12">
+                Eksperci branżowi i instytucje certyfikujące nie oceniają obietnic. Oceniają fakty, architekturę i niezawodność w warunkach brzegowych. Oto dowody naszej kompetencji.
             </p>
             
-            <div class="awards-scroll-hint flex items-center gap-3 text-brand-muted font-mono text-[9px] uppercase tracking-[0.3em]">
+            <div class="awards-scroll-hint flex items-center gap-3 text-white/40 font-mono text-[9px] uppercase tracking-[0.3em]" aria-hidden="true">
                 <span>Przewiń, aby odkryć</span>
-                <svg class="w-3 h-3 text-brand-gold animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg class="w-3 h-3 text-[#C5A059] animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
                 </svg>
             </div>
-        </div>
+        </header>
 
-        <!-- Prawa kolumna: Przestrzenna Galeria Kart -->
-        <div class="w-full md:w-[60%] h-[50vh] md:h-[70vh] mt-12 md:mt-0 relative overflow-x-auto md:overflow-visible no-scrollbar">
+        <!-- Prawa kolumna: Przestrzenna Galeria Kart (Imagery with intent) -->
+        <div class="w-full md:w-[65%] h-[60vh] md:h-[75vh] mt-12 md:mt-0 relative overflow-x-auto md:overflow-visible no-scrollbar">
             <div data-awards-gallery class="flex gap-6 md:gap-12 w-max items-center h-full pl-4 md:pl-20 pr-8 md:pr-40">
                 
-                <!-- KARTA 1 -->
-                <article class="award-card relative w-[280px] md:w-[380px] h-[380px] md:h-[480px] bg-[#0A0A0A] border border-white/[0.04] p-8 flex flex-col justify-between group overflow-hidden transition-all duration-[0.8s] ease-[cubic-bezier(0.16,1,0.3,1)] hover:border-brand-gold/40 hover:bg-[#030303] shadow-2xl shrink-0 cursor-default">
-                    <!-- Efekt światła (Sweep) -->
-                    <div class="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/5 to-transparent awards-sweep pointer-events-none z-0"></div>
+                <!-- KARTA 1: MEDAL RED DOT -->
+                <article class="award-card relative w-[300px] md:w-[380px] h-[450px] md:h-[540px] bg-[#0A0A0A] border border-white/[0.04] p-6 flex flex-col group overflow-hidden transition-all duration-[0.8s] ease-[cubic-bezier(0.16,1,0.3,1)] hover:border-[#C5A059]/40 hover:bg-[#030303] shadow-2xl shrink-0 cursor-default">
+                    <div class="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/5 to-transparent awards-sweep pointer-events-none z-0" aria-hidden="true"></div>
                     
-                    <div class="relative z-10">
-                        <span class="font-mono text-[10px] text-brand-gold tracking-[0.3em] uppercase">01 /// 2025</span>
-                        <h3 class="font-display text-2xl md:text-3xl mt-6 text-white group-hover:text-brand-ivory transition-colors">Red Dot Design Award</h3>
-                        <p class="font-body font-light text-[13px] md:text-sm text-brand-muted mt-4 leading-relaxed group-hover:text-white/80 transition-colors">Wyróżnienie za bezkompromisowe połączenie taktycznej użyteczności z minimalistycznym designem w warunkach stresu.</p>
-                    </div>
+                    <!-- Imagery Container -->
+                    <figure class="relative w-full h-[55%] mb-6 overflow-hidden bg-[#050505] z-10 border border-white/5 rounded-sm">
+                        <!-- Podmień ścieżkę do obrazu -->
+                        <img 
+                            src="/assets/img/amber-medal.webp" 
+                            alt="Złoty medal Red Dot Design Award 2025 za bezkompromisowe wzornictwo i użyteczność w warunkach stresu" 
+                            loading="lazy" 
+                            decoding="async"
+                            class="w-full h-full object-cover grayscale opacity-60 group-hover:grayscale-0 group-hover:opacity-100 group-hover:scale-105 transition-all duration-[1.2s] ease-[cubic-bezier(0.16,1,0.3,1)] will-change-transform"
+                        >
+                        <div class="absolute inset-0 bg-gradient-to-t from-[#0A0A0A] via-transparent to-transparent opacity-90 group-hover:opacity-30 transition-opacity duration-700 pointer-events-none" aria-hidden="true"></div>
+                    </figure>
                     
-                    <div class="relative z-10 w-12 h-12 md:w-16 md:h-16 border border-white/10 rounded-full flex items-center justify-center opacity-40 group-hover:opacity-100 group-hover:border-brand-gold transition-all duration-700">
-                        <svg class="w-5 h-5 text-brand-gold" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" /></svg>
+                    <div class="relative z-10 flex flex-col grow justify-between">
+                        <div>
+                            <span class="font-mono text-[10px] text-[#C5A059] tracking-[0.3em] uppercase block mb-3">01 /// Medal</span>
+                            <h3 class="font-display text-2xl md:text-3xl text-white group-hover:text-[#F4F4F0] transition-colors">Red Dot Design</h3>
+                            <p class="font-body font-light text-[13px] md:text-sm text-white/60 mt-3 leading-relaxed group-hover:text-white/90 transition-colors">Wyróżnienie za połączenie taktycznej użyteczności z minimalistycznym designem.</p>
+                        </div>
                     </div>
                 </article>
 
-                <!-- KARTA 2 -->
-                <article class="award-card relative w-[280px] md:w-[380px] h-[380px] md:h-[480px] bg-[#0A0A0A] border border-white/[0.04] p-8 flex flex-col justify-between group overflow-hidden transition-all duration-[0.8s] ease-[cubic-bezier(0.16,1,0.3,1)] hover:border-brand-gold/40 hover:bg-[#030303] shadow-2xl shrink-0 cursor-default">
-                    <div class="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/5 to-transparent awards-sweep pointer-events-none z-0"></div>
-                    <div class="relative z-10">
-                        <span class="font-mono text-[10px] text-brand-gold tracking-[0.3em] uppercase">02 /// 2024</span>
-                        <h3 class="font-display text-2xl md:text-3xl mt-6 text-white group-hover:text-brand-ivory transition-colors">Tactical Excellence</h3>
-                        <p class="font-body font-light text-[13px] md:text-sm text-brand-muted mt-4 leading-relaxed group-hover:text-white/80 transition-colors">Wybór ekspertów survivalu jako najpewniejszy system wsparcia życia (Life Support System) do zastosowań miejskich.</p>
-                    </div>
-                    <div class="relative z-10 w-12 h-12 md:w-16 md:h-16 border border-white/10 rounded-full flex items-center justify-center opacity-40 group-hover:opacity-100 group-hover:border-brand-gold transition-all duration-700">
-                        <svg class="w-5 h-5 text-brand-gold" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" /></svg>
+                <!-- KARTA 2: DYPLOM FORBES -->
+                <article class="award-card relative w-[300px] md:w-[380px] h-[450px] md:h-[540px] bg-[#0A0A0A] border border-white/[0.04] p-6 flex flex-col group overflow-hidden transition-all duration-[0.8s] ease-[cubic-bezier(0.16,1,0.3,1)] hover:border-[#C5A059]/40 hover:bg-[#030303] shadow-2xl shrink-0 cursor-default">
+                    <div class="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/5 to-transparent awards-sweep pointer-events-none z-0" aria-hidden="true"></div>
+                    
+                    <figure class="relative w-full h-[55%] mb-6 overflow-hidden bg-[#050505] z-10 border border-white/5 rounded-sm">
+                        <!-- Podmień ścieżkę do obrazu -->
+                        <img 
+                            src="/assets/img/amber-dyplom.webp" 
+                            alt="Dyplom Forbes Resilience 2024 dla najbardziej innowacyjnego polskiego startupu w sektorze bezpieczeństwa strategicznego" 
+                            loading="lazy" 
+                            decoding="async"
+                            class="w-full h-full object-cover grayscale opacity-60 group-hover:grayscale-0 group-hover:opacity-100 group-hover:scale-105 transition-all duration-[1.2s] ease-[cubic-bezier(0.16,1,0.3,1)] will-change-transform"
+                        >
+                        <div class="absolute inset-0 bg-gradient-to-t from-[#0A0A0A] via-transparent to-transparent opacity-90 group-hover:opacity-30 transition-opacity duration-700 pointer-events-none" aria-hidden="true"></div>
+                    </figure>
+                    
+                    <div class="relative z-10 flex flex-col grow justify-between">
+                        <div>
+                            <span class="font-mono text-[10px] text-[#C5A059] tracking-[0.3em] uppercase block mb-3">02 /// Dyplom</span>
+                            <h3 class="font-display text-2xl md:text-3xl text-white group-hover:text-[#F4F4F0] transition-colors">Forbes Resilience</h3>
+                            <p class="font-body font-light text-[13px] md:text-sm text-white/60 mt-3 leading-relaxed group-hover:text-white/90 transition-colors">Tytuł najbardziej innowacyjnego polskiego startupu w sektorze personalnego bezpieczeństwa.</p>
+                        </div>
                     </div>
                 </article>
 
-                <!-- KARTA 3 (Dodaj kolejne wg. wzoru) -->
-                <article class="award-card relative w-[280px] md:w-[380px] h-[380px] md:h-[480px] bg-[#0A0A0A] border border-white/[0.04] p-8 flex flex-col justify-between group overflow-hidden transition-all duration-[0.8s] ease-[cubic-bezier(0.16,1,0.3,1)] hover:border-brand-gold/40 hover:bg-[#030303] shadow-2xl shrink-0 cursor-default">
-                    <div class="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/5 to-transparent awards-sweep pointer-events-none z-0"></div>
-                    <div class="relative z-10">
-                        <span class="font-mono text-[10px] text-brand-gold tracking-[0.3em] uppercase">03 /// 2024</span>
-                        <h3 class="font-display text-2xl md:text-3xl mt-6 text-white group-hover:text-brand-ivory transition-colors">Forbes Resilience</h3>
-                        <p class="font-body font-light text-[13px] md:text-sm text-brand-muted mt-4 leading-relaxed group-hover:text-white/80 transition-colors">Tytuł najbardziej innowacyjnego polskiego startupu w sektorze personalnego bezpieczeństwa strategicznego.</p>
-                    </div>
-                    <div class="relative z-10 w-12 h-12 md:w-16 md:h-16 border border-white/10 rounded-full flex items-center justify-center opacity-40 group-hover:opacity-100 group-hover:border-brand-gold transition-all duration-700">
-                        <svg class="w-5 h-5 text-brand-gold" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
+                <!-- KARTA 3: CERTYFIKAT TACTICAL -->
+                <article class="award-card relative w-[300px] md:w-[380px] h-[450px] md:h-[540px] bg-[#0A0A0A] border border-white/[0.04] p-6 flex flex-col group overflow-hidden transition-all duration-[0.8s] ease-[cubic-bezier(0.16,1,0.3,1)] hover:border-[#C5A059]/40 hover:bg-[#030303] shadow-2xl shrink-0 cursor-default">
+                    <div class="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/5 to-transparent awards-sweep pointer-events-none z-0" aria-hidden="true"></div>
+                    
+                    <figure class="relative w-full h-[55%] mb-6 overflow-hidden bg-[#050505] z-10 border border-white/5 rounded-sm">
+                        <!-- Podmień ścieżkę do obrazu -->
+                        <img 
+                            src="/assets/img/certyfikat-tactical.webp" 
+                            alt="Certyfikat Tactical Excellence 2024 potwierdzający najwyższe standardy systemów wsparcia życia" 
+                            loading="lazy" 
+                            decoding="async"
+                            class="w-full h-full object-cover grayscale opacity-60 group-hover:grayscale-0 group-hover:opacity-100 group-hover:scale-105 transition-all duration-[1.2s] ease-[cubic-bezier(0.16,1,0.3,1)] will-change-transform"
+                        >
+                        <div class="absolute inset-0 bg-gradient-to-t from-[#0A0A0A] via-transparent to-transparent opacity-90 group-hover:opacity-30 transition-opacity duration-700 pointer-events-none" aria-hidden="true"></div>
+                    </figure>
+                    
+                    <div class="relative z-10 flex flex-col grow justify-between">
+                        <div>
+                            <span class="font-mono text-[10px] text-[#C5A059] tracking-[0.3em] uppercase block mb-3">03 /// Certyfikat</span>
+                            <h3 class="font-display text-2xl md:text-3xl text-white group-hover:text-[#F4F4F0] transition-colors">Tactical Excellence</h3>
+                            <p class="font-body font-light text-[13px] md:text-sm text-white/60 mt-3 leading-relaxed group-hover:text-white/90 transition-colors">Wybór ekspertów survivalu jako najpewniejszy system wsparcia życia (Life Support System).</p>
+                        </div>
                     </div>
                 </article>
 
