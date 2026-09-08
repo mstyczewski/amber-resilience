@@ -621,6 +621,26 @@ body {
 @keyframes awardsMarquee {
   to { transform: translateX(-50%); }
 }
+/* =========================================================
+   AWARDS: HOVER SWEEP EFFECT (Hardware Accelerated)
+   ========================================================= */
+@keyframes sweep {
+    0% { transform: translateX(-100%) skewX(-15deg); }
+    100% { transform: translateX(200%) skewX(-15deg); }
+}
+
+.award-card:hover .awards-sweep {
+    animation: sweep 1.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Ukrycie natywnego scrollbara dla urządzeń mobilnych zachowując scroll */
+.no-scrollbar::-webkit-scrollbar {
+    display: none;
+}
+.no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
 
 /* =========================================================
    MOBILE ARCHITECTURE & ACCESSIBILITY (ACCELERATED)
