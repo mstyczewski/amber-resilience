@@ -575,7 +575,7 @@ function initAwardsSection() {
     if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') return;
 
     // Security & Perf: Clean up previous instances to prevent memory leaks on SPA routing
-    ScrollTrigger.getAll().filter(st => st.trigger === section).forEach(st => st.kill());
+    ScrollTrigger.getAll().filter(st => st.trigger === section).forEach(st => st.revert());
 
     if (!reducedMotion) {
         
