@@ -7,7 +7,7 @@
 
 /* --- Architektura Barba.js --- */
 [data-barba="wrapper"] { position: relative; width: 100%; }
-[data-barba="container"] { will-change: transform, opacity, filter; width: 100%; min-height: 100vh; }
+
 
 /* --- Fundamenty techniczne i dbałość o detal --- */
 body {
