@@ -465,18 +465,56 @@ function initCinematicMedia() {
     });
 }
 
-/* =========================================================
-   WHY AMBER RESILIENCE | STACKING CARDS ENGINE
-   ========================================================= */
-function initWhyAmberStacking() {
-    const cards = gsap.utils.toArray('.why-card');
-    if (cards.length === 0 || typeof gsap === 'undefined') return;
+/* =========================================================================
+   WHY AMBER | STACKING ENGINE & KICKER LINE ANIMATION ($10K SPEC)
+   ========================================================================= */
 
+function initWhyAmberStacking() {
+    if (typeof gsap === 'undefined') return;
+
+    const cards = gsap.utils.toArray('.why-card');
+    // Znajdź sekcję-rodzica na podstawie kart lub identyfikatora
+    const section = document.querySelector('#why-amber') || cards[0]?.closest('section');
+    const kickerLine = section?.querySelector('.why-amber-kicker__line');
+
+    // ---------------------------------------------------------------------
+    // 1. KICKER LINE ANIMATION (Animacja złotej kreski nagłówka)
+    // ---------------------------------------------------------------------
+    if (kickerLine && section) {
+        const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+        if (prefersReducedMotion) {
+            gsap.set(kickerLine, { scaleX: 1 });
+        } else {
+            gsap.fromTo(kickerLine,
+                { 
+                    scaleX: 0, 
+                    transformOrigin: 'left center' 
+                },
+                {
+                    scaleX: 1,
+                    duration: 1.2,
+                    ease: "power4.out",
+                    scrollTrigger: {
+                        trigger: section,
+                        start: "top 75%", // Start animacji, gdy sekcja wejdzie w 75% ekranu
+                        toggleActions: "play none none reverse"
+                    }
+                }
+            );
+        }
+    }
+
+    if (cards.length === 0) return;
+
+    // ---------------------------------------------------------------------
+    // 2. STACKING ENGINE & IMAGE REVEAL (Animacja kart i głębi)
+    // ---------------------------------------------------------------------
     cards.forEach((card, i) => {
         const inner = card.querySelector('.why-card-inner');
         const bg = card.querySelector('.why-card-bg');
 
-        // 1. Zjawiskowy Image Reveal (gdy karta osiąga ok. 70% ekranu)
+        // A. Image Reveal (gdy karta osiąga ok. 65% ekranu)
         if (bg) {
             gsap.to(bg, {
                 opacity: 0.35, // Delikatna opaska obrazu (dbałość o WCAG i czytelność)
@@ -490,7 +528,7 @@ function initWhyAmberStacking() {
             });
         }
 
-        // 2. Kinematyczna symulacja głębi (kolejna karta wgniata i rozmywa poprzednią)
+        // B. Kinematyczna symulacja głębi (kolejna karta wgniata i rozmywa poprzednią)
         if (i < cards.length - 1) {
             gsap.to(inner, {
                 scale: 0.92,
@@ -499,9 +537,9 @@ function initWhyAmberStacking() {
                 ease: "none",
                 scrollTrigger: {
                     trigger: cards[i + 1],
-                    start: "top bottom", // Start, gdy nastepna karta pojawia sie u dolu
-                    end: "top top",      // Koniec, gdy nastepna karta doklei sie do sufitu
-                    scrub: true,         // Precyzyjne spięcie ze scrollem (hardware accelerated)
+                    start: "top bottom", // Start, gdy następna karta pojawia się u dołu
+                    end: "top top",      // Koniec, gdy następna karta doklei się do sufitu
+                    scrub: true          // Precyzyjne spięcie ze scrollem (hardware accelerated)
                 }
             });
         }
