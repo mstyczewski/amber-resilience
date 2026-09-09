@@ -802,108 +802,80 @@ Czujemy dumę i doceniamy tą nagrodę. Wierzymy jednocześnie, że to dopiero p
 
 </div>
 
-			<!-- ==========================================
-     SEKCJA: NAGRODY I WYRÓŻNIENIA ($10K AWARDS ENGINE)
-     ========================================== -->
-<section id="awards" class="relative w-full min-h-screen md:h-screen bg-[#050505] text-[#F4F4F0] flex flex-col justify-center overflow-hidden z-20 border-t border-white/5 py-12 md:py-0" aria-labelledby="awards-heading">
-    
-    <!-- Cinematic Lighting & Noise (Dekoracyjne - ukryte przed czytnikami) -->
-    <div class="absolute inset-0 pointer-events-none z-0" aria-hidden="true">
-        <div class="absolute top-[10%] left-[-10%] w-[50vw] h-[50vw] bg-[#C5A059]/5 rounded-full blur-[140px] mix-blend-screen translate-z-0"></div>
-        <div class="absolute bottom-[-10%] right-[-10%] w-[50vw] h-[50vw] bg-[#C5A059]/5 rounded-full blur-[140px] mix-blend-screen translate-z-0"></div>
-        <div class="absolute inset-0 opacity-[0.04]" style="background-image: url('/assets/img/noise.webp'); background-repeat: repeat;"></div>
-    </div>
-
-    <!-- Pasek postępu (Dekoracyjny wizualizator) -->
-    <div class="absolute bottom-4 md:bottom-12 right-6 md:right-16 flex items-center gap-4 z-40" aria-hidden="true">
-        <span class="font-mono text-[10px] text-white/40 tracking-[0.2em]">01</span>
-        <div class="w-20 md:w-40 h-[1px] bg-white/10 relative overflow-hidden">
-            <div class="awards-progress__line absolute top-0 left-0 h-full bg-[#C5A059] will-change-transform" style="transform: scaleX(0);"></div>
-        </div>
-        <span class="font-mono text-[10px] text-white/40 tracking-[0.2em]">03</span>
-    </div>
-
-    <div class="relative w-full max-w-[1440px] mx-auto px-6 md:px-16 flex flex-col md:flex-row items-center justify-between z-10 h-full gap-8 md:gap-0">
+			<!-- =========================================================
+     AWARDS / RECOGNITION (MUSEUM EXHIBITION STYLE)
+     ========================================================= -->
+<section class="ar-recognition" id="recognition" aria-labelledby="recognition-title">
+    <div class="ar-recognition-sticky">
         
-        <!-- LEWA KOLUMNA: Pancerz z maską 100vw po lewej stronie (Karty chowają się pod nią na desktopie) -->
-        <header class="w-full md:w-[40%] flex flex-col shrink-0 relative z-30 bg-[#050505] h-auto md:h-full justify-center md:pr-12 pointer-events-auto md:before:content-[''] md:before:absolute md:before:inset-y-0 md:before:right-full md:before:w-[100vw] md:before:bg-[#050505] md:before:z-30">
-            
-            <!-- Maska gradientowa łagodząca krawędź znikania kart (tylko desktop) -->
-            <div class="hidden md:block absolute top-0 -right-24 w-24 h-full bg-gradient-to-r from-[#050505] via-[#050505]/80 to-transparent pointer-events-none z-30" aria-hidden="true"></div>
+        <!-- Cinematic Camera Overlay -->
+        <div class="ar-recognition-camera-overlay" aria-hidden="true"></div>
 
-            <div class="flex items-center gap-4 mb-4 md:mb-8" aria-hidden="true">
-                <span class="font-mono text-[15px] tracking-[0.4em] uppercase text-[#C5A059]">Uznanie</span>
-                <div class="awards-kicker__line w-12 h-[1px] bg-[#C5A059] origin-left"></div>
+        <!-- Ambient background -->
+        <div class="ar-recognition-bg" aria-hidden="true">
+            <div class="ar-recognition-orb ar-recognition-orb--one"></div>
+            <div class="ar-recognition-orb ar-recognition-orb--two"></div>
+            <div class="ar-recognition-grid"></div>
+        </div>
+
+        <!-- Centered Header -->
+        <div class="ar-recognition-heading">
+            <div class="ar-recognition-kicker">
+                JAKOŚĆ • INNOWACYJNOŚĆ • GOTOWOŚĆ
             </div>
-            
-            <h2 id="awards-heading" class="awards-title font-display text-3xl sm:text-4xl md:text-5xl lg:text-[4rem] leading-[1.05] mb-4 md:mb-6 tracking-tight">
-                Nagrody, które<br>
-                <em class="text-[#C5A059] font-normal italic">potwierdzają jakość.</em>
+            <h2 id="recognition-title" class="ar-recognition-title">
+                Nagrody i wyróżnienia.
             </h2>
-            
-            <p class="awards-desc font-body font-light text-white/60 text-xs sm:text-base md:text-xl leading-relaxed max-w-sm mb-6 md:mb-12">
-                Rozwiązanie <a href="https://amberresilience.eu" style="color: #ffffff; text-decoration: underline;"><strong>Amber Resilience</strong></a>
- zostało wyróżnione za innowacyjność podczas targów <a href="https://forumbhp.com" style="color: #ffffff; text-decoration: underline;">Forum BHP 2026</a>
-. To wyróżnienie jest potwierdzeniem kierunku, który przyjęliśmy od początku — tworzenia praktycznych, kompletnych i przemyślanych rozwiązań zwiększających gotowość na sytuacje kryzysowe. Czujemy dumę i doceniamy tą nagrodę. Wierzymy jednocześnie, że to dopiero początek. 
+            <p class="ar-recognition-intro">
+                Gotowość, która została dostrzeżona.
             </p>
-            
-            
-        </header>
+        </div>
 
-        <!-- PRAWA KOLUMNA: PRZESTRZEŃ RUCHU KART -->
-        <div class="w-full md:w-[60%] h-[460px] md:h-[75vh] relative overflow-x-auto md:overflow-visible no-scrollbar z-10">
-            <div data-awards-gallery class="flex gap-4 sm:gap-6 md:gap-12 w-max items-center h-full pl-2 md:pl-20 pr-8 md:pr-40">
-                
-                <!-- KARTA 1: MEDAL RED DOT -->
-                <article class="award-card relative w-[280px] sm:w-[320px] md:w-[380px] h-[420px] sm:h-[450px] md:h-[540px] bg-[#0A0A0A] border border-white/[0.04] p-5 md:p-6 flex flex-col group overflow-hidden transition-all duration-[0.8s] ease-[cubic-bezier(0.16,1,0.3,1)] hover:border-[#C5A059]/40 hover:bg-[#030303] shadow-2xl shrink-0 cursor-default">
-                    <div class="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/5 to-transparent awards-sweep pointer-events-none z-0" aria-hidden="true"></div>
-                    
-                    <figure class="relative w-full h-[60%] md:h-[65%] mb-4 bg-[#050505] z-10 border border-white/5 rounded-sm p-3 md:p-4 flex items-center justify-center overflow-hidden">
-                        <img 
-                            src="/assets/img/amber-medal.webp" 
-                            alt="Złoty medal Red Dot Design Award 2025 za bezkompromisowe wzornictwo i użyteczność w warunkach stresu" 
-                            loading="lazy" 
-                            decoding="async"
-                            class="w-full h-full object-contain grayscale-0 opacity-100 md:grayscale md:opacity-60 md:group-hover:grayscale-0 md:group-hover:opacity-100 md:group-hover:scale-105 transition-all duration-[1.2s] ease-[cubic-bezier(0.16,1,0.3,1)] will-change-transform"
-                        >
-                        <div class="absolute inset-0 bg-gradient-to-t from-[#0A0A0A] via-transparent to-transparent opacity-20 md:opacity-90 md:group-hover:opacity-30 transition-opacity duration-700 pointer-events-none" aria-hidden="true"></div>
-                    </figure>
-                    
-                    <div class="relative z-10 flex flex-col grow justify-between">
-                        <div>
-                            <span class="font-mono text-[10px] text-[#C5A059] tracking-[0.3em] uppercase block mb-2 md:mb-3">01 /// Medal</span>
-                            <h3 class="font-display text-sm sm:text-base md:text-lg tracking-wide leading-tight text-white/80 group-hover:text-white transition-colors">Quality & Innovation</h3>
-                            <p class="font-body font-light text-[12px] md:text-sm text-white/60 mt-2 md:mt-3 leading-relaxed group-hover:text-white/90 transition-colors">Wyróżnienie za połączenie taktycznej użyteczności z minimalistycznym designem.</p>
-                        </div>
-                    </div>
-                </article>
+        <!-- Award Objects (Medal & Diploma) -->
+        <div class="ar-award-stage">
+            <div class="ar-award-aura" aria-hidden="true"></div>
+            <div class="ar-award-ring ar-award-ring--outer" aria-hidden="true"></div>
+            <div class="ar-award-ring ar-award-ring--inner" aria-hidden="true"></div>
 
-                <!-- KARTA 2: DYPLOM FORBES -->
-                <article class="award-card relative w-[280px] sm:w-[320px] md:w-[380px] h-[420px] sm:h-[450px] md:h-[540px] bg-[#0A0A0A] border border-white/[0.04] p-5 md:p-6 flex flex-col group overflow-hidden transition-all duration-[0.8s] ease-[cubic-bezier(0.16,1,0.3,1)] hover:border-[#C5A059]/40 hover:bg-[#030303] shadow-2xl shrink-0 cursor-default">
-                    <div class="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/5 to-transparent awards-sweep pointer-events-none z-0" aria-hidden="true"></div>
-                    
-                    <figure class="relative w-full h-[60%] md:h-[65%] mb-4 bg-[#050505] z-10 border border-white/5 rounded-sm p-3 md:p-4 flex items-center justify-center overflow-hidden">
-                        <img 
-                            src="/assets/img/amber-dyplom.webp" 
-                            alt="Dyplom FORUM BHP 2026 PRODUKT TARGOWY za innowacyjność technologiczną" 
-                            loading="lazy" 
+            <!-- DIPLOMA (Wchodzi od prawej) -->
+            <div class="ar-award-object ar-award-diploma-object">
+                <div class="ar-award-diploma-wrap">
+                    <div class="ar-award-diploma-frame">
+                        <img
+                            class="ar-award-diploma"
+                            src="/assets/img/dyplom-expo-2026.jpg"
+                            alt="Dyplom wyróżnienia Amber Resilience Expo 2026"
+                            loading="lazy"
                             decoding="async"
-                            class="w-full h-full object-contain grayscale-0 opacity-100 md:grayscale md:opacity-60 md:group-hover:grayscale-0 md:group-hover:opacity-100 md:group-hover:scale-105 transition-all duration-[1.2s] ease-[cubic-bezier(0.16,1,0.3,1)] will-change-transform"
                         >
-                        <div class="absolute inset-0 bg-gradient-to-t from-[#0A0A0A] via-transparent to-transparent opacity-20 md:opacity-90 md:group-hover:opacity-30 transition-opacity duration-700 pointer-events-none" aria-hidden="true"></div>
-                    </figure>
-                    
-                    <div class="relative z-10 flex flex-col grow justify-between">
-                        <div>
-                            <span class="font-mono text-[10px] text-[#C5A059] tracking-[0.3em] uppercase block mb-2 md:mb-3">02 /// Dyplom</span>
-                            <h3 class="font-display text-sm sm:text-base md:text-lg tracking-wide leading-tight text-white/80 group-hover:text-white transition-colors">Produkt Targowy 2026</h3>
-                            <p class="font-body font-light text-[12px] md:text-sm text-white/60 mt-2 md:mt-3 leading-relaxed group-hover:text-white/90 transition-colors">Tytuł najbardziej innowacyjnego rozwiązania w sektorze personalnego bezpieczeństwa.</p>
-                        </div>
                     </div>
-                </article>
-                
+                    <div class="ar-award-diploma-shadow"></div>
+                </div>
+            </div>
+
+            <!-- MEDAL (Startuje ze środka, jedzie w lewo) -->
+            <div class="ar-award-object ar-award-medal-object">
+                <div class="ar-award-medal-wrap">
+                    <img
+                        class="ar-award-medal"
+                        src="/assets/img/medal-expo-2026.webp"
+                        alt="Medal Quality & Innovation Expo 2026"
+                        loading="lazy"
+                        decoding="async"
+                    >
+                </div>
             </div>
         </div>
+
+        <!-- Centered Caption Below Objects -->
+        <div class="ar-award-content">
+            <div class="ar-award-name">
+                QUALITY <span>&amp;</span> INNOVATION
+            </div>
+            <div class="ar-award-event">EXPO 2026</div>
+        </div>
+
+        
     </div>
 </section>
           
