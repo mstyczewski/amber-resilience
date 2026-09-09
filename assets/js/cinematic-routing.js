@@ -554,7 +554,7 @@ function initModulesGridAnimation() {
 }
 
 /* =========================================================================
-   AMBER RESILIENCE | AWARDS SECTION ENGINE (INTEGRATED)
+   AMBER RESILIENCE | AWARDS SECTION ENGINE (ULTRA-PREMIUM & ENTERPRISE-SAFE)
    ========================================================================= */
 
 function initAwardsSection() {
@@ -563,67 +563,92 @@ function initAwardsSection() {
 
     if (!section || !gallery) return;
 
+    if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') return;
+
+    // Security & Memory Mgmt: Wyczyszczenie instancji ScrollTrigger powiązanych z sekcją
+    ScrollTrigger.getAll().filter(st => st.trigger === section).forEach(st => st.kill(true));
+
     const cards = Array.from(gallery.querySelectorAll(".award-card"));
     const progressLine = section.querySelector(".awards-progress__line");
-    // Selekcja elementów tekstowych do animacji wejścia
     const title = section.querySelector(".awards-title");
     const desc = section.querySelector(".awards-desc");
     const hint = section.querySelector(".awards-scroll-hint");
-    
-    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const kickerLine = section.querySelector(".awards-kicker__line");
 
-    if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') return;
+    // Budowa bezpośredniego setter'a GPU dla paska postępu (Zero Layout Thrashing)
+    const setProgressScale = progressLine 
+        ? gsap.quickSetter(progressLine, "scaleX") 
+        : null;
 
-    // Security & Perf: Clean up previous instances to prevent memory leaks on SPA routing
-    ScrollTrigger.getAll().filter(st => st.trigger === section).forEach(st => st.revert());
+    if (progressLine) {
+        gsap.set(progressLine, { transformOrigin: "left center", scaleX: 0 });
+    }
 
-    if (!reducedMotion) {
-        
-        // 1. ANIMACJE WEJŚCIA (The $10K First Impression)
+    // $10K Standard: Deklaratywne zarządzanie mediami i cyklem życia pamięci
+    const mm = gsap.matchMedia();
+
+    mm.add({
+        isDesktop: "(min-width: 768px) and (prefers-reduced-motion: no-preference)",
+        isMobile: "(max-width: 767px) and (prefers-reduced-motion: no-preference)",
+        reducedMotion: "(prefers-reduced-motion: reduce)"
+    }, (context) => {
+        const { isDesktop, reducedMotion } = context.conditions;
+
+        if (reducedMotion) {
+            gsap.set([title, desc, hint, ...cards], { clearProps: "all" });
+            if (kickerLine) gsap.set(kickerLine, { scaleX: 1 });
+            return;
+        }
+
+        // 1. ELEGANCKIE WEJŚCIE SEKCJI (First Impression Engine)
         const introTl = gsap.timeline({
             scrollTrigger: { 
                 trigger: section, 
-                start: "top 70%", 
+                start: "top 75%", 
                 toggleActions: "play none none reverse" 
             }
         });
 
-        const kickerLine = section.querySelector(".awards-kicker__line");
         if (kickerLine) {
-            introTl.fromTo(kickerLine, { scaleX: 0 }, { scaleX: 1, duration: 1.2, ease: "power4.out" }, 0);
-        }
-
-        if (title && desc && hint) {
-            introTl.fromTo([title, desc, hint],
-                { y: 40, opacity: 0 },
-                {
-                    y: 0,
-                    opacity: 1,
-                    duration: 1.2,
-                    stagger: 0.15,
-                    ease: "power4.out",
-                    clearProps: "transform" // Oczyszczenie kompozytora po animacji
-                },
-                0.2
+            introTl.fromTo(kickerLine, 
+                { scaleX: 0, transformOrigin: "left center" }, 
+                { scaleX: 1, duration: 1.2, ease: "power4.out" }, 
+                0
             );
         }
 
-        // 2. KINEMATYCZNY SCROLL POZIOMY (Desktop Only - Mobile używa natywnego overflow-x)
-        if (window.matchMedia("(min-width: 768px)").matches) {
+        const textElements = [title, desc, hint].filter(Boolean);
+        if (textElements.length > 0) {
+            introTl.fromTo(textElements,
+                { y: 35, opacity: 0, filter: "blur(8px)" },
+                {
+                    y: 0,
+                    opacity: 1,
+                    filter: "blur(0px)",
+                    duration: 1.2,
+                    stagger: 0.12,
+                    ease: "power4.out",
+                    clearProps: "transform,filter"
+                },
+                0.15
+            );
+        }
+
+        // 2. KINEMATYCZNY SCROLL POZIOMY (Desktop Only)
+        if (isDesktop) {
             const getDistance = () => Math.max(0, gallery.scrollWidth - window.innerWidth * 0.4);
 
             const horizontalTimeline = gsap.timeline({
                 scrollTrigger: {
                     trigger: section,
                     start: "top top",
-                    end: () => `+=${Math.max(window.innerHeight * 1.5, getDistance() * 1.5)}`, // Wydłużony czas scrolla = większa elegancja
+                    end: () => `+=${Math.max(window.innerHeight * 1.5, getDistance() * 1.5)}`,
                     pin: true,
-                    scrub: 1,
+                    scrub: 0.8,
                     invalidateOnRefresh: true,
                     onUpdate: (self) => {
-                        if (progressLine) {
-                            // THE $10K FIX: Poprawne przekazanie procentów do atrybutu width w HTML
-                            progressLine.style.setProperty("--award-progress", `${(self.progress * 100).toFixed(2)}%`);
+                        if (setProgressScale) {
+                            setProgressScale(self.progress);
                         }
                     }
                 }
@@ -632,47 +657,55 @@ function initAwardsSection() {
             horizontalTimeline
                 .to(gallery, {
                     x: () => -getDistance(),
-                    ease: "none"
-                })
-                .to(
-                    cards,
-                    {
-                        rotateY: (index) => (index % 2 === 0 ? 4 : -4), // Minimalnie pogłębiony tilt
-                        y: (index) => (index % 2 === 0 ? -12 : 12),
-                        stagger: 0.05,
-                        ease: "none"
-                    },
-                    0
-                );
+                    ease: "none",
+                    force3D: true
+                }, 0)
+                .to(cards, {
+                    rotateY: (index) => (index % 2 === 0 ? 3 : -3),
+                    y: (index) => (index % 2 === 0 ? -10 : 10),
+                    stagger: 0.04,
+                    ease: "none",
+                    force3D: true
+                }, 0);
 
-            // 3. EFEKT 3D MOUSE MOVE (Tylko urządzenia wskazujące)
+            // 3. MIKROINTERAKCJA 3D MOUSE MOVE (Izolowana i audytowalna)
             if (window.matchMedia("(pointer: fine)").matches) {
                 cards.forEach((card) => {
-                    const setRotateX = gsap.quickTo(card, "rotateX", { duration: 0.6, ease: "power3.out" });
-                    const setRotateY = gsap.quickTo(card, "rotateY", { duration: 0.6, ease: "power3.out" });
+                    const setRotateX = gsap.quickTo(card, "rotateX", { duration: 0.5, ease: "power3.out" });
+                    const setRotateY = gsap.quickTo(card, "rotateY", { duration: 0.5, ease: "power3.out" });
 
-                    card._awardsMove = (event) => {
+                    const handlePointerMove = (e) => {
                         const bounds = card.getBoundingClientRect();
-                        const x = event.clientX - bounds.left;
-                        const y = event.clientY - bounds.top;
+                        const x = (e.clientX - bounds.left) / bounds.width - 0.5;
+                        const y = (e.clientY - bounds.top) / bounds.height - 0.5;
 
-                        setRotateX(((y / bounds.height) - 0.5) * -8);
-                        setRotateY(((x / bounds.width) - 0.5) * 10);
+                        setRotateX(y * -10);
+                        setRotateY(x * 12);
                     };
 
-                    card._awardsLeave = () => {
-                        gsap.to(card, { rotateX: 0, rotateY: 0, duration: 0.8, ease: "power3.out", overwrite: true });
+                    const handlePointerLeave = () => {
+                        gsap.to(card, { 
+                            rotateX: 0, 
+                            rotateY: 0, 
+                            duration: 0.8, 
+                            ease: "power3.out", 
+                            overwrite: "auto" 
+                        });
                     };
 
-                    card.removeEventListener("pointermove", card._awardsMove);
-                    card.removeEventListener("pointerleave", card._awardsLeave);
+                    card.addEventListener("pointermove", handlePointerMove);
+                    card.addEventListener("pointerleave", handlePointerLeave);
 
-                    card.addEventListener("pointermove", card._awardsMove);
-                    card.addEventListener("pointerleave", card._awardsLeave);
+                    // Rejestracja czyszczenia pamięci w kontekście GSAP (Zero Leaks w SPA)
+                    context.add(() => {
+                        card.removeEventListener("pointermove", handlePointerMove);
+                        card.removeEventListener("pointerleave", handlePointerLeave);
+                        gsap.set(card, { clearProps: "rotateX,rotateY" });
+                    });
                 });
             }
         }
-    }
+    });
 }
 function initModuleMagnetic() {
     const cards = document.querySelectorAll('.module-card');
