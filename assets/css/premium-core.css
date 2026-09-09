@@ -455,8 +455,17 @@ body {
     transform-origin: center center;
 }
 .ar-award-diploma-wrap { position: relative; width: 42%; transform-style: preserve-3d; will-change: transform; }
-.ar-award-diploma-frame { position: relative; padding: 9px; background: linear-gradient(135deg, #c5a059 0%, #ead7a7 25%, #9f7c3d 50%, #e4ca91 75%, #a47d3e 100%); box-shadow: 0 45px 80px rgba(0,0,0,0.7), 0 0 0 1px rgba(197,160,89,0.25), 0 0 60px rgba(197,160,89,0.08); transform-style: preserve-3d; }
-.ar-award-diploma-frame::after { content: ""; position: absolute; inset: 9px; border: 1px solid rgba(0,0,0,0.18); pointer-events: none; z-index: 2; }
+.ar-award-diploma-frame { 
+    position: relative; 
+    padding: 0; /* Całkowite usunięcie grubości ramy */
+    background: transparent; /* Usunięcie złotego gradientu */
+    /* Głęboki kinowy cień + 1px krawędzi (glass-edge) dla perfekcyjnej separacji od tła */
+    box-shadow: 0 45px 80px rgba(0,0,0,0.8), 0 0 0 1px rgba(249,247,242,0.06); 
+    transform-style: preserve-3d; 
+}
+.ar-award-diploma-frame::after { 
+    display: none; 
+}
 .ar-award-diploma { display: block; width: 100%; height: auto; object-fit: contain; background: #f3efe5; box-shadow: inset 0 0 20px rgba(0,0,0,0.08); transform: translateZ(1px); will-change: transform; }
 .ar-award-diploma-shadow { position: absolute; left: 8%; right: 8%; bottom: -15%; height: 18%; border-radius: 50%; background: rgba(0,0,0,0.7); filter: blur(25px); transform: translateZ(-80px) rotateX(70deg); opacity: 0.8; z-index: -1; }
 .ar-award-diploma-wrap::before { content: ""; position: absolute; inset: -20%; z-index: 3; pointer-events: none; background: linear-gradient(110deg, transparent 35%, rgba(255,255,255,0.18) 49%, transparent 62%); transform: translateX(-120%) rotate(5deg); opacity: 0; mix-blend-mode: screen; will-change: transform, opacity; }
