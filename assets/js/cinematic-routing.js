@@ -592,163 +592,92 @@ function initModulesGridAnimation() {
 }
 
 /* =========================================================================
-   AMBER RESILIENCE | AWARDS SECTION ENGINE (ULTRA-PREMIUM & ENTERPRISE-SAFE)
+   CINEMATIC RECOGNITION ENGINE (SYMMETRICAL MUSEUM EXHIBIT)
    ========================================================================= */
+function initAmberRecognition() {
+    const section = document.querySelector(".ar-recognition");
+    if (!section || typeof gsap === "undefined" || typeof ScrollTrigger === "undefined") return;
+    
+    // Elementy UI
+    const kicker = section.querySelector(".ar-recognition-kicker");
+    const title = section.querySelector(".ar-recognition-title");
+    const intro = section.querySelector(".ar-recognition-intro");
+    const medalStage = section.querySelector(".ar-award-stage");
+    const medalObject = section.querySelector(".ar-award-medal-object");
+    const medalWrap = section.querySelector(".ar-award-medal-wrap");
+    const diplomaObject = section.querySelector(".ar-award-diploma-object");
+    const aura = section.querySelector(".ar-award-aura");
+    const outerRing = section.querySelector(".ar-award-ring--outer");
+    const innerRing = section.querySelector(".ar-award-ring--inner");
+    const awardContent = section.querySelector(".ar-award-content");
+    const cameraOverlay = section.querySelector(".ar-recognition-camera-overlay");
+    const bg = section.querySelector(".ar-recognition-bg");
 
-function initAwardsSection() {
-    const section = document.querySelector("#awards");
-    const gallery = document.querySelector("[data-awards-gallery]");
+    // Detekcja Mobile do matematycznego rozsuwania obiektów
+    const isMobile = window.innerWidth < 768;
+    const shiftLeft = isMobile ? -75 : -210; // Ciasne rozsunięcie na telefonie, szerokie na desktopie
+    const shiftRight = isMobile ? 85 : 220;
 
-    if (!section || !gallery) return;
+    // === INICJALIZACJA STANÓW ===
+    gsap.set([kicker, title, intro], { opacity: 0, y: 20 });
+    gsap.set(awardContent, { opacity: 0, y: 30 });
+    
+    // Medal startuje ze środka
+    gsap.set(medalObject, { x: 0, y: 0 });
+    gsap.set(medalWrap, { opacity: 0, scale: 0.6, rotationY: -15, y: 50 });
+    
+    // Dyplom w ukryciu
+    gsap.set(diplomaObject, { opacity: 0, visibility: "hidden", x: 0, y: 0, z: -100, scale: 0.7, rotationY: 10 });
+    
+    gsap.set(aura, { scale: 0.4, opacity: 0 });
+    gsap.set(outerRing, { scale: 0.7, opacity: 0, rotation: -20 });
+    gsap.set(innerRing, { scale: 0.8, opacity: 0, rotation: 15 });
 
-    if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') return;
-
-    // Security & Memory Mgmt: Wyczyszczenie instancji ScrollTrigger powiązanych z sekcją
-    ScrollTrigger.getAll().filter(st => st.trigger === section).forEach(st => st.kill(true));
-
-    const cards = Array.from(gallery.querySelectorAll(".award-card"));
-    const progressLine = section.querySelector(".awards-progress__line");
-    const title = section.querySelector(".awards-title");
-    const desc = section.querySelector(".awards-desc");
-    const kickerLine = section.querySelector(".awards-kicker__line");
-
-    // Budowa bezpośredniego setter'a GPU dla paska postępu (Zero Layout Thrashing)
-    const setProgressScale = progressLine 
-        ? gsap.quickSetter(progressLine, "scaleX") 
-        : null;
-
-    if (progressLine) {
-        gsap.set(progressLine, { transformOrigin: "left center", scaleX: 0 });
+    // Fallback dla Accessibility
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+        gsap.set([kicker, title, intro, awardContent], { opacity: 1, y: 0 });
+        gsap.set(medalWrap, { opacity: 1, scale: 1, rotationY: 0, y: 0 });
+        gsap.set(medalObject, { x: shiftLeft }); 
+        gsap.set(diplomaObject, { opacity: 1, visibility: "visible", x: shiftRight, z: 0, scale: 0.9, rotationY: 0 });
+        return;
     }
 
-    // $10K Standard: Deklaratywne zarządzanie mediami i cyklem życia pamięci
-    const mm = gsap.matchMedia();
-
-    mm.add({
-        isDesktop: "(min-width: 768px) and (prefers-reduced-motion: no-preference)",
-        isMobile: "(max-width: 767px) and (prefers-reduced-motion: no-preference)",
-        reducedMotion: "(prefers-reduced-motion: reduce)"
-    }, (context) => {
-        const { isDesktop, isMobile, reducedMotion } = context.conditions;
-
-        if (reducedMotion) {
-            gsap.set([title, desc, ...cards], { clearProps: "all" });
-            if (kickerLine) gsap.set(kickerLine, { scaleX: 1 });
-            return;
-        }
-
-        // 1. ELEGANCKIE WEJŚCIE SEKCJI (First Impression Engine)
-        const introTl = gsap.timeline({
-            scrollTrigger: { 
-                trigger: section, 
-                start: "top 75%", 
-                toggleActions: "play none none reverse" 
-            }
-        });
-
-        if (kickerLine) {
-            introTl.fromTo(kickerLine, 
-                { scaleX: 0, transformOrigin: "left center" }, 
-                { scaleX: 1, duration: 1.2, ease: "power4.out" }, 
-                0
-            );
-        }
-
-        const textElements = [title, desc].filter(Boolean);
-        if (textElements.length > 0) {
-            introTl.fromTo(textElements,
-                { y: 35, opacity: 0, filter: "blur(8px)" },
-                {
-                    y: 0,
-                    opacity: 1,
-                    filter: "blur(0px)",
-                    duration: 1.2,
-                    stagger: 0.12,
-                    ease: "power4.out",
-                    clearProps: "transform,filter"
-                },
-                0.15
-            );
-        }
-
-        // 2. KINEMATYCZNY SCROLL POZIOMY (Desktop & Mobile Pinned Engine)
-        if (isDesktop || isMobile) {
-            const getDistance = () => {
-                const containerWidth = gallery.parentElement.clientWidth;
-                return Math.max(0, gallery.scrollWidth - containerWidth);
-            };
-
-            const horizontalTimeline = gsap.timeline({
-                scrollTrigger: {
-                    id: "awardsPin",
-                    trigger: section,
-                    pin: true,
-                    start: "top top",
-                    end: () => `+=${Math.max(window.innerHeight * 1.2, getDistance() * (isMobile ? 1.6 : 1.5))}`,
-                    scrub: 0.8,
-                    invalidateOnRefresh: true,
-                    onUpdate: (self) => {
-                        if (setProgressScale) {
-                            setProgressScale(self.progress);
-                        }
-                    }
-                }
-            });
-
-            horizontalTimeline
-                .to(gallery, {
-                    x: () => -getDistance(),
-                    ease: "none",
-                    force3D: true
-                }, 0);
-
-            if (isDesktop) {
-                horizontalTimeline.to(cards, {
-                    rotateY: (index) => (index % 2 === 0 ? 3 : -3),
-                    y: (index) => (index % 2 === 0 ? -10 : 10),
-                    stagger: 0.04,
-                    ease: "none",
-                    force3D: true
-                }, 0);
-            }
-        }
-
-        // 3. MIKROINTERAKCJA 3D MOUSE MOVE (Desktop Pointer Only)
-        if (isDesktop && window.matchMedia("(pointer: fine)").matches) {
-            cards.forEach((card) => {
-                const setRotateX = gsap.quickTo(card, "rotateX", { duration: 0.5, ease: "power3.out" });
-                const setRotateY = gsap.quickTo(card, "rotateY", { duration: 0.5, ease: "power3.out" });
-
-                const handlePointerMove = (e) => {
-                    const bounds = card.getBoundingClientRect();
-                    const x = (e.clientX - bounds.left) / bounds.width - 0.5;
-                    const y = (e.clientY - bounds.top) / bounds.height - 0.5;
-
-                    setRotateX(y * -10);
-                    setRotateY(x * 12);
-                };
-
-                const handlePointerLeave = () => {
-                    gsap.to(card, { 
-                        rotateX: 0, 
-                        rotateY: 0, 
-                        duration: 0.8, 
-                        ease: "power3.out", 
-                        overwrite: "auto" 
-                    });
-                };
-
-                card.addEventListener("pointermove", handlePointerMove);
-                card.addEventListener("pointerleave", handlePointerLeave);
-
-                context.add(() => {
-                    card.removeEventListener("pointermove", handlePointerMove);
-                    card.removeEventListener("pointerleave", handlePointerLeave);
-                    gsap.set(card, { clearProps: "rotateX,rotateY" });
-                });
-            });
+    const tl = gsap.timeline({
+        defaults: { ease: "power2.out" },
+        scrollTrigger: {
+            trigger: section,
+            // Animacja startuje szybko, aby zgubić przerwę (karta 05 wyjeżdża w 75%)
+            start: "top 75%", 
+            end: "bottom bottom",
+            scrub: 1.2,
+            invalidateOnRefresh: true
         }
     });
+
+    // FAZA 1: Wejście nagłówków (Intro)
+    tl.to(kicker, { opacity: 1, y: 0, duration: 0.4 }, 0)
+      .to(title, { opacity: 1, y: 0, duration: 0.6, ease: "power3.out" }, 0.1)
+      .to(intro, { opacity: 1, y: 0, duration: 0.6 }, 0.2);
+
+    // FAZA 2: Narodziny Medalu w centrum
+    tl.to(medalWrap, { opacity: 1, scale: 1, rotationY: 0, y: 0, duration: 1.2, ease: "expo.out" }, 0.3)
+      .to(aura, { scale: 1, opacity: 0.6, duration: 1.0 }, 0.4)
+      .to(outerRing, { scale: 1, opacity: 1, rotation: 0, duration: 1.0 }, 0.4)
+      .to(innerRing, { scale: 1, opacity: 1, rotation: 0, duration: 1.0 }, 0.5);
+
+    // FAZA 3: Podział z matematyczną responsywnością (bez zatrzymywania)
+    tl.set(diplomaObject, { visibility: "visible" }, "+=0.2")
+      .to(medalObject, { x: shiftLeft, rotationY: 10, duration: 1.4, ease: "power3.inOut" }, "<")
+      .to(diplomaObject, { opacity: 1, x: shiftRight, z: 0, scale: 0.9, rotationY: -6, rotationZ: 2, duration: 1.4, ease: "power3.inOut" }, "<");
+
+    // FAZA 4: Pojawienie się tekstu "QUALITY & INNOVATION" i winiety
+    // Wszystko dzieje się jednocześnie. Po tym osi czasu następuje koniec, co od razu odblokowuje skrolowanie w dół.
+    tl.to(awardContent, { opacity: 1, y: 0, duration: 0.8, ease: "power3.out" }, "-=0.4")
+      .to(outerRing, { rotation: 3, duration: 1.5, ease: "power1.inOut" }, "<")
+      .to(bg, { scale: 1.04, duration: 1.5, ease: "power1.inOut" }, "<")
+      .to(cameraOverlay, { opacity: 0.7, duration: 1.5, ease: "power1.inOut" }, "<");
+      
+    // Koniec osi czasu - ZERO sztucznych opóźnień na końcu
 }
 function initModuleMagnetic() {
     const cards = document.querySelectorAll('.module-card');
@@ -1435,7 +1364,7 @@ async function initAll(targetHash = null) {
     initBackpackCardsAnimation();
     initWhyAmberStacking();
     initModulesGridAnimation();
-	initAwardsSection();
+	initAmberRecognition();
     initModuleMagnetic();
     initFAQ();
     initLightboxBind();
