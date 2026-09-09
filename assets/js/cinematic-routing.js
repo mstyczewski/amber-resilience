@@ -610,7 +610,6 @@ function initAwardsSection() {
     const progressLine = section.querySelector(".awards-progress__line");
     const title = section.querySelector(".awards-title");
     const desc = section.querySelector(".awards-desc");
-    const hint = section.querySelector(".awards-scroll-hint");
     const kickerLine = section.querySelector(".awards-kicker__line");
 
     // Budowa bezpośredniego setter'a GPU dla paska postępu (Zero Layout Thrashing)
@@ -633,7 +632,7 @@ function initAwardsSection() {
         const { isDesktop, isMobile, reducedMotion } = context.conditions;
 
         if (reducedMotion) {
-            gsap.set([title, desc, hint, ...cards], { clearProps: "all" });
+            gsap.set([title, desc, ...cards], { clearProps: "all" });
             if (kickerLine) gsap.set(kickerLine, { scaleX: 1 });
             return;
         }
@@ -655,7 +654,7 @@ function initAwardsSection() {
             );
         }
 
-        const textElements = [title, desc, hint].filter(Boolean);
+        const textElements = [title, desc].filter(Boolean);
         if (textElements.length > 0) {
             introTl.fromTo(textElements,
                 { y: 35, opacity: 0, filter: "blur(8px)" },
@@ -674,7 +673,6 @@ function initAwardsSection() {
 
         // 2. KINEMATYCZNY SCROLL POZIOMY (Desktop & Mobile Pinned Engine)
         if (isDesktop || isMobile) {
-            // Dynamiczne wyliczenie dystansu w zależności od punktu montowania (Desktop vs Mobile container width)
             const getDistance = () => {
                 const containerWidth = gallery.parentElement.clientWidth;
                 return Math.max(0, gallery.scrollWidth - containerWidth);
@@ -704,7 +702,6 @@ function initAwardsSection() {
                     force3D: true
                 }, 0);
 
-            // Subtelny efekt 3D kart dopasowany wyłącznie do desktopu dla zachowania najwyższej wydajności mobile (INP / FPS)
             if (isDesktop) {
                 horizontalTimeline.to(cards, {
                     rotateY: (index) => (index % 2 === 0 ? 3 : -3),
@@ -716,7 +713,7 @@ function initAwardsSection() {
             }
         }
 
-        // 3. MIKROINTERAKCJA 3D MOUSE MOVE (Izolowana i audytowalna - Desktop Pointer Only)
+        // 3. MIKROINTERAKCJA 3D MOUSE MOVE (Desktop Pointer Only)
         if (isDesktop && window.matchMedia("(pointer: fine)").matches) {
             cards.forEach((card) => {
                 const setRotateX = gsap.quickTo(card, "rotateX", { duration: 0.5, ease: "power3.out" });
@@ -744,7 +741,6 @@ function initAwardsSection() {
                 card.addEventListener("pointermove", handlePointerMove);
                 card.addEventListener("pointerleave", handlePointerLeave);
 
-                // Rejestracja czyszczenia pamięci w kontekście GSAP (Zero Leaks w SPA)
                 context.add(() => {
                     card.removeEventListener("pointermove", handlePointerMove);
                     card.removeEventListener("pointerleave", handlePointerLeave);
