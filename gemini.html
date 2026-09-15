@@ -1,524 +1,201 @@
 <!DOCTYPE html>
-<html lang="pl">
+<html lang="pl" class="bg-[#050505] text-[#F4F4F4] antialiased">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Wydarzenia i Targi — Dziennik Operacyjny | Amber Resilience</title>
-<meta name="description" content="Śledź obecność Amber Resilience na targach branżowych, forach bezpieczeństwa i wydarzeniach dla instytucji. Zobacz, gdzie testujemy gotowość kryzysową w terenie.">
-<link rel="canonical" href="https://amberresilience.eu/wydarzenia/">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@500;600;700;800;900&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
-<style>
-  /* ============ TOKENS & DESIGN SYSTEM ============ */
-  :root {
-    --bg: #111208;
-    --bg-panel: #191a10;
-    --paper: #EAE3CF;
-    --paper-line: rgba(17,18,8,0.14);
-    --ink: #EDEAE0;
-    --ink-dim: #9C9A85;
-    --ink-faint: #6b6a5a;
-    --amber: #CC8A31;
-    --amber-soft: #8a6224;
-    --stamp: #A5402C;
-    --line: rgba(237,234,224,0.14);
-    --line-strong: rgba(237,234,224,0.28);
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Charles Leclerc | High-End Motion Architecture</title>
+    <meta name="description" content="Eksploruj karierę Charlesa Leclerca w standardzie premium WebGL i GSAP Motion.">
+    <link rel="canonical" href="https://twojadomena.com/">
+    
+    <!-- Security: Content Security Policy z zezwoleniem dla CDN -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.tailwindcss.com https://cdnjs.cloudflare.com https://unpkg.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https://images.unsplash.com; connect-src 'self';">
 
-    --f-display: 'Big Shoulders Display', sans-serif;
-    --f-body: 'IBM Plex Sans', sans-serif;
-    --f-mono: 'IBM Plex Mono', monospace;
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        dark: '#050505',
+                        light: '#F4F4F4',
+                        ferrari: '#E32219'
+                    },
+                    fontFamily: {
+                        display: ['Oswald', 'Impact', 'sans-serif'],
+                        body: ['"Helvetica Neue"', 'Arial', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
 
-    --edge: clamp(20px, 6vw, 88px);
-  }
-
-  * { box-sizing: border-box; }
-  html { scroll-behavior: smooth; }
-  body {
-    margin: 0;
-    background: var(--bg);
-    color: var(--ink);
-    font-family: var(--f-body);
-    font-size: 16px;
-    line-height: 1.6;
-    -webkit-font-smoothing: antialiased;
-    overflow-x: hidden;
-  }
-  ::selection { background: var(--amber); color: #16170d; }
-  a { color: inherit; text-decoration: none; }
-
-  @media (prefers-reduced-motion: reduce) {
-    * { animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; transition-duration: 0.001ms !important; scroll-behavior: auto !important; }
-  }
-
-  /* Grain Overlay (Tactical Atmosphere) */
-  .grain {
-    position: fixed; inset: 0; pointer-events: none; z-index: 50;
-    opacity: 0.04; mix-blend-mode: overlay;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-  }
-
-  /* ============ TOPBAR ============ */
-  .topbar {
-    position: sticky; top: 0; z-index: 40;
-    display: flex; align-items: center; justify-content: space-between;
-    padding: 18px var(--edge);
-    background: rgba(17,18,8,0.82);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    border-bottom: 1px solid var(--line);
-    font-family: var(--f-mono);
-    font-size: 12px;
-    letter-spacing: 0.06em;
-  }
-  .topbar .mark { font-family: var(--f-display); font-weight: 700; font-size: 18px; letter-spacing: 0.02em; }
-  .topbar .mark span { color: var(--amber); }
-  .topbar .back {
-    color: var(--ink-dim); text-transform: uppercase;
-    display: flex; align-items: center; gap: 8px;
-    transition: color 0.3s ease;
-  }
-  .topbar .back:hover { color: var(--ink); }
-
-  /* ============ HERO ============ */
-  .hero {
-    min-height: 85vh;
-    display: flex; flex-direction: column; justify-content: center;
-    padding: 100px var(--edge) 60px;
-    position: relative;
-    border-bottom: 1px solid var(--line);
-  }
-  .hero::before {
-    content: "";
-    position: absolute; left: var(--edge); top: 80px; bottom: 80px; width: 1px;
-    background: linear-gradient(to bottom, transparent, var(--line-strong), transparent);
-    opacity: 0.6;
-  }
-  .doc-tag {
-    font-family: var(--f-mono); font-size: 12px; letter-spacing: 0.14em;
-    text-transform: uppercase; color: var(--amber);
-    display: flex; align-items: center; gap: 10px;
-    opacity: 0; transform: translateY(10px);
-    animation: rise 0.7s ease forwards;
-  }
-  .doc-tag::before { content: ""; width: 22px; height: 1px; background: var(--amber); display: inline-block; }
-
-  h1.hero-title {
-    font-family: var(--f-display);
-    font-weight: 800;
-    font-size: clamp(44px, 8.5vw, 120px);
-    line-height: 0.94;
-    letter-spacing: -0.01em;
-    margin: 22px 0 0;
-    max-width: 16ch;
-  }
-  h1.hero-title .line { display: block; overflow: hidden; }
-  h1.hero-title .line span {
-    display: block; opacity: 0; transform: translateY(100%);
-    animation: rise 0.8s cubic-bezier(.2,.8,.2,1) forwards;
-  }
-  h1.hero-title .line:nth-child(1) span { animation-delay: 0.08s; }
-  h1.hero-title .line:nth-child(2) span { animation-delay: 0.20s; }
-  h1.hero-title .line:nth-child(3) span { animation-delay: 0.32s; }
-
-  .hero-sub {
-    margin-top: 34px; max-width: 48ch;
-    font-size: clamp(15px, 1.6vw, 18px);
-    color: var(--ink-dim);
-    opacity: 0; transform: translateY(10px);
-    animation: rise 0.8s ease forwards; animation-delay: 0.55s;
-  }
-  .scroll-cue {
-    margin-top: 54px; font-family: var(--f-mono); font-size: 11px;
-    letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-faint);
-    display: flex; align-items: center; gap: 10px;
-    opacity: 0; animation: rise 0.8s ease forwards; animation-delay: 0.8s;
-  }
-  .scroll-cue .bar { width: 1px; height: 26px; background: var(--ink-faint); position: relative; overflow: hidden; }
-  .scroll-cue .bar::after {
-    content: ""; position: absolute; left: 0; top: -100%; width: 100%; height: 100%;
-    background: var(--amber); animation: drip 1.8s ease-in-out infinite;
-  }
-
-  @keyframes rise { to { opacity: 1; transform: translateY(0); } }
-  @keyframes drip { 0% { top: -100%; } 60% { top: 100%; } 100% { top: 100%; } }
-
-  /* ============ HORIZONTAL SCROLLER SECTION (Główne żądanie: "każde wydarzenie skrolowane na bok") ============ */
-  .events-horizontal-wrapper {
-    position: relative;
-    width: 100%;
-    background: var(--bg);
-    border-bottom: 1px solid var(--line);
-    overflow: hidden;
-  }
-  .events-track {
-    display: flex;
-    width: fit-content;
-    will-change: transform;
-  }
-  .event-panel {
-    width: 100vw;
-    min-height: 100vh;
-    padding: 100px var(--edge);
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    border-right: 1px solid var(--line);
-    flex-shrink: 0;
-  }
-
-  .chapter-head {
-    display: flex; gap: 28px; align-items: flex-end;
-    border-bottom: 1px solid var(--line);
-    padding-bottom: 24px; margin-bottom: 48px;
-  }
-  .chapter-num {
-    font-family: var(--f-display); font-weight: 700;
-    font-size: clamp(40px, 5vw, 64px); color: var(--amber-soft);
-    line-height: 1;
-  }
-  .chapter-title-group h2 {
-    font-family: var(--f-display); font-weight: 700;
-    font-size: clamp(32px, 5vw, 56px); line-height: 1; margin: 0 0 10px;
-    letter-spacing: -0.01em;
-  }
-  .chapter-meta {
-    font-family: var(--f-mono); font-size: 12px; letter-spacing: 0.06em;
-    color: var(--ink-dim); text-transform: uppercase;
-  }
-  .chapter-meta .status { color: var(--amber); }
-  .chapter-meta .status.pending { color: var(--ink-dim); }
-
-  .chapter-body {
-    display: grid; grid-template-columns: 0.9fr 1.1fr; gap: 60px; align-items: center;
-  }
-  @media (max-width: 1024px) {
-    .event-panel { height: auto; min-height: auto; padding: 80px var(--edge); }
-    .events-track { display: block; width: 100%; }
-    .chapter-body { grid-template-columns: 1fr; gap: 40px; }
-  }
-
-  .chapter-text p {
-    font-size: 16.5px; color: var(--ink); margin: 0 0 20px;
-    max-width: 48ch;
-  }
-  .chapter-text p.dim { color: var(--ink-faint); font-style: italic; }
-
-  .stamp {
-    margin-top: 28px; display: inline-flex; flex-direction: column;
-    border: 1.5px solid var(--stamp); color: var(--stamp);
-    padding: 12px 18px; font-family: var(--f-mono);
-    font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase;
-    transform: rotate(-3deg); line-height: 1.5;
-    opacity: 0; scale: 0.85;
-    transition: opacity .5s ease, scale .5s cubic-bezier(.3,1.4,.5,1);
-  }
-  .stamp.is-visible { opacity: 0.92; scale: 1; }
-  .stamp b { font-size: 13px; letter-spacing: 0.06em; }
-
-  .tpl-pill {
-    display: inline-block; font-family: var(--f-mono); font-size: 11px;
-    letter-spacing: 0.1em; text-transform: uppercase; color: var(--bg);
-    background: var(--amber); padding: 5px 10px; margin-bottom: 16px;
-  }
-
-  /* ============ GALLERY (4 photo mosaic) ============ */
-  .gallery {
-    display: grid;
-    grid-template-columns: 1.3fr 0.68fr 0.68fr;
-    grid-template-rows: auto auto;
-    gap: 3px;
-  }
-  .photo {
-    position: relative; overflow: hidden;
-    border: 1px solid var(--line);
-    background: #0f100a;
-  }
-  .photo-inner { position: absolute; inset: -14% 0; will-change: transform; }
-  .photo-bg {
-    position: absolute; inset: -15%;
-    background: radial-gradient(120% 120% at 15% 0%, rgba(204,138,49,0.35), transparent 60%),
-                linear-gradient(155deg, #2a2712 0%, #17180d 60%, #100f08 100%);
-    transition: transform .8s cubic-bezier(.2,.8,.2,1);
-  }
-  .photo:hover .photo-bg { transform: scale(1.07); }
-  .photo-bg::before {
-    content: ""; position: absolute; inset: 0; opacity: 0.12;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-  }
-  .photo .icon {
-    position: absolute; top: 50%; left: 50%; transform: translate(-50%,-52%);
-    width: 34px; height: 34px; opacity: 0.34; stroke: var(--ink);
-  }
-  .photo .tag {
-    position: absolute; left: 0; bottom: 0; right: 0;
-    padding: 11px 13px;
-    font-family: var(--f-mono); font-size: 10.5px; letter-spacing: 0.03em;
-    color: var(--ink); background: linear-gradient(to top, rgba(11,12,6,0.92), transparent);
-    line-height: 1.4;
-  }
-  .photo .tag em { color: var(--amber); font-style: normal; }
-  .photo .idx {
-    position: absolute; top: 11px; right: 13px;
-    font-family: var(--f-mono); font-size: 10px; color: var(--ink-faint);
-  }
-
-  .photo--a { grid-column: 1 / 2; grid-row: 1 / 3; aspect-ratio: 4/5; }
-  .photo--b { grid-column: 2 / 4; grid-row: 1 / 2; aspect-ratio: 16/8; }
-  .photo--c { grid-column: 2 / 3; grid-row: 2 / 3; aspect-ratio: 1/1; }
-  .photo--d { grid-column: 3 / 4; grid-row: 2 / 3; aspect-ratio: 1/1; }
-  
-  @media (max-width: 768px) {
-    .gallery { grid-template-columns: 1fr 1fr; }
-    .photo--a { grid-column: 1/3; grid-row: auto; aspect-ratio: 16/10; }
-    .photo--b { grid-column: 1/3; grid-row: auto; aspect-ratio: 16/9; }
-    .photo--c, .photo--d { grid-column: span 1; grid-row: auto; aspect-ratio: 1/1; }
-  }
-
-  /* ============ RAIL NAVIGATION ============ */
-  .rail {
-    position: fixed; left: 26px; top: 50%; transform: translateY(-50%);
-    z-index: 30; display: flex; flex-direction: column; gap: 24px;
-    font-family: var(--f-mono); font-size: 10px; color: var(--ink-faint);
-  }
-  .rail .dot-row { display: flex; align-items: center; gap: 10px; cursor: pointer; }
-  .rail .dot { width: 7px; height: 7px; border-radius: 50%; border: 1px solid var(--ink-faint); transition: all .3s ease; }
-  .rail .dot-row.active .dot { background: var(--amber); border-color: var(--amber); box-shadow: 0 0 0 3px rgba(204,138,49,0.18); }
-  .rail .dot-row.active { color: var(--amber); }
-  @media (max-width: 1024px) { .rail { display: none; } }
-
-  /* ============ CLOSING SECTION ============ */
-  .closing {
-    padding: 120px var(--edge);
-    display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 50px; align-items: end;
-    border-bottom: 1px solid var(--line);
-    background: var(--bg);
-  }
-  .closing h3 {
-    font-family: var(--f-display); font-weight: 700;
-    font-size: clamp(32px, 5vw, 58px); line-height: 1.02; margin: 0;
-  }
-  .closing p { color: var(--ink-dim); max-width: 44ch; margin: 22px 0 0; }
-  .cta {
-    display: inline-flex; align-items: center; gap: 12px; margin-top: 34px;
-    text-decoration: none; font-family: var(--f-mono); font-size: 13px;
-    letter-spacing: 0.08em; text-transform: uppercase; color: var(--bg);
-    background: var(--amber); padding: 16px 26px;
-    transition: background .25s ease;
-  }
-  .cta:hover { background: #e0a24a; }
-  @media (max-width: 780px) { .closing { grid-template-columns: 1fr; } }
-
-  footer {
-    padding: 32px var(--edge); display: flex; justify-content: space-between;
-    font-family: var(--f-mono); font-size: 11px; color: var(--ink-faint);
-    letter-spacing: 0.06em; flex-wrap: wrap; gap: 10px; background: var(--bg);
-  }
-  footer a { text-decoration: none; color: var(--ink-dim); }
-  footer a:hover { color: var(--amber); }
-</style>
+    <style>
+        /* CSS Reset & Lenis Foundation */
+        html.lenis, html.lenis body { height: auto; }
+        .lenis.lenis-smooth { scroll-behavior: auto !important; }
+        .lenis.lenis-smooth [data-lenis-prevent] { overscroll-behavior: contain; }
+        .lenis.lenis-stopped { overflow: hidden; }
+        
+        /* Maskowanie i zapobieganie przeskokom */
+        .clip-text { overflow: hidden; display: block; }
+        ::-webkit-scrollbar { display: none; }
+        body { -ms-overflow-style: none; scrollbar-width: none; }
+    </style>
 </head>
-<body>
+<body class="font-body overflow-x-hidden selection:bg-ferrari selection:text-white">
 
-<div class="grain"></div>
+    <main id="smooth-wrapper">
+        <div id="smooth-content">
+            
+            <!-- HERO SECTION -->
+            <header class="relative w-full h-screen flex flex-col justify-center items-center px-6 border-b border-[#1a1a1a]">
+                <div class="clip-text mb-2">
+                    <h1 class="hero-title text-[13vw] leading-[0.8] font-display uppercase font-bold tracking-tighter text-center">
+                        Charles
+                    </h1>
+                </div>
+                <div class="clip-text">
+                    <h1 class="hero-title text-[13vw] leading-[0.8] font-display uppercase font-bold tracking-tighter text-center text-transparent" style="-webkit-text-stroke: 2px #F4F4F4;">
+                        Leclerc
+                    </h1>
+                </div>
+                <p class="hero-subtitle mt-12 text-xs md:text-sm uppercase tracking-[0.3em] text-ferrari font-bold flex items-center gap-3">
+                    <span class="w-2 h-2 rounded-full bg-ferrari animate-ping"></span>
+                    Scroll down to trigger horizontal timeline
+                </p>
+            </header>
 
-<header class="topbar">
-  <div class="mark">AMBER<span>·</span>RESILIENCE</div>
-  <a class="back" href="https://amberresilience.eu">← Powrót do strony głównej</a>
-</header>
+            <!-- HORIZONTAL SCROLL SECTION (Scroll-Jacking) -->
+            <section id="horizontal-section" class="relative w-full h-screen bg-dark overflow-hidden">
+                <div id="horizontal-container" class="flex w-[300vw] h-full items-center">
+                    
+                    <!-- PANEL 01 -->
+                    <article class="w-screen h-full flex flex-col justify-center px-8 md:px-24 bg-[#080808] border-r border-[#1a1a1a] flex-shrink-0">
+                        <span class="text-ferrari text-xs uppercase tracking-[0.4em] font-mono mb-4">01 // IDENTITY</span>
+                        <h2 class="text-6xl md:text-9xl font-display uppercase max-w-5xl leading-none">
+                            IT'S THE MIND THAT MAKES THE <span class="text-ferrari">DIFFERENCE.</span>
+                        </h2>
+                    </article>
 
-<!-- ============ HERO ============ -->
-<section class="hero">
-  <div class="doc-tag">Dziennik operacyjny · dokument nr 04/2026</div>
-  <h1 class="hero-title">
-    <span class="line"><span>Gotowość,</span></span>
-    <span class="line"><span>która wychodzi</span></span>
-    <span class="line"><span>w teren.</span></span>
-  </h1>
-  <p class="hero-sub">Zestawów Amber Resilience nie testujemy zza biurka. Spotykamy się z Wami na targach branżowych, forach bezpieczeństwa i wydarzeniach dla instytucji publicznych — tam, gdzie gotowość naprawdę ma znaczenie.</p>
-  <div class="scroll-cue"><div class="bar"></div> Przewiń, by przejść do osi operacyjnej</div>
-</section>
+                    <!-- PANEL 02 -->
+                    <article class="w-screen h-full flex items-center justify-between px-8 md:px-24 bg-[#0a0a0a] border-r border-[#1a1a1a] flex-shrink-0">
+                        <div class="w-full md:w-1/2 pr-0 md:pr-12">
+                            <span class="text-ferrari text-xs uppercase tracking-[0.4em] font-mono mb-4 block">02 // PREPARATION</span>
+                            <h3 class="text-4xl md:text-7xl font-display uppercase mb-6 leading-tight">PHYSICAL TRAINING</h3>
+                            <p class="text-base md:text-xl text-gray-400 max-w-xl leading-relaxed">
+                                To prepare physically and mentally, Charles endures extreme G-forces and heat strain, working with a team of experts to optimize every millisecond on track.
+                            </p>
+                        </div>
+                        <div class="w-full md:w-1/2 h-[60vh] relative overflow-hidden bg-[#151515] hidden md:block">
+                            <img src="https://images.unsplash.com/photo-1541348263662-e068ec622e03?q=80&w=1200&auto=format&fit=crop" 
+                                 alt="Formula 1 Racing Background" 
+                                 class="panel-img w-full h-full object-cover grayscale opacity-80 transition-transform duration-700">
+                        </div>
+                    </article>
 
-<!-- ============ RAIL NAVIGATION (Desktop Side Indicators) ============ -->
-<nav class="rail" id="rail">
-  <div class="dot-row active" data-index="0"><span class="dot"></span> 01 · FORUM BHP</div>
-  <div class="dot-row" data-index="1"><span class="dot"></span> 02 · [TARGI]</div>
-  <div class="dot-row" data-index="2"><span class="dot"></span> 03 · [TARGI]</div>
-</nav>
+                    <!-- PANEL 03 -->
+                    <article class="w-screen h-full flex flex-col justify-center px-8 md:px-24 bg-ferrari text-white flex-shrink-0">
+                        <span class="text-black text-xs uppercase tracking-[0.4em] font-mono mb-4 font-bold">03 // DESTINY</span>
+                        <h3 class="text-6xl md:text-9xl font-display uppercase leading-none">
+                            SCUDERIA<br>FERRARI
+                        </h3>
+                    </article>
 
-<!-- ============ HORIZONTAL SCROLLER CONTAINER ============ -->
-<div class="events-horizontal-wrapper" id="horizontal-section">
-  <div class="events-track" id="events-track">
+                </div>
+            </section>
 
-    <!-- CHAPTER 01 — Forum BHP 2026 -->
-    <section class="event-panel" id="ch-01">
-      <div class="chapter-head">
-        <div class="chapter-num">01</div>
-        <div class="chapter-title-group">
-          <h2>Forum BHP 2026</h2>
-          <div class="chapter-meta">Kielce · 14–16.04.2026 · Status: <span class="status">zrealizowana</span></div>
+            <!-- FOOTER -->
+            <footer class="h-screen flex flex-col items-center justify-center bg-dark text-center px-6">
+                <h4 class="text-4xl md:text-6xl font-display uppercase mb-4">END OF CHAPTER</h4>
+                <p class="text-xs tracking-[0.3em] uppercase text-gray-500">Zero Trust Architecture // GSAP & Lenis Verified</p>
+            </footer>
+
         </div>
-      </div>
-      <div class="chapter-body">
-        <div class="chapter-text">
-          <p>Forum BHP to jedno z największych w Polsce spotkań branży bezpieczeństwa i higieny pracy — miejsce, w którym rozmawiają ze sobą ludzie odpowiadający za realne procedury kryzysowe. Nasze stanowisko prezentowało pełną konstrukcję plecaka indywidualnego i rodzinnego, wraz z rozłożonymi modułami: woda, żywność, schronienie, pierwsza pomoc.</p>
-          <p>Trzy dni rozmów potwierdziły to, co zakładaliśmy od początku — gotowość nie jest tematem niszowym. Odwiedzający pytali o konkretne scenariusze: blackout, ewakuację, wyposażenie dostosowane do dzieci. Efektem obecności było wyróżnienie Quality &amp; Innovation, przyznane za kompleksowe podejście do konstrukcji zestawu.</p>
-          <div class="stamp" data-stamp><b>Wyróżnienie</b><br>Quality &amp; Innovation Expo 2026</div>
-        </div>
-        <div class="gallery">
-          <div class="photo photo--a"><span class="idx">01/04</span><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><rect x="2" y="6" width="20" height="14" rx="1.5"/><circle cx="12" cy="13" r="4"/><path d="M8 6l1.6-2.4h4.8L16 6"/></svg><span class="tag"><em>Stanowisko</em> — prezentacja pełnej konstrukcji zestawu</span></div>
-          <div class="photo photo--b"><span class="idx">02/04</span><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><rect x="2" y="6" width="20" height="14" rx="1.5"/><circle cx="12" cy="13" r="4"/><path d="M8 6l1.6-2.4h4.8L16 6"/></svg><span class="tag"><em>Rozmowa</em> — konsultacje ze służbami i odwiedzającymi</span></div>
-          <div class="photo photo--c"><span class="idx">03/04</span><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><rect x="2" y="6" width="20" height="14" rx="1.5"/><circle cx="12" cy="13" r="4"/><path d="M8 6l1.6-2.4h4.8L16 6"/></svg><span class="tag"><em>Wyróżnienie</em> — wręczenie medalu</span></div>
-          <div class="photo photo--d"><span class="idx">04/04</span><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><rect x="2" y="6" width="20" height="14" rx="1.5"/><circle cx="12" cy="13" r="4"/><path d="M8 6l1.6-2.4h4.8L16 6"/></svg><span class="tag"><em>Detal</em> — rozłożone moduły zestawu</span></div>
-        </div>
-      </div>
-    </section>
+    </main>
 
-    <!-- CHAPTER 02 — Szablon 1 -->
-    <section class="event-panel" id="ch-02">
-      <div class="chapter-head">
-        <div class="chapter-num">02</div>
-        <div class="chapter-title-group">
-          <h2>[Nazwa targów]</h2>
-          <div class="chapter-meta">[Miasto] · [Data] · Status: <span class="status pending">[zaplanowana / zrealizowana]</span></div>
-        </div>
-      </div>
-      <div class="chapter-body">
-        <div class="chapter-text">
-          <span class="tpl-pill">Szablon — uzupełnij</span>
-          <p class="dim">Opisz w 2–3 zdaniach charakter wydarzenia i grupę odbiorców, z którą rozmawialiście na miejscu — np. służby mundurowe, instytucje publiczne, rodziny, branża outdoor.</p>
-          <p class="dim">Drugi akapit: konkretna anegdota lub obserwacja ze stoiska — pytanie, które padało najczęściej, reakcja na konkretny moduł zestawu, ewentualna nagroda lub wyróżnienie.</p>
-        </div>
-        <div class="gallery">
-          <div class="photo photo--a"><span class="idx">01/04</span><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><rect x="2" y="6" width="20" height="14" rx="1.5"/><circle cx="12" cy="13" r="4"/><path d="M8 6l1.6-2.4h4.8L16 6"/></svg><span class="tag"><em>Stanowisko</em> — [opis zdjęcia]</span></div>
-          <div class="photo photo--b"><span class="idx">02/04</span><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><rect x="2" y="6" width="20" height="14" rx="1.5"/><circle cx="12" cy="13" r="4"/><path d="M8 6l1.6-2.4h4.8L16 6"/></svg><span class="tag"><em>Rozmowa</em> — [opis zdjęcia]</span></div>
-          <div class="photo photo--c"><span class="idx">03/04</span><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><rect x="2" y="6" width="20" height="14" rx="1.5"/><circle cx="12" cy="13" r="4"/><path d="M8 6l1.6-2.4h4.8L16 6"/></svg><span class="tag"><em>Publiczność</em> — [opis zdjęcia]</span></div>
-          <div class="photo photo--d"><span class="idx">04/04</span><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><rect x="2" y="6" width="20" height="14" rx="1.5"/><circle cx="12" cy="13" r="4"/><path d="M8 6l1.6-2.4h4.8L16 6"/></svg><span class="tag"><em>Detal</em> — [opis zdjęcia]</span></div>
-        </div>
-      </div>
-    </section>
+    <!-- CDN SCRIPTS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    <script src="https://unpkg.com/lenis@1.1.9/dist/lenis.min.js"></script>
 
-    <!-- CHAPTER 03 — Szablon 2 -->
-    <section class="event-panel" id="ch-03">
-      <div class="chapter-head">
-        <div class="chapter-num">03</div>
-        <div class="chapter-title-group">
-          <h2>[Nazwa targów]</h2>
-          <div class="chapter-meta">[Miasto] · [Data] · Status: <span class="status pending">[zaplanowana / zrealizowana]</span></div>
-        </div>
-      </div>
-      <div class="chapter-body">
-        <div class="chapter-text">
-          <span class="tpl-pill">Szablon — uzupełnij</span>
-          <p class="dim">Miejsce na kolejny wpis do dziennika operacyjnego — powiel strukturę powyższych sekcji dla każdego nowego wydarzenia targowego, zachowując numerację i format metadanych.</p>
-        </div>
-        <div class="gallery">
-          <div class="photo photo--a"><span class="idx">01/04</span><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><rect x="2" y="6" width="20" height="14" rx="1.5"/><circle cx="12" cy="13" r="4"/><path d="M8 6l1.6-2.4h4.8L16 6"/></svg><span class="tag"><em>Stanowisko</em> — [opis zdjęcia]</span></div>
-          <div class="photo photo--b"><span class="idx">02/04</span><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><rect x="2" y="6" width="20" height="14" rx="1.5"/><circle cx="12" cy="13" r="4"/><path d="M8 6l1.6-2.4h4.8L16 6"/></svg><span class="tag"><em>Rozmowa</em> — [opis zdjęcia]</span></div>
-          <div class="photo photo--c"><span class="idx">03/04</span><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><rect x="2" y="6" width="20" height="14" rx="1.5"/><circle cx="12" cy="13" r="4"/><path d="M8 6l1.6-2.4h4.8L16 6"/></svg><span class="tag"><em>Publiczność</em> — [opis zdjęcia]</span></div>
-          <div class="photo photo--d"><span class="idx">04/04</span><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><rect x="2" y="6" width="20" height="14" rx="1.5"/><circle cx="12" cy="13" r="4"/><path d="M8 6l1.6-2.4h4.8L16 6"/></svg><span class="tag"><em>Detal</em> — [opis zdjęcia]</span></div>
-        </div>
-      </div>
-    </section>
+    <script>
+        // Inicjalizacja bezpieczna po załadowaniu DOM
+        window.addEventListener('DOMContentLoaded', () => {
+            
+            // 1. Rejestracja wtyczek GSAP
+            gsap.registerPlugin(ScrollTrigger);
 
-  </div>
-</div>
-
-<!-- ============ CLOSING ============ -->
-<section class="closing">
-  <div>
-    <h3>Kolejna operacja w przygotowaniu.</h3>
-    <p>Regularnie pojawiamy się na targach branżowych, forach bezpieczeństwa i wydarzeniach dla instytucji publicznych. Jeśli organizujecie wydarzenie i szukacie partnera merytorycznego w temacie gotowości kryzysowej — napiszcie do nas.</p>
-    <a class="cta" href="https://amberresilience.eu/kontakt/">Skontaktuj się →</a>
-  </div>
-</section>
-
-<footer>
-  <div>Amber Resilience — Dziennik Operacyjny · Wydarzenia i Targi</div>
-  <a href="https://amberresilience.eu">amberresilience.eu</a>
-</footer>
-
-<!-- GSAP + ScrollTrigger CDN -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
-<script>
-  if (window.gsap && window.ScrollTrigger) {
-    gsap.registerPlugin(ScrollTrigger);
-
-    const track = document.getElementById('events-track');
-    const panels = gsap.utils.toArray('.event-panel');
-    const dots = document.querySelectorAll('#rail .dot-row');
-
-    // Sprawdzamy, czy urządzenie obsługuje horyzontalny scroll (desktop / tablet landscape)
-    if (window.innerWidth > 1024) {
-      // Przypinamy sekcję i przekształcamy pionowy ruch koła myszy w horyzontalny scroll paneli
-      const scrollTween = gsap.to(track, {
-        x: () => -(track.scrollWidth - window.innerWidth),
-        ease: "none",
-        scrollTrigger: {
-          trigger: "#horizontal-section",
-          pin: true,
-          scrub: 0.8,
-          end: () => "+=" + track.scrollWidth,
-          invalidateOnRefresh: true,
-          onUpdate: (self) => {
-            // Logika aktywacji kropek w bocznym railu na podstawie postępu scrolla horyzontalnego
-            const progress = self.progress;
-            const activeIndex = Math.min(panels.length - 1, Math.floor(progress * panels.length + 0.05));
-            dots.forEach((dot, idx) => {
-              if (idx === activeIndex) {
-                dot.classList.add('active');
-              } else {
-                dot.classList.remove('active');
-              }
+            // 2. Inicjalizacja Lenis (Smooth Scroll)
+            const lenis = new Lenis({
+                duration: 1.2,
+                easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+                smoothWheel: true
             });
-          }
-        }
-      });
 
-      // Kliknięcie w kropkę w railu płynnie przewija do odpowiedniego panelu
-      dots.forEach((dot, index) => {
-        dot.addEventListener('click', () => {
-          const panelWidth = panels[0].offsetWidth;
-          const targetX = index * panelWidth;
-          // Obliczamy pozycję ScrollTriggera dla danej kropki
-          const totalScroll = track.scrollWidth - window.innerWidth;
-          const targetScroll = scrollTrigger.start + (targetX / totalScroll) * (scrollTrigger.end - scrollTrigger.start);
-          window.scrollTo({ top: targetScroll, behavior: 'smooth' });
+            // Synchronizacja pętli Lenis z GSAP
+            lenis.on('scroll', ScrollTrigger.update);
+            gsap.ticker.add((time) => {
+                lenis.raf(time * 1000);
+            });
+            gsap.ticker.lagSmoothing(0, 0);
+
+            // 3. Bezpieczne ustawienie stanów początkowych przez JS (Graceful Degradation Fix)
+            const titles = document.querySelectorAll('.hero-title');
+            
+            // Przygotowanie podziału liter bez niszczenia treści
+            titles.forEach(title => {
+                const text = title.textContent.trim();
+                title.innerHTML = '';
+                [...text].forEach(char => {
+                    const span = document.createElement('span');
+                    span.style.display = 'inline-block';
+                    span.style.transform = 'translateY(110%)'; // Ustawiamy ukrycie dopieroteraz w JS
+                    span.innerHTML = char === ' ' ? '&nbsp;' : char;
+                    span.classList.add('char');
+                    title.appendChild(span);
+                });
+            });
+
+            gsap.set('.hero-subtitle', { opacity: 0, y: 20 });
+
+            // 4. ANIMACJA WEJŚCIA (Hero Entrance)
+            const tl = gsap.timeline({ defaults: { ease: 'power4.out' } });
+            
+            tl.to('.char', {
+                y: '0%',
+                duration: 1.2,
+                stagger: 0.03,
+                delay: 0.1
+            })
+            .to('.hero-subtitle', {
+                opacity: 1,
+                y: 0,
+                duration: 0.8
+            }, '-=0.6');
+
+            // 5. HORYZONTALNY SCROLL (Scroll-Jacking)
+            const horizontalSection = document.getElementById('horizontal-section');
+            const horizontalContainer = document.getElementById('horizontal-container');
+
+            gsap.to(horizontalContainer, {
+                x: () => -(horizontalContainer.scrollWidth - window.innerWidth),
+                ease: 'none',
+                scrollTrigger: {
+                    trigger: horizontalSection,
+                    pin: true,
+                    scrub: 0.8, // Płynne podążanie za scrollem
+                    start: 'top top',
+                    end: () => '+=' + (horizontalContainer.scrollWidth - window.innerWidth),
+                    invalidateOnRefresh: true
+                }
+            });
+
+            // Odświeżenie pomiarów po załadowaniu obrazów
+            window.addEventListener('load', () => {
+                ScrollTrigger.refresh();
+            });
         });
-      });
-    }
-
-    // Parallax dla zdjęć wewnątrz galerii
-    document.querySelectorAll('.photo').forEach((photo, i) => {
-      const inner = document.createElement('div');
-      inner.className = 'photo-inner';
-      const bg = document.createElement('div');
-      bg.className = 'photo-bg';
-      inner.appendChild(bg);
-      photo.insertBefore(inner, photo.firstChild);
-
-      const depth = photo.classList.contains('photo--a') ? 6 : photo.classList.contains('photo--b') ? 10 : 8;
-      gsap.to(inner, {
-        yPercent: depth,
-        ease: 'none',
-        scrollTrigger: { trigger: photo, start: 'top bottom', end: 'bottom top', scrub: true }
-      });
-    });
-
-    // Animacja wjazdu pieczątek (stamps)
-    const observerOptions = { threshold: 0.25 };
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          const stamp = entry.target.querySelector('[data-stamp]');
-          if (stamp) setTimeout(() => stamp.classList.add('is-visible'), 400);
-        }
-      });
-    }, observerOptions);
-
-    panels.forEach(panel => observer.observe(panel));
-  }
-</script>
+    </script>
 </body>
 </html>
