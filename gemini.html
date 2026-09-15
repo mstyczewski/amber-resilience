@@ -3,16 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-    <!-- SEO & LLMO Architecture -->
-    <title>Charles Leclerc | WebGL Motion & Shaders Architecture</title>
-    <meta name="description" content="Oficjalna koncepcja architektoniczna z zaawansowanymi shaderami WebGL i płynną kinematografią GSAP.">
+    <title>Charles Leclerc | High-End Motion Architecture</title>
+    <meta name="description" content="Eksploruj karierę Charlesa Leclerca w standardzie premium WebGL i GSAP Motion.">
     <link rel="canonical" href="https://twojadomena.com/">
     
-    <!-- Security: Content Security Policy (Zero Trust CDN Execution) -->
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.tailwindcss.com https://cdnjs.cloudflare.com https://unpkg.com https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https://images.unsplash.com; connect-src 'self';">
+    <!-- Security: Content Security Policy z zezwoleniem dla CDN -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.tailwindcss.com https://cdnjs.cloudflare.com https://unpkg.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https://images.unsplash.com; connect-src 'self';">
 
-    <!-- Tailwind CSS Engine -->
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
@@ -33,28 +31,13 @@
     </script>
 
     <style>
-        /* Lenis Foundation */
+        /* CSS Reset & Lenis Foundation */
         html.lenis, html.lenis body { height: auto; }
         .lenis.lenis-smooth { scroll-behavior: auto !important; }
+        .lenis.lenis-smooth [data-lenis-prevent] { overscroll-behavior: contain; }
         .lenis.lenis-stopped { overflow: hidden; }
         
-        /* WebGL Canvas Layer */
-        #webgl-canvas {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            pointer-events: none;
-            z-index: 10;
-        }
-
-        /* Ukrycie obrazu DOM na rzecz renderowania w Three.js Canvas */
-        .webgl-source-image {
-            opacity: 0;
-            visibility: hidden;
-        }
-
+        /* Maskowanie i zapobieganie przeskokom */
         .clip-text { overflow: hidden; display: block; }
         ::-webkit-scrollbar { display: none; }
         body { -ms-overflow-style: none; scrollbar-width: none; }
@@ -62,10 +45,7 @@
 </head>
 <body class="font-body overflow-x-hidden selection:bg-ferrari selection:text-white">
 
-    <!-- Główny kontener WebGL Canvas w tle/nad treścią -->
-    <canvas id="webgl-canvas"></canvas>
-
-    <main id="smooth-wrapper" class="relative z-20">
+    <main id="smooth-wrapper">
         <div id="smooth-content">
             
             <!-- HERO SECTION -->
@@ -82,46 +62,43 @@
                 </div>
                 <p class="hero-subtitle mt-12 text-xs md:text-sm uppercase tracking-[0.3em] text-ferrari font-bold flex items-center gap-3">
                     <span class="w-2 h-2 rounded-full bg-ferrari animate-ping"></span>
-                    WebGL Distortion Shader Active
+                    Scroll down to trigger horizontal timeline
                 </p>
             </header>
 
-            <!-- HORIZONTAL SCROLL SECTION Z WEBGL PLANE -->
+            <!-- HORIZONTAL SCROLL SECTION (Scroll-Jacking) -->
             <section id="horizontal-section" class="relative w-full h-screen bg-dark overflow-hidden">
                 <div id="horizontal-container" class="flex w-[300vw] h-full items-center">
                     
                     <!-- PANEL 01 -->
                     <article class="w-screen h-full flex flex-col justify-center px-8 md:px-24 bg-[#080808] border-r border-[#1a1a1a] flex-shrink-0">
-                        <span class="text-ferrari text-xs uppercase tracking-[0.4em] font-mono mb-4">01 // SHADER DYNAMICS</span>
+                        <span class="text-ferrari text-xs uppercase tracking-[0.4em] font-mono mb-4">01 // IDENTITY</span>
                         <h2 class="text-6xl md:text-9xl font-display uppercase max-w-5xl leading-none">
-                            HIGH-OCTANE <span class="text-ferrari">WEBGL.</span>
+                            IT'S THE MIND THAT MAKES THE <span class="text-ferrari">DIFFERENCE.</span>
                         </h2>
                     </article>
 
-                    <!-- PANEL 02 (Zasilający teksturę WebGL) -->
+                    <!-- PANEL 02 -->
                     <article class="w-screen h-full flex items-center justify-between px-8 md:px-24 bg-[#0a0a0a] border-r border-[#1a1a1a] flex-shrink-0">
                         <div class="w-full md:w-1/2 pr-0 md:pr-12">
-                            <span class="text-ferrari text-xs uppercase tracking-[0.4em] font-mono mb-4 block">02 // PERLIN DISTORTION</span>
-                            <h3 class="text-4xl md:text-7xl font-display uppercase mb-6 leading-tight">TEXTURE DISPLACEMENT</h3>
+                            <span class="text-ferrari text-xs uppercase tracking-[0.4em] font-mono mb-4 block">02 // PREPARATION</span>
+                            <h3 class="text-4xl md:text-7xl font-display uppercase mb-6 leading-tight">PHYSICAL TRAINING</h3>
                             <p class="text-base md:text-xl text-gray-400 max-w-xl leading-relaxed">
-                                Obraz obok nie jest zwykłym elementem HTML. Jest mapowany jako tekstura w Three.js, zniekształcana w czasie rzeczywistym przez shadery GLSL powiązane z prędkością skrolowania.
+                                To prepare physically and mentally, Charles endures extreme G-forces and heat strain, working with a team of experts to optimize every millisecond on track.
                             </p>
                         </div>
-                        <div class="w-full md:w-1/2 h-[60vh] relative overflow-hidden bg-[#151515] flex items-center justify-center">
-                            <!-- Źródło obrazu dla Three.js Texture Loader -->
-                            <img id="shader-texture-img" 
-                                 class="webgl-source-image absolute max-w-full max-h-full object-cover" 
-                                 src="orientacja.jpg" 
-                                 alt="Charles Leclerc WebGL Texture Source" 
-                                 crossorigin="anonymous">
+                        <div class="w-full md:w-1/2 h-[60vh] relative overflow-hidden bg-[#151515] hidden md:block">
+                            <img src="https://images.unsplash.com/photo-1541348263662-e068ec622e03?q=80&w=1200&auto=format&fit=crop" 
+                                 alt="Formula 1 Racing Background" 
+                                 class="panel-img w-full h-full object-cover grayscale opacity-80 transition-transform duration-700">
                         </div>
                     </article>
 
                     <!-- PANEL 03 -->
                     <article class="w-screen h-full flex flex-col justify-center px-8 md:px-24 bg-ferrari text-white flex-shrink-0">
-                        <span class="text-black text-xs uppercase tracking-[0.4em] font-mono mb-4 font-bold">03 // ARCHITECTURE</span>
+                        <span class="text-black text-xs uppercase tracking-[0.4em] font-mono mb-4 font-bold">03 // DESTINY</span>
                         <h3 class="text-6xl md:text-9xl font-display uppercase leading-none">
-                            ZERO TRUST<br>STANDARD
+                            SCUDERIA<br>FERRARI
                         </h3>
                     </article>
 
@@ -130,162 +107,74 @@
 
             <!-- FOOTER -->
             <footer class="h-screen flex flex-col items-center justify-center bg-dark text-center px-6">
-                <h4 class="text-4xl md:text-6xl font-display uppercase mb-4">SYSTEM READY</h4>
-                <p class="text-xs tracking-[0.3em] uppercase text-gray-500">Three.js WebGL Pipeline // Verified</p>
+                <h4 class="text-4xl md:text-6xl font-display uppercase mb-4">END OF CHAPTER</h4>
+                <p class="text-xs tracking-[0.3em] uppercase text-gray-500">Zero Trust Architecture // GSAP & Lenis Verified</p>
             </footer>
 
         </div>
     </main>
 
-    <!-- CDN LIBS (Three.js + GSAP + Lenis) -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <!-- CDN SCRIPTS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
     <script src="https://unpkg.com/lenis@1.1.9/dist/lenis.min.js"></script>
 
-    <!-- Custom GLSL Shaders -->
     <script>
-        // Vertex Shader: Przekształcenie geometrii z uwzględnieniem fali
-        const vertexShader = `
-            uniform float uTime;
-            uniform float uVelo;
-            varying vec2 vUv;
-            
-            void main() {
-                vUv = uv;
-                vec3 newPosition = position;
-                // Fala deformująca siatkę na podstawie prędkości scrolla
-                newPosition.z += sin(newPosition.x * 10.0 + uTime) * uVelo * 0.05;
-                gl_Position = projectionMatrix * modelViewMatrix * vec4(newPosition, 1.0);
-            }
-        `;
-
-        // Fragment Shader: Efekt płynnego przemieszczenia i korekcji barwnej (GLSL)
-        const fragmentShader = `
-            uniform sampler2D uTexture;
-            uniform float uVelo;
-            varying vec2 vUv;
-
-            void main() {
-                vec2 uv = vUv;
-                // Dynamiczna aberracja chromatyczna / zniekształcenie zależne od prędkości
-                uv.x += sin(uv.y * 20.0) * uVelo * 0.005;
-                vec4 texColor = texture2D(uTexture, uv);
-                
-                // Delikatne przyciemnienie krawędzi (Vignette) dla luksusowego wyglądu
-                float vignette = uv.x * uv.y * (1.0 - uv.x) * (1.0 - uv.y);
-                texColor.rgb *= pow(16.0 * vignette, 0.15);
-
-                gl_FragColor = texColor;
-            }
-        `;
-
+        // Inicjalizacja bezpieczna po załadowaniu DOM
         window.addEventListener('DOMContentLoaded', () => {
+            
+            // 1. Rejestracja wtyczek GSAP
             gsap.registerPlugin(ScrollTrigger);
 
-            // 1. Lenis Smooth Scroll Setup
+            // 2. Inicjalizacja Lenis (Smooth Scroll)
             const lenis = new Lenis({
                 duration: 1.2,
                 easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
                 smoothWheel: true
             });
 
+            // Synchronizacja pętli Lenis z GSAP
             lenis.on('scroll', ScrollTrigger.update);
             gsap.ticker.add((time) => {
                 lenis.raf(time * 1000);
             });
             gsap.ticker.lagSmoothing(0, 0);
 
-            // 2. Three.js WebGL Scene Initialization (Graceful Degradation & Safe Fallback)
-            const canvas = document.getElementById('webgl-canvas');
-            let renderer, scene, camera, planeMesh, material;
-            let currentVelocity = 0;
-
-            try {
-                renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
-                renderer.setSize(window.innerWidth, window.innerHeight);
-                renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-
-                scene = new THREE.Scene();
-                camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 1000);
-                camera.position.z = 5;
-
-                // Ładowanie tekstury ze źródła HTML
-                const imgElement = document.getElementById('shader-texture-img');
-                const textureLoader = new THREE.TextureLoader();
-                
-                // Bezpieczne ładowanie tekstury z obsługą CORS
-                textureLoader.load(imgElement.src, (texture) => {
-                    texture.generateMipmaps = true;
-                    texture.minFilter = THREE.LinearMipmapLinearFilter;
-
-                    const geometry = new THREE.PlaneGeometry(3.5, 4.5, 32, 32);
-                    material = new THREE.ShaderMaterial({
-                        vertexShader: vertexShader,
-                        fragmentShader: fragmentShader,
-                        uniforms: {
-                            uTexture: { value: texture },
-                            uTime: { value: 0 },
-                            uVelo: { value: 0 }
-                        },
-                        side: THREE.DoubleSide
-                    });
-
-                    planeMesh = new THREE.Mesh(geometry, material);
-                    scene.add(planeMesh);
+            // 3. Bezpieczne ustawienie stanów początkowych przez JS (Graceful Degradation Fix)
+            const titles = document.querySelectorAll('.hero-title');
+            
+            // Przygotowanie podziału liter bez niszczenia treści
+            titles.forEach(title => {
+                const text = title.textContent.trim();
+                title.innerHTML = '';
+                [...text].forEach(char => {
+                    const span = document.createElement('span');
+                    span.style.display = 'inline-block';
+                    span.style.transform = 'translateY(110%)'; // Ustawiamy ukrycie dopieroteraz w JS
+                    span.innerHTML = char === ' ' ? '&nbsp;' : char;
+                    span.classList.add('char');
+                    title.appendChild(span);
                 });
+            });
 
-                // Aktualizacja pozycji plane'a na podstawie pozycji elementu DOM w sekcji horyzontalnej
-                function updatePlanePosition() {
-                    if (!planeMesh) return;
-                    const targetEl = document.getElementById('shader-texture-img');
-                    if (targetEl) {
-                        const rect = targetEl.getBoundingClientRect();
-                        // Przeliczanie współrzędnych DOM na przestrzeni WebGL 3D
-                        const x = (rect.left + rect.width / 2 - window.innerWidth / 2) * 0.002;
-                        const y = -(rect.top + rect.height / 2 - window.innerHeight / 2) * 0.002;
-                        planeMesh.position.set(x, y, 0);
-                    }
-                }
+            gsap.set('.hero-subtitle', { opacity: 0, y: 20 });
 
-                // Render Loop z obsługą prędkości skrolowania Lenis
-                let clock = new THREE.Clock();
-                function animate() {
-                    requestAnimationFrame(animate);
-                    let elapsedTime = clock.getElapsedTime();
+            // 4. ANIMACJA WEJŚCIA (Hero Entrance)
+            const tl = gsap.timeline({ defaults: { ease: 'power4.out' } });
+            
+            tl.to('.char', {
+                y: '0%',
+                duration: 1.2,
+                stagger: 0.03,
+                delay: 0.1
+            })
+            .to('.hero-subtitle', {
+                opacity: 1,
+                y: 0,
+                duration: 0.8
+            }, '-=0.6');
 
-                    // Pobieramy realną prędkość scrolla z obiektu Lenis do shaderów
-                    currentVelocity = lenis.velocity;
-
-                    if (material) {
-                        material.uniforms.uTime.value = elapsedTime;
-                        // Płynne wygaszanie wektora prędkości w shaderze
-                        material.uniforms.uVelo.value = THREE.MathUtils.lerp(
-                            material.uniforms.uVelo.value, 
-                            Math.abs(currentVelocity), 
-                            0.1
-                        );
-                    }
-
-                    updatePlanePosition();
-                    renderer.render(scene, camera);
-                }
-                animate();
-
-                // Window Resize Handler
-                window.addEventListener('resize', () => {
-                    camera.aspect = window.innerWidth / window.innerHeight;
-                    camera.updateProjectionMatrix();
-                    renderer.setSize(window.innerWidth, window.innerHeight);
-                });
-
-            } catch (e) {
-                // Graceful Degradation: jeśli WebGL zawiedzie, ukrywamy canvas, aplikacja działa dalej w trybie czystego CSS
-                console.warn("WebGL initialization failed, falling back to standard CSS layout.", e);
-                if (canvas) canvas.style.display = 'none';
-            }
-
-            // 3. Horizontal Scroll Jacking (GSAP ScrollTrigger)
+            // 5. HORYZONTALNY SCROLL (Scroll-Jacking)
             const horizontalSection = document.getElementById('horizontal-section');
             const horizontalContainer = document.getElementById('horizontal-container');
 
@@ -295,14 +184,14 @@
                 scrollTrigger: {
                     trigger: horizontalSection,
                     pin: true,
-                    scrub: 0.8,
+                    scrub: 0.8, // Płynne podążanie za scrollem
                     start: 'top top',
                     end: () => '+=' + (horizontalContainer.scrollWidth - window.innerWidth),
                     invalidateOnRefresh: true
                 }
             });
 
-            // Odświeżenie pomiarów
+            // Odświeżenie pomiarów po załadowaniu obrazów
             window.addEventListener('load', () => {
                 ScrollTrigger.refresh();
             });
