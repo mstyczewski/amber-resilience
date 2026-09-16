@@ -1,14 +1,19 @@
 <!DOCTYPE html>
-<html lang="pl" class="bg-[#050505] text-[#F4F4F4] antialiased">
+<html lang="pl" class="bg-[#111208] text-[#EDEAE0] antialiased">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Charles Leclerc | High-End Motion Architecture</title>
-    <meta name="description" content="Eksploruj karierę Charlesa Leclerca w standardzie premium WebGL i GSAP Motion.">
-    <link rel="canonical" href="https://twojadomena.com/">
-    
-    <!-- Security: Content Security Policy z zezwoleniem dla CDN -->
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.tailwindcss.com https://cdnjs.cloudflare.com https://unpkg.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https://images.unsplash.com; connect-src 'self';">
+    <title>Wydarzenia i targi — Amber Resilience</title>
+    <meta name="description" content="Dziennik operacyjny Amber Resilience. Wyposażenie ewakuacyjne i moduły bezpieczeństwa testowane w terenie na targach (Forum BHP, Sawo).">
+    <link rel="canonical" href="https://amberresilience.eu/wydarzenia-targi">
+
+    <!-- Security Header: Content Security Policy -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://unpkg.com https://cdn.tailwindcss.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https://images.unsplash.com; connect-src 'self';">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;800;900&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
 
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -17,184 +22,470 @@
             theme: {
                 extend: {
                     colors: {
-                        dark: '#050505',
-                        light: '#F4F4F4',
-                        ferrari: '#E32219'
+                        bg: '#111208',
+                        paper: '#EAE3CF',
+                        amber: '#CC8A31',
+                        stamp: '#A5402C',
+                        inkDark: '#111208',
+                        inkDim: '#9C9A85'
                     },
                     fontFamily: {
-                        display: ['Oswald', 'Impact', 'sans-serif'],
-                        body: ['"Helvetica Neue"', 'Arial', 'sans-serif']
+                        display: ['"Big Shoulders Display"', 'sans-serif'],
+                        body: ['"IBM Plex Sans"', 'sans-serif'],
+                        mono: ['"IBM Plex Mono"', 'monospace']
                     }
                 }
             }
         }
     </script>
 
+    <!-- Schema.org JSON-LD (Zaktualizowane o drugi event) -->
+    <script type="application/ld+json">
+    [{
+      "@context": "https://schema.org",
+      "@type": "Event",
+      "name": "Forum BHP 2026",
+      "startDate": "2026-04-14",
+      "endDate": "2026-04-16",
+      "location": { "@type": "Place", "name": "Targi Kielce" },
+      "organizer": { "@type": "Organization", "name": "Amber Resilience", "url": "https://amberresilience.eu" }
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "Event",
+      "name": "Targi Sawo 2026",
+      "startDate": "2026-05-19",
+      "endDate": "2026-05-21",
+      "location": { "@type": "Place", "name": "MTP Poznań" },
+      "organizer": { "@type": "Organization", "name": "Amber Resilience", "url": "https://amberresilience.eu" }
+    }]
+    </script>
+
     <style>
-        /* CSS Reset & Lenis Foundation */
         html.lenis, html.lenis body { height: auto; }
         .lenis.lenis-smooth { scroll-behavior: auto !important; }
         .lenis.lenis-smooth [data-lenis-prevent] { overscroll-behavior: contain; }
         .lenis.lenis-stopped { overflow: hidden; }
-        
-        /* Maskowanie i zapobieganie przeskokom */
-        .clip-text { overflow: hidden; display: block; }
         ::-webkit-scrollbar { display: none; }
         body { -ms-overflow-style: none; scrollbar-width: none; }
+
+        .grain {
+            position: fixed; inset: 0; pointer-events: none; z-index: 100;
+            opacity: 0.04; mix-blend-mode: overlay;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+        }
     </style>
 </head>
-<body class="font-body overflow-x-hidden selection:bg-ferrari selection:text-white">
+<body class="font-body bg-bg text-[#EDEAE0] selection:bg-amber selection:text-bg">
 
-    <main id="smooth-wrapper">
-        <div id="smooth-content">
-            
-            <!-- HERO SECTION -->
-            <header class="relative w-full h-screen flex flex-col justify-center items-center px-6 border-b border-[#1a1a1a]">
-                <div class="clip-text mb-2">
-                    <h1 class="hero-title text-[13vw] leading-[0.8] font-display uppercase font-bold tracking-tighter text-center">
-                        Charles
-                    </h1>
-                </div>
-                <div class="clip-text">
-                    <h1 class="hero-title text-[13vw] leading-[0.8] font-display uppercase font-bold tracking-tighter text-center text-transparent" style="-webkit-text-stroke: 2px #F4F4F4;">
-                        Leclerc
-                    </h1>
-                </div>
-                <p class="hero-subtitle mt-12 text-xs md:text-sm uppercase tracking-[0.3em] text-ferrari font-bold flex items-center gap-3">
-                    <span class="w-2 h-2 rounded-full bg-ferrari animate-ping"></span>
-                    Scroll down to trigger horizontal timeline
-                </p>
-            </header>
+    <div class="grain"></div>
 
-            <!-- HORIZONTAL SCROLL SECTION (Scroll-Jacking) -->
-            <section id="horizontal-section" class="relative w-full h-screen bg-dark overflow-hidden">
-                <div id="horizontal-container" class="flex w-[300vw] h-full items-center">
-                    
-                    <!-- PANEL 01 -->
-                    <article class="w-screen h-full flex flex-col justify-center px-8 md:px-24 bg-[#080808] border-r border-[#1a1a1a] flex-shrink-0">
-                        <span class="text-ferrari text-xs uppercase tracking-[0.4em] font-mono mb-4">01 // IDENTITY</span>
-                        <h2 class="text-6xl md:text-9xl font-display uppercase max-w-5xl leading-none">
-                            IT'S THE MIND THAT MAKES THE <span class="text-ferrari">DIFFERENCE.</span>
-                        </h2>
-                    </article>
-
-                    <!-- PANEL 02 -->
-                    <article class="w-screen h-full flex items-center justify-between px-8 md:px-24 bg-[#0a0a0a] border-r border-[#1a1a1a] flex-shrink-0">
-                        <div class="w-full md:w-1/2 pr-0 md:pr-12">
-                            <span class="text-ferrari text-xs uppercase tracking-[0.4em] font-mono mb-4 block">02 // PREPARATION</span>
-                            <h3 class="text-4xl md:text-7xl font-display uppercase mb-6 leading-tight">PHYSICAL TRAINING</h3>
-                            <p class="text-base md:text-xl text-gray-400 max-w-xl leading-relaxed">
-                                To prepare physically and mentally, Charles endures extreme G-forces and heat strain, working with a team of experts to optimize every millisecond on track.
-                            </p>
-                        </div>
-                        <div class="w-full md:w-1/2 h-[60vh] relative overflow-hidden bg-[#151515] hidden md:block">
-                            <img src="https://images.unsplash.com/photo-1541348263662-e068ec622e03?q=80&w=1200&auto=format&fit=crop" 
-                                 alt="Formula 1 Racing Background" 
-                                 class="panel-img w-full h-full object-cover grayscale opacity-80 transition-transform duration-700">
-                        </div>
-                    </article>
-
-                    <!-- PANEL 03 -->
-                    <article class="w-screen h-full flex flex-col justify-center px-8 md:px-24 bg-ferrari text-white flex-shrink-0">
-                        <span class="text-black text-xs uppercase tracking-[0.4em] font-mono mb-4 font-bold">03 // DESTINY</span>
-                        <h3 class="text-6xl md:text-9xl font-display uppercase leading-none">
-                            SCUDERIA<br>FERRARI
-                        </h3>
-                    </article>
-
-                </div>
-            </section>
-
-            <!-- FOOTER -->
-            <footer class="h-screen flex flex-col items-center justify-center bg-dark text-center px-6">
-                <h4 class="text-4xl md:text-6xl font-display uppercase mb-4">END OF CHAPTER</h4>
-                <p class="text-xs tracking-[0.3em] uppercase text-gray-500">Zero Trust Architecture // GSAP & Lenis Verified</p>
-            </footer>
-
+    <!-- SIDE RAIL NAVIGATION -->
+    <nav class="fixed left-0 top-0 bottom-0 w-[240px] z-50 hidden lg:flex flex-col justify-center pl-8 gap-8 bg-bg border-r border-[#EDEAE0]/15 font-mono text-[11px] text-[#9C9A85]" id="rail" aria-label="Nawigacja sekcyjna">
+        <div class="dot-row flex items-center gap-3 cursor-pointer hover:text-amber transition-colors active text-amber" data-target="track-1">
+            <span class="dot w-2 h-2 rounded-full border border-amber bg-amber shadow-[0_0_0_4px_rgba(204,138,49,0.18)] transition-all duration-300"></span>
+            01 · INTRO & GOTOWOŚĆ
         </div>
-    </main>
+        <div class="dot-row flex items-center gap-3 cursor-pointer hover:text-amber transition-colors text-[#9C9A85]" data-target="track-2">
+            <span class="dot w-2 h-2 rounded-full border border-[#9C9A85] transition-all duration-300"></span>
+            02 · FORUM BHP 2026
+        </div>
+        <div class="dot-row flex items-center gap-3 cursor-pointer hover:text-amber transition-colors text-[#9C9A85]" data-target="track-3">
+            <span class="dot w-2 h-2 rounded-full border border-[#9C9A85] transition-all duration-300"></span>
+            03 · TARGI SAWO 2026
+        </div>
+    </nav>
 
-    <!-- CDN SCRIPTS -->
+    <!-- MAIN WRAPPER -->
+    <div class="lg:ml-[240px] min-h-screen flex flex-col">
+
+        <!-- HEADER -->
+        <header class="sticky top-0 z-40 flex items-center justify-between px-6 lg:px-16 py-5 bg-bg/90 backdrop-blur-md border-b border-[#EDEAE0]/15 font-mono text-xs tracking-wider">
+            <div class="font-display font-bold text-xl tracking-normal text-white">AMBER<span class="text-amber">•</span>RESILIENCE</div>
+            <a class="text-[#9C9A85] hover:text-white uppercase transition-colors flex items-center gap-2" href="https://amberresilience.eu">
+                ← Powrót do strony głównej
+            </a>
+        </header>
+
+        <main id="smooth-wrapper">
+            <div id="smooth-content">
+
+                <!-- TRACK 1: HERO -> INTRO -->
+                <section id="track-1" class="relative w-full h-screen overflow-hidden border-b border-[#EDEAE0]/15 bg-bg">
+                    <div id="container-1" class="flex w-[200vw] h-full">
+                        
+                        <article class="w-screen h-full flex flex-col justify-center px-6 lg:px-20 flex-shrink-0 relative">
+                            <div class="font-mono text-xs tracking-[0.14em] uppercase text-amber flex items-center gap-3 mb-6">
+                                <span class="w-6 h-[1px] bg-amber inline-block"></span>
+                                Dziennik operacyjny · dokument nr 04/2026
+                            </div>
+                            <h1 class="font-display font-black text-5xl md:text-8xl lg:text-[110px] leading-[0.95] tracking-tight uppercase max-w-5xl">
+                                Gotowość, <br>
+                                <span class="text-amber">która wychodzi</span> <br>
+                                w teren.
+                            </h1>
+                            <p class="mt-8 max-w-xl text-base md:text-lg text-[#9C9A85]">
+                                Zestawów Amber Resilience nie testujemy zza biurka. Spotykamy się z Wami na targach branżowych, forach bezpieczeństwa i wydarzeniach dla instytucji publicznych — tam, gdzie gotowość naprawdę ma znaczenie.
+                            </p>
+                            <div class="absolute bottom-10 right-10 hidden md:flex items-center gap-3 font-mono text-xs text-amber animate-pulse">
+                                SCROLL DOWN TO EXPLORE HORIZONTALLY →
+                            </div>
+                        </article>
+
+                        <article class="w-screen h-full flex flex-col justify-center px-6 lg:px-20 bg-paper text-inkDark flex-shrink-0">
+                            <div class="grid grid-cols-1 lg:grid-cols-3 gap-12 items-center">
+                                <div>
+                                    <span class="font-mono text-xs tracking-widest uppercase text-[#8a6224] block mb-2">Konstrukcja misji</span>
+                                    <h2 class="font-display font-bold text-4xl lg:text-6xl uppercase leading-none">Dlaczego tu jesteśmy</h2>
+                                </div>
+                                <div class="lg:col-span-2">
+                                    <p class="text-2xl md:text-4xl font-medium leading-tight max-w-2xl text-[#111208]">
+                                        Każde wydarzenie, w którym bierzemy udział, to nie pokaz targowy — to weryfikacja. Rozmawiamy z instruktorami, służbami mundurowymi, rodzinami i instytucjami, które na co dzień mierzą się z pytaniem: czy jesteśmy gotowi?
+                                    </p>
+                                </div>
+                            </div>
+                        </article>
+
+                    </div>
+                </section>
+
+                <!-- TRACK 2: FORUM BHP -> FULL-BLEED LAYERED GALLERY -->
+                <section id="track-2" class="relative w-full h-screen overflow-hidden border-b border-[#EDEAE0]/15 bg-bg">
+                    <div id="container-2" class="flex w-[200vw] h-full">
+
+                        <!-- PANEL A: FORUM BHP TEXT -->
+                        <article class="w-screen h-full flex flex-col justify-center px-6 lg:px-20 bg-[#0c0d06] flex-shrink-0 border-r border-[#EDEAE0]/15 z-50">
+                            <div class="max-w-4xl">
+                                <div class="flex items-center gap-6 mb-4">
+                                    <span class="font-display font-bold text-6xl md:text-8xl text-amber">01</span>
+                                    <div>
+                                        <h2 class="font-display font-extrabold text-5xl md:text-7xl uppercase leading-none">Forum BHP 2026</h2>
+                                        <p class="font-mono text-xs uppercase text-[#9C9A85] tracking-widest mt-2">
+                                            Kielce · 14–16.04.2026 · Status: <span class="text-amber">Zrealizowana</span>
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="space-y-6 text-base md:text-xl text-[#EDEAE0]/80 mt-8">
+                                    <p>
+                                        Forum BHP to jedno z największych w Polsce spotkań branży bezpieczeństwa i higieny pracy — miejsce, w którym rozmawiają ze sobą ludzie odpowiadający za realne procedury kryzysowe. Nasze stanowisko prezentowało pełną konstrukcję plecaka indywidualnego i rodzinnego.
+                                    </p>
+                                    <p class="text-[#9C9A85]">
+                                        Trzy dni rozmów potwierdziły to, co zakładaliśmy od początku — gotowość nie jest tematem niszowym. Odwiedzający pytali o konkretne scenariusze: blackout, ewakuację, wyposażenie dostosowane do dzieci.
+                                    </p>
+                                </div>
+                                <div class="mt-10 inline-block border-2 border-stamp text-stamp px-6 py-3 font-mono text-xs uppercase tracking-widest -rotate-2">
+                                    <b>Wyróżnienie</b><br>Quality &amp; Innovation Expo 2026
+                                </div>
+                            </div>
+                        </article>
+
+                        <!-- PANEL B: FULL-SCREEN GALLERY CANVAS -->
+                        <article class="w-screen h-full flex-shrink-0 relative overflow-hidden bg-bg">
+                            
+                            <!-- PHOTO 1 -->
+                            <figure id="gal-img-1" class="absolute inset-0 w-full h-full z-10 flex flex-col justify-between p-8 md:p-16 lg:p-24 overflow-hidden">
+                                <img src="https://images.unsplash.com/photo-1541348263662-e068ec622e03?q=80&w=2000&auto=format&fit=crop" alt="Prezentacja modułowa zestawu indywidualnego w warunkach ciągłego przepływu odwiedzających na targach w Kielcach" class="absolute inset-0 w-full h-full object-cover object-center -z-20">
+                                <div class="absolute inset-0 bg-gradient-to-t from-[#111208]/95 via-[#111208]/30 to-transparent -z-10 pointer-events-none"></div>
+                                
+                                <div class="flex justify-between items-start">
+                                    <span class="font-mono text-xs text-amber font-bold tracking-widest bg-bg/90 px-4 py-2 border border-amber/30 backdrop-blur-md">01 / 04 // STANOWISKO</span>
+                                    <span class="font-mono text-[11px] text-[#EDEAE0] bg-bg/60 px-3 py-1 backdrop-blur-md uppercase tracking-widest hidden md:inline-block">Kielce Expo Hall A</span>
+                                </div>
+                                <figcaption class="max-w-3xl">
+                                    <h3 class="font-display text-5xl md:text-7xl lg:text-8xl uppercase font-black text-white leading-[0.9]">Prezentacja konstrukcji</h3>
+                                    <p class="text-sm md:text-base font-mono text-[#EAE3CF]/80 mt-4 max-w-xl">Ekspertyza modułowa zestawu indywidualnego w warunkach ciągłego przepływu odwiedzających. Punkt weryfikacji ergonomii.</p>
+                                </figcaption>
+                            </figure>
+
+                            <!-- PHOTO 2 -->
+                            <figure id="gal-img-2" class="absolute inset-0 w-full h-full z-20 flex flex-col justify-between p-8 md:p-16 lg:p-24 overflow-hidden">
+                                <img src="https://images.unsplash.com/photo-1582213782179-e0d53f98f2ca?q=80&w=2000&auto=format&fit=crop" alt="Bezpośrednia weryfikacja wytycznych ratowniczych z praktykami branży BHP" class="absolute inset-0 w-full h-full object-cover object-center -z-20">
+                                <div class="absolute inset-0 bg-gradient-to-t from-[#111208]/95 via-[#111208]/30 to-transparent -z-10 pointer-events-none"></div>
+                                
+                                <div class="flex justify-between items-start">
+                                    <span class="font-mono text-xs text-amber font-bold tracking-widest bg-bg/90 px-4 py-2 border border-amber/30 backdrop-blur-md">02 / 04 // ROZMOWY</span>
+                                </div>
+                                <figcaption class="max-w-3xl">
+                                    <h3 class="font-display text-5xl md:text-7xl lg:text-8xl uppercase font-black text-white leading-[0.9]">Konsultacje ze służbami</h3>
+                                    <p class="text-sm md:text-base font-mono text-[#EAE3CF]/80 mt-4 max-w-xl">Bezpośrednia weryfikacja wytycznych ratowniczych z praktykami branży BHP i oficerami służb mundurowych.</p>
+                                </figcaption>
+                            </figure>
+
+                            <!-- PHOTO 3 -->
+                            <figure id="gal-img-3" class="absolute inset-0 w-full h-full z-30 flex flex-col justify-between p-8 md:p-16 lg:p-24 overflow-hidden">
+                                <img src="https://images.unsplash.com/photo-1576267423445-b2e0074d68a4?q=80&w=2000&auto=format&fit=crop" alt="Wręczenie medalu za innowacje na rzecz bezpieczeństwa na gali finałowej" class="absolute inset-0 w-full h-full object-cover object-center -z-20">
+                                <div class="absolute inset-0 bg-gradient-to-t from-[#111208]/95 via-[#111208]/30 to-transparent -z-10 pointer-events-none"></div>
+
+                                <div class="flex justify-between items-start">
+                                    <span class="font-mono text-xs text-amber font-bold tracking-widest bg-bg/90 px-4 py-2 border border-amber/30 backdrop-blur-md">03 / 04 // WYRÓŻNIENIE</span>
+                                </div>
+                                <figcaption class="max-w-3xl">
+                                    <h3 class="font-display text-5xl md:text-7xl lg:text-8xl uppercase font-black text-white leading-[0.9]">Wręczenie medalu</h3>
+                                    <p class="text-sm md:text-base font-mono text-[#EAE3CF]/80 mt-4 max-w-xl">Oficjalne przyznanie nagrody Quality & Innovation Expo 2026 za najbardziej dopracowany moduł taktyczno-ewakuacyjny.</p>
+                                </figcaption>
+                            </figure>
+
+                            <!-- PHOTO 4 -->
+                            <figure id="gal-img-4" class="absolute inset-0 w-full h-full z-40 flex flex-col justify-between p-8 md:p-16 lg:p-24 overflow-hidden">
+                                <img src="https://images.unsplash.com/photo-1509099836639-18ba1795216d?q=80&w=2000&auto=format&fit=crop" alt="Precyzyjne rozmieszczenie zasobników aptecznych w systemie ewakuacyjnym" class="absolute inset-0 w-full h-full object-cover object-center -z-20">
+                                <div class="absolute inset-0 bg-gradient-to-t from-[#111208]/95 via-[#111208]/30 to-transparent -z-10 pointer-events-none"></div>
+
+                                <div class="flex justify-between items-start">
+                                    <span class="font-mono text-xs text-amber font-bold tracking-widest bg-bg/90 px-4 py-2 border border-amber/30 backdrop-blur-md">04 / 04 // DETAL</span>
+                                </div>
+                                <figcaption class="max-w-3xl">
+                                    <h3 class="font-display text-5xl md:text-7xl lg:text-8xl uppercase font-black text-white leading-[0.9]">Rozłożone moduły</h3>
+                                    <p class="text-sm md:text-base font-mono text-[#EAE3CF]/80 mt-4 max-w-xl">Precyzyjne rozmieszczenie zasobników aptecznych i systemów filtrowania wody. Brak przypadkowości.</p>
+                                </figcaption>
+                            </figure>
+
+                        </article>
+
+                    </div>
+                </section>
+
+                <!-- TRACK 3: TARGI SAWO 2026 -> FULL-BLEED LAYERED GALLERY -->
+                <section id="track-3" class="relative w-full h-screen overflow-hidden border-b border-[#EDEAE0]/15 bg-bg">
+                    <div id="container-3" class="flex w-[200vw] h-full">
+
+                        <!-- PANEL A: SAWO TEXT -->
+                        <article class="w-screen h-full flex flex-col justify-center px-6 lg:px-20 bg-[#0c0d06] flex-shrink-0 border-r border-[#EDEAE0]/15 z-50">
+                            <div class="max-w-4xl">
+                                <div class="flex items-center gap-6 mb-4">
+                                    <span class="font-display font-bold text-6xl md:text-8xl text-amber">02</span>
+                                    <div>
+                                        <h2 class="font-display font-extrabold text-5xl md:text-7xl uppercase leading-none">Targi Sawo 2026</h2>
+                                        <p class="font-mono text-xs uppercase text-[#9C9A85] tracking-widest mt-2">
+                                            Poznań · 19–21.05.2026 · Status: <span class="text-amber">Zaplanowana</span>
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="space-y-6 text-base md:text-xl text-[#EDEAE0]/80 mt-8">
+                                    <p>
+                                        Międzynarodowe Targi Ochrony Pracy, Pożarnictwa i Ratownictwa (SAWO) to przestrzeń, w której teoria spotyka się z brutalną praktyką. To tutaj testowane są rozwiązania, od których zależy ludzkie życie. 
+                                    </p>
+                                    <p class="text-[#9C9A85]">
+                                        Na stoisku przedstawimy udoskonalone moduły komunikacyjne oraz nowe konfiguracje plecaków przetrwania zaprojektowane stricte pod ewakuację wieloosobową. Będziemy bezpośrednio weryfikować ergonomię naszego sprzętu z jednostkami Państwowej Straży Pożarnej.
+                                    </p>
+                                </div>
+                                <div class="mt-10 inline-block border-2 border-amber/30 text-amber px-6 py-3 font-mono text-xs uppercase tracking-widest bg-amber/5">
+                                    [ SEKTOR B3 / HALA 3 ]
+                                </div>
+                            </div>
+                        </article>
+
+                        <!-- PANEL B: FULL-SCREEN GALLERY CANVAS (SAWO) -->
+                        <article class="w-screen h-full flex-shrink-0 relative overflow-hidden bg-bg">
+                            
+                            <!-- PHOTO 1: DIAG-SCALE ENTRY -->
+                            <figure id="gal2-img-1" class="absolute inset-0 w-full h-full z-10 flex flex-col justify-between p-8 md:p-16 lg:p-24 overflow-hidden">
+                                <img src="https://images.unsplash.com/photo-1599423300746-b62533397364?q=80&w=2000&auto=format&fit=crop" alt="Sprzęt ratowniczy gotowy do inspekcji na targach pożarniczych Sawo" class="absolute inset-0 w-full h-full object-cover object-center -z-20 filter grayscale-[20%]">
+                                <div class="absolute inset-0 bg-gradient-to-t from-[#111208]/95 via-[#111208]/30 to-transparent -z-10 pointer-events-none"></div>
+                                
+                                <div class="flex justify-between items-start">
+                                    <span class="font-mono text-xs text-amber font-bold tracking-widest bg-bg/90 px-4 py-2 border border-amber/30 backdrop-blur-md">01 / 04 // RATOWNICTWO</span>
+                                    <span class="font-mono text-[11px] text-[#EDEAE0] bg-bg/60 px-3 py-1 backdrop-blur-md uppercase tracking-widest hidden md:inline-block">Sawo Expo Poznań</span>
+                                </div>
+                                <figcaption class="max-w-3xl">
+                                    <h3 class="font-display text-5xl md:text-7xl lg:text-8xl uppercase font-black text-white leading-[0.9]">Strefa zrzutu</h3>
+                                    <p class="text-sm md:text-base font-mono text-[#EAE3CF]/80 mt-4 max-w-xl">Ciężki sprzęt i moduły taktyczne gotowe do poddania inspekcji przez jednostki straży pożarnej i służby ratownicze.</p>
+                                </figcaption>
+                            </figure>
+
+                            <!-- PHOTO 2: WIPE -->
+                            <figure id="gal2-img-2" class="absolute inset-0 w-full h-full z-20 flex flex-col justify-between p-8 md:p-16 lg:p-24 overflow-hidden">
+                                <img src="https://images.unsplash.com/photo-1544644181-1484b3fdfc62?q=80&w=2000&auto=format&fit=crop" alt="Technologiczne moduły komunikacyjne i walizki ewakuacyjne" class="absolute inset-0 w-full h-full object-cover object-center -z-20 filter contrast-125">
+                                <div class="absolute inset-0 bg-gradient-to-t from-[#111208]/95 via-[#111208]/30 to-transparent -z-10 pointer-events-none"></div>
+                                
+                                <div class="flex justify-between items-start">
+                                    <span class="font-mono text-xs text-amber font-bold tracking-widest bg-bg/90 px-4 py-2 border border-amber/30 backdrop-blur-md">02 / 04 // TECHNOLOGIA</span>
+                                </div>
+                                <figcaption class="max-w-3xl">
+                                    <h3 class="font-display text-5xl md:text-7xl lg:text-8xl uppercase font-black text-white leading-[0.9]">Moduły Comms</h3>
+                                    <p class="text-sm md:text-base font-mono text-[#EAE3CF]/80 mt-4 max-w-xl">Udoskonalone walizki łączności radiowej i zasilania awaryjnego (off-grid) prezentowane w otoczeniu środowiska targowego.</p>
+                                </figcaption>
+                            </figure>
+
+                            <!-- PHOTO 3: WIPE -->
+                            <figure id="gal2-img-3" class="absolute inset-0 w-full h-full z-30 flex flex-col justify-between p-8 md:p-16 lg:p-24 overflow-hidden">
+                                <img src="https://images.unsplash.com/photo-1628348070889-cb656235b4eb?q=80&w=2000&auto=format&fit=crop" alt="Odprawa i konsultacje z ekspertami branży ratowniczej na targach Sawo" class="absolute inset-0 w-full h-full object-cover object-center -z-20">
+                                <div class="absolute inset-0 bg-gradient-to-t from-[#111208]/95 via-[#111208]/30 to-transparent -z-10 pointer-events-none"></div>
+
+                                <div class="flex justify-between items-start">
+                                    <span class="font-mono text-xs text-amber font-bold tracking-widest bg-bg/90 px-4 py-2 border border-amber/30 backdrop-blur-md">03 / 04 // WERYFIKACJA</span>
+                                </div>
+                                <figcaption class="max-w-3xl">
+                                    <h3 class="font-display text-5xl md:text-7xl lg:text-8xl uppercase font-black text-white leading-[0.9]">Odprawa taktyczna</h3>
+                                    <p class="text-sm md:text-base font-mono text-[#EAE3CF]/80 mt-4 max-w-xl">Konsultacje rozwiązań z ekspertami sektorów krytycznych. Zbieranie bezpośredniego feedbacku z linii frontu ratowniczego.</p>
+                                </figcaption>
+                            </figure>
+
+                            <!-- PHOTO 4: WIPE -->
+                            <figure id="gal2-img-4" class="absolute inset-0 w-full h-full z-40 flex flex-col justify-between p-8 md:p-16 lg:p-24 overflow-hidden">
+                                <img src="https://images.unsplash.com/photo-1610427847935-71cb943d6e5d?q=80&w=2000&auto=format&fit=crop" alt="Konfiguracja sprzętowa do ewakuacji wieloosobowej" class="absolute inset-0 w-full h-full object-cover object-center -z-20 filter brightness-90">
+                                <div class="absolute inset-0 bg-gradient-to-t from-[#111208]/95 via-[#111208]/30 to-transparent -z-10 pointer-events-none"></div>
+
+                                <div class="flex justify-between items-start">
+                                    <span class="font-mono text-xs text-amber font-bold tracking-widest bg-bg/90 px-4 py-2 border border-amber/30 backdrop-blur-md">04 / 04 // SKALA</span>
+                                </div>
+                                <figcaption class="max-w-3xl">
+                                    <h3 class="font-display text-5xl md:text-7xl lg:text-8xl uppercase font-black text-white leading-[0.9]">Ewakuacja masowa</h3>
+                                    <p class="text-sm md:text-base font-mono text-[#EAE3CF]/80 mt-4 max-w-xl">Przygotowane schematy i sety wyposażenia przeznaczone do transportu wieloosobowego i organizacji punktów medycznych.</p>
+                                </figcaption>
+                            </figure>
+
+                        </article>
+
+                    </div>
+                </section>
+
+                <!-- FOOTER -->
+                <footer class="py-24 px-6 lg:px-20 bg-bg text-center flex flex-col items-center border-t border-[#EDEAE0]/15 relative z-10">
+                    <h3 class="font-display font-bold text-4xl md:text-6xl uppercase max-w-2xl leading-none">Kolejna operacja w przygotowaniu</h3>
+                    <p class="mt-6 text-[#9C9A85] max-w-md text-sm">Regularnie pojawiamy się na targach branżowych i forach bezpieczeństwa. Jeśli organizujesz wydarzenie — skontaktuj się z nami.</p>
+                    <a href="https://amberresilience.eu/kontakt" class="mt-8 inline-flex items-center gap-3 bg-amber text-bg font-mono text-xs uppercase font-bold px-8 py-4 hover:bg-amber/80 transition-colors">
+                        Skontaktuj się →
+                    </a>
+                </footer>
+
+            </div>
+        </main>
+    </div>
+
+    <!-- GSAP & LENIS SCRIPTS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
     <script src="https://unpkg.com/lenis@1.1.9/dist/lenis.min.js"></script>
 
     <script>
-        // Inicjalizacja bezpieczna po załadowaniu DOM
         window.addEventListener('DOMContentLoaded', () => {
-            
-            // 1. Rejestracja wtyczek GSAP
             gsap.registerPlugin(ScrollTrigger);
 
-            // 2. Inicjalizacja Lenis (Smooth Scroll)
             const lenis = new Lenis({
                 duration: 1.2,
                 easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
                 smoothWheel: true
             });
-
-            // Synchronizacja pętli Lenis z GSAP
             lenis.on('scroll', ScrollTrigger.update);
-            gsap.ticker.add((time) => {
-                lenis.raf(time * 1000);
-            });
+            gsap.ticker.add((time) => { lenis.raf(time * 1000); });
             gsap.ticker.lagSmoothing(0, 0);
 
-            // 3. Bezpieczne ustawienie stanów początkowych przez JS (Graceful Degradation Fix)
-            const titles = document.querySelectorAll('.hero-title');
-            
-            // Przygotowanie podziału liter bez niszczenia treści
-            titles.forEach(title => {
-                const text = title.textContent.trim();
-                title.innerHTML = '';
-                [...text].forEach(char => {
-                    const span = document.createElement('span');
-                    span.style.display = 'inline-block';
-                    span.style.transform = 'translateY(110%)'; // Ustawiamy ukrycie dopieroteraz w JS
-                    span.innerHTML = char === ' ' ? '&nbsp;' : char;
-                    span.classList.add('char');
-                    title.appendChild(span);
+            // Nawigacja Boczna
+            const railRows = document.querySelectorAll('#rail .dot-row');
+            function setActiveRail(targetId) {
+                railRows.forEach(row => {
+                    const dot = row.querySelector('.dot');
+                    if (row.dataset.target === targetId) {
+                        row.classList.add('text-amber');
+                        row.classList.remove('text-[#9C9A85]');
+                        dot.classList.add('bg-amber', 'border-amber', 'shadow-[0_0_0_4px_rgba(204,138,49,0.18)]');
+                        dot.classList.remove('border-[#9C9A85]');
+                    } else {
+                        row.classList.remove('text-amber');
+                        row.classList.add('text-[#9C9A85]');
+                        dot.classList.remove('bg-amber', 'border-amber', 'shadow-[0_0_0_4px_rgba(204,138,49,0.18)]');
+                        dot.classList.add('border-[#9C9A85]');
+                    }
+                });
+            }
+
+            railRows.forEach(row => {
+                row.addEventListener('click', () => {
+                    const targetEl = document.getElementById(row.dataset.target);
+                    if (targetEl) { lenis.scrollTo(targetEl, { offset: 0 }); }
                 });
             });
 
-            gsap.set('.hero-subtitle', { opacity: 0, y: 20 });
+            // 1. TRACK 1: WPROWADZENIE
+            const track1 = document.getElementById('track-1');
+            const container1 = document.getElementById('container-1');
 
-            // 4. ANIMACJA WEJŚCIA (Hero Entrance)
-            const tl = gsap.timeline({ defaults: { ease: 'power4.out' } });
-            
-            tl.to('.char', {
-                y: '0%',
-                duration: 1.2,
-                stagger: 0.03,
-                delay: 0.1
-            })
-            .to('.hero-subtitle', {
-                opacity: 1,
-                y: 0,
-                duration: 0.8
-            }, '-=0.6');
-
-            // 5. HORYZONTALNY SCROLL (Scroll-Jacking)
-            const horizontalSection = document.getElementById('horizontal-section');
-            const horizontalContainer = document.getElementById('horizontal-container');
-
-            gsap.to(horizontalContainer, {
-                x: () => -(horizontalContainer.scrollWidth - window.innerWidth),
+            gsap.to(container1, {
+                x: () => -(container1.scrollWidth - window.innerWidth),
                 ease: 'none',
                 scrollTrigger: {
-                    trigger: horizontalSection,
+                    trigger: track1,
                     pin: true,
-                    scrub: 0.8, // Płynne podążanie za scrollem
+                    scrub: 1,
                     start: 'top top',
-                    end: () => '+=' + (horizontalContainer.scrollWidth - window.innerWidth),
+                    end: '+=100%',
                     invalidateOnRefresh: true
                 }
             });
 
-            // Odświeżenie pomiarów po załadowaniu obrazów
-            window.addEventListener('load', () => {
-                ScrollTrigger.refresh();
+            // 2. TRACK 2: FORUM BHP (KINEMATIC SEQUENCE)
+            const track2 = document.getElementById('track-2');
+            const container2 = document.getElementById('container-2');
+
+            const track2Tl = gsap.timeline({
+                scrollTrigger: {
+                    trigger: track2,
+                    pin: true,
+                    scrub: 1,
+                    start: 'top top',
+                    end: '+=600%',
+                    invalidateOnRefresh: true
+                }
             });
+
+            gsap.set('#gal-img-1', { xPercent: 100, yPercent: 100, scale: 0.15, opacity: 0 });
+            gsap.set(['#gal-img-2', '#gal-img-3', '#gal-img-4'], { xPercent: 100 });
+
+            track2Tl.to(container2, { x: () => -(window.innerWidth), duration: 1.5, ease: 'none' })
+            .to('#gal-img-1', { xPercent: 0, yPercent: 0, scale: 1, opacity: 1, duration: 2, ease: 'power4.inOut' })
+            .to({}, { duration: 1 })
+            .to('#gal-img-2', { xPercent: 0, duration: 1.5, ease: 'power3.inOut' })
+            .to({}, { duration: 0.8 })
+            .to('#gal-img-3', { xPercent: 0, duration: 1.5, ease: 'power3.inOut' })
+            .to({}, { duration: 0.8 })
+            .to('#gal-img-4', { xPercent: 0, duration: 1.5, ease: 'power3.inOut' })
+            .to({}, { duration: 1 });
+
+            // 3. TRACK 3: TARGI SAWO (KINEMATIC SEQUENCE)
+            const track3 = document.getElementById('track-3');
+            const container3 = document.getElementById('container-3');
+
+            const track3Tl = gsap.timeline({
+                scrollTrigger: {
+                    trigger: track3,
+                    pin: true,
+                    scrub: 1,
+                    start: 'top top',
+                    end: '+=600%',
+                    invalidateOnRefresh: true
+                }
+            });
+
+            gsap.set('#gal2-img-1', { xPercent: 100, yPercent: 100, scale: 0.15, opacity: 0 });
+            gsap.set(['#gal2-img-2', '#gal2-img-3', '#gal2-img-4'], { xPercent: 100 });
+
+            track3Tl.to(container3, { x: () => -(window.innerWidth), duration: 1.5, ease: 'none' })
+            .to('#gal2-img-1', { xPercent: 0, yPercent: 0, scale: 1, opacity: 1, duration: 2, ease: 'power4.inOut' })
+            .to({}, { duration: 1 })
+            .to('#gal2-img-2', { xPercent: 0, duration: 1.5, ease: 'power3.inOut' })
+            .to({}, { duration: 0.8 })
+            .to('#gal2-img-3', { xPercent: 0, duration: 1.5, ease: 'power3.inOut' })
+            .to({}, { duration: 0.8 })
+            .to('#gal2-img-4', { xPercent: 0, duration: 1.5, ease: 'power3.inOut' })
+            .to({}, { duration: 1 });
+
+            // OBSERWATORZY STANU NAWIGACJI
+            ScrollTrigger.create({
+                trigger: track1, start: 'top top', end: 'bottom top',
+                onEnter: () => setActiveRail('track-1'), onEnterBack: () => setActiveRail('track-1')
+            });
+
+            ScrollTrigger.create({
+                trigger: track2, start: 'top top', end: 'bottom top',
+                onEnter: () => setActiveRail('track-2'), onEnterBack: () => setActiveRail('track-2')
+            });
+
+            ScrollTrigger.create({
+                trigger: track3, start: 'top top', end: 'bottom top',
+                onEnter: () => setActiveRail('track-3'), onEnterBack: () => setActiveRail('track-3')
+            });
+
+            window.addEventListener('load', () => ScrollTrigger.refresh());
         });
     </script>
 </body>
