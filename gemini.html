@@ -371,23 +371,52 @@
             gsap.ticker.lagSmoothing(0, 0);
 
             // Nawigacja Boczna
-            const railRows = document.querySelectorAll('#rail .dot-row');
-            function setActiveRail(targetId) {
-                railRows.forEach(row => {
-                    const dot = row.querySelector('.dot');
-                    if (row.dataset.target === targetId) {
-                        row.classList.add('text-amber');
-                        row.classList.remove('text-[#9C9A85]');
-                        dot.classList.add('bg-amber', 'border-amber', 'shadow-[0_0_0_4px_rgba(204,138,49,0.18)]');
-                        dot.classList.remove('border-[#9C9A85]');
-                    } else {
-                        row.classList.remove('text-amber');
-                        row.classList.add('text-[#9C9A85]');
-                        dot.classList.remove('bg-amber', 'border-amber', 'shadow-[0_0_0_4px_rgba(204,138,49,0.18)]');
-                        dot.classList.add('border-[#9C9A85]');
-                    }
-                });
-            }
+            // Mapowanie ID sekcji na nazwy wyświetlane w Mobile Pill
+const mobileStatusMap = {
+    'track-1': '01 · INTRO',
+    'track-2': '02 · FORUM BHP',
+    'track-3': '03 · TARGI SAWO'
+};
+
+const mobileStatusText = document.getElementById('mobile-status-text');
+
+function setActiveRail(targetId) {
+    // 1. Logika Desktopowa (zachowana z oryginału)
+    railRows.forEach(row => {
+        const dot = row.querySelector('.dot');
+        if (row.dataset.target === targetId) {
+            row.classList.add('text-amber');
+            row.classList.remove('text-[#9C9A85]');
+            dot.classList.add('bg-amber', 'border-amber', 'shadow-[0_0_0_4px_rgba(204,138,49,0.18)]');
+            dot.classList.remove('border-[#9C9A85]');
+        } else {
+            row.classList.remove('text-amber');
+            row.classList.add('text-[#9C9A85]');
+            dot.classList.remove('bg-amber', 'border-amber', 'shadow-[0_0_0_4px_rgba(204,138,49,0.18)]');
+            dot.classList.add('border-[#9C9A85]');
+        }
+    });
+
+    // 2. Logika Mobilna z mikrointerakcją GSAP
+    if (mobileStatusText && mobileStatusMap[targetId]) {
+        // Zabezpieczenie przed podwójnym wyzwoleniem tej samej animacji
+        if (mobileStatusText.innerText !== mobileStatusMap[targetId]) {
+            gsap.to(mobileStatusText, {
+                opacity: 0,
+                duration: 0.15,
+                ease: "power2.out",
+                onComplete: () => {
+                    mobileStatusText.innerText = mobileStatusMap[targetId];
+                    gsap.to(mobileStatusText, { 
+                        opacity: 1, 
+                        duration: 0.2, 
+                        ease: "power2.in" 
+                    });
+                }
+            });
+        }
+    }
+}}
 
             railRows.forEach(row => {
                 row.addEventListener('click', () => {
@@ -488,5 +517,15 @@
             window.addEventListener('load', () => ScrollTrigger.refresh());
         });
     </script>
+    <!-- MOBILE STATUS PILL (Tylko dla ekranów poniżej lg) -->
+<div id="mobile-status-pill" 
+     class="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 flex lg:hidden items-center gap-3 bg-bg/95 backdrop-blur-md border border-amber/30 px-5 py-2.5 rounded-full font-mono text-[10px] md:text-[11px] uppercase tracking-widest text-amber shadow-[0_0_20px_rgba(204,138,49,0.15)] transform translate-y-0 opacity-100 transition-all duration-300 pointer-events-none" 
+     role="status" 
+     aria-live="polite">
+    <!-- Aktywna dioda (pulsowanie) -->
+    <span class="w-1.5 h-1.5 rounded-full bg-amber shadow-[0_0_0_3px_rgba(204,138,49,0.2)] animate-pulse"></span>
+    <!-- Dynamiczny tekst statusu -->
+    <span id="mobile-status-text" class="whitespace-nowrap">01 · INTRO</span>
+</div>
 </body>
 </html>
