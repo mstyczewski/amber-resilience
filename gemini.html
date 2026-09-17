@@ -419,6 +419,39 @@
 
     <script>
         window.addEventListener('DOMContentLoaded', () => {
+
+            // Zakładając, że cała sekwencja jest spięta w jeden ScrollTrigger z opcją scrub
+const galleryTimeline = gsap.timeline({
+  scrollTrigger: {
+    trigger: ".fair-section-container",
+    start: "top top",
+    // ZMNIEJSZONA WARTOŚĆ END: 
+    // Zmiana np. z "+=300%" na "+=150%" sprawi, że cała animacja 
+    // wykona się na krótszym odcinku scrolla (szybciej wjedzie na ekran).
+    end: "+=150%", 
+    scrub: 1.2, // Delikatny lag (1.2s) dodaje fizyczności i luksusowego "ciężaru"
+    pin: true,
+    anticipatePin: 1
+  }
+});
+
+// KROK 1: Przesunięcie nazwy targów w lewą stronę
+galleryTimeline.to(".fair-title", {
+  xPercent: -100,
+  ease: "none" // Przy scrubowaniu zawsze używamy 'none', aby ruch idealnie podążał za dłonią użytkownika
+})
+// KROK 2: Wjazd pierwszego zdjęcia galerii
+.fromTo(".gallery-first-image", {
+  xPercent: 30, // Zaczyna lekko przesunięte
+  opacity: 0,
+  scale: 0.95 // Mikro-skalowanie premium
+}, {
+  xPercent: 0,
+  opacity: 1,
+  scale: 1,
+  ease: "power2.out"
+}, "<50%"); // KLUCZOWE: Ten parametr zmusza animację do startu w 50% trwania poprzedniej (translacji tytułu)
+            
             gsap.registerPlugin(ScrollTrigger);
 
             // Inicjalizacja płynnego przewijania Lenis
