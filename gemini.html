@@ -412,49 +412,17 @@
 
     </div>
 
-    <!-- GSAP & LENIS SCRIPTS -->
+<!-- GSAP & LENIS SCRIPTS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
     <script src="https://unpkg.com/lenis@1.1.9/dist/lenis.min.js"></script>
 
     <script>
         window.addEventListener('DOMContentLoaded', () => {
-
-            // Zakładając, że cała sekwencja jest spięta w jeden ScrollTrigger z opcją scrub
-const galleryTimeline = gsap.timeline({
-  scrollTrigger: {
-    trigger: ".fair-section-container",
-    start: "top top",
-    // ZMNIEJSZONA WARTOŚĆ END: 
-    // Zmiana np. z "+=300%" na "+=150%" sprawi, że cała animacja 
-    // wykona się na krótszym odcinku scrolla (szybciej wjedzie na ekran).
-    end: "+=150%", 
-    scrub: 1.2, // Delikatny lag (1.2s) dodaje fizyczności i luksusowego "ciężaru"
-    pin: true,
-    anticipatePin: 1
-  }
-});
-
-// KROK 1: Przesunięcie nazwy targów w lewą stronę
-galleryTimeline.to(".fair-title", {
-  xPercent: -100,
-  ease: "none" // Przy scrubowaniu zawsze używamy 'none', aby ruch idealnie podążał za dłonią użytkownika
-})
-// KROK 2: Wjazd pierwszego zdjęcia galerii
-.fromTo(".gallery-first-image", {
-  xPercent: 30, // Zaczyna lekko przesunięte
-  opacity: 0,
-  scale: 0.95 // Mikro-skalowanie premium
-}, {
-  xPercent: 0,
-  opacity: 1,
-  scale: 1,
-  ease: "power2.out"
-}, "<50%"); // KLUCZOWE: Ten parametr zmusza animację do startu w 50% trwania poprzedniej (translacji tytułu)
-            
+            // 1. Inicjalizacja i rejestracja wtyczek na samym początku
             gsap.registerPlugin(ScrollTrigger);
 
-            // Inicjalizacja płynnego przewijania Lenis
+            // 2. Smooth Scroll (Lenis)
             const lenis = new Lenis({
                 duration: 1.2,
                 easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
@@ -464,7 +432,7 @@ galleryTimeline.to(".fair-title", {
             gsap.ticker.add((time) => { lenis.raf(time * 1000); });
             gsap.ticker.lagSmoothing(0, 0);
 
-            // Kontrola elementów nawigacji
+            // 3. Obsługa Nawigacji
             const railRows = document.querySelectorAll('#rail .dot-row');
             const mobileNavItems = document.querySelectorAll('.mobile-nav-item');
             const mobileStatusLabel = document.getElementById('mobile-status-label');
@@ -477,46 +445,46 @@ galleryTimeline.to(".fair-title", {
 
             function toggleMobileMenu(forceState) {
                 isMobileMenuOpen = typeof forceState === 'boolean' ? forceState : !isMobileMenuOpen;
+                if (!mobileMenuTrigger) return;
+                
                 mobileMenuTrigger.setAttribute('aria-expanded', isMobileMenuOpen);
                 
                 if (isMobileMenuOpen) {
-                    mobileMenuDrawer.classList.remove('opacity-0', 'translate-y-4', 'pointer-events-none');
-                    mobileMenuDrawer.classList.add('opacity-100', 'translate-y-0', 'pointer-events-auto');
-                    mobileMenuChevron.classList.add('rotate-180');
-                    mobileMenuBackdrop.classList.remove('opacity-0', 'pointer-events-none');
-                    mobileMenuBackdrop.classList.add('opacity-100', 'pointer-events-auto');
+                    mobileMenuDrawer?.classList.remove('opacity-0', 'translate-y-4', 'pointer-events-none');
+                    mobileMenuDrawer?.classList.add('opacity-100', 'translate-y-0', 'pointer-events-auto');
+                    mobileMenuChevron?.classList.add('rotate-180');
+                    mobileMenuBackdrop?.classList.remove('opacity-0', 'pointer-events-none');
+                    mobileMenuBackdrop?.classList.add('opacity-100', 'pointer-events-auto');
                 } else {
-                    mobileMenuDrawer.classList.add('opacity-0', 'translate-y-4', 'pointer-events-none');
-                    mobileMenuDrawer.classList.remove('opacity-100', 'translate-y-0', 'pointer-events-auto');
-                    mobileMenuChevron.classList.remove('rotate-180');
-                    mobileMenuBackdrop.classList.add('opacity-0', 'pointer-events-none');
-                    mobileMenuBackdrop.classList.remove('opacity-100', 'pointer-events-auto');
+                    mobileMenuDrawer?.classList.add('opacity-0', 'translate-y-4', 'pointer-events-none');
+                    mobileMenuDrawer?.classList.remove('opacity-100', 'translate-y-0', 'pointer-events-auto');
+                    mobileMenuChevron?.classList.remove('rotate-180');
+                    mobileMenuBackdrop?.classList.add('opacity-0', 'pointer-events-none');
+                    mobileMenuBackdrop?.classList.remove('opacity-100', 'pointer-events-auto');
                 }
             }
 
             if (mobileMenuTrigger) {
                 mobileMenuTrigger.addEventListener('click', () => toggleMobileMenu());
-                mobileMenuBackdrop.addEventListener('click', () => toggleMobileMenu(false));
+                mobileMenuBackdrop?.addEventListener('click', () => toggleMobileMenu(false));
             }
 
             function setActiveRail(targetId) {
-                // Desktop Sync
                 railRows.forEach(row => {
                     const dot = row.querySelector('.dot');
                     if (row.dataset.target === targetId) {
                         row.classList.add('text-amber');
                         row.classList.remove('text-[#9C9A85]');
-                        dot.classList.add('bg-amber', 'border-amber', 'shadow-[0_0_0_4px_rgba(204,138,49,0.18)]');
-                        dot.classList.remove('border-[#9C9A85]');
+                        dot?.classList.add('bg-amber', 'border-amber', 'shadow-[0_0_0_4px_rgba(204,138,49,0.18)]');
+                        dot?.classList.remove('border-[#9C9A85]');
                     } else {
                         row.classList.remove('text-amber');
                         row.classList.add('text-[#9C9A85]');
-                        dot.classList.remove('bg-amber', 'border-amber', 'shadow-[0_0_0_4px_rgba(204,138,49,0.18)]');
-                        dot.classList.add('border-[#9C9A85]');
+                        dot?.classList.remove('bg-amber', 'border-amber', 'shadow-[0_0_0_4px_rgba(204,138,49,0.18)]');
+                        dot?.classList.add('border-[#9C9A85]');
                     }
                 });
 
-                // Mobile Sync
                 mobileNavItems.forEach(item => {
                     const dot = item.querySelector('.status-dot');
                     const textSpan = item.querySelector('.font-bold');
@@ -524,25 +492,24 @@ galleryTimeline.to(".fair-title", {
                     if (item.dataset.target === targetId) {
                         item.classList.add('border-amber/40', 'bg-amber/10');
                         item.classList.remove('border-[#EDEAE0]/10', 'bg-white/5');
-                        textSpan.classList.add('text-amber');
-                        dot.classList.add('bg-amber', 'border-amber', 'shadow-[0_0_0_3px_rgba(204,138,49,0.2)]');
-                        dot.classList.remove('border-[#9C9A85]');
+                        textSpan?.classList.add('text-amber');
+                        dot?.classList.add('bg-amber', 'border-amber', 'shadow-[0_0_0_3px_rgba(204,138,49,0.2)]');
+                        dot?.classList.remove('border-[#9C9A85]');
                         
-                        if (mobileStatusLabel) {
+                        if (mobileStatusLabel && textSpan) {
                             mobileStatusLabel.textContent = textSpan.textContent;
                         }
                     } else {
                         item.classList.remove('border-amber/40', 'bg-amber/10');
                         item.classList.add('border-[#EDEAE0]/10', 'bg-white/5');
-                        textSpan.classList.remove('text-amber');
-                        dot.classList.remove('bg-amber', 'border-amber', 'shadow-[0_0_0_3px_rgba(204,138,49,0.2)]');
-                        dot.classList.add('border-[#9C9A85]');
+                        textSpan?.classList.remove('text-amber');
+                        dot?.classList.remove('bg-amber', 'border-amber', 'shadow-[0_0_0_3px_rgba(204,138,49,0.2)]');
+                        dot?.classList.add('border-[#9C9A85]');
                     }
                 });
             }
 
-            const allNavItems = [...railRows, ...mobileNavItems];
-            allNavItems.forEach(item => {
+            [...railRows, ...mobileNavItems].forEach(item => {
                 item.addEventListener('click', () => {
                     const targetEl = document.getElementById(item.dataset.target);
                     if (targetEl) { 
@@ -552,91 +519,93 @@ galleryTimeline.to(".fair-title", {
                 });
             });
 
-            // TRACK 1 HORIZONTAL
+            // 4. TRACK 1: ANIMACJA HORYZONTALNA
             const track1 = document.getElementById('track-1');
             const container1 = document.getElementById('container-1');
-            gsap.to(container1, {
-                x: () => -(container1.scrollWidth - window.innerWidth),
-                ease: 'none',
-                scrollTrigger: {
-                    trigger: track1,
-                    pin: true,
-                    scrub: 1,
-                    start: 'top top',
-                    end: '+=100%',
-                    invalidateOnRefresh: true
-                }
-            });
+            if (track1 && container1) {
+                gsap.to(container1, {
+                    x: () => -(container1.scrollWidth - window.innerWidth),
+                    ease: 'none',
+                    scrollTrigger: {
+                        trigger: track1,
+                        pin: true,
+                        scrub: 1,
+                        start: 'top top',
+                        end: '+=100%',
+                        invalidateOnRefresh: true
+                    }
+                });
+            }
 
-            // TRACK 2 HORIZONTAL & KINEMATICS
+            // 5. TRACK 2: FORUM BHP + GALERIA (Zoptymalizowany czas trwania)
             const track2 = document.getElementById('track-2');
             const container2 = document.getElementById('container-2');
-            const track2Tl = gsap.timeline({
-                scrollTrigger: {
-                    trigger: track2,
-                    pin: true,
-                    scrub: 1,
-                    start: 'top top',
-                    end: '+=600%',
-                    invalidateOnRefresh: true
-                }
-            });
+            if (track2 && container2) {
+                const track2Tl = gsap.timeline({
+                    scrollTrigger: {
+                        trigger: track2,
+                        pin: true,
+                        scrub: 1.2, // Płynny opór zwiększający odczucie "weight & feeel"
+                        start: 'top top',
+                        end: '+=350%', // Zmniejszono z 600% na 350% – sekwencja wykonuje się szybciej
+                        invalidateOnRefresh: true
+                    }
+                });
 
-            gsap.set('#gal-img-1', { xPercent: 100, yPercent: 100, scale: 0.15, opacity: 0 });
-            gsap.set(['#gal-img-2', '#gal-img-3', '#gal-img-4'], { xPercent: 100 });
+                gsap.set('#gal-img-1', { xPercent: 100, yPercent: 100, scale: 0.85, opacity: 0 });
+                gsap.set(['#gal-img-2', '#gal-img-3', '#gal-img-4'], { xPercent: 100 });
 
-            track2Tl.to(container2, { x: () => -(window.innerWidth), duration: 1.5, ease: 'none' })
-            .to('#gal-img-1', { xPercent: 0, yPercent: 0, scale: 1, opacity: 1, duration: 2, ease: 'power4.inOut' })
-            .to({}, { duration: 1 })
-            .to('#gal-img-2', { xPercent: 0, duration: 1.5, ease: 'power3.inOut' })
-            .to({}, { duration: 0.8 })
-            .to('#gal-img-3', { xPercent: 0, duration: 1.5, ease: 'power3.inOut' })
-            .to({}, { duration: 0.8 })
-            .to('#gal-img-4', { xPercent: 0, duration: 1.5, ease: 'power3.inOut' })
-            .to({}, { duration: 1 });
+                track2Tl.to(container2, { x: () => -(window.innerWidth), duration: 1.5, ease: 'none' })
+                .to('#gal-img-1', { xPercent: 0, yPercent: 0, scale: 1, opacity: 1, duration: 1.5, ease: 'power3.out' }, '-=0.5')
+                .to('#gal-img-2', { xPercent: 0, duration: 1.2, ease: 'power3.inOut' }, '+=0.2')
+                .to('#gal-img-3', { xPercent: 0, duration: 1.2, ease: 'power3.inOut' }, '+=0.2')
+                .to('#gal-img-4', { xPercent: 0, duration: 1.2, ease: 'power3.inOut' }, '+=0.2');
+            }
 
-            // TRACK 3 HORIZONTAL & KINEMATICS
+            // 6. TRACK 3: TARGI SAWO + GALERIA
             const track3 = document.getElementById('track-3');
             const container3 = document.getElementById('container-3');
-            const track3Tl = gsap.timeline({
-                scrollTrigger: {
-                    trigger: track3,
-                    pin: true,
-                    scrub: 1,
-                    start: 'top top',
-                    end: '+=600%',
-                    invalidateOnRefresh: true
-                }
-            });
+            if (track3 && container3) {
+                const track3Tl = gsap.timeline({
+                    scrollTrigger: {
+                        trigger: track3,
+                        pin: true,
+                        scrub: 1.2,
+                        start: 'top top',
+                        end: '+=350%',
+                        invalidateOnRefresh: true
+                    }
+                });
 
-            gsap.set('#gal2-img-1', { xPercent: 100, yPercent: 100, scale: 0.15, opacity: 0 });
-            gsap.set(['#gal2-img-2', '#gal2-img-3', '#gal2-img-4'], { xPercent: 100 });
+                gsap.set('#gal2-img-1', { xPercent: 100, yPercent: 100, scale: 0.85, opacity: 0 });
+                gsap.set(['#gal2-img-2', '#gal2-img-3', '#gal2-img-4'], { xPercent: 100 });
 
-            track3Tl.to(container3, { x: () => -(window.innerWidth), duration: 1.5, ease: 'none' })
-            .to('#gal2-img-1', { xPercent: 0, yPercent: 0, scale: 1, opacity: 1, duration: 2, ease: 'power4.inOut' })
-            .to({}, { duration: 1 })
-            .to('#gal2-img-2', { xPercent: 0, duration: 1.5, ease: 'power3.inOut' })
-            .to({}, { duration: 0.8 })
-            .to('#gal2-img-3', { xPercent: 0, duration: 1.5, ease: 'power3.inOut' })
-            .to({}, { duration: 0.8 })
-            .to('#gal2-img-4', { xPercent: 0, duration: 1.5, ease: 'power3.inOut' })
-            .to({}, { duration: 1 });
+                track3Tl.to(container3, { x: () => -(window.innerWidth), duration: 1.5, ease: 'none' })
+                .to('#gal2-img-1', { xPercent: 0, yPercent: 0, scale: 1, opacity: 1, duration: 1.5, ease: 'power3.out' }, '-=0.5')
+                .to('#gal2-img-2', { xPercent: 0, duration: 1.2, ease: 'power3.inOut' }, '+=0.2')
+                .to('#gal2-img-3', { xPercent: 0, duration: 1.2, ease: 'power3.inOut' }, '+=0.2')
+                .to('#gal2-img-4', { xPercent: 0, duration: 1.2, ease: 'power3.inOut' }, '+=0.2');
+            }
 
-            // OBSERWATORZY POZYCJI SCROLLA
-            ScrollTrigger.create({
-                trigger: track1, start: 'top top', end: 'bottom top',
-                onEnter: () => setActiveRail('track-1'), onEnterBack: () => setActiveRail('track-1')
-            });
-
-            ScrollTrigger.create({
-                trigger: track2, start: 'top top', end: 'bottom top',
-                onEnter: () => setActiveRail('track-2'), onEnterBack: () => setActiveRail('track-2')
-            });
-
-            ScrollTrigger.create({
-                trigger: track3, start: 'top top', end: 'bottom top',
-                onEnter: () => setActiveRail('track-3'), onEnterBack: () => setActiveRail('track-3')
-            });
+            // 7. OBSERWATORZY POZYCJI SCROLLA (Pasek boczny & Mobile Pill)
+            if (track1) {
+                ScrollTrigger.create({
+                    trigger: track1, start: 'top center', end: 'bottom center',
+                    onEnter: () => setActiveRail('track-1'), onEnterBack: () => setActiveRail('track-1')
+                });
+            }
+            if (track2) {
+                ScrollTrigger.create({
+                    trigger: track2, start: 'top center', end: 'bottom center',
+                    onEnter: () => setActiveRail('track-2'), onEnterBack: () => setActiveRail('track-2')
+                });
+            }
+            if (track3) {
+                ScrollTrigger.create({
+                    trigger: track3, start: 'top center', end: 'bottom center',
+                    onEnter: () => setActiveRail('track-3'), onEnterBack: () => setActiveRail('track-3')
+                });
+            }
 
             window.addEventListener('load', () => ScrollTrigger.refresh());
         });
